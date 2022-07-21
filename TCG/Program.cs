@@ -24,7 +24,7 @@ class Program
     {
         IDrawable drawable;
 
-        Canvas canvas = new Canvas(512, 256);
+        Canvas canvas = new Canvas(51`2, 256);
 
         var layer = canvas.CreateLayer();
         layer.Drawables.Add(new DRectangle(50, 50, 100, 100) { Brush = Brushes.Solid(Color.Green) });
