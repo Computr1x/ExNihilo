@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp.Drawing;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Abstract;
@@ -17,6 +18,7 @@ public class DRectangle : BaseDrawable
     public DRectangle(int x, int y, int width, int height)
     : this(new Rectangle(x, y, width, height))
     { }
+
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {

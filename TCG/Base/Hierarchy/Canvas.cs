@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp.Drawing.Processing;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Metadata;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
@@ -33,7 +34,7 @@ public class Canvas
         }
 
         Layer layer = new(Size, options);
-        Layers.Add(layer);
+        Layers.Add(layer); 
         return layer;
     }
 
@@ -42,9 +43,13 @@ public class Canvas
         Image<Rgba32> img = new(Size.Width, Size.Height);
 
         foreach (Layer layer in Layers) {
-            var renderedLayer = layer.Render();
-            img.Mutate(x => x.DrawImage(renderedLayer, 1));
-            renderedLayer.Dispose();
+            var renderedImage = layer.Render();
+
+            foreach (var effect in layer.Effects)
+                effect.Render(renderedImage, layer.GraphicsOptions);
+
+            img.Mutate(x => x.DrawImage(renderedImage, 1));
+            renderedImage.Dispose();
         }
         
         return img;

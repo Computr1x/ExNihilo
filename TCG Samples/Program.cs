@@ -1,15 +1,15 @@
 ﻿global using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
-using SixLabors.ImageSharp.Processing.Processors;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
 using TCG.Base.Hierarchy;
 using TCG.Drawables;
-using TCG.Base.Interfaces;
+using TCG.Effects;
 using TCG.Extensions.Processors;
 
-namespace TCG;
+namespace Samples;
 
 class Program
 {
@@ -22,16 +22,35 @@ class Program
 
     private static void TestLayers()
     {
-        IDrawable drawable;
+        Canvas canvas = new Canvas(512, 256);
 
-        Canvas canvas = new Canvas(51`2, 256);
+        var layer0 = canvas.CreateLayer();
+        var image = new DImage(@"D:\Coding\TextCaptcha\TCG\assets\img\cat.png") { Location = new Point(256, 128) };
+        image.Effects.Add(new RGBShift(3));
+        layer0.Drawables.Add(image);
+        layer0.Drawables.Add(new DLine(new PointF[] { new PointF(20, 20), new PointF(256, 128), new PointF(300, 50), new PointF(512, 256) }) { IsBeziers = false, Pen = Pens.Solid(Color.Brown, 8) });
+        //layer0.Effects.Add(new RGBShift(3));
 
         var layer = canvas.CreateLayer();
         layer.Drawables.Add(new DRectangle(50, 50, 100, 100) { Brush = Brushes.Solid(Color.Green) });
-        layer.Drawables.Add(new DRectangle(50, 100, 50, 50) { Type = Base.Abstract.DrawableType.Outlined,  Pen = Pens.Dash(Color.Yellow, 5) });
+        layer.Drawables.Add(new DRectangle(50, 100, 50, 50) { Type = TCG.Base.Abstract.DrawableType.Outlined, Pen = Pens.Dash(Color.Yellow, 5) });
 
-        var layer2 = canvas.CreateLayer(new GraphicsOptions() { BlendPercentage = 0.5f });
-        layer2.Drawables.Add(new DEllipse(256, 128, 250, 250) { Type = Base.Abstract.DrawableType.FillWithOutline, Brush = Brushes.Solid(Color.DeepPink), Pen = Pens.Dot(Color.Orange, 3) });
+        var layer2 = canvas.CreateLayer();
+
+        FontCollection collection = new();
+        collection.AddSystemFonts();
+        collection.TryGet("Arial", out var family);
+        Font font = family.CreateFont(64);
+        DText text = new(font, "TEST");
+        text.TextOptions.TextAlignment = TextAlignment.Center;
+        FontRectangle rect = TextMeasurer.Measure("TEST", text.TextOptions);
+        text.TextOptions.Origin = new System.Numerics.Vector2(512 / 2 - rect.Width / 2, 256 / 2 - rect.Height / 2);
+        layer2.Drawables.Add(text);
+
+
+        var layer3 = canvas.CreateLayer(new GraphicsOptions() { BlendPercentage = 0.5f });
+        layer3.Drawables.Add(new DEllipse(256, 128, 250, 250) { Type = TCG.Base.Abstract.DrawableType.FillWithOutline, Brush = Brushes.Solid(Color.DeepPink), Pen = Pens.Dot(Color.Orange, 3) });
+
 
         var resImg = canvas.Render();
         resImg.Save(@"D:\Coding\TextCaptcha\TCG\data\gen.png");
@@ -57,33 +76,30 @@ class Program
 
         image.Mutate((x) =>
         {
-            x.Fill(dopt, new Color(new Abgr32(200,200,200)), ellipse);
+            x.Fill(dopt, new Color(new Abgr32(200, 200, 200)), ellipse);
             //x.Draw(dopt, Color.Azure, 1, ellipse);
-            
+
 
             //x.Grayscale();
             x.RGBShift(3);
             //x.ApplyProcessor(new ImagePro)
         });
-        
-        
+
+
 
         image.Save(@"D:\Coding\TextCaptcha\TextCaptcha\data\test1.png");
     }
 
     private static void TestEffect()
     {
-        IImageProcessor processor;
-        
-
         Image image = Image.Load(@"D:\Coding\TextCaptcha\TextCaptcha\data\img.png");
 
-        
+
 
         image.Mutate((x) =>
         {
             //x.BoxBlur()
-            x.RGBShift(3, new Rectangle(40,40,40,40));
+            x.RGBShift(3, new Rectangle(40, 40, 40, 40));
         });
         image.Save(@"D:\Coding\TextCaptcha\TextCaptcha\data\img1.png");
     }

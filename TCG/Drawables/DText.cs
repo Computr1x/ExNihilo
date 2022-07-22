@@ -1,4 +1,5 @@
 ﻿using SixLabors.Fonts;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
@@ -11,11 +12,12 @@ namespace TCG.Drawables;
 public class DText : BaseDrawable
 {
     public string Text { get; set; }
-    public TextOptions TextOptions { get; set; } = new TextOptions() { }
+    public TextOptions TextOptions { get; set; }
 
-    public DText(string text) : base()
+    public DText(Font font, string text) : base()
     {
         Text = text;
+        TextOptions = new TextOptions(font);
     }
 
 
@@ -26,9 +28,10 @@ public class DText : BaseDrawable
 
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
+
         image.Mutate((x) =>
         {
-            x.DrawText()
+            x.DrawText(dopt, TextOptions, Text, Brush, Pen);
         });
     }
 }

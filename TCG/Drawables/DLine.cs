@@ -1,12 +1,17 @@
-﻿using SixLabors.ImageSharp.Drawing;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Abstract;
+using TCG.Base.Interfaces;
 
 namespace TCG.Drawables;
 
-public class DLine : BaseDrawable
+public class DLine : IDrawable
 {
+    public IPen Pen { get; set; } = Pens.Solid(Color.White, 1);
+    public IList<IEffect> Effects { get; }
+
     public PointF[] Points { get; set; }
 
     public bool IsBeziers { get; set; } = false;
@@ -14,9 +19,10 @@ public class DLine : BaseDrawable
     public DLine(PointF[] points) : base()
     {
         Points = points;
+        Effects = new List<IEffect>();
     }
 
-    public override void Render(Image image, GraphicsOptions graphicsOptions)
+    public void Render(Image image, GraphicsOptions graphicsOptions)
     {
         DrawingOptions dopt = new () { GraphicsOptions = graphicsOptions };
 

@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp.Drawing.Processing;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
@@ -12,8 +13,8 @@ namespace TCG.Base.Hierarchy;
 
 public class Layer
 {
-    protected Size Size { get; }
-    protected GraphicsOptions GraphicsOptions { get; }
+    public Size Size { get; }
+    public GraphicsOptions GraphicsOptions { get; }
 
     public List<IDrawable> Drawables { get; }
     public List<IEffect> Effects { get; }

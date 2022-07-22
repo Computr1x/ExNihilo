@@ -4,11 +4,14 @@
 # my rules
 data/
 .vs/
-*.png
-*.jpg
-*.jpeg
-*.bmp
+# *.png
+# *.jpg
+# *.jpeg
+# *.bmp
 *.vsidx
+*.ttf
+*.woff
+*.woff2
 
 # User-specific files
 *.suo
