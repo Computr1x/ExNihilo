@@ -10,7 +10,7 @@ namespace TCG.Effects
         public float YDegrees { get; set; }
 
         public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.
-            x.Transform(new AffineTransformBuilder().AppendSkewDegrees(XDegrees, YDegrees)));
+            image.Mutate(x => 
+                x.Transform(new AffineTransformBuilder().AppendSkewDegrees(XDegrees, YDegrees)));
     }
 }

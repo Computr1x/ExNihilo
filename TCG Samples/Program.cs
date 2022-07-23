@@ -25,11 +25,22 @@ class Program
         Canvas canvas = new Canvas(512, 256);
 
         var layer0 = canvas.CreateLayer();
-        var image = new DImage(@"D:\Coding\TextCaptcha\TCG\assets\img\cat.png") { Location = new Point(256, 128) };
+        var image = new DImage(@"D:\Coding\TextCaptcha\TCG Samples\assets\img\cat.png") { Location = new Point(256, 128) };
         image.Effects.Add(new RGBShift(3));
         layer0.Drawables.Add(image);
         layer0.Drawables.Add(new DLine(new PointF[] { new PointF(20, 20), new PointF(256, 128), new PointF(300, 50), new PointF(512, 256) }) { IsBeziers = false, Pen = Pens.Solid(Color.Brown, 8) });
         //layer0.Effects.Add(new RGBShift(3));
+        //layer0.Effects.Add(new Bulge(340, 195, 100, 0.1f));
+        //layer0.Effects.Add(new HSBCorrection(50, 0, -120));
+        //layer0.Effects.Add(new PolarCoordinates() { PolarConversaionType = TCG.Processors.PolarConversionType.CartesianToPolar });
+        //layer0.Effects.Add(new PolarCoordinates() { PolarConversaionType = TCG.Processors.PolarConversionType.PolarToCartesian });
+        //layer0.Effects.Add(new Ripple() { TraintWidth = 1f });
+        //layer0.Effects.Add(new SlitScan() { Time = 1f});
+        //layer0.Effects.Add(new Swirl() { Radius = 100f, Twists = 0.25f});
+        //layer0.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 15});
+        //layer0.Effects.Add(new Crystallize() { CrystalsCount = 1024 });
+        layer0.Effects.Add(new Slices() { Count = 10, SliceHeight = 10 });
+        //layer0.Effects.Add(new );
 
         var layer = canvas.CreateLayer();
         layer.Drawables.Add(new DRectangle(50, 50, 100, 100) { Brush = Brushes.Solid(Color.Green) });
@@ -53,7 +64,7 @@ class Program
 
 
         var resImg = canvas.Render();
-        resImg.Save(@"D:\Coding\TextCaptcha\TCG\data\gen.png");
+        resImg.Save(@"D:\Coding\TextCaptcha\TCG Samples\assets\results\gen.png");
     }
 
     private static void TestShapeCreation()

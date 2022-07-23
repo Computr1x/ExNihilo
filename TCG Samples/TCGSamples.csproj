@@ -16,4 +16,8 @@
     <ProjectReference Include="..\TCG\TCG.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="assets\results\" />
+  </ItemGroup>
+
 </Project>

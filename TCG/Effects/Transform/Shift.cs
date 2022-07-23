@@ -10,6 +10,6 @@ namespace TCG.Effects
         public float YShift { get; set; }
 
         public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.Shift());
+            image.Mutate(x => x.Transform(new AffineTransformBuilder().AppendTranslation(new System.Numerics.Vector2(XShift, YShift))));
     }
 }

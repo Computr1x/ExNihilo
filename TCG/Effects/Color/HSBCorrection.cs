@@ -1,36 +1,37 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
+using TCG.Extensions.Processors;
 
 namespace TCG.Effects
 {
     public class HSBCorrection : IEffect
     {
-        private byte hue, saturation, brightness;
+        private sbyte hue, saturation, brightness;
 
-        public byte Hue
+        public sbyte Hue
         {
             get => hue;
-            set { hue = (byte)(value % 256); }
+            set { hue = (sbyte)(value % 256); }
         }
 
-        public byte Saturation
+        public sbyte Saturation
         {
             get => saturation;
-            set { saturation = (byte)(value % 256); }
+            set { saturation = (sbyte)(value % 256); }
         }
 
-        public byte Brightness
+        public sbyte Brightness
         {
             get => brightness;
-            set { brightness = (byte)(value % 256); }
+            set { brightness = (sbyte)(value % 256); }
         }
 
         public HSBCorrection()
         {
         }
 
-        public HSBCorrection(byte hue, byte saturation, byte brightness)
+        public HSBCorrection(sbyte hue, sbyte saturation, sbyte brightness)
         {
             Hue = hue;
             Saturation = saturation;
@@ -38,6 +39,6 @@ namespace TCG.Effects
         }
 
         public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.HSBCorrection());
+            image.Mutate(x => x.HSBCorrection(Hue, Saturation, Brightness));
     }
 }
