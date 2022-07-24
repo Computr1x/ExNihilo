@@ -64,12 +64,11 @@ public class SlicesProcessor : IImageProcessor
                 height = source.Height - workArea.Y;
 
             // init vars
-            float offsetX = 0, offsetY = 0;
+            float offsetX, offsetY;
             int intOffsetX = 0, intOffsetY = 0;
-            Rgba32 sourcePixel = new();
 
             int[] sliceIndexes = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(workArea.Y, height + workArea.Y)).OrderBy(x => x).ToArray();
-            int[] sliceOffsets = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(0, processor.MaxOffset)).ToArray();
+            int[] sliceOffsets = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(processor.MinOffset,  processor.MaxOffset)).ToArray();
 
 
             source.ProcessPixelRows(accessor =>
@@ -80,20 +79,38 @@ public class SlicesProcessor : IImageProcessor
                     {
                         Span<TPixel> pixelRow = accessor.GetRowSpan(y);
 
-                        for (int x = workArea.X, offsetX = sliceOffsets[i]; x < workArea.X + width; x++, offsetX++)
+                        if(sliceOffsets[i] >= 0)
                         {
-                            if (offsetX >= width + workArea.X)
-                                offsetX = workArea.X;
-                            else if (offsetX < workArea.X)
-                                offsetX = width + workArea.X + sliceOffsets[i];
+                            for (int x = workArea.X, offsetX = workArea.X + sliceOffsets[i]; x < workArea.X + width; x++, offsetX++)
+                            {
+                                if (offsetX >= width + workArea.X)
+                                    offsetX = workArea.X;
+                                else if (offsetX < workArea.X)
+                                    offsetX = width + workArea.X + sliceOffsets[i];
 
-                            intOffsetX = (int)offsetX;
-                            intOffsetY = (int)offsetY;
+                                intOffsetX = (int)offsetX;
+                                intOffsetY = (int)y;
 
-                            TPixel resPixel = imageCopyArray[intOffsetY * source.Width + intOffsetX];
-                            resPixel.ToRgba32(ref sourcePixel);
-                            pixelRow[x].FromRgba32(sourcePixel);
+                                pixelRow[x] = imageCopyArray[intOffsetY * imageWidth + intOffsetX];
+                            }
                         }
+                        else
+                        {
+                            for (int x = workArea.X + width - 1, offsetX = workArea.X + sliceOffsets[i]; x >= workArea.X; x--, offsetX--)
+                            {
+                                if (offsetX >= width + workArea.X)
+                                    offsetX = workArea.X;
+                                else if (offsetX < workArea.X)
+                                    offsetX = width + workArea.X + sliceOffsets[i];
+
+                                intOffsetX = (int)offsetX;
+                                intOffsetY = (int)y;
+
+                                pixelRow[x] = imageCopyArray[intOffsetY * imageWidth + intOffsetX];
+                            }
+                        }
+
+                        
                     }
                 }
             });
