@@ -88,7 +88,7 @@ public class GaussianNoiseProcessor : IImageProcessor
                     {
                         pixelRow[x].ToRgba32(ref sourcePixel);
 
-                        if (sourcePixel.A == byte.MaxValue)
+                        if (sourcePixel.A == 0)
                             continue;
 
                         

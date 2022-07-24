@@ -39,8 +39,9 @@ class Program
         //layer0.Effects.Add(new Swirl() { Radius = 100f, Twists = 0.25f});
         //layer0.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 15});
         //layer0.Effects.Add(new Crystallize() { CrystalsCount = 1024 });
-        layer0.Effects.Add(new Slices() { Count = 10, SliceHeight = 10 });
-        //layer0.Effects.Add(new );
+        //layer0.Effects.Add(new Slices() { Count = 10, SliceHeight = 10 });
+        //layer0.Effects.Add(new GaussianNoise() { Amount = 255, Monochrome = false});
+        //layer0.Effects.Add(new PerlinNoise() { Octaves = 3, Persistence = 2f, Monochrome = false });
 
         var layer = canvas.CreateLayer();
         layer.Drawables.Add(new DRectangle(50, 50, 100, 100) { Brush = Brushes.Solid(Color.Green) });
