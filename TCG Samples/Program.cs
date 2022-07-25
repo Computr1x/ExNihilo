@@ -27,16 +27,30 @@ class Program
         var layer0 = canvas.CreateLayer();
         var image = new DImage(@"D:\Coding\TextCaptcha\TCG Samples\assets\img\cat.png") { Location = new Point(256, 128) };
         image.Effects.Add(new RGBShift() {  Offset = 3});
+        
+        layer0.Drawables.Add(
+            new DPattern(
+                new Rectangle(0, 0, 512, 256), 
+                new bool[,] {
+                    { false, false, true, false, false, false, true, false, false, false },
+                    { false, true, true, true, false, true, true, true, false, false },
+                    { true, true, true, true, true, true, true, true, true, false },
+                    { true, true, true, true, true, true, true, true, true, false },
+                    { false, true, true, true, true, true, true, true, false, false },
+                    { false, false, true, true, true, true, true, false, false, false },
+                    { false, false, false, true, true, true, false, false, false, false },
+                    { false, false, false, false, true, false, false, false, false, false }},
+                Color.Transparent, Color.HotPink));
         layer0.Drawables.Add(image);
         layer0.Drawables.Add(new DLine(new PointF[] { new PointF(20, 20), new PointF(256, 128), new PointF(300, 50), new PointF(512, 256) }) { IsBeziers = false, Pen = Pens.Solid(Color.Brown, 8) });
         //layer0.Effects.Add(new RGBShift(3));
-        layer0.Effects.Add(new Bulge() { X = 340,  Y = 195, Radius = 100, Strenght = 0.1f });
+        //layer0.Effects.Add(new Bulge() { X = 340,  Y = 195, Radius = 100, Strenght = 0.1f });
         //layer0.Effects.Add(new HSBCorrection(50, 0, -120));
         //layer0.Effects.Add(new PolarCoordinates() { PolarConversaionType = TCG.Processors.PolarConversionType.CartesianToPolar });
         //layer0.Effects.Add(new PolarCoordinates() { PolarConversaionType = TCG.Processors.PolarConversionType.PolarToCartesian });
         //layer0.Effects.Add(new Ripple() { TraintWidth = 1f });
         //layer0.Effects.Add(new SlitScan() { Time = 1f});
-        //layer0.Effects.Add(new Swirl() { Radius = 100f, Twists = 0.25f});
+        layer0.Effects.Add(new Swirl() { Radius = 100f, Twists = 0.45f});
         //layer0.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 15});
         //layer0.Effects.Add(new Crystallize() { CrystalsCount = 1024 });
         //layer0.Effects.Add(new Slices() { Count = 10, SliceHeight = 10 });
@@ -56,12 +70,13 @@ class Program
         Font font = family.CreateFont(64);
         DText text = new(font, "TEST");
         text.TextOptions.TextAlignment = TextAlignment.Center;
+        
         FontRectangle rect = TextMeasurer.Measure("TEST", text.TextOptions);
         text.TextOptions.Origin = new System.Numerics.Vector2(512 / 2 - rect.Width / 2, 256 / 2 - rect.Height / 2);
         layer2.Drawables.Add(text);
         //layer2.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 6 });
 
-
+        
         var layer3 = canvas.CreateLayer(new GraphicsOptions() { BlendPercentage = 0.5f });
         layer3.Drawables.Add(new DEllipse(256, 128, 250, 250) { Type = TCG.Base.Abstract.DrawableType.FillWithOutline, Brush = Brushes.Solid(Color.DeepPink), Pen = Pens.Dot(Color.Orange, 3) });
 

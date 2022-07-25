@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace TCG.Base.Utils;
 
+public enum PenType { Solid, Dot, Dash, DashDot, DashDotDot }
+
 public static class ColorsConverter
 {
+	
 	/// <summary>Converts HSB color model values to RGB values</summary>
 	/// <exception cref="OverflowException">Thrown when any parameter is out of range [0; 1]</exception>
 	public static void HsbFToRgb(in float h, in float s, in float v, out float r, out float g, out float b)

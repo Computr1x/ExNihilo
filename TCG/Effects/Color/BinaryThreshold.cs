@@ -10,5 +10,6 @@ namespace TCG.Effects
 
         public void Render(Image image, GraphicsOptions graphicsOptions) =>
             image.Mutate(x => x.BinaryThreshold(ThresholdLimit));
+
     }
 }
