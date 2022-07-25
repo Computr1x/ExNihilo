@@ -21,22 +21,15 @@ namespace TCG.Effects
         public int GreenXOffset { get => greenXOffset; set => greenXOffset = value; }
         public int RedXOffset { get => redXOffset; set => redXOffset = value; }
 
-        public RGBShift(int redXOffset, int greenXOffset, int blueXOffset, int redYOffset, int greenYOffset, int blueYOffset)
-        {
-            RedXOffset = redXOffset;
-            GreenXOffset = greenXOffset;
-            BlueXOffset = blueXOffset;
-            RedYOffset = redYOffset;
-            GreenYOffset = greenYOffset;
-            BlueYOffset = blueYOffset;
-        }
-
-        public RGBShift(int offset)
-        {
-            RedXOffset = RedYOffset = offset;
-            GreenXOffset = GreenYOffset = -offset;
-            BlueXOffset = offset;
-            BlueYOffset = -offset;
+        public int Offset 
+        { 
+            set
+            {
+                RedXOffset = RedYOffset = value;
+                GreenXOffset = GreenYOffset = -value;
+                BlueXOffset = value;
+                BlueYOffset = -value;
+            } 
         }
 
         public void Render(Image image, GraphicsOptions graphicsOptions) => 

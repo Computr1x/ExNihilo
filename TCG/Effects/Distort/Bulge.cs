@@ -12,14 +12,6 @@ namespace TCG.Effects
         public float Radius { get; set; }
         public float Strenght { get; set; }
 
-        public Bulge(int x, int y, float radius, float strenght)
-        {
-            X = x;
-            Y = y;
-            Radius = radius;
-            Strenght = strenght;
-        }
-
         public void Render(Image image, GraphicsOptions graphicsOptions) =>
             image.Mutate(x => x.Bulge(X, Y, Radius, Strenght));
     }

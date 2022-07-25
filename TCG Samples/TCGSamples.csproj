@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="assets\results\" />
+    <Folder Include="assets\refs\" />
   </ItemGroup>
 
 </Project>

@@ -26,11 +26,11 @@ class Program
 
         var layer0 = canvas.CreateLayer();
         var image = new DImage(@"D:\Coding\TextCaptcha\TCG Samples\assets\img\cat.png") { Location = new Point(256, 128) };
-        image.Effects.Add(new RGBShift(3));
+        image.Effects.Add(new RGBShift() {  Offset = 3});
         layer0.Drawables.Add(image);
         layer0.Drawables.Add(new DLine(new PointF[] { new PointF(20, 20), new PointF(256, 128), new PointF(300, 50), new PointF(512, 256) }) { IsBeziers = false, Pen = Pens.Solid(Color.Brown, 8) });
         //layer0.Effects.Add(new RGBShift(3));
-        //layer0.Effects.Add(new Bulge(340, 195, 100, 0.1f));
+        layer0.Effects.Add(new Bulge() { X = 340,  Y = 195, Radius = 100, Strenght = 0.1f });
         //layer0.Effects.Add(new HSBCorrection(50, 0, -120));
         //layer0.Effects.Add(new PolarCoordinates() { PolarConversaionType = TCG.Processors.PolarConversionType.CartesianToPolar });
         //layer0.Effects.Add(new PolarCoordinates() { PolarConversaionType = TCG.Processors.PolarConversionType.PolarToCartesian });
@@ -42,6 +42,7 @@ class Program
         //layer0.Effects.Add(new Slices() { Count = 10, SliceHeight = 10 });
         //layer0.Effects.Add(new GaussianNoise() { Amount = 255, Monochrome = false});
         //layer0.Effects.Add(new PerlinNoise() { Octaves = 3, Persistence = 2f, Monochrome = false });
+        //layer0.Effects.Add(new BoxBlur());
 
         var layer = canvas.CreateLayer();
         layer.Drawables.Add(new DRectangle(50, 50, 100, 100) { Brush = Brushes.Solid(Color.Green) });
@@ -58,6 +59,7 @@ class Program
         FontRectangle rect = TextMeasurer.Measure("TEST", text.TextOptions);
         text.TextOptions.Origin = new System.Numerics.Vector2(512 / 2 - rect.Width / 2, 256 / 2 - rect.Height / 2);
         layer2.Drawables.Add(text);
+        //layer2.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 6 });
 
 
         var layer3 = canvas.CreateLayer(new GraphicsOptions() { BlendPercentage = 0.5f });
