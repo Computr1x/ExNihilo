@@ -1,31 +1,20 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TCG.Base.Interfaces;
+using TCG.Base.Parameters;
+using TCG.Rnd.Randomizers.Parameters;
 
 namespace TCG.Drawables;
 
 public class DPattern : IDrawable
 {
-    public Rectangle Rectangle { get; set; }
-    public bool[,] Pattern { get; set; }
-    public Color Background { get; set; }
-    public Color Foreground { get; set; }
-    public IList<IEffect> Effects { get; }
+    public RectangleParameter Rectangle { get; set; } = new RectangleParameter(new Rectangle());
+    public Bool2DArrayParameter Pattern { get; set; } = new Bool2DArrayParameter(new bool[,] { { true, false}, { false, true } });
+    public ColorParameter Background { get; set; } = new ColorParameter(Color.Transparent);
+    public ColorParameter Foreground { get; set; } = new ColorParameter(Color.Black);
+    public IList<IEffect> Effects { get; } = new List<IEffect>();
 
-    public DPattern(Rectangle rect, bool[,] pattern, Color background, Color foreground) : base()
-    {
-        Rectangle = rect;
-        Pattern = pattern;
-        Background = background;
-        Foreground = foreground;
-        Effects = new List<IEffect>();
-    }
 
     public void Render(Image image, GraphicsOptions graphicsOptions)
     {

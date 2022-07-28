@@ -1,14 +1,14 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
+using TCG.Rnd.Randomizers.Parameters;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class Flip : IEffect
 {
-    public class Flip : IEffect
-    {
-        public FlipMode FlipMode { get; set; } = FlipMode.Horizontal;
+    public EnumParameter<FlipMode> Mode { get; set; } = new() { Value = FlipMode.Horizontal };
 
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.Flip(FlipMode));
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.Flip(Mode.Value));
 }

@@ -1,7 +1,6 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing.Processors;
-using TCG.Base.Utils;
 
 namespace TCG.Processors;
 
@@ -91,11 +90,11 @@ public class GaussianNoiseProcessor : IImageProcessor
                         if (sourcePixel.A == 0)
                             continue;
 
-                        
+
                         if (processor.Monochrome)
                         {
                             float gaussValue = GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal);
-                            sourcePixel.R = (byte) (sourcePixel.R * gaussValue);
+                            sourcePixel.R = (byte)(sourcePixel.R * gaussValue);
                             sourcePixel.G = (byte)(sourcePixel.G * gaussValue);
                             sourcePixel.B = (byte)(sourcePixel.B * gaussValue);
                         }
@@ -105,7 +104,7 @@ public class GaussianNoiseProcessor : IImageProcessor
                             sourcePixel.G = (byte)(sourcePixel.G * GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
                             sourcePixel.B = (byte)(sourcePixel.B * GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
                         }
-                        
+
                         var resPixel = new TPixel();
                         resPixel.FromRgba32(sourcePixel);
                         pixelRow[x] = resPixel;

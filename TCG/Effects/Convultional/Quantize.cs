@@ -2,11 +2,10 @@
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class Quantize : IEffect
 {
-    public class Quantize : IEffect
-    {
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.Quantize());
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.Quantize());
 }

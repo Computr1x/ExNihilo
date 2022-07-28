@@ -1,5 +1,4 @@
 ﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Abstract;
@@ -18,7 +17,7 @@ public class DPolygon : BaseDrawable
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
-        
+
         image.Mutate((x) =>
         {
             if (Type.HasFlag(DrawableType.Filled))

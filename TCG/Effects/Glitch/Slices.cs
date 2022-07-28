@@ -2,19 +2,18 @@
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
 using TCG.Extensions.Processors;
+using TCG.Rnd.Randomizers.Parameters;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class Slices : IEffect
 {
-    public class Slices : IEffect
-    {
-        public int Seed { get; set; } = 0;
-        public int Count { get; set; } = 1;
-        public int MinOffset { get; set; } = -10;
-        public int MaxOffset { get; set; } = 20;
+    public IntParameter Seed { get; set; } = new(0);
+    public IntParameter Count { get; set; } = new(0) { Value = 1};
+    public IntParameter MinOffset { get; set; } = new(-15, 0) { Value = -10 };
+    public IntParameter MaxOffset { get; set; } = new(0, 15) { Value = 10 };
+    public IntParameter SliceHeight { get; set; } = new(1, 10) { Value = 10 };
 
-        public int SliceHeight { get; set; } = 4;
-
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.Slices(Seed, Count, SliceHeight, MinOffset, MaxOffset));
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.Slices(Seed.Value, Count.Value, SliceHeight.Value, MinOffset.Value, MaxOffset.Value));
 }

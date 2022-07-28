@@ -97,13 +97,13 @@ public class BulgeProcessor : IImageProcessor
                                 resPixel.ToRgba32(ref sourcePixel);
                                 pixelRow[x].FromRgba32(sourcePixel);
                             }
-                        }                        
+                        }
                     }
                 }
             });
         }
 
-        private void CalculateBulge(in int x, in int y, 
+        private void CalculateBulge(in int x, in int y,
             ref float interpolationFactor,
             ref float pixelDistance, ref float pixelAngle,
             ref float pixelX, ref float pixelY,

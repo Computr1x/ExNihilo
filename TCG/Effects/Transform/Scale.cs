@@ -1,16 +1,16 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
+using TCG.Rnd.Randomizers.Parameters;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class Scale : IEffect
 {
-    public class Scale : IEffect
-    {
-        public float XScale { get; set; }
-        public float YScale { get; set; }
+    public FloatParameter XScale { get; set; } = new(0, 2);
+    public FloatParameter YScale { get; set; } = new(0, 2);
 
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => 
-                x.Transform(new AffineTransformBuilder().AppendScale(new System.Numerics.Vector2(XScale, YScale))));
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x =>
+            x.Transform(new AffineTransformBuilder().AppendScale(new System.Numerics.Vector2(XScale.Value, YScale.Value))));
 }

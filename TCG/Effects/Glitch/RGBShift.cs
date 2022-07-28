@@ -1,40 +1,33 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TCG.Base.Interfaces;
 using TCG.Extensions.Processors;
+using TCG.Rnd.Randomizers.Parameters;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class RGBShift : IEffect
 {
-    public class RGBShift : IEffect
+    public int Offset
     {
-        int redXOffset, greenXOffset, blueXOffset, redYOffset, greenYOffset, blueYOffset;
-
-        public int BlueYOffset { get => blueYOffset; set => blueYOffset = value; }
-        public int GreenYOffset { get => greenYOffset; set => greenYOffset = value; }
-        public int RedYOffset { get => redYOffset; set => redYOffset = value; }
-        public int BlueXOffset { get => blueXOffset; set => blueXOffset = value; }
-        public int GreenXOffset { get => greenXOffset; set => greenXOffset = value; }
-        public int RedXOffset { get => redXOffset; set => redXOffset = value; }
-
-        public int Offset 
-        { 
-            set
-            {
-                RedXOffset = RedYOffset = value;
-                GreenXOffset = GreenYOffset = -value;
-                BlueXOffset = value;
-                BlueYOffset = -value;
-            } 
+        set
+        {
+            RedXOffset.Value = RedYOffset.Value = value;
+            GreenXOffset.Value = GreenYOffset.Value = -value;
+            BlueXOffset.Value = value;
+            BlueYOffset.Value = -value;
         }
-
-        public void Render(Image image, GraphicsOptions graphicsOptions) => 
-            image.Mutate(x => 
-                x.RGBShift(RedXOffset, GreenXOffset, BlueXOffset, RedYOffset, GreenYOffset, BlueYOffset));
-        
     }
+
+    public IntParameter BlueYOffset { get; set; } = new(0);
+    public IntParameter GreenYOffset { get; set; } = new(0);
+    public IntParameter RedYOffset { get; set; } = new(0);
+    public IntParameter BlueXOffset { get; set; } = new(0);
+    public IntParameter GreenXOffset { get; set; } = new(0);
+    public IntParameter RedXOffset { get; set; } = new(0);
+
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x =>
+            x.RGBShift(RedXOffset.Value, GreenXOffset.Value, BlueXOffset.Value, RedYOffset.Value, GreenYOffset.Value, BlueYOffset.Value));
+
 }

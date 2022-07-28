@@ -96,10 +96,10 @@ public class HSBCorrectionProcessor : IImageProcessor
                     for (int x = workArea.X; x < width + workArea.X; x++)
                     {
                         pixelRow[x].ToRgba32(ref sourcePixel);
-                        
+
                         ColorsConverter.RgbToHsb(in sourcePixel.R, in sourcePixel.G, in sourcePixel.B, out h, out s, out v);
 
-                        
+
                         h = (byte)Math.Clamp(h + processor.Hue, 0, 255);
                         s = (byte)Math.Clamp(s + processor.Saturation, 0, 255);
                         v = (byte)Math.Clamp(v + processor.Brightness, 0, 255);

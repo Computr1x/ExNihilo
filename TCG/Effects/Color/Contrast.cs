@@ -1,14 +1,14 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
+using TCG.Rnd.Randomizers.Parameters;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class Contrast : IEffect
 {
-    public class Contrast : IEffect
-    {
-        public float Amount { get; set; } = 3f;
+    public FloatParameter Amount { get; set; } = new FloatParameter(5) { Value = 3 };
 
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.Contrast(Amount));
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.Contrast(Amount.Value));
 }

@@ -83,7 +83,7 @@ public class PerlinNoiseProcessor : IImageProcessor
                             continue;
 
                         noise = (byte)(MathF.Round(
-                            (Noise(x / (float)width, y / (float)height, processor.Octaves, processor.Persistence) + 1f / 2f) 
+                            (Noise(x / (float)width, y / (float)height, processor.Octaves, processor.Persistence) + 1f / 2f)
                                 * 255 / processor.Step) * processor.Step);
 
 

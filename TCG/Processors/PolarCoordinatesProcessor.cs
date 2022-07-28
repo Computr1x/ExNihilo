@@ -8,9 +8,9 @@ public class PolarCoordinatesProcessor : IImageProcessor
 {
     public PolarConversionType PolarType { get; set; } = PolarConversionType.CartesianToPolar;
 
-    public Rectangle Area { get; set; }    
+    public Rectangle Area { get; set; }
 
-    
+
     public IImageProcessor<TPixel> CreatePixelSpecificProcessor<TPixel>(Configuration configuration, Image<TPixel> source, Rectangle sourceRectangle)
         where TPixel : unmanaged, IPixel<TPixel>
     {

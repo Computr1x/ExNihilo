@@ -2,32 +2,16 @@
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
 using TCG.Extensions.Processors;
+using TCG.Rnd.Randomizers.Parameters;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class HSBCorrection : IEffect
 {
-    public class HSBCorrection : IEffect
-    {
-        private sbyte hue, saturation, brightness;
+    public SbyteParameter Hue { get; set; } = new(sbyte.MinValue, sbyte.MaxValue);
+    public SbyteParameter Saturation { get; set; } = new(sbyte.MinValue, sbyte.MaxValue);
+    public SbyteParameter Brightness { get; set; } = new(sbyte.MinValue, sbyte.MaxValue);
 
-        public sbyte Hue
-        {
-            get => hue;
-            set { hue = (sbyte)(value % 256); }
-        }
-
-        public sbyte Saturation
-        {
-            get => saturation;
-            set { saturation = (sbyte)(value % 256); }
-        }
-
-        public sbyte Brightness
-        {
-            get => brightness;
-            set { brightness = (sbyte)(value % 256); }
-        }
-
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.HSBCorrection(Hue, Saturation, Brightness));
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.HSBCorrection(Hue.Value, Saturation.Value, Brightness.Value));
 }

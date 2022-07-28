@@ -11,7 +11,7 @@ public static class PerlinNoiseProcessorExtension
     /// </summary>
     public static IImageProcessingContext PerlinNoise(this IImageProcessingContext sourse, int seed, int octaves, float persistence, bool monochrome)
     {
-        return sourse.ApplyProcessor(new PerlinNoiseProcessor(seed) {  Monochrome = monochrome, Octaves = octaves, Persistence = persistence });
+        return sourse.ApplyProcessor(new PerlinNoiseProcessor(seed) { Monochrome = monochrome, Octaves = octaves, Persistence = persistence });
     }
 
     /// <summary>

@@ -38,7 +38,7 @@ public class RGBShiftProcessor : IImageProcessor
     public IImageProcessor<TPixel> CreatePixelSpecificProcessor<TPixel>(Configuration configuration, Image<TPixel> source, Rectangle sourceRectangle)
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        if(Area.Width <= 0 || Area.Height <= 0)
+        if (Area.Width <= 0 || Area.Height <= 0)
             Area = new Rectangle(0, 0, source.Width, source.Height);
 
         return new RGBShiftProcessorInner<TPixel>(this, source);

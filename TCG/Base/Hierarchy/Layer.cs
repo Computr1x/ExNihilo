@@ -1,12 +1,6 @@
 ﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TCG.Base.Interfaces;
 
 namespace TCG.Base.Hierarchy;
@@ -23,7 +17,7 @@ public class Layer
     {
         Size = size;
         GraphicsOptions = graphicsOptions;
-        Drawables = new List<IDrawable>(); 
+        Drawables = new List<IDrawable>();
         Effects = new List<IEffect>();
     }
 
@@ -38,7 +32,7 @@ public class Layer
                 drawable.Render(img, GraphicsOptions);
             else
             {
-                if(tempImg == null)
+                if (tempImg == null)
                     tempImg = new(Size.Width, Size.Height);
 
                 drawable.Render(tempImg, GraphicsOptions);

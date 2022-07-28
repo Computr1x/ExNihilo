@@ -1,7 +1,6 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using TCG.Processors;
-using static TCG.Processors.PolarCoordinatesProcessor;
 
 namespace TCG.Extensions.Processors;
 
@@ -20,7 +19,7 @@ public static class PolarCoordinatesProcessorExtension
     /// </summary>
     public static IImageProcessingContext PolarCoordinates(this IImageProcessingContext sourse, PolarConversionType conversionType)
     {
-        return sourse.ApplyProcessor(new PolarCoordinatesProcessor() {  PolarType = conversionType});
+        return sourse.ApplyProcessor(new PolarCoordinatesProcessor() { PolarType = conversionType });
     }
 
     /// <summary>

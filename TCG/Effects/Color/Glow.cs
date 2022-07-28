@@ -1,14 +1,14 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
+using TCG.Rnd.Randomizers.Parameters;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class Glow : IEffect
 {
-    public class Glow : IEffect
-    {
-        public float Radius { get; set; } = 15f;
+    public FloatParameter Radius { get; set; } = new FloatParameter(15) { Value = 15f };
 
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.Glow(Radius));
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.Glow(Radius.Value));
 }

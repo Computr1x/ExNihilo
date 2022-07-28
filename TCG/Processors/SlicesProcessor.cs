@@ -68,7 +68,7 @@ public class SlicesProcessor : IImageProcessor
             int intOffsetX = 0, intOffsetY = 0;
 
             int[] sliceIndexes = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(workArea.Y, height + workArea.Y)).OrderBy(x => x).ToArray();
-            int[] sliceOffsets = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(processor.MinOffset,  processor.MaxOffset)).ToArray();
+            int[] sliceOffsets = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(processor.MinOffset, processor.MaxOffset)).ToArray();
 
 
             source.ProcessPixelRows(accessor =>
@@ -79,7 +79,7 @@ public class SlicesProcessor : IImageProcessor
                     {
                         Span<TPixel> pixelRow = accessor.GetRowSpan(y);
 
-                        if(sliceOffsets[i] >= 0)
+                        if (sliceOffsets[i] >= 0)
                         {
                             for (int x = workArea.X, offsetX = workArea.X + sliceOffsets[i]; x < workArea.X + width; x++, offsetX++)
                             {
@@ -110,7 +110,7 @@ public class SlicesProcessor : IImageProcessor
                             }
                         }
 
-                        
+
                     }
                 }
             });

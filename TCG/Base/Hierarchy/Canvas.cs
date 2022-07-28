@@ -1,13 +1,6 @@
 ﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing.Processing;
-using SixLabors.ImageSharp.Metadata;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TCG.Base.Hierarchy;
 
@@ -24,7 +17,8 @@ public class Canvas
 
     public Layer CreateLayer(GraphicsOptions? options = null)
     {
-        if (options == null) {
+        if (options == null)
+        {
             options = new GraphicsOptions()
             {
                 AlphaCompositionMode = PixelAlphaCompositionMode.SrcOver,
@@ -34,7 +28,7 @@ public class Canvas
         }
 
         Layer layer = new(Size, options);
-        Layers.Add(layer); 
+        Layers.Add(layer);
         return layer;
     }
 
@@ -42,7 +36,8 @@ public class Canvas
     {
         Image<Rgba32> img = new(Size.Width, Size.Height);
 
-        foreach (Layer layer in Layers) {
+        foreach (Layer layer in Layers)
+        {
             var renderedImage = layer.Render();
 
             foreach (var effect in layer.Effects)
@@ -51,7 +46,7 @@ public class Canvas
             img.Mutate(x => x.DrawImage(renderedImage, 1));
             renderedImage.Dispose();
         }
-        
+
         return img;
     }
 }

@@ -2,11 +2,10 @@
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class EdgeDetection : IEffect
 {
-    public class EdgeDetection : IEffect
-    {
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.DetectEdges());
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.DetectEdges());
 }

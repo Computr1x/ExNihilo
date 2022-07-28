@@ -1,22 +1,20 @@
 ﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
-using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using TCG.Base.Abstract;
 using TCG.Base.Interfaces;
+using TCG.Rnd.Randomizers.Parameters;
 
 namespace TCG.Drawables;
 
 public class DImage : IDrawable
 {
-    public Point Location { get; set; } = new Point();
+    public PointParameter Location { get; set; } = new PointParameter(new Point());
     public IList<IEffect> Effects { get; }
 
     private Image? image = null;
     private string path = "";
 
-    public DImage(string path) 
+    public DImage(string path)
     {
         this.path = path;
         Effects = new List<IEffect>();
@@ -31,7 +29,8 @@ public class DImage : IDrawable
 
     public void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if (string.IsNullOrWhiteSpace(path) == false) {
+        if (string.IsNullOrWhiteSpace(path) == false)
+        {
             try
             {
                 this.image = Image.Load(path);
@@ -39,7 +38,7 @@ public class DImage : IDrawable
             catch { }
         }
 
-        if (this.image == null) 
+        if (this.image == null)
             return;
 
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };

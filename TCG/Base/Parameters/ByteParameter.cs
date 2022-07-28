@@ -1,0 +1,18 @@
+﻿using TCG.Base.Abstract;
+using TCG.Base.Interfaces;
+
+namespace TCG.Rnd.Randomizers.Parameters;
+
+public class ByteParameter : GenericStructParameter<byte>, IHasMinMax<byte>
+{
+    public byte Max { get; set; }
+
+    public byte Min { get; set; }
+
+    public ByteParameter(byte defaultValue) : base(defaultValue) { }
+
+    protected override void RandomizeImplementation(Random r)
+    {
+        Value = (byte)r.Next(Min, Max);
+    }
+}

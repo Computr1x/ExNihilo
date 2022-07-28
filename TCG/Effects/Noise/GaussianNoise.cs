@@ -2,16 +2,16 @@
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
 using TCG.Extensions.Processors;
+using TCG.Rnd.Randomizers.Parameters;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class GaussianNoise : IEffect
 {
-    public class GaussianNoise : IEffect
-    {
-        public int Seed { get; set; } = 0;
-        public byte Amount { get; set; } = 255;
-        public bool Monochrome { get; set; } = false;
+    public IntParameter Seed { get; set; } = new(0);
+    public ByteParameter Amount { get; set; } = new (byte.MaxValue) { Value = byte.MaxValue };
+    public BoolParameter Monochrome { get; set; } = new() { Value = false };
 
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.GaussianNoise(Seed, Amount, Monochrome));
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.GaussianNoise(Seed.Value, Amount.Value, Monochrome.Value));
 }

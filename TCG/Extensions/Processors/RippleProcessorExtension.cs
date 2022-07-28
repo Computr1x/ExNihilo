@@ -48,6 +48,6 @@ public static class RippleProcessorExtension
     /// </summary>
     public static IImageProcessingContext Ripple(this IImageProcessingContext sourse, Rectangle rectangle, int x, int y, float radius, float waveLength, float traintWidth)
     {
-        return sourse.ApplyProcessor(new RippleProcessor(x,  y, radius, waveLength, traintWidth) { Area = rectangle });
+        return sourse.ApplyProcessor(new RippleProcessor(x, y, radius, waveLength, traintWidth) { Area = rectangle });
     }
 }

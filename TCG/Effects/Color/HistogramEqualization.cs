@@ -2,11 +2,10 @@
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
 
-namespace TCG.Effects
+namespace TCG.Effects;
+
+public class HistogramEqualization : IEffect
 {
-    public class HistogramEqualization : IEffect
-    {
-        public void Render(Image image, GraphicsOptions graphicsOptions) =>
-            image.Mutate(x => x.HistogramEqualization());
-    }
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.HistogramEqualization());
 }

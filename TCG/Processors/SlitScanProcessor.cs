@@ -18,7 +18,7 @@ public class SlitScanProcessor : IImageProcessor
     {
         Time = time;
     }
-    
+
 
     public IImageProcessor<TPixel> CreatePixelSpecificProcessor<TPixel>(Configuration configuration, Image<TPixel> source, Rectangle sourceRectangle)
         where TPixel : unmanaged, IPixel<TPixel>
