@@ -2,20 +2,26 @@
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Abstract;
+using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
 public class DPolygon : BaseDrawable
 {
-    public PointF[] Points { get; set; }
+    public PointFArrayParameter Points { get; } = new PointFArrayParameter(new PointF[0]);
 
-    public DPolygon(PointF[] points) : base()
+    public DPolygon() { }
+
+    public DPolygon(PointF[] points) 
     {
-        Points = points;
+        Points.Value = points;
     }
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
+        if ((Points.Value ?? Points.DefaultValue).Length <= 2)
+            return;
+
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
         image.Mutate((x) =>

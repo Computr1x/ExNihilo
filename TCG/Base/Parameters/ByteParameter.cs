@@ -9,7 +9,7 @@ public class ByteParameter : GenericStructParameter<byte>, IHasMinMax<byte>
 
     public byte Min { get; set; }
 
-    public ByteParameter(byte defaultValue) : base(defaultValue) { }
+    public ByteParameter(byte defaultValue = default(byte)) : base(defaultValue) { }
 
     protected override void RandomizeImplementation(Random r)
     {

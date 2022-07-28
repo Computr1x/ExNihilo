@@ -7,8 +7,8 @@ namespace TCG.Effects;
 
 public class Lightness : IEffect
 {
-    public FloatParameter Amount { get; set; } = new(5f) { Value = 1f };
+    public FloatParameter Amount { get; set; } = new(1) { Min = 0, Max = 3};
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Lightness(Amount.Value));
+        image.Mutate(x => x.Lightness(Amount));
 }

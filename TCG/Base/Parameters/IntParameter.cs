@@ -9,7 +9,7 @@ public class IntParameter : GenericStructParameter<int>, IHasMinMax<int>
 
     public int Min { get; set; }
 
-    public IntParameter(int defaultValue) : base(defaultValue) { }
+    public IntParameter(int defaultValue = default) : base(defaultValue) { }
 
     protected override void RandomizeImplementation(Random r)
     {

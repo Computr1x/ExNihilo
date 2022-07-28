@@ -7,8 +7,8 @@ namespace TCG.Effects;
 
 public class ColorBlindness : IEffect
 {
-    public EnumParameter<ColorBlindnessMode> ColorBlindnessModeParameter { get; set; } = new EnumParameter<ColorBlindnessMode>() { Value = ColorBlindnessMode.Achromatomaly };
+    public EnumParameter<ColorBlindnessMode> ColorBlindnessMode { get; set; } = new EnumParameter<ColorBlindnessMode>(SixLabors.ImageSharp.Processing.ColorBlindnessMode.Achromatomaly) ;
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.ColorBlindness(ColorBlindnessModeParameter.Value));
+        image.Mutate(x => x.ColorBlindness(ColorBlindnessMode));
 }

@@ -8,8 +8,8 @@ namespace TCG.Effects;
 
 public class SlitScan : IEffect
 {
-    public FloatParameter Time { get; set; } = new(10f) { Value = 2f };
+    public FloatParameter Time { get; set; } = new(2f) { Min = 1f, Max = 10f };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.SlitScan(Time.Value));
+        image.Mutate(x => x.SlitScan(Time));
 }

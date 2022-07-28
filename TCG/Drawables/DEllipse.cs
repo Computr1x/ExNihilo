@@ -9,11 +9,13 @@ namespace TCG.Drawables;
 
 public class DEllipse : BaseDrawable
 {
-    public RectangleParameter Rect { get; set; } = new RectangleParameter(new Rectangle());
+    public RectangleParameter Rectangle { get; } = new RectangleParameter();
 
-    public DEllipse(Rectangle defaultValue) : base()
+    public DEllipse() { }
+
+    public DEllipse(Rectangle value) : base()
     {
-        Rect.DefaultValue = defaultValue;
+        Rectangle.Value = value;
     }
 
     public DEllipse(int x, int y, int width, int height)
@@ -22,7 +24,7 @@ public class DEllipse : BaseDrawable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        IPath path = new EllipsePolygon(Rect.Point, Rect.Size);
+        IPath path = new EllipsePolygon(Rectangle.Point, Rectangle.Size);
         DrawingOptions dopt = new () { GraphicsOptions = graphicsOptions };
 
         image.Mutate((x) =>

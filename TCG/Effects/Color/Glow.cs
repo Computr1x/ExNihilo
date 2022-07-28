@@ -7,8 +7,8 @@ namespace TCG.Effects;
 
 public class Glow : IEffect
 {
-    public FloatParameter Radius { get; set; } = new FloatParameter(15) { Value = 15f };
+    public FloatParameter Radius { get; set; } = new FloatParameter(15) { Min = 1, Max = 150 };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Glow(Radius.Value));
+        image.Mutate(x => x.Glow(Radius));
 }

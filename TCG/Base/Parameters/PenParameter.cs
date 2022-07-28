@@ -9,7 +9,7 @@ public class PenParameter : GenericParameter<IPen>
 {
     public EnumParameter<PenType> Type { get; set; } = new EnumParameter<PenType>(PenType.Solid);
     public IntParameter Width { get; set; } = new IntParameter(1) { Min = 1, Max = 10 };
-    public ColorParameter Color { get; set; } = new ColorParameter(SixLabors.ImageSharp.Color.Black);
+    public ColorParameter Color { get; set; } = new ColorParameter();
 
     public PenParameter(IPen defaultValue) : base(defaultValue) { }
 

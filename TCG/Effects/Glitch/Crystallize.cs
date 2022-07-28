@@ -8,9 +8,9 @@ namespace TCG.Effects;
 
 public class Crystallize : IEffect
 {
-    public IntParameter CrystalsCount { get; set; } = new(100) { Value = 64 };
-    public IntParameter Seed { get; set; } = new(0);
+    public IntParameter CrystalsCount { get; set; } = new(64) { Min = 16, Max = 128 };
+    public IntParameter Seed { get; set; } = new(0) { Min = 0, Max = int.MaxValue };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Crystallize(Seed.Value, CrystalsCount.Value));
+        image.Mutate(x => x.Crystallize(Seed, CrystalsCount));
 }

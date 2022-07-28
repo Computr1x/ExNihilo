@@ -3,20 +3,25 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Abstract;
+using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
 public class DText : BaseDrawable
 {
-    public string Text { get; set; }
-    public TextOptions TextOptions { get; set; }
+    public StringParameter Text { get; } = new StringParameter() { DefaultValue = "TEST" };
+    public TextOptions Options { get; set; }
 
-    public DText(Font font, string text) : base()
+    public DText(Font font) : base()
     {
-        Text = text;
-        TextOptions = new TextOptions(font);
+        Options = new TextOptions(font);
     }
 
+    public DText(Font font, string text) : this(font)
+    {
+        Text.Value = text;
+        Text.Length.Value = text.Length;
+    }
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
@@ -28,7 +33,7 @@ public class DText : BaseDrawable
 
         image.Mutate((x) =>
         {
-            x.DrawText(dopt, TextOptions, Text, Brush, Pen);
+            x.DrawText(dopt, Options, Text, Brush, Pen);
         });
     }
 }

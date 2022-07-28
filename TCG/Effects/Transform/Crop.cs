@@ -7,8 +7,8 @@ namespace TCG.Effects;
 
 public class Crop : IEffect
 {
-    public RectangleParameter Rectangle { get; set; } = new(new PointParameter(new(0), new(0)), new SizeParameter(new(0), new(0)));
+    public RectangleParameter Rectangle { get; set; } = new();
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Crop(Rectangle.Value));
+        image.Mutate(x => x.Crop(Rectangle));
 }

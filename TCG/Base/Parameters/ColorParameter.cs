@@ -8,13 +8,13 @@ public class ColorParameter : GenericStructParameter<Color>
     public Color[] Colors { get; }
     public byte Opacity { get; }
 
-    public ColorParameter(Color defaultValue, Color[] colors, byte opacity = 255) : base(defaultValue)
+    public ColorParameter(Color[] colors, byte opacity = 255) : base(default(Color))
     {
         Colors = colors.Length > 0 ? colors : GeneratePalette(opacity);
         Opacity = opacity;
     }
 
-    public ColorParameter(Color defaultValue, int colorsCount = 1, byte opacity = 255) : base(defaultValue)
+    public ColorParameter(int colorsCount = 1, byte opacity = 255) : base(default(Color))
     {
         Colors = GeneratePalette(colorsCount);
         Opacity = opacity;

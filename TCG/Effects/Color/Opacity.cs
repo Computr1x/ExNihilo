@@ -8,8 +8,8 @@ namespace TCG.Effects;
 public class Opacity : IEffect
 {
     // beteween 0 - 1
-    public FloatParameter Amount { get; set; } = new(0, 1) { Value = 0.5f };
+    public FloatParameter Amount { get; set; } = new(0.5f) { Min = 0, Max = 1 };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Opacity(Amount.Value));
+        image.Mutate(x => x.Opacity(Amount));
 }

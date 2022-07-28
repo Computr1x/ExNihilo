@@ -8,6 +8,7 @@ using TCG.Base.Hierarchy;
 using TCG.Drawables;
 using TCG.Effects;
 using TCG.Extensions.Processors;
+using TCG.Rnd.Managers;
 
 namespace Samples;
 
@@ -22,10 +23,14 @@ class Program
 
     private static void TestLayers()
     {
+        RNDManager rndManager = new RNDManager(0);
+        
+
         Canvas canvas = new Canvas(512, 256);
 
         var layer0 = canvas.CreateLayer();
-        var image = new DImage(@"D:\Coding\TextCaptcha\TCG Samples\assets\img\cat.png") { Location = new Point(256, 128) };
+        var image = new DImage(@"D:\Coding\TextCaptcha\TCG Samples\assets\img\cat.png");
+        image.Location.Value = new Point(256, 128);
         image.Effects.Add(new RGBShift() {  Offset = 3});
         
         layer0.Drawables.Add(
@@ -42,7 +47,7 @@ class Program
                     { false, false, false, false, true, false, false, false, false, false }},
                 Color.Transparent, Color.HotPink));
         layer0.Drawables.Add(image);
-        layer0.Drawables.Add(new DLine(new PointF[] { new PointF(20, 20), new PointF(256, 128), new PointF(300, 50), new PointF(512, 256) }) { IsBeziers = false, Pen = Pens.Solid(Color.Brown, 8) });
+        layer0.Drawables.Add(new DLine(new PointF[] { new PointF(20, 20), new PointF(256, 128), new PointF(300, 50), new PointF(512, 256) }));
         //layer0.Effects.Add(new RGBShift(3));
         //layer0.Effects.Add(new Bulge() { X = 340,  Y = 195, Radius = 100, Strenght = 0.1f });
         //layer0.Effects.Add(new HSBCorrection(50, 0, -120));
@@ -50,7 +55,7 @@ class Program
         //layer0.Effects.Add(new PolarCoordinates() { PolarConversaionType = TCG.Processors.PolarConversionType.PolarToCartesian });
         //layer0.Effects.Add(new Ripple() { TraintWidth = 1f });
         //layer0.Effects.Add(new SlitScan() { Time = 1f});
-        layer0.Effects.Add(new Swirl() { Radius = 100f, Twists = 0.45f});
+        layer0.Effects.Add(new Swirl(100, 0, 0.45f));
         //layer0.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 15});
         //layer0.Effects.Add(new Crystallize() { CrystalsCount = 1024 });
         //layer0.Effects.Add(new Slices() { Count = 10, SliceHeight = 10 });
@@ -69,10 +74,10 @@ class Program
         collection.TryGet("Arial", out var family);
         Font font = family.CreateFont(64);
         DText text = new(font, "TEST");
-        text.TextOptions.TextAlignment = TextAlignment.Center;
+        text.Options.TextAlignment = TextAlignment.Center;
         
-        FontRectangle rect = TextMeasurer.Measure("TEST", text.TextOptions);
-        text.TextOptions.Origin = new System.Numerics.Vector2(512 / 2 - rect.Width / 2, 256 / 2 - rect.Height / 2);
+        FontRectangle rect = TextMeasurer.Measure("TEST", text.Options);
+        text.Options.Origin = new System.Numerics.Vector2(512 / 2 - rect.Width / 2, 256 / 2 - rect.Height / 2);
         layer2.Drawables.Add(text);
         //layer2.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 6 });
 

@@ -7,8 +7,8 @@ namespace TCG.Effects;
 
 public class EntropyCrop : IEffect
 {
-    public FloatParameter Threshold { get; set; } = new(0, 1f) { Value = 0.5f };
+    public FloatParameter Threshold { get; set; } = new(0.5f) { Min = 0, Max = 1 };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.EntropyCrop(Threshold.Value));
+        image.Mutate(x => x.EntropyCrop(Threshold));
 }

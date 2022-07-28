@@ -9,31 +9,33 @@ namespace TCG.Drawables;
 
 public class DLine : IDrawable
 {
-    public IList<IEffect> Effects { get; }
+    public IList<IEffect> Effects { get; } =  new List<IEffect>();
 
-    public PenParameter Pen { get; set; } = new PenParameter(Pens.Solid(Color.Black, 1));
-    public BoolParameter IsBeziers { get; set; } = new BoolParameter(false);
+    public PenParameter Pen { get; } = new PenParameter(Pens.Solid(Color.Black, 1));
+    public BoolParameter IsBeziers { get;  } = new BoolParameter(false);
 
-    public PointFArrayParameter Points { get; set; } = new PointFArrayParameter(new PointF[0]);
+    public PointFArrayParameter Points { get;  } = new PointFArrayParameter(new PointF[0]);
 
+    public DLine() { }
 
-    public DLine(PointFParameter[] points) : base()
-    {
-        Points = points;
-        Effects = new List<IEffect>();
+    public DLine(PointF[] points) 
+    { 
+        Points.Value = points;
     }
 
     public void Render(Image image, GraphicsOptions graphicsOptions)
     {
+        if ((Points.Value ?? Points.DefaultValue).Length <= 2)
+            return;
+
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
         
         image.Mutate((x) =>
         {
-            var pointsArray = Points.Select(x => (PointF)x).ToArray();
             if (IsBeziers)
-                x.DrawBeziers(dopt, Pen.Value, pointsArray);
+                x.DrawBeziers(dopt, Pen.Value, Points);
             else
-                x.DrawLines(dopt, Pen.Value, pointsArray);
+                x.DrawLines(dopt, Pen.Value, Points);
         });
     }
 }

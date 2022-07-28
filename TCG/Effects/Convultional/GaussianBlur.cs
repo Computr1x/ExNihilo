@@ -7,8 +7,8 @@ namespace TCG.Effects;
 
 public class GaussianBlur : IEffect
 {
-    public FloatParameter Sigma { get; set; } = new(5f) { Value = 0.5f };
+    public FloatParameter Sigma { get; set; } = new(0.5f) { Min = 0, Max = 1};
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.GaussianBlur(Sigma.Value));
+public void Render(Image image, GraphicsOptions graphicsOptions) =>
+        image.Mutate(x => x.GaussianBlur(Sigma));
 }

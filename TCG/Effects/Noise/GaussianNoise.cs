@@ -8,10 +8,10 @@ namespace TCG.Effects;
 
 public class GaussianNoise : IEffect
 {
-    public IntParameter Seed { get; set; } = new(0);
-    public ByteParameter Amount { get; set; } = new (byte.MaxValue) { Value = byte.MaxValue };
-    public BoolParameter Monochrome { get; set; } = new() { Value = false };
+    public IntParameter Seed { get; set; } = new(0) { Min = 0, Max = 10 };
+    public ByteParameter Amount { get; set; } = new (byte.MaxValue) { Min = 0, Max = byte.MaxValue };
+    public BoolParameter Monochrome { get; set; } = new();
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.GaussianNoise(Seed.Value, Amount.Value, Monochrome.Value));
+        image.Mutate(x => x.GaussianNoise(Seed, Amount, Monochrome));
 }

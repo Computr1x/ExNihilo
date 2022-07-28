@@ -5,7 +5,7 @@ using TCG.Base.Interfaces;
 
 namespace TCG.Base.Hierarchy;
 
-public class Layer
+public class Layer : IRandomizableParameter
 {
     public Size Size { get; }
     public GraphicsOptions GraphicsOptions { get; }
@@ -46,5 +46,10 @@ public class Layer
         tempImg?.Dispose();
 
         return img;
+    }
+
+    public void Randomize(Random r)
+    {
+        // TODO MAKE LAYER RANDOMIZE
     }
 }

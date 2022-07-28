@@ -19,15 +19,15 @@ public class RGBShift : IEffect
         }
     }
 
-    public IntParameter BlueYOffset { get; set; } = new(0);
-    public IntParameter GreenYOffset { get; set; } = new(0);
-    public IntParameter RedYOffset { get; set; } = new(0);
-    public IntParameter BlueXOffset { get; set; } = new(0);
-    public IntParameter GreenXOffset { get; set; } = new(0);
-    public IntParameter RedXOffset { get; set; } = new(0);
+    public IntParameter BlueYOffset { get; set; } = new(0) { Min = -10, Max = 10};
+    public IntParameter GreenYOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntParameter RedYOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntParameter BlueXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntParameter GreenXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntParameter RedXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x =>
-            x.RGBShift(RedXOffset.Value, GreenXOffset.Value, BlueXOffset.Value, RedYOffset.Value, GreenYOffset.Value, BlueYOffset.Value));
+            x.RGBShift(RedXOffset, GreenXOffset, BlueXOffset, RedYOffset, GreenYOffset, BlueYOffset));
 
 }

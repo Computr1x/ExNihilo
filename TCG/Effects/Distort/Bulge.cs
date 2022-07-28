@@ -10,9 +10,9 @@ public class Bulge : IEffect
 {
     public IntParameter X { get; set; } = new(0);
     public IntParameter Y { get; set; } = new(0);
-    public FloatParameter Radius { get; set; } = new(50f) { Value = 50f };
-    public FloatParameter Strenght { get; set; } = new(1f) { Value = 0.5f };
+    public FloatParameter Radius { get; set; } = new(50f) { Min = 1, Max = 150};
+    public FloatParameter Strenght { get; set; } = new(0.5f) { Min = 0, Max = 2f };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Bulge(X.Value, Y.Value, Radius.Value, Strenght.Value));
+        image.Mutate(x => x.Bulge(X, Y, Radius, Strenght));
 }

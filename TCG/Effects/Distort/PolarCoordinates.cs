@@ -9,8 +9,8 @@ namespace TCG.Effects;
 
 public class PolarCoordinates : IEffect
 {
-    public EnumParameter<PolarConversionType> ConversionType { get; set; } = new() { Value = PolarConversionType.CartesianToPolar };
+    public EnumParameter<PolarConversionType> ConversionType { get; } = new(PolarConversionType.CartesianToPolar);
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.PolarCoordinates(ConversionType.Value));
+        image.Mutate(x => x.PolarCoordinates(ConversionType));
 }

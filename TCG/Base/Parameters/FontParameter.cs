@@ -14,13 +14,13 @@ public class FontParameter : GenericStructParameter<FontFamily>
 
     public IEnumerable<FontFamily> FontFamilies { get => collection.Families; }
 
-    public FontParameter(FontFamily defaultValue) : base(defaultValue)
+    public FontParameter(FontFamily defaultValue = default) : base(defaultValue)
     {
         collection = new FontCollection();
         collection.AddSystemFonts();
     }
 
-    public FontParameter(FontFamily defaultValue, FontCollection collection) : base(defaultValue)
+    public FontParameter(FontCollection collection, FontFamily defaultValue = default) : base(defaultValue)
     {
         this.collection = collection;
     }

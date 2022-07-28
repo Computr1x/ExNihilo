@@ -8,7 +8,7 @@ public class RectangleParameter : GenericStructParameter<Rectangle>
     public PointParameter Point { get; init; }
     public SizeParameter Size { get; init; }
 
-    public RectangleParameter(Rectangle defaultValue) : base(defaultValue)
+    public RectangleParameter(Rectangle defaultValue = default) : base(defaultValue)
     {
     }
 

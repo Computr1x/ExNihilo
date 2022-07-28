@@ -7,8 +7,8 @@ namespace TCG.Effects;
 
 public class Pixelate : IEffect
 {
-    public IntParameter PixelSize { get; set; } = new(16) { Value = 3 };
+    public IntParameter PixelSize { get; set; } = new(4) { Min = 2, Max = 32 };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Pixelate(PixelSize.Value));
+        image.Mutate(x => x.Pixelate(PixelSize));
 }

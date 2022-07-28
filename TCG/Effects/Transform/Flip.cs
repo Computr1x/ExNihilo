@@ -7,8 +7,7 @@ namespace TCG.Effects;
 
 public class Flip : IEffect
 {
-    public EnumParameter<FlipMode> Mode { get; set; } = new() { Value = FlipMode.Horizontal };
-
+    public EnumParameter<FlipMode> Mode { get; set; } = new(FlipMode.Horizontal);
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Flip(Mode.Value));
+        image.Mutate(x => x.Flip(Mode));
 }

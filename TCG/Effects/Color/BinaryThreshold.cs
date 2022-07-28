@@ -7,9 +7,9 @@ namespace TCG.Effects;
 
 public class BinaryThreshold : IEffect
 {
-    public FloatParameter ThresholdLimit { get; set; } = new FloatParameter(1) { Value = 0.5f };
+    public FloatParameter ThresholdLimit { get; set; } = new FloatParameter(0.5f) { Min = 0f, Max = 1f };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.BinaryThreshold(ThresholdLimit.Value));
+        image.Mutate(x => x.BinaryThreshold(ThresholdLimit));
 
 }

@@ -7,10 +7,10 @@ namespace TCG.Effects;
 
 public class Scale : IEffect
 {
-    public FloatParameter XScale { get; set; } = new(0, 2);
-    public FloatParameter YScale { get; set; } = new(0, 2);
+    public FloatParameter XScale { get; set; } = new(0) { Min = 0, Max = 2 };
+    public FloatParameter YScale { get; set; } = new(0) { Min = 0, Max = 2 };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x =>
-            x.Transform(new AffineTransformBuilder().AppendScale(new System.Numerics.Vector2(XScale.Value, YScale.Value))));
+            x.Transform(new AffineTransformBuilder().AppendScale(new System.Numerics.Vector2(XScale, YScale))));
 }

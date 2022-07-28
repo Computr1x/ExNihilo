@@ -7,9 +7,9 @@ namespace TCG.Effects;
 
 public class Pad : IEffect
 {
-    public IntParameter Width { get; set; } = new(0);
-    public IntParameter Height { get; set; } = new(0);
+    public IntParameter Width { get; set; } = new(0) { Min = 0, Max = 50 };
+    public IntParameter Height { get; set; } = new(0) { Min = 0, Max = 50 };
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Pad(Width.Value, Height.Value));
+        image.Mutate(x => x.Pad(Width, Height));
 }

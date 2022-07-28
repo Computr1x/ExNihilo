@@ -14,7 +14,7 @@ public class FloatParameter : GenericStructParameter<float>, IHasMinMax<float>
 
     public float Min { get; set; }
 
-    public FloatParameter(float defaultValue) : base(defaultValue) { }
+    public FloatParameter(float defaultValue = default) : base(defaultValue) { }
 
     protected override void RandomizeImplementation(Random r)
     {

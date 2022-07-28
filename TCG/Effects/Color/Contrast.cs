@@ -7,8 +7,8 @@ namespace TCG.Effects;
 
 public class Contrast : IEffect
 {
-    public FloatParameter Amount { get; set; } = new FloatParameter(5) { Value = 3 };
+    public FloatParameter Amount { get; set; } = new FloatParameter(3) { Min = 0, Max = 3};
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Contrast(Amount.Value));
+        image.Mutate(x => x.Contrast(Amount));
 }

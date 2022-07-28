@@ -9,7 +9,7 @@ namespace TCG.Rnd.Randomizers.Parameters;
 
 public class BoolParameter : GenericStructParameter<bool>
 {
-    public BoolParameter(bool defaultValue) : base(defaultValue)
+    public BoolParameter(bool defaultValue = false) : base(defaultValue)
     {
     }
 

@@ -8,7 +8,6 @@ public class FilterMatrix : IEffect
 {
     public ColorMatrix Matrix { get; set; } = new ColorMatrix();
 
-
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Filter(Matrix));
 }

@@ -8,7 +8,7 @@ namespace TCG.Drawables;
 
 public class DImage : IDrawable
 {
-    public PointParameter Location { get; set; } = new PointParameter(new Point());
+    public PointParameter Location { get; } = new PointParameter(new Point());
     public IList<IEffect> Effects { get; }
 
     private Image? image = null;
