@@ -12,6 +12,8 @@ public class GaussianNoise : IEffect
     public ByteParameter Amount { get; set; } = new (byte.MaxValue) { Min = 0, Max = byte.MaxValue };
     public BoolParameter Monochrome { get; set; } = new();
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.GaussianNoise(Seed, Amount, Monochrome));
+    public void Render(Image image, GraphicsOptions graphicsOptions)
+    {
+        image.Mutate(x => { x.SetGraphicsOptions(graphicsOptions); x.GaussianNoise(Seed, Amount, Monochrome); });
+    }
 }

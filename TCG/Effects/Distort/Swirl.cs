@@ -26,9 +26,9 @@ public class Swirl : IEffect
 
     public void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if (!X.Value.HasValue&& !Y.Value.HasValue)
+        if (!X.Value.HasValue && !Y.Value.HasValue)
             image.Mutate(x => x.Swirl(Radius, Degree, Twists));
         else
-            image.Mutate(x => x.Swirl(X, Y, Radius, Degree, Twists));
+            image.Mutate(x => { x.SetGraphicsOptions(graphicsOptions); x.Swirl(X, Y, Radius, Degree, Twists); });
     }
 }

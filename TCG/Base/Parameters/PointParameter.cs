@@ -6,6 +6,10 @@ namespace TCG.Rnd.Randomizers.Parameters;
 
 public class PointParameter : GenericStructParameter<Point>
 {
+    public PointParameter() : base(new Point())
+    {
+    }
+
     public PointParameter(Point defaultValue) : base(defaultValue)
     {
     }

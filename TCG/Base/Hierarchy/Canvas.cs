@@ -9,8 +9,6 @@ public class Canvas
     public Size Size { get; }
     public List<Layer> Layers { get; } = new List<Layer>();
 
-
-
     public Canvas(Size size)
     {
         Size = size;
@@ -18,23 +16,6 @@ public class Canvas
 
     public Canvas(int width, int height) : this(new Size(width, height))
     {
-    }
-
-    public Layer CreateLayer(GraphicsOptions? options = null)
-    {
-        if (options == null)
-        {
-            options = new GraphicsOptions()
-            {
-                AlphaCompositionMode = PixelAlphaCompositionMode.SrcOver,
-                BlendPercentage = 1,
-                ColorBlendingMode = PixelColorBlendingMode.Normal
-            };
-        }
-
-        Layer layer = new(Size, options);
-        Layers.Add(layer);
-        return layer;
     }
 
     public Image<Rgba32> Render()
@@ -48,7 +29,7 @@ public class Canvas
             foreach (var effect in layer.Effects)
                 effect.Render(renderedImage, layer.GraphicsOptions);
 
-            img.Mutate(x => x.DrawImage(renderedImage, 1));
+            img.Mutate(x => x.DrawImage(renderedImage, layer.GraphicsOptions));
             renderedImage.Dispose();
         }
 
