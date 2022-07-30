@@ -25,7 +25,7 @@ public class DText : BaseDrawable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if (string.IsNullOrEmpty(Text))
+        if (string.IsNullOrEmpty(Text.Value ?? Text.DefaultValue))
             return;
 
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };

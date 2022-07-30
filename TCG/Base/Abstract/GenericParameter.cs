@@ -23,9 +23,9 @@ public abstract class GenericParameter<T> : IRandomizableParameter where T : cla
         DefaultValue = defaultValue;
     }
 
-    public void Randomize(Random r) 
+    public void Randomize(Random r, bool force = false)
     {
-        if (Value != null && !ValueIsRandomized)
+        if (Value != null && !ValueIsRandomized && !force)
             return;
         RandomizeImplementation(r); 
         ValueIsRandomized = true; 

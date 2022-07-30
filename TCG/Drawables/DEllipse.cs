@@ -24,7 +24,12 @@ public class DEllipse : BaseDrawable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        IPath path = new EllipsePolygon(Rectangle.Point, Rectangle.Size);
+        SixLabors.ImageSharp.Rectangle rect = Rectangle;
+
+        if (rect.Width <= 0 || rect.Height <= 0)
+            return;
+
+        IPath path = new EllipsePolygon(new PointF(rect.X, rect.Y), rect.Size);
         DrawingOptions dopt = new () { GraphicsOptions = graphicsOptions };
 
         image.Mutate((x) =>

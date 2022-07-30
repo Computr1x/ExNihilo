@@ -6,13 +6,18 @@ namespace TCG.Base.Hierarchy;
 
 public class Canvas
 {
-    protected Size Size { get; }
-    protected List<Layer> Layers { get; }
+    public Size Size { get; }
+    public List<Layer> Layers { get; } = new List<Layer>();
 
-    public Canvas(int width, int height)
+
+
+    public Canvas(Size size)
     {
-        Size = new Size(width, height);
-        Layers = new List<Layer>();
+        Size = size;
+    }
+
+    public Canvas(int width, int height) : this(new Size(width, height))
+    {
     }
 
     public Layer CreateLayer(GraphicsOptions? options = null)

@@ -13,7 +13,7 @@ namespace TCG.Base.Parameters;
 public class BrushParameter : GenericParameter<IBrush>
 {
     public EnumParameter<BrushType> Type { get; set; } = new EnumParameter<BrushType>(BrushType.Solid);
-    public ColorParameter Color { get; set; } = new ColorParameter();
+    public ColorParameter Color { get; set; } = new ColorParameter(SixLabors.ImageSharp.Color.Black);
 
     public BrushParameter(IBrush defaultValue) : base(defaultValue)
     {

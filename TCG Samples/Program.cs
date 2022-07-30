@@ -24,14 +24,16 @@ class Program
     private static void TestLayers()
     {
         RNDManager rndManager = new RNDManager(0);
-        
+        Size canvasSize = new(512, 256);
 
-        Canvas canvas = new Canvas(512, 256);
+        Canvas canvas = new (canvasSize);
 
         var layer0 = canvas.CreateLayer();
+        layer0.GraphicsOptions.
         var image = new DImage(@"D:\Coding\TextCaptcha\TCG Samples\assets\img\cat.png");
         image.Location.Value = new Point(256, 128);
         image.Effects.Add(new RGBShift() {  Offset = 3});
+        
         
         layer0.Drawables.Add(
             new DPattern(
@@ -47,7 +49,7 @@ class Program
                     { false, false, false, false, true, false, false, false, false, false }},
                 Color.Transparent, Color.HotPink));
         layer0.Drawables.Add(image);
-        layer0.Drawables.Add(new DLine(new PointF[] { new PointF(20, 20), new PointF(256, 128), new PointF(300, 50), new PointF(512, 256) }));
+        layer0.Drawables.Add(new DLine(new PointF[] { new PointF(20, 20), new PointF(256, 128), new PointF(300, 50), new PointF(512, 256), }));
         //layer0.Effects.Add(new RGBShift(3));
         //layer0.Effects.Add(new Bulge() { X = 340,  Y = 195, Radius = 100, Strenght = 0.1f });
         //layer0.Effects.Add(new HSBCorrection(50, 0, -120));
@@ -85,6 +87,8 @@ class Program
         var layer3 = canvas.CreateLayer(new GraphicsOptions() { BlendPercentage = 0.5f });
         layer3.Drawables.Add(new DEllipse(256, 128, 250, 250) { Type = TCG.Base.Abstract.DrawableType.FillWithOutline, Brush = Brushes.Solid(Color.DeepPink), Pen = Pens.Dot(Color.Orange, 3) });
 
+
+        //rndManager.RandomizeCanvas(canvas, false);
 
         var resImg = canvas.Render();
         resImg.Save(@"D:\Coding\TextCaptcha\TCG Samples\assets\results\gen.png");

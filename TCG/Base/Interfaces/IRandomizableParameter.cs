@@ -8,5 +8,5 @@ namespace TCG.Base.Interfaces;
 
 public interface IRandomizableParameter
 {
-    public void Randomize(Random r);
+    public void Randomize(Random r, bool force = false);
 }

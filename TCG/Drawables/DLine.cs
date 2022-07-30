@@ -23,9 +23,15 @@ public class DLine : IDrawable
         Points.Value = points;
     }
 
+    public DLine(PointF[] points, Color color) : this(points)
+    {
+        Pen.Color.Value = color;
+        Pen.Color.Value = color;
+    }
+
     public void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if ((Points.Value ?? Points.DefaultValue).Length <= 2)
+        if ((Points.Value ?? Points.DefaultValue).Length < 2)
             return;
 
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
@@ -33,9 +39,9 @@ public class DLine : IDrawable
         image.Mutate((x) =>
         {
             if (IsBeziers)
-                x.DrawBeziers(dopt, Pen.Value, Points);
+                x.DrawBeziers(dopt, (IPen)(Pen)Pen, Points);
             else
-                x.DrawLines(dopt, Pen.Value, Points);
+                x.DrawLines(dopt, (IPen)(Pen)Pen, Points);
         });
     }
 }

@@ -5,8 +5,8 @@ namespace TCG.Rnd.Randomizers.Parameters;
 
 public class RectangleParameter : GenericStructParameter<Rectangle>
 {
-    public PointParameter Point { get; init; }
-    public SizeParameter Size { get; init; }
+    public PointParameter Point { get; init; } = new PointParameter(default);
+    public SizeParameter Size { get; init; } = new SizeParameter(default);
 
     public RectangleParameter(Rectangle defaultValue = default) : base(defaultValue)
     {

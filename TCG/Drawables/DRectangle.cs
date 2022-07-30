@@ -25,7 +25,12 @@ public class DRectangle : BaseDrawable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        IPath path = new RectangularPolygon(Rectangle);
+        SixLabors.ImageSharp.Rectangle rect = Rectangle;
+
+        if (rect.Width <= 0 || rect.Height <= 0)
+            return;
+
+        IPath path = new RectangularPolygon(rect);
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
         image.Mutate((x) =>
         {

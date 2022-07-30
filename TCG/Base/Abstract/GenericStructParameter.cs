@@ -28,9 +28,9 @@ public abstract class GenericStructParameter<T> : IRandomizableParameter where T
         DefaultValue = defaultValue;
     }
 
-    public void Randomize(Random r)
+    public void Randomize(Random r, bool force = false)
     {
-        if (Value != null && !ValueIsRandomized)
+        if (Value != null && !ValueIsRandomized && !force)
             return;
         RandomizeImplementation(r);
         ValueIsRandomized = true;
