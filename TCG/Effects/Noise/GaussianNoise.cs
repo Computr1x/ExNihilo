@@ -14,6 +14,6 @@ public class GaussianNoise : IEffect
 
     public void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        image.Mutate(x => { x.SetGraphicsOptions(graphicsOptions); x.GaussianNoise(Seed, Amount, Monochrome); });
+        image.Mutate(x => { x.GaussianNoise(Seed, Amount, Monochrome); });
     }
 }

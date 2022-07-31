@@ -14,7 +14,7 @@ public class DLine : IDrawable
     public PenParameter Pen { get; } = new PenParameter(Pens.Solid(Color.Black, 1));
     public BoolParameter IsBeziers { get;  } = new BoolParameter(false);
 
-    public PointFArrayParameter Points { get;  } = new PointFArrayParameter(new PointF[0]);
+    public PointFArrayParameter Points { get;  } = new PointFArrayParameter(new PointF[0]) { Length = { DefaultValue = 4}};
 
     public DLine() { }
 

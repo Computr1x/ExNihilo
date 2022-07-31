@@ -58,17 +58,21 @@ public class RNDManager
         {
             if (property.PropertyType.GetInterfaces().Contains(typeof(IRandomizableParameter)))
             {
+                Console.WriteLine(renderable.GetType().ToString() + " " + property.Name);
                 object? propValue = property.GetValue(renderable);
                 if(propValue != null)
-                    (propValue as IRandomizableParameter).Randomize(rnd, false);
+                    (propValue as IRandomizableParameter).Randomize(rnd, force);
             }
 
-            if (property.PropertyType.IsArray && property.PropertyType.GetElementType().GetInterfaces().Contains(typeof(IRandomizableParameter)))
+            if (property.PropertyType.IsArray)
             {
-                Array a = (Array)property.GetValue(renderable);
-                foreach(var arrProperty in a)
+                if (property.PropertyType.GetElementType().GetInterfaces().Contains(typeof(IRandomizableParameter)))
                 {
-                    (arrProperty as IRandomizableParameter).Randomize(rnd, force);
+                    Array a = (Array)property.GetValue(renderable);
+                    foreach (var arrProperty in a)
+                    {
+                        (arrProperty as IRandomizableParameter).Randomize(rnd, force);
+                    }
                 }
             }
         }
