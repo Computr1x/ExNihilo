@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using TCG.Base.Hierarchy;
 using TCG.Base.Interfaces;
-using TCG.Rnd.Randomizers.Parameters;
+using TCG.Base.Parameters;
 
 namespace TCG.Rnd.Managers;
 

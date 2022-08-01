@@ -1,7 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using TCG.Base.Abstract;
 
-namespace TCG.Rnd.Randomizers.Parameters;
+namespace TCG.Base.Parameters;
 
 public class ColorParameter : GenericStructParameter<Color>
 {
@@ -10,14 +10,16 @@ public class ColorParameter : GenericStructParameter<Color>
 
     public ColorParameter(Color defaultColor, Color[] colors, byte opacity = 255) : base(defaultColor)
     {
-        Colors = colors.Length > 0 ? colors : GeneratePalette(opacity);
         Opacity = opacity;
+
+        Colors = colors.Length > 0 ? colors : GeneratePalette(opacity);
     }
 
     public ColorParameter(Color defaultColor, int colorsCount = 1, byte opacity = 255) : base(defaultColor)
     {
-        Colors = GeneratePalette(colorsCount);
         Opacity = opacity;
+
+        Colors = GeneratePalette(colorsCount);
     }
 
     private Color[] GeneratePalette(int colorsCount)

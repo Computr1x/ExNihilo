@@ -1,32 +1,21 @@
 ﻿using SixLabors.Fonts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TCG.Base.Abstract;
 
-namespace TCG.Rnd.Randomizers.Parameters;
+namespace TCG.Base.Parameters;
 
-public class FontParameter : GenericStructParameter<FontFamily>
+public class FontParameter : GenericParameter<Font>
 {
-    private FontCollection collection;
+    public List<Font> Fonts { get; } = new List<Font>();
 
-    public IEnumerable<FontFamily> FontFamilies { get => collection.Families; }
+    public FontParameter(Font defaultValue) : base(defaultValue) { }
 
-    public FontParameter(FontFamily defaultValue = default) : base(defaultValue)
+    public FontParameter(Font defaultValue, Font[] fontCollection) : this(defaultValue)
     {
-        collection = new FontCollection();
-        collection.AddSystemFonts();
-    }
-
-    public FontParameter(FontCollection collection, FontFamily defaultValue = default) : base(defaultValue)
-    {
-        this.collection = collection;
+        Fonts.AddRange(fontCollection);
     }
 
     protected override void RandomizeImplementation(Random r)
     {
-        Value = FontFamilies.ElementAt(r.Next(FontFamilies.Count()));
+        Value = Fonts.Count > 0 ? Fonts[r.Next(0, Fonts.Count)] : DefaultValue;
     }
 }

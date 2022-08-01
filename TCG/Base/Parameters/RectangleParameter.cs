@@ -1,7 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using TCG.Base.Abstract;
 
-namespace TCG.Rnd.Randomizers.Parameters;
+namespace TCG.Base.Parameters;
 
 public class RectangleParameter : GenericStructParameter<Rectangle>
 {

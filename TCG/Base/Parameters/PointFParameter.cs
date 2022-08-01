@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TCG.Base.Abstract;
-using TCG.Rnd.Randomizers.Parameters;
+using TCG.Base.Parameters;
 
 namespace TCG.Base.Parameters;
 

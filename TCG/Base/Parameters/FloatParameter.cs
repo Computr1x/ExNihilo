@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TCG.Base.Abstract;
 using TCG.Base.Interfaces;
 
-namespace TCG.Rnd.Randomizers.Parameters;
+namespace TCG.Base.Parameters;
 
 public class FloatParameter : GenericStructParameter<float>, IHasMinMax<float>
 {

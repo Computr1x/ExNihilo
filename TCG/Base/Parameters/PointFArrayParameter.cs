@@ -5,11 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TCG.Base.Abstract;
+using TCG.Base.Parameters;
 
 namespace TCG.Base.Parameters;
 
-public class PointFArrayParameter : ArrayParameter<PointF>
+public class PointFArrayParameter : GenericParameter<PointF[]>
 {
+    public IntParameter Length { get; set; } = new IntParameter(0);
+
+    public IntParameter X { get; set; } = new IntParameter(0);
+    public IntParameter Y { get; set; } = new IntParameter(0);
+
     public PointFArrayParameter(PointF[] defaultValue) : base(defaultValue)
     {
     }
@@ -21,8 +27,9 @@ public class PointFArrayParameter : ArrayParameter<PointF>
         Value = new PointF[Length];
         for (int i = 0; i < Length; i++)
         {
-            Value[i] = r.NextSingle() * (Max - Min) + Min;
+            X.Randomize(r);
+            Y.Randomize(r);
+            Value[i] = new PointF(X, Y);
         }
-        
     }
 }

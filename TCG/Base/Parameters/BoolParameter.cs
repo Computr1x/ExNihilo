@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TCG.Base.Abstract;
 
-namespace TCG.Rnd.Randomizers.Parameters;
+namespace TCG.Base.Parameters;
 
 public class BoolParameter : GenericStructParameter<bool>
 {

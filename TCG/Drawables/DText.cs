@@ -4,7 +4,6 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Abstract;
 using TCG.Base.Parameters;
-using TCG.Rnd.Randomizers.Parameters;
 
 namespace TCG.Drawables;
 
@@ -12,8 +11,10 @@ public class DText : BaseDrawable
 {
     public StringParameter Text { get; } = new StringParameter() { DefaultValue = "TEST" };
     public PointParameter Origin { get; } = new PointParameter();
+    public FontFamilyParameter FontFamily { get; } = new FontFamilyParameter();
+    public FloatParameter FontSize { get; } = new FloatParameter(64) { Min = 32, Max = 128};
 
-    public Font Font { get; set; }
+    //public Font Font { get; set; }
     public int Dpi { get; set; } = 72;
     public TextAlignment TextAlignment { get; set; } = TextAlignment.Center;
     public HorizontalAlignment HorizontalAlignment { get; set; } = HorizontalAlignment.Center;
@@ -27,7 +28,7 @@ public class DText : BaseDrawable
         {
             Point origin = Origin;
 
-            return new(Font)
+            return new((FontFamily.Value ?? FontFamily.DefaultValue).CreateFont(FontSize))
             {
                 Dpi = Dpi,
                 HorizontalAlignment = HorizontalAlignment,
@@ -39,12 +40,14 @@ public class DText : BaseDrawable
         }
     }
 
-    public DText(Font font) : base()
+    public DText() { }
+
+    public DText(FontFamily fontFamily) : base()
     {
-        Font = font;
+        FontFamily.Value = fontFamily;
     }
 
-    public DText(Font font, string text) : this(font)
+    public DText(FontFamily fontFamily, string text) : this(fontFamily)
     {
         Text.Value = text;
         Text.Length.Value = text.Length;
@@ -52,7 +55,7 @@ public class DText : BaseDrawable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if (string.IsNullOrEmpty(Text.Value ?? Text.DefaultValue))
+        if (string.IsNullOrEmpty(Text.Value ?? Text.DefaultValue) && FontFamily.Collection.Count <= 0)
             return;
         
 
@@ -61,7 +64,7 @@ public class DText : BaseDrawable
 
         image.Mutate((x) =>
         {
-            x.DrawText(dopt, TextOptions, Text, Brush, Pen);
+            x.DrawText(dopt, TextOptions, Text, Brush.Value ?? Brush.DefaultValue, Pen.Value ?? Pen.DefaultValue);
         });
     }
 }

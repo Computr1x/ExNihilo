@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
 using TCG.Extensions.Processors;
 using TCG.Processors;
-using TCG.Rnd.Randomizers.Parameters;
+using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 

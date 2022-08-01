@@ -3,6 +3,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Abstract;
 using TCG.Base.Parameters;
+using TCG.Base.Utils;
 
 namespace TCG.Drawables;
 
@@ -12,7 +13,7 @@ public class DPolygon : BaseDrawable
 
     public DPolygon() { }
 
-    public DPolygon(PointF[] points) 
+    public DPolygon(PointF[] points)
     {
         Points.Value = points;
     }
@@ -26,10 +27,10 @@ public class DPolygon : BaseDrawable
 
         image.Mutate((x) =>
         {
-            if (Type.HasFlag(DrawableType.Filled))
-                x.FillPolygon(dopt, Brush, Points);
-            if (Type.HasFlag(DrawableType.Outlined))
-                x.DrawPolygon(dopt, Pen, Points);
+            if (((DrawableType)Type).HasFlag(DrawableType.Filled))
+                x.FillPolygon(dopt, Brush.Value ?? Brush.DefaultValue, Points);
+            if (((DrawableType)Type).HasFlag(DrawableType.Outlined))
+                x.DrawPolygon(dopt, Pen.Value ?? Pen.DefaultValue, Points);
         });
     }
 }

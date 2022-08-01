@@ -1,7 +1,7 @@
 ﻿using TCG.Base.Abstract;
 using TCG.Base.Interfaces;
 
-namespace TCG.Rnd.Randomizers.Parameters;
+namespace TCG.Base.Parameters;
 
 public class ByteParameter : GenericStructParameter<byte>, IHasMinMax<byte>
 {

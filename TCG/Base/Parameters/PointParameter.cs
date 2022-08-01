@@ -2,7 +2,7 @@
 using System.Numerics;
 using TCG.Base.Abstract;
 
-namespace TCG.Rnd.Randomizers.Parameters;
+namespace TCG.Base.Parameters;
 
 public class PointParameter : GenericStructParameter<Point>
 {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TCG.Base.Abstract;
 using TCG.Base.Utils;
-using TCG.Rnd.Randomizers.Parameters;
+using TCG.Base.Parameters;
 
 namespace TCG.Base.Parameters;
 
@@ -36,6 +36,6 @@ public class BrushParameter : GenericParameter<IBrush>
             BrushType.Percent20 => Brushes.Percent20(Color),
             _ => Brushes.Solid(Color)
         };
-        
     }
+
 }

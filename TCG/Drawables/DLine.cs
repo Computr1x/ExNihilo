@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using TCG.Base.Interfaces;
 using TCG.Base.Parameters;
-using TCG.Rnd.Randomizers.Parameters;
+using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
@@ -39,9 +39,9 @@ public class DLine : IDrawable
         image.Mutate((x) =>
         {
             if (IsBeziers)
-                x.DrawBeziers(dopt, (IPen)(Pen)Pen, Points);
+                x.DrawBeziers(dopt, Pen.Value ?? Pen.DefaultValue, Points);
             else
-                x.DrawLines(dopt, (IPen)(Pen)Pen, Points);
+                x.DrawLines(dopt, Pen.Value ?? Pen.DefaultValue, Points);
         });
     }
 }

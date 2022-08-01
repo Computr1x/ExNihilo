@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TCG.Base.Abstract;
+using TCG.Base.Parameters;
 
 namespace TCG.Base.Parameters;
 
-public class Bool2DArrayParameter : Array2DParameter<bool>
+public class Bool2DArrayParameter : GenericParameter<bool[,]>
 {
+    public IntParameter Width { get; set; } = new IntParameter(2);
+    public IntParameter Height { get; set; } = new IntParameter(2);
+
     public Bool2DArrayParameter(bool[,] defaultValue) : base(defaultValue)
     {
     }

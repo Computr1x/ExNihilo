@@ -9,3 +9,7 @@ public enum BrushType
 {
     Solid, Vertical, Horizontal, BackwardDiagonal, ForwardDiagonal, Min, Percent10, Percent20
 }
+
+
+[Flags]
+public enum DrawableType : byte { Filled = 1 << 0, Outlined = 1 << 1, FillWithOutline = Filled | Outlined }
