@@ -1,6 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using TCG.Base.Interfaces;
 
 namespace TCG.Base.Hierarchy;
 
@@ -8,6 +9,7 @@ public class Canvas
 {
     public Size Size { get; }
     public List<Layer> Layers { get; } = new List<Layer>();
+    public List<IEffect> Effects { get; } = new List<IEffect>();
 
     public Canvas(Size size)
     {
@@ -32,6 +34,9 @@ public class Canvas
             img.Mutate(x => x.DrawImage(renderedImage, layer.GraphicsOptions));
             renderedImage.Dispose();
         }
+
+        foreach (var effect in Effects)
+            effect.Render(img, new GraphicsOptions());
 
         return img;
     }

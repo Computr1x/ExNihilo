@@ -7,6 +7,7 @@ using TCG.Base.Utils;
 using TCG.Drawables;
 using TCG.Effects;
 using TCG.Rnd.Managers;
+using System.Linq;
 
 namespace Samples;
 
@@ -14,13 +15,44 @@ class Program
 {
     static void Main(string[] args)
     {
-        TestMinimal();
+        CaptchaGenerator cg = new();
+        int[] seeds = new[] { 0, 1, 666 };
+        //int i = 0;
+        //foreach (var image in cg.Generate(TestText(), seeds))
+        //{
+        //    image.Save($@"D:\Coding\TextCaptcha\TCG Samples\assets\results\gen{seeds[i]}.png");
+        //    i++;
+        //}
+
+        var template = TestText();
+
+        //TestGenerator.CreateGenerator()
+        //    .SetTemplate(template)
+        //    .SetSeeds(new[] { 0, 1, 666 })
+        //    .Generate();
+
+        int i = 0;
+        foreach (var image in 
+                                TestGenerator.CreateGenerator()
+                                    .SetTemplate(TestText())
+                                    .SetSeeds(new[] { 0, 1, 666 })
+                                    .SetCaptchaTexts(new string[] { "test", "TEST", "TeSt" })
+                                    .SetCaptchaSetTextAction((Canvas canvas, string text) =>
+                                    {
+                                        if (canvas.Layers[0].Drawables.FirstOrDefault(x => x is DText) is DText drawableText)
+                                            drawableText.Text.Value = text;
+                                    }).Generate())
+        {
+            image.Save($@"D:\Coding\TextCaptcha\TCG Samples\assets\results\gen{seeds[i]}.png");
+            i++;
+        }
+        //TestMinimal();
         //TestLayers();
     }
 
     private static void TestMinimal()
     {
-        RNDManager rndManager = new(0);
+        RandomManager rndManager = new(0);
         Canvas canvas = TestText();
 
         for (int i = 0; i < 5; i++)
@@ -40,7 +72,8 @@ class Program
         var layer0 = new Layer(canvasSize);
         FontCollection collection = new();
         collection.AddSystemFonts();
-        collection.TryGet("Arial", out var family);
+        var family = collection.Get("Arial", System.Globalization.CultureInfo.InvariantCulture);
+
         DText text = new (family)
         {
             Origin = { Value = new Point((int)(canvasSize.Width / 2f), (int)(canvasSize.Height / 2f)) },
@@ -183,7 +216,7 @@ class Program
 
     private static void TestLayers()
     {
-        RNDManager rndManager = new(0);
+        RandomManager rndManager = new(0);
         Size canvasSize = new(512, 256);
 
         Canvas canvas = new(canvasSize);

@@ -9,13 +9,13 @@ using TCG.Base.Parameters;
 
 namespace TCG.Rnd.Managers;
 
-public class RNDManager
+public class RandomManager
 {
     private Random rnd;
     public int Seed { get; private set; }
 
     #pragma warning disable CS8618 // Поле, не допускающее значения NULL, должно содержать значение, отличное от NULL, при выходе из конструктора. Возможно, стоит объявить поле как допускающее значения NULL.
-    public RNDManager(int seed)
+    public RandomManager(int seed)
     {
         Seed = seed;
         ResetRandom();
@@ -36,9 +36,11 @@ public class RNDManager
     {
         foreach(var layer in canvas.Layers)
             RandomizeLayer(layer, force);
+        foreach(var effect in canvas.Effects)
+            RandomizeProperties(effect, force);
     }
 
-    private void RandomizeLayer(Layer layer, bool force = false)
+    public void RandomizeLayer(Layer layer, bool force = false)
     {
         foreach (var effect in layer.Effects)
             RandomizeProperties(effect, force);
@@ -51,7 +53,7 @@ public class RNDManager
                 RandomizeProperties(effect, force);
         }
     }
-    
+
     public void RandomizeProperties(IRenderable renderable, bool force = false)
     {
         foreach (var property in renderable.GetType().GetProperties())
@@ -61,19 +63,7 @@ public class RNDManager
                 Console.WriteLine(renderable.GetType().ToString() + " " + property.Name);
                 object? propValue = property.GetValue(renderable);
                 if(propValue != null)
-                    (propValue as IRandomizableParameter).Randomize(rnd, force);
-            }
-
-            if (property.PropertyType.IsArray)
-            {
-                if (property.PropertyType.GetElementType().GetInterfaces().Contains(typeof(IRandomizableParameter)))
-                {
-                    Array a = (Array)property.GetValue(renderable);
-                    foreach (var arrProperty in a)
-                    {
-                        (arrProperty as IRandomizableParameter).Randomize(rnd, force);
-                    }
-                }
+                    (propValue as IRandomizableParameter)!.Randomize(rnd, force);
             }
         }
     }

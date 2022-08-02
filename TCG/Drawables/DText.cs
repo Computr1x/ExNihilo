@@ -13,6 +13,7 @@ public class DText : BaseDrawable
     public PointParameter Origin { get; } = new PointParameter();
     public FontFamilyParameter FontFamily { get; } = new FontFamilyParameter();
     public FloatParameter FontSize { get; } = new FloatParameter(64) { Min = 32, Max = 128};
+    public EnumParameter<FontStyle> Style { get; } = new EnumParameter<FontStyle>(FontStyle.Regular);
 
     //public Font Font { get; set; }
     public int Dpi { get; set; } = 72;
@@ -28,7 +29,7 @@ public class DText : BaseDrawable
         {
             Point origin = Origin;
 
-            return new((FontFamily.Value ?? FontFamily.DefaultValue).CreateFont(FontSize))
+            return new((FontFamily.Value ?? FontFamily.DefaultValue).CreateFont(FontSize, Style))
             {
                 Dpi = Dpi,
                 HorizontalAlignment = HorizontalAlignment,
@@ -55,13 +56,13 @@ public class DText : BaseDrawable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if (string.IsNullOrEmpty(Text.Value ?? Text.DefaultValue) && FontFamily.Collection.Count <= 0)
+        if (string.IsNullOrEmpty(Text.Value ?? Text.DefaultValue) || FontFamily.Value is null)
             return;
         
 
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
-
+        
         image.Mutate((x) =>
         {
             x.DrawText(dopt, TextOptions, Text, Brush.Value ?? Brush.DefaultValue, Pen.Value ?? Pen.DefaultValue);
