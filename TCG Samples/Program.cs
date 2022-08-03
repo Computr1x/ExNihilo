@@ -6,8 +6,9 @@ using TCG.Base.Hierarchy;
 using TCG.Base.Utils;
 using TCG.Drawables;
 using TCG.Effects;
-using TCG.Rnd.Managers;
 using System.Linq;
+using TCG.Base.Interfaces;
+using TCG.Rnd;
 
 namespace Samples;
 
@@ -15,7 +16,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        CaptchaGenerator cg = new();
+        
         int[] seeds = new[] { 0, 1, 666 };
         //int i = 0;
         //foreach (var image in cg.Generate(TestText(), seeds))
@@ -31,21 +32,41 @@ class Program
         //    .SetSeeds(new[] { 0, 1, 666 })
         //    .Generate();
 
-        int i = 0;
-        foreach (var image in 
-                                TestGenerator.CreateGenerator()
-                                    .SetTemplate(TestText())
-                                    .SetSeeds(new[] { 0, 1, 666 })
-                                    .SetCaptchaTexts(new string[] { "test", "TEST", "TeSt" })
-                                    .SetCaptchaSetTextAction((Canvas canvas, string text) =>
-                                    {
-                                        if (canvas.Layers[0].Drawables.FirstOrDefault(x => x is DText) is DText drawableText)
-                                            drawableText.Text.Value = text;
-                                    }).Generate())
-        {
-            image.Save($@"D:\Coding\TextCaptcha\TCG Samples\assets\results\gen{seeds[i]}.png");
-            i++;
-        }
+        //int i = 0;
+        //foreach (var captcha in 
+        //                        CaptchaGenerator.Create()
+        //                            .SetTemplate(TestText())
+        //                            .SetSeeds(new[] { 0, 1, 666 })
+        //                            .SetCaptchaTexts(new string[] { "test", "TEST", "TeSt" })
+        //                            .SetCaptchaSetTextAction((Canvas canvas, string text) =>
+        //                            {
+        //                                if (canvas.Layers[0].Drawables.FirstOrDefault(x => x is DText) is DText drawableText)
+        //                                    drawableText.Text.Value = text;
+        //                            }).Generate())
+        //{
+        //    Console.WriteLine("Save");
+        //    captcha.Image.Save($@"D:\Coding\TextCaptcha\TCG Samples\assets\results\gen{seeds[i]}.png");
+        //    captcha.Image.SaveAsBmp
+        //    i++;
+        //}
+
+
+        var genCaptha = CaptchaGenerator.Create()
+            .SetTemplate(TestText())
+            .SetSeeds(new[] { 0, 1, 666 })
+            .SetCaptchaTexts(new string[] { "test", "TEST", "TeSt" })
+            .SetCaptchaSetTextAction((Canvas canvas, string text) =>
+            {
+                if (canvas.Layers[0].Drawables.FirstOrDefault(x => x is DText) is DText drawableText)
+                    drawableText.Text.Value = text;
+            }).Generate();
+
+        CaptchaSaver.Create()
+            .SetOutputType(ImageType.Png)
+            .SetOutputPath(@"D:\Coding\TextCaptcha\TCG Samples\assets\results\")
+            .SaveAsZip("archive")
+            .Save(genCaptha);
+
         //TestMinimal();
         //TestLayers();
     }
@@ -83,7 +104,21 @@ class Program
             Text = { Length = { Value = 4}}
             
         };
-        layer0.Drawables.AddRange(new[] { text });
+        DEllipse ellipse = new()
+        {
+            Rectangle =
+            {
+                Point = {
+                    X = { Max = canvasSize.Width },
+                    Y = { Max = canvasSize.Height }},
+                Size = {
+                    Width = { Min = 50, Max = 200 },
+                    Height = { Min = 50, Max = 200}}
+            },
+            Type = { Value = DrawableType.Filled }
+            
+        };
+        layer0.Drawables.AddRange(new IDrawable[] { text, ellipse });
 
         canvas.Layers.AddRange(new[] { layer0 });
 

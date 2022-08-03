@@ -12,6 +12,7 @@ data/
 *.ttf
 *.woff
 *.woff2
+*.zip
 
 # User-specific files
 *.suo
