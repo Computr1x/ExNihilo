@@ -35,7 +35,7 @@ public class DRectangle : BaseDrawableWithBrushAndPen
         Rectangle.Point.X.Min = minX;
         Rectangle.Point.X.Max = maxX;
         Rectangle.Point.Y.Min = minY;
-        Rectangle.Point.Y.Min = maxY;
+        Rectangle.Point.Y.Max = maxY;
         return this;
     }
 

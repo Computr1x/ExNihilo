@@ -5,6 +5,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>$(VersionPrefix)</Version>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Description>TCG - text captcha geneartion library</Description>
+    <RepositoryUrl>https://github.com/Computr1x/TCG</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

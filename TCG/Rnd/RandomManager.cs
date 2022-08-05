@@ -42,9 +42,6 @@ public class RandomManager
 
     public void RandomizeLayer(Layer layer, bool force = false)
     {
-        foreach (var effect in layer.Effects)
-            RandomizeProperties(effect, force);
-
         foreach (var drawable in layer.Drawables)
         {
             RandomizeProperties(drawable, force);
@@ -52,6 +49,9 @@ public class RandomManager
             foreach (var effect in drawable.Effects)
                 RandomizeProperties(effect, force);
         }
+
+        foreach (var effect in layer.Effects)
+            RandomizeProperties(effect, force);
     }
 
     public void RandomizeProperties(IRenderable renderable, bool force = false)

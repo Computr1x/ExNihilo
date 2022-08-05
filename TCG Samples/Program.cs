@@ -3,11 +3,10 @@ using SixLabors.Fonts;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using TCG.Base.Hierarchy;
+using TCG.Base.Interfaces;
 using TCG.Base.Utils;
 using TCG.Drawables;
 using TCG.Effects;
-using System.Linq;
-using TCG.Base.Interfaces;
 using TCG.Rnd;
 
 namespace Samples;
@@ -16,35 +15,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Size canvasSize = new(512, 256);
-        Canvas canvas =
-            new Canvas(canvasSize)
-                .WithLayer(
-                    new Layer(canvasSize)
-                        .WithDrawable(
-                            new DPattern()
-                                .WithPattern(pattern =>
-                                {
-                                    pattern.Width.Value = pattern.Height.Value = 10;
-                                })
-                                .WithSize(canvasSize))
-                        .WithEffect(new Opacity().WithAmount(0.1f)))
-                .WithLayer(
-                    new Layer(canvasSize)
-                        .WithDrawable(
-                            new DEllipse()
-                                .WithPoint(new Point(256, 128))
-                                .WithSize(new Size(100, 100))
-                                .WithBrush(brush =>
-                                {
-                                    brush.WithColor(Color.Green);
-                                    brush.WithRandomizedType();
-                                })
-                                )
-                        );
-        RandomManager rnd = new(0);
-        rnd.RandomizeCanvas(canvas);
-        canvas.Render().SaveAsPng(@"D:\Coding\TextCaptcha\TCG Samples\assets\results\test.png");
+
         //Canvas canvas1 = new Canvas(canvasSize);
         //Layer layer1 = new Layer(canvasSize);
         //DEllipse ellipse = new DEllipse(10, 10, 100, 100)
@@ -141,14 +112,14 @@ class Program
         collection.AddSystemFonts();
         var family = collection.Get("Arial", System.Globalization.CultureInfo.InvariantCulture);
 
-        DText text = new (family)
+        DText text = new(family)
         {
             Point = { Value = new Point((int)(canvasSize.Width / 2f), (int)(canvasSize.Height / 2f)) },
             Pen = { Value = Pens.Solid(Color.Gray, 1f) },
             Brush = { Value = Brushes.Solid(Color.Red) },
-            FontSize = { Value = 64},
-            Text = { Length = { Value = 4}}
-            
+            FontSize = { Value = 64 },
+            Text = { Length = { Value = 4 } }
+
         };
         DEllipse ellipse = new()
         {
@@ -162,7 +133,7 @@ class Program
                     Height = { Min = 50, Max = 200}}
             },
             Type = { Value = DrawableType.Filled }
-            
+
         };
         layer0.Drawables.AddRange(new IDrawable[] { text, ellipse });
 
@@ -179,7 +150,7 @@ class Program
         var layer0 = new Layer(canvasSize);
         DPattern patter = new()
         {
-            Background = { Value = Color.Transparent},
+            Background = { Value = Color.Transparent },
             Rectangle =
             {
                 Size = {
@@ -281,11 +252,11 @@ class Program
         var layer0 = new Layer(canvasSize);
         DLine line = new()
         {
-            IsBeziers = {Value = false},
+            IsBeziers = { Value = false },
             Pen = { Width = { Min = 5, Max = 10 } },
-            Points = { 
-                Length = { Value = 2}, 
-                X = { Max = canvasSize.Width }, 
+            Points = {
+                Length = { Value = 2},
+                X = { Max = canvasSize.Width },
                 Y = { Min = 128-64, Max = 128 + 64} }
         };
         layer0.Drawables.AddRange(new[] { line });
