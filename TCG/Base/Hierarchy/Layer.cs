@@ -68,11 +68,15 @@ public class Layer
         return img;
     }
 
-    //public void Randomize(Random r, bool force = false)
-    //{
-    //    // TODO MAKE LAYER RANDOMIZE
-    //    foreach(var effect in Effects)
+    public Layer WithDrawable(IDrawable drawable)
+    {
+        Drawables.Add(drawable);
+        return this;
+    }
 
-
-    //}
+    public Layer WithEffect(IEffect effect)
+    {
+        Effects.Add(effect);
+        return this;
+    }
 }

@@ -16,7 +16,53 @@ class Program
 {
     static void Main(string[] args)
     {
-        
+        Size canvasSize = new(512, 256);
+        Canvas canvas =
+            new Canvas(canvasSize)
+                .WithLayer(
+                    new Layer(canvasSize)
+                        .WithDrawable(
+                            new DPattern()
+                                .WithPattern(pattern =>
+                                {
+                                    pattern.Width.Value = pattern.Height.Value = 10;
+                                })
+                                .WithSize(canvasSize))
+                        .WithEffect(new Opacity().WithAmount(0.1f)))
+                .WithLayer(
+                    new Layer(canvasSize)
+                        .WithDrawable(
+                            new DEllipse()
+                                .WithPoint(new Point(256, 128))
+                                .WithSize(new Size(100, 100))
+                                .WithBrush(brush =>
+                                {
+                                    brush.WithColor(Color.Green);
+                                    brush.WithRandomizedType();
+                                })
+                                )
+                        );
+        RandomManager rnd = new(0);
+        rnd.RandomizeCanvas(canvas);
+        canvas.Render().SaveAsPng(@"D:\Coding\TextCaptcha\TCG Samples\assets\results\test.png");
+        //Canvas canvas1 = new Canvas(canvasSize);
+        //Layer layer1 = new Layer(canvasSize);
+        //DEllipse ellipse = new DEllipse(10, 10, 100, 100)
+        //{
+        //    Brush =
+        //    {
+        //        Color =
+        //        {
+        //            Value = Color.White
+        //        },
+        //        Type =
+        //        {
+        //            EnumValues = 
+        //        }
+        //    }
+        //}
+
+
         int[] seeds = new[] { 0, 1, 666 };
         //int i = 0;
         //foreach (var image in cg.Generate(TestText(), seeds))
@@ -52,7 +98,7 @@ class Program
 
 
         var genCaptha = CaptchaGenerator.Create()
-            .SetTemplate(TestText())
+            .SetTemplate(template)
             .SetSeeds(new[] { 0, 1, 666 })
             .SetCaptchaTexts(new string[] { "test", "TEST", "TeSt" })
             .SetCaptchaSetTextAction((Canvas canvas, string text) =>
@@ -97,7 +143,7 @@ class Program
 
         DText text = new (family)
         {
-            Origin = { Value = new Point((int)(canvasSize.Width / 2f), (int)(canvasSize.Height / 2f)) },
+            Point = { Value = new Point((int)(canvasSize.Width / 2f), (int)(canvasSize.Height / 2f)) },
             Pen = { Value = Pens.Solid(Color.Gray, 1f) },
             Brush = { Value = Brushes.Solid(Color.Red) },
             FontSize = { Value = 64},
@@ -258,8 +304,8 @@ class Program
 
         var layer0 = new Layer(canvasSize);
         var image = new DImage(@"D:\Coding\TextCaptcha\TCG Samples\assets\img\cat.png");
-        image.Location.Value = new Point(256, 128);
-        image.Effects.Add(new RGBShift() { Offset = 3 });
+        image.Point.Value = new Point(256, 128);
+        image.Effects.Add(new RgbShift() { Offset = 3 });
 
 
         layer0.Drawables.Add(
@@ -285,7 +331,7 @@ class Program
         //layer0.Effects.Add(new PolarCoordinates() { PolarConversaionType = TCG.Processors.PolarConversionType.PolarToCartesian });
         //layer0.Effects.Add(new Ripple() { TraintWidth = 1f });
         //layer0.Effects.Add(new SlitScan() { Time = 1f});
-        layer0.Effects.Add(new Swirl(100, 0, 0.45f) { X = { Value = canvasSize.Width / 2 }, Y = { Value = canvasSize.Height / 2 } });
+        //layer0.Effects.Add(new Swirl(100, 0, 0.45f) { X = { Value = canvasSize.Width / 2 }, Y = { Value = canvasSize.Height / 2 } });
         //layer0.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 15});
         //layer0.Effects.Add(new Crystallize() { CrystalsCount = 1024 });
         //layer0.Effects.Add(new Slices() { Count = 10, SliceHeight = 10 });
@@ -305,7 +351,7 @@ class Program
         DText text = new(family, "TEST");
 
         //FontRectangle rect = TextMeasurer.Measure("TEST", text.TextOptions);
-        text.Origin.Value = new Point((int)(512 / 2), (int)(256 / 2));
+        text.Point.Value = new Point((int)(512 / 2), (int)(256 / 2));
         layer2.Drawables.Add(text);
         //layer2.Effects.Add(new Wave() { WaveType = TCG.Processors.WaveType.Sine, WaveLength = 6 });
 

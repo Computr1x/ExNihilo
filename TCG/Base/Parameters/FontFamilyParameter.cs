@@ -14,11 +14,11 @@ public class FontFamilyParameter : GenericStructParameter<FontFamily>
     public List<FontFamily> Collection { get; } = new List<FontFamily>();
     public CultureInfo CultureInfo { get; set; } = CultureInfo.InvariantCulture;
 
-    public FontFamilyParameter(FontFamily defaultValue = new FontFamily()) : base(defaultValue)
+    public FontFamilyParameter() : base(default)
     {
     }
 
-    public FontFamilyParameter(IEnumerable<FontFamily> collection, FontFamily defaultValue = new FontFamily()) : base(defaultValue)
+    public FontFamilyParameter(IEnumerable<FontFamily> collection) : base(default)
     {
         if (collection.Count() <= 0)
             throw new ArgumentException("Font collection should have at least one item");

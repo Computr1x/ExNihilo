@@ -52,7 +52,7 @@ public static class RGBShiftProcessorExtensions
     /// <param name="greenXOffset">The 'greenXOffset' value representing the amount of channels shift of green channel by x coordinate in pixels.</param>
     /// <param name="greenYOffset">The 'greenYOffset' value representing the amount of channels shift of green channel by y coordinate in pixels.</param>
     /// <returns>The <see cref="IImageProcessingContext"/> to allow chaining of operations.</returns>
-    public static IImageProcessingContext RGBShift(this IImageProcessingContext sourse,
+    public static IImageProcessingContext RgbShift(this IImageProcessingContext sourse,
          int redXOffset, int redYOffset, int blueXOffset, int blueYOffset, int greenXOffset, int greenYOffset)
     {
         return sourse.ApplyProcessor(new RGBShiftProcessor(blueXOffset, blueYOffset, greenXOffset, greenYOffset, redXOffset, redYOffset));

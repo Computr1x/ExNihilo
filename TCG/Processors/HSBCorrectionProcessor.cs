@@ -7,21 +7,21 @@ namespace TCG.Processors;
 
 public class HSBCorrectionProcessor : IImageProcessor
 {
-    private sbyte hue, saturation, brightness;
+    private int hue, saturation, brightness;
 
-    public sbyte Hue
+    public int Hue
     {
         get => hue;
         set { hue = (sbyte)(value % 256); }
     }
 
-    public sbyte Saturation
+    public int Saturation
     {
         get => saturation;
         set { saturation = (sbyte)(value % 256); }
     }
 
-    public sbyte Brightness
+    public int Brightness
     {
         get => brightness;
         set { brightness = (sbyte)(value % 256); }
@@ -34,7 +34,7 @@ public class HSBCorrectionProcessor : IImageProcessor
     {
     }
 
-    public HSBCorrectionProcessor(sbyte hue, sbyte saturation, sbyte brightness)
+    public HSBCorrectionProcessor(int hue, int saturation, int brightness)
     {
         Hue = hue;
         Saturation = saturation;

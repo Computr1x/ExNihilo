@@ -8,8 +8,7 @@ namespace TCG.Effects;
 
 public class Swirl : IEffect
 {
-    public IntParameter X { get; set; } = new(0);
-    public IntParameter Y { get; set; } = new(0);
+    public PointParameter Point { get; set; } = new();
     // radius of effect in pixels
     public FloatParameter Radius { get; set; } = new(100f) { Min = 1f, Max = 150f };
     public FloatParameter Degree { get; set; } = new(10f) { Min = 0f, Max = 360f };
@@ -24,11 +23,62 @@ public class Swirl : IEffect
         Twists.Value = twists;
     }
 
+    public Swirl WithPoint(int x, int y)
+    {
+        Point.Value = new Point(x, y);
+        return this;
+    }
+
+    public Swirl WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
+    {
+        Point.X.Min = minX;
+        Point.X.Max = maxX;
+        Point.Y.Min = minY;
+        Point.Y.Max = maxY;
+        return this;
+    }
+
+    public Swirl WithRadius(float value)
+    {
+        Radius.Value = value;
+        return this;
+    }
+
+    public Swirl WithRandomizedRadius(float min, float max)
+    {
+        Radius.Min = min;
+        Radius.Max = max;
+        return this;
+    }
+
+    public Swirl WithDegree(float value)
+    {
+        Degree.Value = value;
+        return this;
+    }
+
+    public Swirl WithRandomizedDegree(float min, float max)
+    {
+        Degree.Min = min;
+        Degree.Max = max;
+        return this;
+    }
+
+    public Swirl WithTwists(float value)
+    {
+        Twists.Value = value;
+        return this;
+    }
+
+    public Swirl WithRandomizedTwists(float min, float max)
+    {
+        Twists.Min = min;
+        Twists.Max = max;
+        return this;
+    }
+
     public void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if (!X.Value.HasValue && !Y.Value.HasValue)
-            image.Mutate(x => x.Swirl(Radius, Degree, Twists));
-        else
-            image.Mutate(x => { x.SetGraphicsOptions(graphicsOptions); x.Swirl(X, Y, Radius, Degree, Twists); });
+        image.Mutate(x => x.Swirl(Point.X, Point.Y, Radius, Degree, Twists));
     }
 }

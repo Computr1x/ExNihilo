@@ -78,7 +78,7 @@ public class CaptchaSaver : ISaveSeparateFiles, ISaveZipFile,
 
     void ISaveZipFile.Save(IEnumerable<CaptchaResult> captchaResults)
     {
-        using (var archiveStream = new FileStream(_path + ".zip", FileMode.CreateNew))
+        using (var archiveStream = new FileStream(_path + ".zip", FileMode.Create))
         {
             using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
             {
@@ -111,7 +111,7 @@ public class CaptchaSaver : ISaveSeparateFiles, ISaveZipFile,
 
     async Task ISaveZipFile.SaveAsync(IEnumerable<CaptchaResult> captchaResults)
     {
-        using (var archiveStream = new FileStream(_path + ".zip", FileMode.CreateNew))
+        using (var archiveStream = new FileStream(_path + ".zip", FileMode.CreateNew, FileAccess.Write))
         {
             using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
             {

@@ -13,6 +13,58 @@ public class PenParameter : GenericParameter<IPen>
 
     public PenParameter(IPen defaultValue) : base(defaultValue) { }
 
+    public PenParameter WithType(PenType type)
+    {
+        Type.Value = type;
+        return this;
+    }
+
+    public PenParameter WithRandomizedType()
+    {
+        Type.EnumValues = (PenType[])Enum.GetValues(typeof(PenType));
+        return this;
+    }
+
+    public PenParameter WithRandomizedType(IEnumerable<PenType> types)
+    {
+        Type.EnumValues = types.ToArray();
+        return this;
+    }
+
+    public PenParameter WithWidth(int value)
+    {
+        Width.Value = value;
+        return this;
+    }
+
+    public PenParameter WithRandomizedWidth(int min, int max)
+    {
+        Width.Min = min;
+        Width.Max = max;
+        return this;
+    }
+
+    public PenParameter WithColor(SixLabors.ImageSharp.Color color)
+    {
+        Color.Value = color;
+        return this;
+    }
+
+    public PenParameter WithRandomizedColor(int colorsCount, byte opacity = 255)
+    {
+        Color.Opacity = opacity;
+        Color.Colors = Color.GeneratePalette(colorsCount);
+        return this;
+    }
+
+    public PenParameter WithRandomizedColor(SixLabors.ImageSharp.Color[] palette)
+    {
+        Color.Colors = palette;
+        return this;
+    }
+
+    
+
     protected override void RandomizeImplementation(Random r)
     {  
         Type.Randomize(r);

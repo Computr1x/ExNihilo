@@ -5,8 +5,8 @@ namespace TCG.Base.Parameters;
 
 public class ColorParameter : GenericStructParameter<Color>
 {
-    public Color[] Colors { get; }
-    public byte Opacity { get; }
+    public Color[] Colors { get; set; }
+    public byte Opacity { get; set; }
 
     public ColorParameter(Color defaultColor, Color[] colors, byte opacity = 255) : base(defaultColor)
     {
@@ -21,7 +21,7 @@ public class ColorParameter : GenericStructParameter<Color>
         Colors = GeneratePalette(colorsCount);
     }
 
-    private Color[] GeneratePalette(int colorsCount)
+    public Color[] GeneratePalette(int colorsCount)
     {
         Color[] colors = new Color[colorsCount];
         float curHue = 0, hueStep = 1f / colorsCount;

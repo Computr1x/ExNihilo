@@ -15,8 +15,45 @@ public class BrushParameter : GenericParameter<IBrush>
     public EnumParameter<BrushType> Type { get; set; } = new EnumParameter<BrushType>(BrushType.Solid);
     public ColorParameter Color { get; set; } = new ColorParameter(SixLabors.ImageSharp.Color.Black);
 
-    public BrushParameter(IBrush defaultValue) : base(defaultValue)
+    public BrushParameter() : base(Brushes.Solid(SixLabors.ImageSharp.Color.Black))
     {
+    }
+
+    public BrushParameter WithType(BrushType type)
+    {
+        Type.Value = type;
+        return this;
+    }
+
+    public BrushParameter WithRandomizedType()
+    {
+        Type.EnumValues = (BrushType[])Enum.GetValues(typeof(BrushType));
+        return this;
+    }
+
+    public BrushParameter WithRandomizedType(IEnumerable<BrushType> types)
+    {
+        Type.EnumValues = types.ToArray();
+        return this;
+    }
+
+    public BrushParameter WithColor(SixLabors.ImageSharp.Color color)
+    {
+        Color.Value = color;
+        return this;
+    }
+
+    public BrushParameter WithRandomizedColor(int colorsCount, byte opacity = 255)
+    {
+        Color.Opacity = opacity;
+        Color.Colors = Color.GeneratePalette(colorsCount);
+        return this;
+    }
+
+    public BrushParameter WithRandomizedColor(SixLabors.ImageSharp.Color[] palette)
+    {
+        Color.Colors = palette;
+        return this;
     }
 
     protected override void RandomizeImplementation(Random r)

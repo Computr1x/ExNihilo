@@ -11,6 +11,19 @@ public class PolarCoordinates : IEffect
 {
     public EnumParameter<PolarConversionType> ConversionType { get; } = new(PolarConversionType.CartesianToPolar);
 
+    public PolarCoordinates() { }
+
+    public PolarCoordinates(PolarConversionType conversionType)
+    {
+        ConversionType.Value = conversionType;
+    }
+
+    public PolarCoordinates WithType(PolarConversionType value)
+    {
+        ConversionType.Value = value;
+        return this;
+    }
+
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.PolarCoordinates(ConversionType));
 }

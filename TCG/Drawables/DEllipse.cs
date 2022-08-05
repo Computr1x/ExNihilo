@@ -8,20 +8,13 @@ using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
-public class DEllipse : BaseDrawable
+public class DEllipse : DRectangle
 {
-    public RectangleParameter Rectangle { get; } = new RectangleParameter();
-
     public DEllipse() { }
 
-    public DEllipse(Rectangle value) : base()
-    {
-        Rectangle.Value = value;
-    }
+    public DEllipse(Rectangle rectangle) : base(rectangle) { }
 
-    public DEllipse(int x, int y, int width, int height)
-    : this(new Rectangle(x, y, width, height))
-    { }
+    public DEllipse(int x, int y, int width, int height) : this(new Rectangle(x, y, width, height)) { }
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {

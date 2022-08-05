@@ -40,4 +40,16 @@ public class Canvas
 
         return img;
     }
+
+    public Canvas WithLayer(Layer layer)
+    {
+        Layers.Add(layer);
+        return this;
+    }
+
+    public Canvas WithEffect(IEffect effect)
+    {
+        Effects.Add(effect);
+        return this;
+    }
 }

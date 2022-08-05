@@ -10,8 +10,8 @@ namespace TCG.Base.Parameters;
 
 public class Bool2DArrayParameter : GenericParameter<bool[,]>
 {
-    public IntParameter Width { get; set; } = new IntParameter(2);
-    public IntParameter Height { get; set; } = new IntParameter(2);
+    public IntParameter Width { get; set; } = new IntParameter(2) { Min = 2, Max = 2};
+    public IntParameter Height { get; set; } = new IntParameter(2) { Min = 2, Max = 2 };
 
     public Bool2DArrayParameter(bool[,] defaultValue) : base(defaultValue)
     {

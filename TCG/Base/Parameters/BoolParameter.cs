@@ -13,6 +13,7 @@ public class BoolParameter : GenericStructParameter<bool>
     {
     }
 
+
     protected override void RandomizeImplementation(Random r)
     {
         Value = r.NextSingle() > 0.5f;

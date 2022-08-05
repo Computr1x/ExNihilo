@@ -9,6 +9,26 @@ public class GaussianBlur : IEffect
 {
     public FloatParameter Sigma { get; set; } = new(0.5f) { Min = 0, Max = 1};
 
-public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.GaussianBlur(Sigma));
+    public GaussianBlur() { }
+
+    public GaussianBlur(float sigma)
+    {
+        Sigma.Value = sigma;
+    }
+
+    public GaussianBlur WithSigma(float value)
+    {
+        Sigma.Value = value;
+        return this;
+    }
+
+    public GaussianBlur WithRandomizedAmount(float min, float max)
+    {
+        Sigma.Min = min;
+        Sigma.Max = max;
+        return this;
+    }
+
+    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+            image.Mutate(x => x.GaussianBlur(Sigma));
 }

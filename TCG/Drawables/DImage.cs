@@ -1,15 +1,14 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
-using TCG.Base.Interfaces;
+using TCG.Base.Abstract;
 using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
-public class DImage : IDrawable
+public class DImage : BaseDrawable
 {
-    public PointParameter Location { get; } = new PointParameter(new Point());
-    public IList<IEffect> Effects { get; }
+    public PointParameter Point { get; } = new PointParameter(new Point());
 
     private Image? image = null;
     private string path = "";
@@ -17,17 +16,26 @@ public class DImage : IDrawable
     public DImage(string path)
     {
         this.path = path;
-        Effects = new List<IEffect>();
     }
 
     public DImage(Image image)
     {
         this.image = image;
-        Effects = new List<IEffect>();
     }
 
+    public DImage WithPoint(Point p)
+    {
+        Point.Value = p;
+        return this;
+    }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions)
+    public DImage WithRandomiPoint(Point p)
+    {
+        Point.Value = p;
+        return this;
+    }
+
+    public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         if (string.IsNullOrWhiteSpace(path) == false)
         {
@@ -45,7 +53,7 @@ public class DImage : IDrawable
 
         image.Mutate((x) =>
         {
-            x.DrawImage(this.image, Location, graphicsOptions);
+            x.DrawImage(this.image, Point, graphicsOptions);
         });
     }
 }
