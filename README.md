@@ -2,7 +2,7 @@
 TCG - text captcha generation library. This is open-source cross-platfrom library that allows users to generate custom captchas.
 
 # Documentation
-For more details, see samples and Wiki pages.
+All documentation you can find on [Wiki](https://github.com/Computr1x/TCG/wiki) page.
 
 # Samples
 Some samples will be here.
