@@ -20,6 +20,12 @@ public class PointFArrayParameter : GenericParameter<PointF[]>
     {
     }
 
+    public PointFArrayParameter WithLength(int value)
+    {
+        Length.Value = value;
+        return this;
+    }
+
     protected override void RandomizeImplementation(Random r)
     {
         Length.Randomize(r);

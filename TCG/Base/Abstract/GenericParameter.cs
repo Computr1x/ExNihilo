@@ -5,6 +5,7 @@ namespace TCG.Base.Abstract;
 public abstract class GenericParameter<T> : IRandomizableParameter where T : class
 {
     protected T value;
+    protected T defaultValue;
     protected bool ValueIsRandomized { get; set; } = false;
 
     public T Value { 
@@ -15,8 +16,8 @@ public abstract class GenericParameter<T> : IRandomizableParameter where T : cla
             ValueIsRandomized = false;
         }
     }
-    
-    public T DefaultValue { get; set; }
+
+    public virtual T DefaultValue { get => defaultValue; set => defaultValue = value; }
 
     public GenericParameter(T defaultValue)
     {
@@ -31,6 +32,12 @@ public abstract class GenericParameter<T> : IRandomizableParameter where T : cla
         ValueIsRandomized = true; 
     }
     protected abstract void RandomizeImplementation(Random r);
+
+    public virtual GenericParameter<T> WithValue(T value)
+    {
+        Value = value;
+        return this;
+    }
 
     public static implicit operator T(GenericParameter<T> genericValue) => genericValue.Value ?? genericValue.DefaultValue;
             

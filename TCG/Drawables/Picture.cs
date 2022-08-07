@@ -6,30 +6,35 @@ using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
-public class DImage : BaseDrawable
+public class Picture : BaseDrawable
 {
     public PointParameter Point { get; } = new PointParameter(new Point());
 
     private Image? image = null;
     private string path = "";
 
-    public DImage(string path)
+    public Picture(string path)
     {
         this.path = path;
     }
 
-    public DImage(Image image)
+    public Picture(byte[] image)
+    {
+        this.image = Image.Load(image);
+    }
+
+    public Picture(Image image)
     {
         this.image = image;
     }
 
-    public DImage WithPoint(Point p)
+    public Picture WithPoint(Point p)
     {
         Point.Value = p;
         return this;
     }
 
-    public DImage WithRandomiPoint(Point p)
+    public Picture WithRandomiPoint(Point p)
     {
         Point.Value = p;
         return this;

@@ -25,6 +25,24 @@ public class StringParameter : GenericParameter<string>
     {
     }
 
+    public StringParameter WithLength(int value)
+    {
+        Length.WithValue(value);
+        return this;
+    }
+
+    public StringParameter WithRandomizedLength(int min, int max)
+    {
+        Length.WithRandomizedValue(min, max);
+        return this;
+    }
+
+    public StringParameter WithCharactersSet(char[] charactersSet)
+    {
+        CharactersSet = charactersSet;
+        return this;
+    }
+
     protected override void RandomizeImplementation(Random r)
     {
         Length.Randomize(r);

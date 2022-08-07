@@ -25,6 +25,13 @@ public class FontFamilyParameter : GenericStructParameter<FontFamily>
         Collection.AddRange(collection);
     }
 
+    public FontFamilyParameter WithRandomizedValue(IEnumerable<FontFamily> values)
+    {
+        Collection.Clear();
+        Collection.AddRange(values);
+        return this;
+    }
+
     protected override void RandomizeImplementation(Random r)
     {
         if (Collection.Count <= 0)

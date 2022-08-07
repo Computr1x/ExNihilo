@@ -12,6 +12,36 @@ public class RectangleParameter : GenericStructParameter<Rectangle>
     {
     }
 
+    public Rectangle WithPoint(Point p)
+    {
+        Point.Value = p;
+        return this;
+    }
+
+    public Rectangle WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
+    {
+        Point.X.Min = minX;
+        Point.X.Max = maxX;
+        Point.Y.Min = minY;
+        Point.Y.Max = maxY;
+        return this;
+    }
+
+    public Rectangle WithSize(Size size)
+    {
+        Size.Value = size;
+        return this;
+    }
+
+    public Rectangle WithRandomizedSize(int minWidth, int maxWidth, int minHeight, int maxHeight)
+    {
+        Size.Width.Min = minWidth;
+        Size.Width.Max = maxWidth;
+        Size.Height.Min = minHeight;
+        Size.Height.Max = maxHeight;
+        return this;
+    }
+
     protected override void RandomizeImplementation(Random r)
     {
         Point.Randomize(r);

@@ -7,45 +7,45 @@ using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
-public class DLine : BaseDrawable
+public class Line : BaseDrawable
 {
     public PenParameter Pen { get; } = new PenParameter(Pens.Solid(Color.Black, 1));
     public BoolParameter IsBeziers { get;  } = new BoolParameter(false);
 
     public PointFArrayParameter Points { get;  } = new PointFArrayParameter(new PointF[0]) { Length = { DefaultValue = 4}};
 
-    public DLine() { }
+    public Line() { }
 
-    public DLine(PointF[] points) 
+    public Line(PointF[] points) 
     { 
         Points.Value = points;
     }
 
-    public DLine WithPen(IPen pen)
+    public Line WithPen(IPen pen)
     {
         Pen.Value = pen;
         return this;
     }
 
-    public DLine WithPen(Action<PenParameter> setPen)
+    public Line WithPen(Action<PenParameter> setPen)
     {
         setPen(Pen);
         return this;
     }
 
-    public DLine IsBezier(bool value)
+    public Line IsBezier(bool value)
     {
         IsBeziers.Value = value;
         return this;
     }
 
-    public DLine WithPoints(PointF[] points)
+    public Line WithPoints(PointF[] points)
     {
         Points.Value = points;
         return this;
     }
 
-    public DLine WithRandomizedPoints(int minCount, int maxCount, int minX, int maxX, int minY, int maxY)
+    public Line WithRandomizedPoints(int minCount, int maxCount, int minX, int maxX, int minY, int maxY)
     {
         Points.Length.Min = minCount;
         Points.Length.Max = maxCount;
@@ -56,7 +56,7 @@ public class DLine : BaseDrawable
         return this;
     }
 
-    public DLine WithRandomizedPoints(int count, int minX, int maxX, int minY, int maxY)
+    public Line WithRandomizedPoints(int count, int minX, int maxX, int minY, int maxY)
     {
         return WithRandomizedPoints(count, count, minX, maxX, minY, maxY);
     }

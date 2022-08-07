@@ -7,24 +7,53 @@ using TCG.Base.Utils;
 
 namespace TCG.Drawables;
 
-public class DPolygon : BaseDrawableWithBrushAndPen
+public class Polygon : BaseDrawableWithBrushAndPen
 {
     public PointFArrayParameter Points { get; } = new PointFArrayParameter(new PointF[0]);
 
-    public DPolygon() { }
+    public Polygon() { }
 
-    public DPolygon(PointF[] points)
+    public Polygon(PointF[] points)
     {
         Points.Value = points;
     }
 
-    public DPolygon WithPoints(PointF[] points)
+    public Polygon WithBrush(IBrush brush)
+    {
+        Brush.Value = brush;
+        return this;
+    }
+    public Polygon WithBrush(Action<BrushParameter> actionBrush)
+    {
+        actionBrush(Brush);
+        return this;
+    }
+
+    public Polygon WithPen(IPen pen)
+    {
+        Pen.Value = pen;
+        return this;
+    }
+
+    public Polygon WithPen(Action<PenParameter> actionPen)
+    {
+        actionPen(Pen);
+        return this;
+    }
+
+    public Polygon WithType(DrawableType value)
+    {
+        Type.Value = value;
+        return this;
+    }
+
+    public Polygon WithPoints(PointF[] points)
     {
         Points.Value = points;
         return this;
     }
 
-    public DPolygon WithRandomizedPoints(int minCount, int maxCount, int minX, int maxX, int minY, int maxY)
+    public Polygon WithRandomizedPoints(int minCount, int maxCount, int minX, int maxX, int minY, int maxY)
     {
         Points.Length.Min = minCount;
         Points.Length.Max = maxCount;
@@ -35,7 +64,7 @@ public class DPolygon : BaseDrawableWithBrushAndPen
         return this;
     }
 
-    public DPolygon WithRandomizedPoints(int count, int minX, int maxX, int minY, int maxY)
+    public Polygon WithRandomizedPoints(int count, int minX, int maxX, int minY, int maxY)
     {
         return WithRandomizedPoints(count, count, minX, maxX, minY, maxY);
     }

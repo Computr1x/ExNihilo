@@ -15,6 +15,11 @@ public class BrushParameter : GenericParameter<IBrush>
     public EnumParameter<BrushType> Type { get; set; } = new EnumParameter<BrushType>(BrushType.Solid);
     public ColorParameter Color { get; set; } = new ColorParameter(SixLabors.ImageSharp.Color.Black);
 
+    public override IBrush DefaultValue { 
+        get => GetBrush(); 
+        set => defaultValue = value; 
+    }
+
     public BrushParameter() : base(Brushes.Solid(SixLabors.ImageSharp.Color.Black))
     {
     }
@@ -56,13 +61,9 @@ public class BrushParameter : GenericParameter<IBrush>
         return this;
     }
 
-    protected override void RandomizeImplementation(Random r)
+    private IBrush GetBrush()
     {
-        Type.Randomize(r);
-        Color.Randomize(r);
-
-        
-        Value = Type.Value switch
+       return Type.Value switch
         {
             BrushType.Vertical => Brushes.Vertical(Color),
             BrushType.Horizontal => Brushes.Horizontal(Color),
@@ -73,6 +74,14 @@ public class BrushParameter : GenericParameter<IBrush>
             BrushType.Percent20 => Brushes.Percent20(Color),
             _ => Brushes.Solid(Color)
         };
+    }
+
+    protected override void RandomizeImplementation(Random r)
+    {
+        Type.Randomize(r);
+        Color.Randomize(r);
+        
+        Value = GetBrush();
     }
 
 }

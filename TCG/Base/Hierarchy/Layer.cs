@@ -40,6 +40,10 @@ public class Layer
         Size = size;
     }
 
+    public Layer(int width, int height) : this(new Size(width, height))
+    {
+    }
+
     public Layer WithDrawable(IDrawable drawable)
     {
         Drawables.Add(drawable);

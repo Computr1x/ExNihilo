@@ -21,6 +21,12 @@ public class EnumParameter<T> : GenericStructParameter<T> where T : struct
         EnumValues = enumValues.ToArray();
     }
 
+    public EnumParameter<T> WithRandomizedValue(IEnumerable<T> values)
+    {
+        EnumValues = values.ToArray();
+        return this;
+    }
+
     protected override void RandomizeImplementation(Random r)
     {
         Value = EnumValues[r.Next(EnumValues.Length)];

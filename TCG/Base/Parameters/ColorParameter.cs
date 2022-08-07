@@ -21,6 +21,12 @@ public class ColorParameter : GenericStructParameter<Color>
         Colors = GeneratePalette(colorsCount);
     }
 
+    public ColorParameter WithRandomizedValue(Color[] palette)
+    {
+        Colors = palette;
+        return this;
+    }
+
     public Color[] GeneratePalette(int colorsCount)
     {
         Color[] colors = new Color[colorsCount];

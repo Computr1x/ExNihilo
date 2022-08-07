@@ -10,7 +10,16 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Description>TCG - text captcha geneartion library</Description>
     <RepositoryUrl>https://github.com/Computr1x/TCG</RepositoryUrl>
+    <PackageIcon>logo128_round.png</PackageIcon>
+    <PackageTags>captcha;captchas;captcha-generator</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Assets\logo128_round.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />

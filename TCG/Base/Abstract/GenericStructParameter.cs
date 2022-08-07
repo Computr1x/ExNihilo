@@ -21,6 +21,7 @@ public abstract class GenericStructParameter<T> : IRandomizableParameter where T
             ValueIsRandomized = false;
         }
     }
+
     public T DefaultValue { get; set; }
 
     public GenericStructParameter(T defaultValue)
@@ -36,6 +37,12 @@ public abstract class GenericStructParameter<T> : IRandomizableParameter where T
         ValueIsRandomized = true;
     }
     protected abstract void RandomizeImplementation(Random r);
+
+    public virtual GenericStructParameter<T> WithValue(T value)
+    {
+        Value = value;
+        return this;
+    }
 
     public static implicit operator T(GenericStructParameter<T> genericValue) => genericValue.Value ?? genericValue.DefaultValue;
 }

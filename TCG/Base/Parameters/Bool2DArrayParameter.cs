@@ -17,6 +17,21 @@ public class Bool2DArrayParameter : GenericParameter<bool[,]>
     {
     }
 
+    public Bool2DArrayParameter WithSize(int size)
+    {
+        Width.Value = Height.Value = size;
+        return this;
+    }
+
+    public Bool2DArrayParameter WithRandomizedSize(int min, int max)
+    {
+        Width.Min = min;
+        Height.Min = min;
+        Width.Max = max;
+        Height.Max = max;
+        return this;
+    }
+
     protected override void RandomizeImplementation(Random r)
     {
         Width.Randomize(r);

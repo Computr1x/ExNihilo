@@ -11,6 +11,11 @@ public class PenParameter : GenericParameter<IPen>
     public IntParameter Width { get; set; } = new IntParameter(1) { Min = 1, Max = 10 };
     public ColorParameter Color { get; set; } = new ColorParameter(SixLabors.ImageSharp.Color.Black, 10);
 
+    public override IPen DefaultValue
+    {
+        get => GetPen();
+    }
+
     public PenParameter(IPen defaultValue) : base(defaultValue) { }
 
     public PenParameter WithType(PenType type)
@@ -63,15 +68,9 @@ public class PenParameter : GenericParameter<IPen>
         return this;
     }
 
-    
-
-    protected override void RandomizeImplementation(Random r)
-    {  
-        Type.Randomize(r);
-        Width.Randomize(r);
-        Color.Randomize(r);
-        
-        Value = Type.Value switch
+    private IPen GetPen()
+    {
+        return Type.Value switch
         {
             PenType.Dot => Pens.Dot(Color, Width),
             PenType.Dash => Pens.Dash(Color, Width),
@@ -79,5 +78,14 @@ public class PenParameter : GenericParameter<IPen>
             PenType.DashDotDot => Pens.DashDotDot(Color, Width),
             _ => Pens.Solid(Color, Width)
         };
+    }
+
+    protected override void RandomizeImplementation(Random r)
+    {  
+        Type.Randomize(r);
+        Width.Randomize(r);
+        Color.Randomize(r);
+
+        Value = GetPen();
     }
 }

@@ -6,6 +6,9 @@ namespace TCG.Base.Parameters;
 
 public class PointParameter : GenericStructParameter<Point>
 {
+    public IntParameter X { get; init; } = new IntParameter(0);
+    public IntParameter Y { get; init; } = new IntParameter(0);
+
     public PointParameter() : base(new Point())
     {
     }
@@ -14,8 +17,12 @@ public class PointParameter : GenericStructParameter<Point>
     {
     }
 
-    public IntParameter X { get; init; } = new IntParameter(0);
-    public IntParameter Y { get; init; } = new IntParameter(0);
+    public override PointParameter WithValue(Point value)
+    {
+        X.WithValue(value.X);
+        Y.WithValue(value.Y);
+        return this;
+    }
 
     protected override void RandomizeImplementation(Random r)
     {
