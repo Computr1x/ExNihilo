@@ -4,8 +4,14 @@ using TCG.Base.Interfaces;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow filter <see cref="IDrawable"/> by the give color matrix
+/// </summary>
 public class FilterMatrix : IEffect
 {
+    /// <summary>
+    /// The filter color matrix
+    /// </summary>
     public ColorMatrix Matrix { get; set; } = new ColorMatrix();
 
     public FilterMatrix() { }

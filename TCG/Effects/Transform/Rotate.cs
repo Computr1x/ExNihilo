@@ -5,9 +5,15 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of rotation operations on an <see cref="IDrawable"/>
+/// </summary>
 public class Rotate : IEffect
 {
-    public FloatParameter Degree { get; set; } = new(0) { Min = 0, Max = 360 };
+    /// <summary>
+    /// Amount of rotation in degrees (-360-360).
+    /// </summary>
+    public FloatParameter Degree { get; set; } = new(-360, 360, 0) { Min = 0, Max = 360 };
 
     public Rotate() { }
 

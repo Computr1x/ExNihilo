@@ -5,9 +5,18 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of scale operations on an <see cref="IDrawable"/>
+/// </summary>
 public class Scale : IEffect
 {
+    /// <summary>
+    /// Amount of scale by x axis.
+    /// </summary>
     public FloatParameter XScale { get; set; } = new(0) { Min = 0, Max = 2 };
+    /// <summary>
+    /// Amount of scale by y axis.
+    /// </summary>
     public FloatParameter YScale { get; set; } = new(0) { Min = 0, Max = 2 };
 
     public Scale() { }

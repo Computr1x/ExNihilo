@@ -5,10 +5,15 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the multiplication of alpha component of the <see cref="IDrawable"/>
+/// </summary>
 public class Opacity : IEffect
 {
-    // beteween 0 - 1
-    public FloatParameter Amount { get; set; } = new(0.5f) { Min = 0, Max = 1 };
+    /// <summary>
+    /// The proportion of the conversion. Must be between 0 and 1.
+    /// </summary>
+    public FloatParameter Amount { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1 };
 
     public Opacity() { }
 

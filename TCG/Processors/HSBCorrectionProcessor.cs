@@ -5,7 +5,7 @@ using TCG.Base.Utils;
 
 namespace TCG.Processors;
 
-public class HSBCorrectionProcessor : IImageProcessor
+internal class HSBCorrectionProcessor : IImageProcessor
 {
     private int hue, saturation, brightness;
 

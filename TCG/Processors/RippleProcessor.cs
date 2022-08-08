@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class RippleProcessor : IImageProcessor
+internal class RippleProcessor : IImageProcessor
 {
     private bool customCoords = false;
 

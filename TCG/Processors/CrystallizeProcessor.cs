@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class CrystallizeProcessor : IImageProcessor
+internal class CrystallizeProcessor : IImageProcessor
 {
     public Rectangle Area { get; set; }
 

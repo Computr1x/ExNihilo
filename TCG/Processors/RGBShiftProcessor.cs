@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class RGBShiftProcessor : IImageProcessor
+internal class RGBShiftProcessor : IImageProcessor
 {
     public int BlueYOffset { get; set; }
     public int GreenYOffset { get; set; }

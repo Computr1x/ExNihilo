@@ -6,15 +6,27 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of ripple effect on an <see cref="IDrawable"/>
+/// </summary>
 public class Ripple : IEffect
 {
+    /// <summary>
+    /// Coordinates of effect center.
+    /// </summary>
     public PointParameter Point { get; set; } = new();
-    // radius of effect in pixels
-    public FloatParameter Radius { get; set; } = new(100f) { Min = 1f, Max = 100f };
-    //  wavelength of ripples, in pixels
-    public FloatParameter WaveLength { get; set; } = new FloatParameter(10f) { Min = 1f, Max = 10f };
-    // approximate width of wave train, in wavelengths
-    public FloatParameter TraintWidth { get; set; } = new(2) { Min = 1f, Max = 10f };
+    /// <summary>
+    /// Radius of effect in pixels. Must be greater or equal to 1.
+    /// </summary>
+    public FloatParameter Radius { get; set; } = new(1, float.MaxValue, 1100f) { Min = 1f, Max = 100f };
+    /// <summary>
+    /// Wavelength of ripples, in pixels.Must be greater or equal to 1.
+    /// </summary>
+    public FloatParameter WaveLength { get; set; } = new FloatParameter(1, float.MaxValue, 10f) { Min = 1f, Max = 10f };
+    /// <summary>
+    /// Approximate width of wave train, in wavelengths. Must be greater or equal to 1.
+    /// </summary>
+    public FloatParameter TraintWidth { get; set; } = new(1, float.MaxValue, 2) { Min = 1f, Max = 10f };
 
     public Ripple() { }
 

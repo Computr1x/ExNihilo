@@ -5,9 +5,18 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of coordinates shift operations on an <see cref="IDrawable"/>
+/// </summary>
 public class Shift : IEffect
 {
+    /// <summary>
+    /// Amount of shift by x axis.
+    /// </summary>
     public FloatParameter XShift { get; set; } = new(0) { Min = 0, Max = 50 };
+    /// <summary>
+    /// Amount of shift by y axis.
+    /// </summary>
     public FloatParameter YShift { get; set; } = new(0) { Min = 0, Max = 50 };
 
     public Shift() { }

@@ -5,9 +5,15 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of binarize effect to the <see cref="IDrawable"/>
+/// </summary>
 public class BinaryThreshold : IEffect
 {
-    public FloatParameter ThresholdLimit { get; set; } = new FloatParameter(0.5f) { Min = 0f, Max = 1f };
+    /// <summary>
+    /// Threshold limit (0.0-1.0) to consider for binarization.
+    /// </summary>
+    public FloatParameter ThresholdLimit { get; set; } = new FloatParameter(0, 1, 0.5f) { Min = 0f, Max = 1f };
 
     public BinaryThreshold() { }
 

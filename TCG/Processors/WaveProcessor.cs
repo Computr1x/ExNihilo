@@ -6,7 +6,7 @@ namespace TCG.Processors;
 
 public enum WaveType { Sine, Triangle, Square };
 
-public class WaveProcessor : IImageProcessor
+internal class WaveProcessor : IImageProcessor
 {
     public Rectangle Area { get; set; }
 

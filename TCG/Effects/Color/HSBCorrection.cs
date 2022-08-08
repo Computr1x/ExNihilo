@@ -6,11 +6,23 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Define effect that allow to alter hue, brightness and saturation channel of the <see cref="IDrawable"/> 
+/// </summary>
 public class HSBCorrection : IEffect
 {
-    public IntParameter Hue { get; set; } = new(0) { Min = sbyte.MinValue, Max = sbyte.MaxValue};
-    public IntParameter Saturation { get; set; } = new(0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
-    public IntParameter Brightness { get; set; } = new(0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
+    /// <summary>
+    /// Hue shift value (-255 - 255)
+    /// </summary>
+    public IntParameter Hue { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue};
+    /// <summary>
+    /// Saturation shift value (-255 - 255)
+    /// </summary>
+    public IntParameter Saturation { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
+    /// <summary>
+    /// Brightness shift value (-255 - 255)
+    /// </summary>
+    public IntParameter Brightness { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
 
     public HSBCorrection() { }
 

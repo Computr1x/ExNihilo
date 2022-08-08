@@ -24,6 +24,13 @@ public class PointParameter : GenericStructParameter<Point>
         return this;
     }
 
+    public PointParameter WithRandomizedValue(int minX, int maxX, int minY, int maxY)
+    {
+        X.WithRandomizedValue(minX, maxX);
+        Y.WithRandomizedValue(minY, maxY);
+        return this;
+    }
+
     protected override void RandomizeImplementation(Random r)
     {
         X.Randomize(r);

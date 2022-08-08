@@ -5,9 +5,18 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of skew operations on an <see cref="IDrawable"/>
+/// </summary>
 public class Skew : IEffect
 {
+    /// <summary>
+    /// The X angle, in degrees.
+    /// </summary>
     public FloatParameter XDegree { get; set; } = new(0) { Min = 0, Max = 360 };
+    /// <summary>
+    /// The Y angle, in degrees.
+    /// </summary>
     public FloatParameter YDegree { get; set; } = new(0) { Min = 0, Max = 360 };
 
     public Skew() { }

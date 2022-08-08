@@ -4,6 +4,10 @@ using TCG.Processors;
 
 namespace TCG.Extensions.Processors;
 
+/// <summary>
+/// Defines extensions that apply shift of red, green and blue channel on an <see cref="Image"/>
+/// using Mutate/Clone.
+/// </summary>
 public static class RGBShiftProcessorExtensions
 {
     /// <summary>

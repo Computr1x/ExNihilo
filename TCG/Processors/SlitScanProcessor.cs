@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class SlitScanProcessor : IImageProcessor
+internal class SlitScanProcessor : IImageProcessor
 {
     public float Time { get; }
 

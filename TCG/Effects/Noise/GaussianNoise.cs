@@ -6,10 +6,22 @@ using TCG.Extensions.Processors;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of gaussian noise on an <see cref="IDrawable"/>
+/// </summary>
 public class GaussianNoise : IEffect
 {
+    /// <summary>
+    /// Seed for noise randomizer.
+    /// </summary>
     public IntParameter Seed { get; set; } = new(0) { Min = 0, Max = 10 };
-    public ByteParameter Amount { get; set; } = new(byte.MaxValue) { Min = 0, Max = byte.MaxValue };
+    /// <summary>
+    /// Amount of noise (0-255).
+    /// </summary>
+    public ByteParameter Amount { get; set; } = new(0, byte.MaxValue, byte.MaxValue) { Min = 0, Max = byte.MaxValue };
+    /// <summary>
+    /// Define is noise monochrome or not.
+    /// </summary>
     public BoolParameter Monochrome { get; set; } = new();
 
     public GaussianNoise() { }

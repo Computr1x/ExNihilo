@@ -7,10 +7,22 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of wave effect on an <see cref="IDrawable"/>
+/// </summary>
 public class Wave : IEffect
 {
-    public FloatParameter WaveLength { get; set; } = new(3f) { Min = 1f, Max = 10f };
-    public FloatParameter Amplitude { get; set; } = new(2f) { Min = 1f, Max = 10f };
+    /// <summary>
+    /// Wave length. Must be greater or equal to 0
+    /// </summary>
+    public FloatParameter WaveLength { get; set; } = new(0, float.MaxValue, 3f) { Min = 1f, Max = 10f };
+    /// <summary>
+    /// Wave amplitude. Must be greater or equal to 0
+    /// </summary>
+    public FloatParameter Amplitude { get; set; } = new(0, float.MaxValue, 2f) { Min = 1f, Max = 10f };
+    /// <summary>
+    /// Type of wave.
+    /// </summary>
     public EnumParameter<WaveType> Type { get; set; } = new(WaveType.Sine);
 
     public Wave() { }

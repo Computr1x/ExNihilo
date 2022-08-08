@@ -6,7 +6,7 @@ using TCG.Base.Utils;
 
 namespace TCG.Processors;
 
-public class PerlinNoiseProcessor : IImageProcessor
+internal class PerlinNoiseProcessor : IImageProcessor
 {
     private byte[] permutationTable;
 

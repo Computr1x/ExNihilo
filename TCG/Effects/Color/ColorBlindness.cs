@@ -5,8 +5,14 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of color blindness toning of the <see cref="IDrawable"/>
+/// </summary>
 public class ColorBlindness : IEffect
 {
+    /// <summary>
+    /// The type of color blindness simulator to apply.
+    /// </summary>
     public EnumParameter<ColorBlindnessMode> ColorBlindnessMode { get; set; } 
         = new EnumParameter<ColorBlindnessMode>(SixLabors.ImageSharp.Processing.ColorBlindnessMode.Achromatomaly) ;
 

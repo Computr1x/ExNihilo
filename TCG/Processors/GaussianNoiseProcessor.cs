@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class GaussianNoiseProcessor : IImageProcessor
+internal class GaussianNoiseProcessor : IImageProcessor
 {
     // internal range 0 - 1
     private float _amount = 100f / 400f;

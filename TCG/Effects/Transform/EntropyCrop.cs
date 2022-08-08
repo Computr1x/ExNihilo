@@ -5,8 +5,14 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of entropy cropping operations on an <see cref="IDrawable"/>
+/// </summary>
 public class EntropyCrop : IEffect
 {
+    /// <summary>
+    /// The threshold for entropic density.
+    /// </summary>
     public FloatParameter Threshold { get; set; } = new(0.5f) { Min = 0, Max = 1 };
 
     public EntropyCrop() { }

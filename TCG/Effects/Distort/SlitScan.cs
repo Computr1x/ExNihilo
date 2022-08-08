@@ -6,9 +6,15 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of slitscan effect on an <see cref="IDrawable"/>
+/// </summary>
 public class SlitScan : IEffect
 {
-    public FloatParameter Time { get; set; } = new(2f) { Min = 1f, Max = 10f };
+    /// <summary>
+    /// SlitScan time value. Must be greater then 0.
+    /// </summary>
+    public FloatParameter Time { get; set; } = new(0, float.MaxValue, 2f) { Min = 1f, Max = 10f };
 
     public SlitScan() { }
 

@@ -5,10 +5,19 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of resize operations on an <see cref="IDrawable"/>
+/// </summary>
 public class Resize : IEffect
 {
-    public IntParameter Width { get; set; } = new(0);
-    public IntParameter Height { get; set; } = new(0);
+    /// <summary>
+    /// The target image width.
+    /// </summary>
+    public IntParameter Width { get; set; } = new(1, int.MaxValue, 0);
+    /// <summary>
+    /// The target image height.
+    /// </summary>
+    public IntParameter Height { get; set; } = new(1, int.MaxValue, 0);
 
     public Resize() { }
 

@@ -5,9 +5,15 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of pixelatation on an <see cref="IDrawable"/>
+/// </summary>
 public class Pixelate : IEffect
 {
-    public IntParameter PixelSize { get; set; } = new(4) { Min = 2, Max = 32 };
+    /// <summary>
+    /// The size of the pixels. Must be greater then 1
+    /// </summary>
+    public IntParameter PixelSize { get; set; } = new(1, int.MaxValue, 4) { Min = 2, Max = 32 };
 
     public Pixelate() { }
 

@@ -7,8 +7,14 @@ using TCG.Base.Utils;
 
 namespace TCG.Drawables;
 
+/// <summary>
+/// Define polygon drawable object.
+/// </summary>
 public class Polygon : BaseDrawableWithBrushAndPen
 {
+    /// <summary>
+    /// Defines a set of polygon points.
+    /// </summary>
     public PointFArrayParameter Points { get; } = new PointFArrayParameter(new PointF[0]);
 
     public Polygon() { }

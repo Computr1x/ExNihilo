@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class SwirlProcessor : IImageProcessor
+internal class SwirlProcessor : IImageProcessor
 {
     private bool customCoords = false;
 

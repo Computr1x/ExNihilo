@@ -8,14 +8,15 @@
     <Version>$(VersionPrefix)</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Description>TCG - text captcha geneartion library</Description>
+    <Description>TCG - text captcha generation library.</Description>
     <RepositoryUrl>https://github.com/Computr1x/TCG</RepositoryUrl>
     <PackageIcon>logo128_round.png</PackageIcon>
-    <PackageTags>captcha;captchas;captcha-generator</PackageTags>
+    <PackageTags>captcha;text;image</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\Assets\logo128_round.png">
+    <None Include="..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
@@ -23,7 +24,7 @@
 
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
-    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta14" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta15" />
   </ItemGroup>
 
 </Project>

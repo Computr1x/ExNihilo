@@ -5,9 +5,15 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of Bradley adaptive threshold to the <see cref="IDrawable"/>.
+/// </summary>
 public class AdaptiveThreshold : IEffect
 {
-    public FloatParameter ThresholdLimit { get; set; } = new(0.15f) { Min = 0f, Max = 1f };
+    /// <summary>
+    /// Threshold limit (0.0-1.0) to consider for binarization.
+    /// </summary>
+    public FloatParameter ThresholdLimit { get; set; } = new(0, 1, 0.15f) { Min = 0f, Max = 1f };
 
     public AdaptiveThreshold() { }
 

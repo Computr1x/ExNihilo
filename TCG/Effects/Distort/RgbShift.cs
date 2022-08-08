@@ -6,8 +6,14 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of slices effect on an <see cref="IDrawable"/>
+/// </summary>
 public class RgbShift : IEffect
 {
+    /// <summary>
+    /// Shift offset value by all channel. 
+    /// </summary>
     public int Offset
     {
         set
@@ -19,11 +25,29 @@ public class RgbShift : IEffect
         }
     }
 
+    /// <summary>
+    /// Shift offset by y of blue channel
+    /// </summary>
     public IntParameter BlueYOffset { get; set; } = new(0) { Min = -10, Max = 10};
+    /// <summary>
+    /// Shift offset by y of green channel
+    /// </summary>
     public IntParameter GreenYOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    /// <summary>
+    /// Shift offset by y of red channel
+    /// </summary>
     public IntParameter RedYOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    /// <summary>
+    /// Shift offset by x of blue channel
+    /// </summary>
     public IntParameter BlueXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    /// <summary>
+    /// Shift offset by x of green channel
+    /// </summary>
     public IntParameter GreenXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    /// <summary>
+    /// Shift offset by x of red channel
+    /// </summary>
     public IntParameter RedXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
 
     public RgbShift() { }

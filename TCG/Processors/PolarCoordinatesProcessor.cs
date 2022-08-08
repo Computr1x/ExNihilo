@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class PolarCoordinatesProcessor : IImageProcessor
+internal class PolarCoordinatesProcessor : IImageProcessor
 {
     public PolarConversionType PolarType { get; set; } = PolarConversionType.CartesianToPolar;
 

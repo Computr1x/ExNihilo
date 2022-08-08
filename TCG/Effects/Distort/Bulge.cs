@@ -6,10 +6,22 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of bulge effect on an <see cref="IDrawable"/>
+/// </summary>
 public class Bulge : IEffect
 {
+    /// <summary>
+    /// Center of bulge effect
+    /// </summary>
     public PointParameter Point { get; set; } = new();
-    public FloatParameter Radius { get; set; } = new(50f) { Min = 1, Max = 150};
+    /// <summary>
+    /// Radius of effect
+    /// </summary>
+    public FloatParameter Radius { get; set; } = new(1, int.MaxValue, 50f) { Min = 1, Max = 150};
+    /// <summary>
+    /// Amount of bulge (0.0-1.0)
+    /// </summary>
     public FloatParameter Strenght { get; set; } = new(0.5f) { Min = 0, Max = 2f };
 
     public Bulge() { }
@@ -29,16 +41,13 @@ public class Bulge : IEffect
 
     public Bulge WithPoint(int x, int y)
     {
-        Point.Value = new Point(x,y);
+        Point.WithValue(new SixLabors.ImageSharp.Point(x, y));
         return this;
     }
 
     public Bulge WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
     {
-        Point.X.Min = minX;
-        Point.X.Max = maxX;
-        Point.Y.Min = minY;
-        Point.Y.Max = maxY;
+        Point.WithRandomizedValue(minX, maxX, minY, maxY);
         return this;
     }
 
@@ -50,8 +59,7 @@ public class Bulge : IEffect
 
     public Bulge WithRandomizedRadius(float min, float max)
     {
-        Radius.Min = min;
-        Radius.Max = max;
+        Radius.WithRandomizedValue(min, max);
         return this;
     }
 

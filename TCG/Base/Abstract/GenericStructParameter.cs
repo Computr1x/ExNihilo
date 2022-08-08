@@ -12,7 +12,7 @@ public abstract class GenericStructParameter<T> : IRandomizableParameter where T
     protected T? value;
     protected bool ValueIsRandomized { get; set; } = false;
 
-    public T? Value
+    public virtual T? Value
     {
         get => value;
         set

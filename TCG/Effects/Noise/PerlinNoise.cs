@@ -6,11 +6,28 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of perlin noise on an <see cref="IDrawable"/>
+/// </summary>
 public class PerlinNoise : IEffect
 {
+    /// <summary>
+    /// Seed for noise randomizer.
+    /// </summary>
     public IntParameter Seed { get; set; } = new(0) { Min = 0, Max = int.MaxValue };
-    public IntParameter Octaves { get; set; } = new (10) { Value = 5 };
-    public FloatParameter Persistence { get; set; } = new (1f) { Value = 0.5f };
+    /// <summary>
+    /// The number of octaves control the amount of detail of Perlin noise. 
+    /// Adding more octaves increases the detail of Perlin noise, with the added drawback of increasing the calculation time.
+    /// Must be equal or greater then 1.
+    /// </summary>
+    public IntParameter Octaves { get; set; } = new (1, int.MaxValue, 10) { Value = 5 };
+    /// <summary>
+    /// A multiplier (0-1) that determines how quickly the amplitudes diminish for each successive octave in a Perlin-noise function.
+    /// </summary>
+    public FloatParameter Persistence { get; set; } = new (0, 1, 1f) { Value = 0.5f };
+    /// <summary>
+    /// Define is noise monochrome or not.
+    /// </summary>
     public BoolParameter Monochrome { get; set; } = new();
 
     public PerlinNoise() { }

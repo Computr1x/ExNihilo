@@ -5,10 +5,19 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of padding operations on an <see cref="IDrawable"/>
+/// </summary>
 public class Pad : IEffect
 {
-    public IntParameter Width { get; set; } = new(0) { Min = 0, Max = 50 };
-    public IntParameter Height { get; set; } = new(0) { Min = 0, Max = 50 };
+    /// <summary>
+    /// The new width.
+    /// </summary>
+    public IntParameter Width { get; set; } = new(1, int.MaxValue, 0) { Min = 0, Max = 50 };
+    /// <summary>
+    /// The new height
+    /// </summary>
+    public IntParameter Height { get; set; } = new(1, int.MaxValue, 0) { Min = 0, Max = 50 };
 
     public Pad() { }
 

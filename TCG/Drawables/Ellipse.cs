@@ -8,8 +8,14 @@ using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
+/// <summary>
+/// Define ellipse drawable object.
+/// </summary>
 public class Ellipse : BaseDrawableWithBrushAndPen
 {
+    /// <summary>
+    /// Represent rectangular area where ellipse will be drawn.
+    /// </summary>
     public RectangleParameter Area { get; } = new RectangleParameter();
 
     public Ellipse() { }

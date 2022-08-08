@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class BulgeProcessor : IImageProcessor
+internal class BulgeProcessor : IImageProcessor
 {
     public int X { get; }
     public int Y { get; }

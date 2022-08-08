@@ -5,6 +5,9 @@ using TCG.Base.Interfaces;
 
 namespace TCG.Base.Hierarchy;
 
+/// <summary>
+/// Stores image layers and effects.
+/// </summary>
 public class Canvas
 {
     public Size Size { get; }

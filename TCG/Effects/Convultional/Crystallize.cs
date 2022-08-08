@@ -6,9 +6,18 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of crystallization on an <see cref="IDrawable"/>
+/// </summary>
 public class Crystallize : IEffect
 {
-    public IntParameter CrystalsCount { get; set; } = new(64) { Min = 16, Max = 128 };
+    /// <summary>
+    /// The number of crystals into which the image will be divided. Must be gretear then 1
+    /// </summary>
+    public IntParameter CrystalsCount { get; set; } = new(1, int.MaxValue, 64) { Min = 16, Max = 128 };
+    /// <summary>
+    /// Randomiztion seed value
+    /// </summary>
     public IntParameter Seed { get; set; } = new(0) { Min = 0, Max = int.MaxValue };
 
     public Crystallize() { }

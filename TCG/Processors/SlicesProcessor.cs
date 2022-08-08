@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 
 namespace TCG.Processors;
 
-public class SlicesProcessor : IImageProcessor
+internal class SlicesProcessor : IImageProcessor
 {
     public Rectangle Area { get; set; }
 
@@ -64,7 +64,6 @@ public class SlicesProcessor : IImageProcessor
                 height = source.Height - workArea.Y;
 
             // init vars
-            float offsetX, offsetY;
             int intOffsetX = 0, intOffsetY = 0;
 
             int[] sliceIndexes = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(workArea.Y, height + workArea.Y)).OrderBy(x => x).ToArray();

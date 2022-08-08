@@ -8,8 +8,14 @@ using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
+/// <summary>
+/// Define rectangle drawable object.
+/// </summary>
 public class Rectangle : BaseDrawableWithBrushAndPen
 {
+    /// <summary>
+    /// Represent rectangular area where object will be drawn.
+    /// </summary>
     public RectangleParameter Area { get; } = new RectangleParameter();
 
     public Rectangle() { }

@@ -6,13 +6,27 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of swirl effect on an <see cref="IDrawable"/>
+/// </summary>
 public class Swirl : IEffect
 {
+    /// <summary>
+    /// Coordinates of effect center.
+    /// </summary>
     public PointParameter Point { get; set; } = new();
-    // radius of effect in pixels
-    public FloatParameter Radius { get; set; } = new(100f) { Min = 1f, Max = 150f };
-    public FloatParameter Degree { get; set; } = new(10f) { Min = 0f, Max = 360f };
-    public FloatParameter Twists { get; set; } = new(0.5f) { Min = 0f, Max = 3f };
+    /// <summary>
+    /// Radius of effect. Must be greater or equal to 0.
+    /// </summary>
+    public FloatParameter Radius { get; set; } = new(0, float.MaxValue, 100f) { Min = 1f, Max = 150f };
+    /// <summary>
+    /// Swirl angle in degrees. Must be greater or equal to 0.
+    /// </summary>
+    public FloatParameter Degree { get; set; } = new(0, float.MaxValue, 10f) { Min = 0f, Max = 360f };
+    /// <summary>
+    /// Swirl twists count. Must be greater or equal to 0.
+    /// </summary>
+    public FloatParameter Twists { get; set; } = new(0, float.MaxValue, 0.5f) { Min = 0f, Max = 3f };
 
     public Swirl() { }
 

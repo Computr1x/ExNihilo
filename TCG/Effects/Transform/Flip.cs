@@ -5,8 +5,14 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of flip operations on an <see cref="IDrawable"/>
+/// </summary>
 public class Flip : IEffect
 {
+    /// <summary>
+    /// The <see cref="FlipMode"/> to perform the flip.
+    /// </summary>
     public EnumParameter<FlipMode> Mode { get; set; } = new(FlipMode.Horizontal);
 
     public Flip() { }

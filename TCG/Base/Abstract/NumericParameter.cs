@@ -6,18 +6,60 @@ using System.Threading.Tasks;
 using TCG.Base.Interfaces;
 
 namespace TCG.Base.Abstract;
-internal class NumericParameter
+
+public abstract class NumericParameter<T> : GenericStructParameter<T>, IHasMinMax<T> where T : struct, IComparable<T>, IComparable
 {
-}
+    protected T? minLimit, maxLimit;
+    private T min, max;
 
+    public T Max { 
+        get => max; 
+        set 
+        {
+            CheckLimit(value);
+            max = value; 
+        } 
+    }
 
-public abstract class NumericParameter<T> : GenericStructParameter<T>, IHasMinMax<T> where T : struct
-{
-    public T Max { get; set; }
+    public T Min
+    {
+        get => min;
+        set
+        {
+            CheckLimit(value);
+            min = value;
+        }
+    }
 
-    public T Min { get; set; }
+    public override T? Value
+    {
+        get => value;
+        set
+        {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+            CheckLimit(value.Value);
+            this.value = value;
+            ValueIsRandomized = false;
+        }
+    }
+
+    private void CheckLimit(T value)
+    {
+        if (minLimit.HasValue && value.CompareTo(minLimit.Value) < 0)
+            throw new ArgumentNullException(nameof(value) + " should be equal or bigger then " + minLimit);
+        if (maxLimit.HasValue && value.CompareTo(maxLimit.Value) > 0)
+            throw new ArgumentNullException(nameof(value) + " should be equal or lower then " + maxLimit);
+    }
+
 
     public NumericParameter(T defaultValue = default) : base(defaultValue) { }
+
+    public NumericParameter(T minLimit, T maxLimit, T defaultValue = default) : base(defaultValue)
+    {
+        this.minLimit = minLimit;
+        this.maxLimit = maxLimit;
+    }
 
     public NumericParameter<T> WithRandomizedValue(T min, T max)
     {

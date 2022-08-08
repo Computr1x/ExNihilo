@@ -6,11 +6,26 @@ using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
+/// <summary>
+/// Define pattern drawable object.
+/// </summary>
 public class Pattern : BaseDrawable
 {
+    /// <summary>
+    /// Specifies the rectangular area on which the template will draw.
+    /// </summary>
     public RectangleParameter Area { get; } = new RectangleParameter();
+    /// <summary>
+    /// Defines a rendering template.
+    /// </summary>
     public Bool2DArrayParameter Template { get; } = new Bool2DArrayParameter(new bool[,] { { true, false }, { false, true } });
+    /// <summary>
+    /// Specifies the template color for false values. By the default it's transparent.
+    /// </summary>
     public ColorParameter Background { get; } = new ColorParameter(SixLabors.ImageSharp.Color.Transparent);
+    /// <summary>
+    /// Specifies the template color for true values.
+    /// </summary>
     public ColorParameter Foreground { get; } = new ColorParameter(SixLabors.ImageSharp.Color.Black, 5);
 
     public Pattern() { }

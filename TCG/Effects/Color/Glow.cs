@@ -5,8 +5,14 @@ using TCG.Base.Parameters;
 
 namespace TCG.Effects;
 
+/// <summary>
+/// Defines effect that allow the application of glow effect of the <see cref="IDrawable"/>
+/// </summary>
 public class Glow : IEffect
 {
+    /// <summary>
+    /// The radius of the glow
+    /// </summary>
     public FloatParameter Radius { get; set; } = new FloatParameter(15) { Min = 1, Max = 150 };
 
     public Glow() { }

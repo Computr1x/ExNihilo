@@ -4,6 +4,10 @@ using TCG.Processors;
 
 namespace TCG.Extensions.Processors;
 
+/// <summary>
+/// Defines extensions that apply gaussian noise on an <see cref="Image"/>
+/// using Mutate/Clone.
+/// </summary>
 public static class GaussianNoiseProcessorExtension
 {
     /// <summary>

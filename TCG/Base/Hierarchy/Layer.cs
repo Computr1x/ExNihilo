@@ -5,6 +5,9 @@ using TCG.Base.Interfaces;
 
 namespace TCG.Base.Hierarchy;
 
+/// <summary>
+/// Store drawables and effects.
+/// </summary>
 public class Layer 
 {
     private float blendPercentage = 1f;

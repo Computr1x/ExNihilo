@@ -6,8 +6,14 @@ using TCG.Base.Parameters;
 
 namespace TCG.Drawables;
 
+/// <summary>
+/// Define picture drawable object.
+/// </summary>
 public class Picture : BaseDrawable
 {
+    /// <summary>
+    /// Specifies the coordinate of the upper left corner of the image from which to start rendering
+    /// </summary>
     public PointParameter Point { get; } = new PointParameter(new Point());
 
     private Image? image = null;

@@ -4,10 +4,6 @@
 # my rules
 data/
 .vs/
-*.png
-*.jpg
-*.jpeg
-*.bmp
 *.vsidx
 *.ttf
 *.woff
