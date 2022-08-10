@@ -8,26 +8,32 @@ using System.Threading.Tasks;
 
 namespace TCG.Rnd;
 
-public class CaptchaSaver : ISaveSeparateFiles, ISaveZipFile, 
-    ISetOutputType, IHasTypeSetOutputPath, IHasTypeAndPath, 
-    ISeparateFileSaver, ISeparateFileSaverWithFilePrefix, ISeparateFileSaverWithFolder,
-    IZipFileSaver
+public class CaptchaSaver
 {
     private string _path = "";
-    private string _prefix = "";
     private string _folderName = "";
+    private string _prefix = "";
     private ImageType _imageType = ImageType.Png;
+    private IEnumerable<CaptchaResult> _captchaResults;
 
-    private CaptchaSaver() { }
-
-    public static ISetOutputType Create()
+    public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults)
     {
-        return new CaptchaSaver();
+        _captchaResults = captchaResults;
     }
 
-    void ISaveSeparateFiles.Save(IEnumerable<CaptchaResult> captchaResults)
+    public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults, ImageType imageType) : this(captchaResults)
     {
-        foreach(CaptchaResult captchaResult in captchaResults)
+        _imageType = imageType;
+    }
+
+    public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults, string path, ImageType imageType) : this(captchaResults, imageType)
+    {
+        _path = path;
+    }
+
+    public void Save()
+    {
+        foreach(CaptchaResult captchaResult in _captchaResults)
         {
             string resPath = Path.Join(_path, _prefix + captchaResult.GetName() + GetImageTypeExtenstion(_imageType));
             switch (_imageType)
@@ -51,9 +57,9 @@ public class CaptchaSaver : ISaveSeparateFiles, ISaveZipFile,
     }
 
 
-    async Task ISaveSeparateFiles.SaveAsync(IEnumerable<CaptchaResult> captchaResults)
+    public async Task SaveAsync()
     {
-        foreach (CaptchaResult captchaResult in captchaResults)
+        foreach (CaptchaResult captchaResult in _captchaResults)
         {
             string resPath = Path.Join(_path, _prefix + captchaResult.GetName() + GetImageTypeExtenstion(_imageType));
             switch (_imageType)
@@ -76,15 +82,15 @@ public class CaptchaSaver : ISaveSeparateFiles, ISaveZipFile,
         }
     }
 
-    void ISaveZipFile.Save(IEnumerable<CaptchaResult> captchaResults)
+    public void SaveAsZip(string archiveName = "archive", CompressionLevel compressionLevel = CompressionLevel.Fastest)
     {
-        using (var archiveStream = new FileStream(_path + ".zip", FileMode.Create))
+        using (var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.Create))
         {
             using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
             {
-                foreach (CaptchaResult captchaResult in captchaResults)
+                foreach (CaptchaResult captchaResult in _captchaResults)
                 {
-                    var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), CompressionLevel.Fastest);
+                    var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
                     
                     using var zipStream = zipArchiveEntry.Open();
                     switch (_imageType)
@@ -109,15 +115,15 @@ public class CaptchaSaver : ISaveSeparateFiles, ISaveZipFile,
         }
     }
 
-    async Task ISaveZipFile.SaveAsync(IEnumerable<CaptchaResult> captchaResults)
+    public async Task SaveAsZipAsync(string archiveName = "archive", CompressionLevel compressionLevel = CompressionLevel.Fastest)
     {
-        using (var archiveStream = new FileStream(_path + ".zip", FileMode.CreateNew, FileAccess.Write))
+        using (var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.CreateNew, FileAccess.Write))
         {
             using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
             {
-                foreach (CaptchaResult captchaResult in captchaResults)
+                foreach (CaptchaResult captchaResult in _captchaResults)
                 {
-                    var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), CompressionLevel.Fastest);
+                    var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
 
                     using var zipStream = zipArchiveEntry.Open();
                     switch (_imageType)
@@ -160,24 +166,14 @@ public class CaptchaSaver : ISaveSeparateFiles, ISaveZipFile,
     }
 
 
-    public ISeparateFileSaver CreateFolder(string folderName)
+    public CaptchaSaver CreateFolder(string folderName)
     {
-        CreateFolderInternal(folderName);
+        _path = Directory.CreateDirectory(Path.Join(_path, folderName)).FullName;
+        _folderName = folderName;
         return this;
     }
 
-    public ISeparateFileSaver SaveAsSeparateFile()
-    {
-        return this;
-    }
-
-    public IZipFileSaver SaveAsZip(string archiveName)
-    {
-        _path = Path.Combine(_path, archiveName);
-        return this;
-    }
-
-    public IHasTypeAndPath SetOutputPath(string path)
+    public CaptchaSaver WithOutputPath(string path)
     {
         if (!Directory.Exists(path))
             throw new ArgumentException($"Dirrectory specified by path '{path}' doesnt' exist");
@@ -185,47 +181,16 @@ public class CaptchaSaver : ISaveSeparateFiles, ISaveZipFile,
         return this;
     }
 
-    public IHasTypeSetOutputPath SetOutputType(ImageType type)
+    public CaptchaSaver WithOutputType(ImageType type)
     {
         _imageType = type;
         return this;
     }
 
-    public ISeparateFileSaverWithFilePrefix WithFilePrefix(string prefix)
+    public CaptchaSaver WithFilePrefix(string prefix)
     {
         _prefix = prefix;
         return this;
-    }
-
-    ISaveSeparateFiles ISeparateFileSaverWithFilePrefix.CreateFolder(string folderName)
-    {
-        CreateFolderInternal(folderName);
-        return this;
-    }
-
-    
-    ISaveSeparateFiles ISeparateFileSaverWithFolder.WithFilePrefix(string prefix)
-    {
-        _prefix = prefix;
-        return this;
-    }
-
-    ISaveZipFile IZipFileSaver.WithFilePrefix(string prefix)
-    {
-        _prefix = prefix;
-        return this;
-    }
-
-    ISeparateFileSaverWithFolder ISeparateFileSaver.CreateFolder(string folderName)
-    {
-        CreateFolderInternal(folderName);
-        return this;
-    }
-
-    private void CreateFolderInternal(string folderName)
-    {
-        _path = Directory.CreateDirectory(Path.Join(_path, folderName)).FullName;
-        _folderName = folderName;
     }
 }
 
@@ -269,8 +234,8 @@ public interface ISeparateFileSaverWithFolder : ISaveSeparateFiles
 
 public interface ISaveSeparateFiles
 {
-    public void Save(IEnumerable<CaptchaResult> captchaResults);
-    public Task SaveAsync(IEnumerable<CaptchaResult> captchaResults);
+    public void Save();
+    public Task SaveAsync();
 }
 
 // zip file type
@@ -280,6 +245,6 @@ public interface IZipFileSaver : ISaveZipFile
 }
 public interface ISaveZipFile
 {
-    public void Save(IEnumerable<CaptchaResult> captchaResults);
-    public Task SaveAsync(IEnumerable<CaptchaResult> captchaResults);
+    public void Save();
+    public Task SaveAsync();
 }

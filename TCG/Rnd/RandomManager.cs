@@ -60,7 +60,7 @@ public class RandomManager
         {
             if (property.PropertyType.GetInterfaces().Contains(typeof(IRandomizableParameter)))
             {
-                Console.WriteLine(renderable.GetType().ToString() + " " + property.Name);
+                //Console.WriteLine(renderable.GetType().ToString() + " " + property.Name);
                 object? propValue = property.GetValue(renderable);
                 if (propValue != null)
                     (propValue as IRandomizableParameter)!.Randomize(rnd, force);

@@ -1,157 +1,138 @@
-﻿using SixLabors.ImageSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TCG.Base.Hierarchy;
+﻿using TCG.Base.Hierarchy;
+using TCG.Base.Interfaces;
 
 namespace TCG.Rnd;
 
-public class CaptchaGenerator : ISetTemplate, IHasTemplate, IHasSeedAndTemplateAndCaptchaTexts, IHasSeedAndTemplateAndGetTextFunc,
-    IHasSeedAndTemplateAndCaptchMultipleTexts, IGenerateBySeedAndTextStage, IGenerateBySeedAndMultipleTextStage, IHasSeedAndTemplate
+public class CaptchaGenerator
 {
     RandomManager rnd = new RandomManager(0);
 
     private Canvas _template;
     private int[] _seeds;
-    private string[] _captchaText;
-    private string[][] _captchaMultipleText;
-    private Func<Canvas, string> _getCaptchaTextFunc;
-    private Action<Canvas, string[]> _setCaptchaMultipleTextAction;
-    private Action<Canvas, string> _setCaptchaTextAction;
+    private Dictionary<int, string[]> _captchaText = new Dictionary<int, string[]>();
 
-    private CaptchaGenerator() { }
-
-    public static ISetTemplate Create()
+    public CaptchaGenerator(Canvas template)
     {
-        return new CaptchaGenerator();
+        _template = template;
     }
 
-    IHasTemplate ISetTemplate.SetTemplate(Canvas template)
+    public CaptchaGenerator WithTemplate(Canvas template)
     {
         _template = template;
         return this;
     }
 
-    public IHasSeedAndTemplate SetSeeds(int[] seeds)
+    public CaptchaGenerator WithSeeds(int[] seeds)
     {
         _seeds = seeds;
         return this;
     }
 
-    IEnumerable<CaptchaResult> IHasSeedAndTemplateAndGetTextFunc.Generate()
+    public CaptchaGenerator WithSeedsCount(int count)
     {
-        foreach (int seed in _seeds)
+        _seeds = Enumerable.Range(0, count).ToArray();
+        return this;
+    }
+
+    public CaptchaGenerator WithCaptchaInput(string[] input, int index = 0)
+    {
+        _captchaText[index] = input;
+        return this;
+    }
+
+    public IEnumerable<CaptchaResult> Generate()
+    {
+        if (_seeds == null || _seeds.Length == 0)
         {
+            int count = _captchaText.Values.FirstOrDefault()?.Length ?? 0;
+            WithSeedsCount(count);
+        }
+
+        ValidateFields();
+
+        return _captchaText.Keys.Count > 0 ? GenerateManualCaptcha() : GenerateRandomizedCaptcha();
+    }
+
+    private IEnumerable<CaptchaResult> GenerateRandomizedCaptcha()
+    {
+        Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
+
+        for (int seedId = 0; seedId < _seeds.Length; seedId++)
+        {
+            int seed = _seeds[seedId];
             rnd.ResetRandom(seed);
             rnd.RandomizeCanvas(_template);
 
-            string captchaText = _getCaptchaTextFunc(_template);
-            yield return new(seed, _template.Render(), new string[] { captchaText });
+            List<string> captchaStrings = new List<string>();
+            foreach (int captchaIndex in captchaIndexMapping.Keys)
+            {
+                foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])
+                {
+                    captchaStrings.Add(captchaDrawable.Text);
+
+                }
+            }
+            yield return new(seed, _template.Render(), captchaStrings.ToArray());
         }
     }
 
-    IEnumerable<CaptchaResult> IGenerateBySeedAndTextStage.Generate()
+    private IEnumerable<CaptchaResult> GenerateManualCaptcha()
     {
-        foreach (var (seed, text) in _seeds.Zip(_captchaText))
+        Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
+        
+
+        for (int seedId = 0; seedId < _seeds.Length; seedId++)
         {
+            int seed = _seeds[seedId];
             rnd.ResetRandom(seed);
             rnd.RandomizeCanvas(_template);
-            _setCaptchaTextAction(_template, text);
-            Console.WriteLine(text);
-            yield return new CaptchaResult(seed, _template.Render(), new string[] { text });
+
+            List<string> captchaStrings = new List<string>();
+            foreach (int captchaIndex in captchaIndexMapping.Keys)
+            {
+                foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])
+                {
+                    captchaDrawable.Text = _captchaText[captchaIndex][seedId];
+                    captchaStrings.Add(captchaDrawable.Text);
+                }
+            }
+            yield return new(seed, _template.Render(), captchaStrings.ToArray());
         }
     }
 
-    IEnumerable<CaptchaResult> IGenerateBySeedAndMultipleTextStage.Generate()
+    private void ValidateFields()
     {
-        foreach (var (seed, textArray) in _seeds.Zip(_captchaMultipleText))
+        int min, max;
+
+        min = _captchaText.Values.Min(x => ((int?)x.Length)) ?? 0;
+        max = _captchaText.Values.Max(x => ((int?)x.Length)) ?? 0;
+
+        if (min != max)
+            throw new ArgumentException("Captcha inputs should have same input array size. ");
+
+        if (max > 0 && _seeds?.Length != max)
+            throw new ArgumentException("Seed length must be equal captcha input array size");
+
+        if (min == 0 && _seeds?.Length == 0)
+            throw new ArgumentException("For captcha generation you should specify captha input or seeds");
+    }
+
+    protected Dictionary<int, List<ICaptcha>> GetCanvasCaptchas(Canvas canvas)
+    {
+        Dictionary<int, List<ICaptcha>> captchas = new();
+        foreach (var layer in canvas.Layers)
         {
-            rnd.ResetRandom(seed);
-            rnd.RandomizeCanvas(_template);
-            _setCaptchaMultipleTextAction(_template, textArray);
-            yield return new CaptchaResult(seed, _template.Render(), textArray);
+            foreach (var drawable in layer.Drawables)
+            {
+                if (drawable is ICaptcha captcha)
+                {
+                    if(captchas.ContainsKey(captcha.Index))
+                        captchas[captcha.Index].Add(captcha);
+                    else
+                        captchas[captcha.Index] = new List<ICaptcha>() { captcha };
+                }
+            }
         }
+        return captchas;
     }
-
-    IHasSeedAndTemplateAndCaptchaTexts IHasSeedAndTemplate.SetCaptchaTexts(string[] captchaTexts)
-    {
-        if (_seeds.Length != captchaTexts.Length)
-            throw new ArgumentException("Seed length must be equal captchaText length");
-        _captchaText = captchaTexts;
-        return this;
-    }
-
-    IHasSeedAndTemplateAndCaptchMultipleTexts IHasSeedAndTemplate.SetCaptchaTexts(string[][] captchaTexts)
-    {
-        if (_seeds.Length != captchaTexts.Length)
-            throw new ArgumentException("Seed length must be equal captchaText length");
-        _captchaMultipleText = captchaTexts;
-        return this;
-    }
-
-    public IGenerateBySeedAndTextStage SetCaptchaSetTextAction(Action<Canvas, string> setCaptchaTextAction)
-    {
-        _setCaptchaTextAction = setCaptchaTextAction;
-        return this;
-    }
-
-    public IGenerateBySeedAndMultipleTextStage SetCaptchaSetTextAction(Action<Canvas, string[]> setCaptchaText)
-    {
-        _setCaptchaMultipleTextAction = setCaptchaText;
-        return this;
-    }
-
-    public IEnumerable<Image> Generate()
-    {
-        throw new NotImplementedException();
-    }
-
-    public IHasSeedAndTemplateAndGetTextFunc SetFunctionGetCaptchaText(Func<string, Canvas> getCaptchaText)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public interface ISetTemplate
-{
-    public IHasTemplate SetTemplate(Canvas template);
-}
-
-public interface IHasTemplate
-{
-    public IHasSeedAndTemplate SetSeeds(int[] seeds);
-}
-
-public interface IHasSeedAndTemplateAndCaptchaTexts
-{
-    public IGenerateBySeedAndTextStage SetCaptchaSetTextAction(Action<Canvas, string> setCaptchaTextAction);
-}
-
-public interface IHasSeedAndTemplateAndCaptchMultipleTexts
-{
-    public IGenerateBySeedAndMultipleTextStage SetCaptchaSetTextAction(Action<Canvas, string[]> setCaptchaText);
-}
-
-public interface IHasSeedAndTemplateAndGetTextFunc
-{
-    public IEnumerable<CaptchaResult> Generate();
-}
-
-public interface IGenerateBySeedAndTextStage
-{
-    public IEnumerable<CaptchaResult> Generate();
-}
-
-public interface IGenerateBySeedAndMultipleTextStage
-{
-    public IEnumerable<CaptchaResult> Generate();
-}
-
-public interface IHasSeedAndTemplate
-{
-    public IHasSeedAndTemplateAndGetTextFunc SetFunctionGetCaptchaText(Func<string, Canvas> getCaptchaText);
-    public IHasSeedAndTemplateAndCaptchaTexts SetCaptchaTexts(string[] captchaTexts);
-    public IHasSeedAndTemplateAndCaptchMultipleTexts SetCaptchaTexts(string[][] captchaTexts);
 }
