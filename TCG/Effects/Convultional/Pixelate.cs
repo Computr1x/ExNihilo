@@ -15,19 +15,34 @@ public class Pixelate : IEffect
     /// </summary>
     public IntParameter PixelSize { get; set; } = new(1, int.MaxValue, 4) { Min = 2, Max = 32 };
 
+    /// <summary>
+    /// <inheritdoc cref="Pixelate"/>
+    /// </summary>
     public Pixelate() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Pixelate"/>
+    /// </summary>
+    /// <param name="pixelSize"><inheritdoc cref="PixelSize" path="/summary"/></param>
     public Pixelate(int pixelSize)
     {
         PixelSize.Value = pixelSize;
     }
 
+    /// <summary>
+    /// Set PixelSize value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="PixelSize" path="/summary"/></param>
     public Pixelate WithPixelSize(int value)
     {
         PixelSize.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Pixel size randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="PixelSize" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="PixelSize" path="/summary"/></param>
     public Pixelate WithRandomizedPixelSize(int min, int max)
     {
         PixelSize.Min = min;

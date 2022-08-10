@@ -77,33 +77,51 @@ public class Text : BaseDrawableWithBrushAndPen
         }
     }
 
+    /// <summary>
+    /// <inheritdoc cref="Text"/>
+    /// </summary>
     public Text() {
         Brush.Type.Value = BrushType.Solid;
     }
 
+    /// <summary>
+    /// <inheritdoc cref="Text"/>
+    /// </summary>
+    /// <param name="fontFamily"><inheritdoc cref="FontFamily" path="/summary"/></param>
     public Text(FontFamily fontFamily) : this()
     {
         FontFamily.Value = fontFamily;
     }
 
+    /// <summary>
+    /// <inheritdoc cref="Text"/>
+    /// </summary>
+    /// <param name="fontFamily"><inheritdoc cref="FontFamily" path="/summary"/></param>
+    /// <param name="text"><inheritdoc cref="Content" path="/summary"/></param>
     public Text(FontFamily fontFamily, string text) : this(fontFamily)
     {
         Content.Value = text;
         Content.Length.Value = text.Length;
     }
-
+    /// <summary>
+    /// Set brush value.
+    /// </summary>
     public Text WithBrush(Color color)
     {
         Brush.Value = Brushes.Solid(color);
         return this;
     }
-
+    /// <summary>
+    /// Set brush randomization parameters.
+    /// </summary>
     public Text WithRandomizedBrush(Color[] palette)
     {
         Brush.WithRandomizedColor(palette);
         return this;
     }
-
+    /// <summary>
+    /// Set brush randomization parameters.
+    /// </summary>
     public Text WithRandomizedBrush(int colorsCount)
     {
         Brush.WithRandomizedColor(colorsCount);
@@ -123,71 +141,91 @@ public class Text : BaseDrawableWithBrushAndPen
     //    actionBrush(Brush);
     //    return this;
     //}
-
+    /// <summary>
+    /// Set pen value.
+    /// </summary>
     public Text WithPen(IPen pen)
     {
         Pen.Value = pen;
         return this;
     }
-
+    /// <summary>
+    /// Set pen value.
+    /// </summary>
     public Text WithPen(Action<PenParameter> actionPen)
     {
         actionPen(Pen);
         return this;
     }
-
+    /// <summary>
+    /// Set drawable type value.
+    /// </summary>
     public Text WithType(DrawableType value)
     {
         Type.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set content value.
+    /// </summary>
     public Text WithContent(string value)
     {
         Content.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set content randomization parameters.
+    /// </summary>
     public Text WithRandomizedContent(Action<StringParameter> stringParameterSetter)
     {
         stringParameterSetter(Content);
         return this;
     }
-
+    /// <summary>
+    /// Set point value.
+    /// </summary>
     public Text WithPoint(Point p)
     {
         Point.Value = p;
         return this;
     }
-
+    /// <summary>
+    /// Set point randomization parameters.
+    /// </summary>
     public Text WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
     {
-        Point.X.Min = minX;
-        Point.X.Max = maxX;
-        Point.Y.Min = minY;
-        Point.Y.Min = maxY;
+        Point.WithRandomizedValue(minX, maxX, minY, maxY);
         return this;
     }
-
+    /// <summary>
+    /// Set font family value.
+    /// </summary>
     public Text WithFontFamily(FontFamily value)
     {
         FontFamily.Value = value;
         return this;
     }
 
+    /// <summary>
+    /// Set font faimily randomization parameters.
+    /// </summary>
     public Text WithRandomizedFontFamily(IEnumerable<FontFamily> value)
     {
         FontFamily.Collection.Clear();
         FontFamily.Collection.AddRange(value);
         return this;
     }
-
+    /// <summary>
+    /// Set font size value.
+    /// </summary>
     public Text WithFontSize(int size)
     {
         FontSize.Value = size;
         return this;
     }
-
+    /// <summary>
+    /// Set font size randomization parameters.
+    /// </summary>
     public Text WithRandomizedFontSize(int min, int max)
     {
         FontSize.Min = min;
@@ -195,42 +233,58 @@ public class Text : BaseDrawableWithBrushAndPen
         return this;
     }
 
+    /// <summary>
+    /// Set font style value.
+    /// </summary>
     public Text WithStyle(FontStyle value)
     {
         Style.Value = value;
         return this;
     }
 
+    /// <summary>
+    /// Set text DPI value.
+    /// </summary>
     public Text WithDpi(int value)
     {
         Dpi = value;
         return this;
     }
-
+    /// <summary>
+    /// Set text aligment value.
+    /// </summary>
     public Text WithTextAligment(TextAlignment value)
     {
         this.TextAlignment = value;
         return this;
     }
-
+    /// <summary>
+    /// Set horizontal aligment value.
+    /// </summary>
     public Text WithHorizontalAligment(HorizontalAlignment value)
     {
         HorizontalAlignment = value;
         return this;
     }
-
+    /// <summary>
+    /// Set vertical aligment value.
+    /// </summary>
     public Text WithVerticalAligment(VerticalAlignment value)
     {
         VerticalAlignment = value;
         return this;
     }
-
+    /// <summary>
+    /// Set wrapping lenght value.
+    /// </summary>
     public Text WithWrappingLength(float value)
     {
         WrappingLength = value;
         return this;
     }
-
+    /// <summary>
+    /// Set line spacing value.
+    /// </summary>
     public Text WithLineSpacing(float value)
     {
         LineSpacing = value;

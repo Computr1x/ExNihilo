@@ -15,19 +15,34 @@ public class Contrast : IEffect
     /// </summary>
     public FloatParameter Amount { get; set; } = new FloatParameter(0, float.MaxValue, 3) { Min = 0, Max = 3};
 
+    /// <summary>
+    /// <inheritdoc cref="Contrast"/>
+    /// </summary>
     public Contrast() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Contrast"/>
+    /// </summary>
+    /// <param name="amount"><inheritdoc cref="Amount" path="/summary"/></param>
     public Contrast(float amount)
     {
         Amount.Value = amount;
     }
 
+    /// <summary>
+    /// Set Amount value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Amount" path="/summary"/></param>
     public Contrast WithAmount(float value)
     {
         Amount.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Amount value randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Amount" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Amount" path="/summary"/></param>
     public Contrast WithRandomizedAmount(float min, float max)
     {
         Amount.Min = min;

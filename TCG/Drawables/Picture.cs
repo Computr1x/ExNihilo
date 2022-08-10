@@ -17,29 +17,45 @@ public class Picture : BaseDrawable
     public PointParameter Point { get; } = new PointParameter(new Point());
 
     private Image? image = null;
-    private string path = "";
 
+    /// <summary>
+    /// <inheritdoc cref="Picture"/>
+    /// </summary>
+    /// <param name="path">Path to image location</param>
     public Picture(string path)
     {
-        this.path = path;
+        image = Image.Load(path);
     }
 
+    /// <summary>
+    /// <inheritdoc cref="Picture"/>
+    /// </summary>
+    /// <param name="image">Image value in bytes</param>
     public Picture(byte[] image)
     {
         this.image = Image.Load(image);
     }
 
+    /// <summary>
+    /// <inheritdoc cref="Picture"/>
+    /// </summary>
+    /// <param name="image"><inheritdoc cref="Image" path="/summary"/></param>
     public Picture(Image image)
     {
         this.image = image;
     }
 
+    /// <summary>
+    /// Set area point value.
+    /// </summary>
     public Picture WithPoint(Point p)
     {
         Point.Value = p;
         return this;
     }
-
+    /// <summary>
+    /// Set point randomization parameters.
+    /// </summary>
     public Picture WithRandomiPoint(Point p)
     {
         Point.Value = p;
@@ -48,15 +64,6 @@ public class Picture : BaseDrawable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if (string.IsNullOrWhiteSpace(path) == false)
-        {
-            try
-            {
-                this.image = Image.Load(path);
-            }
-            catch { }
-        }
-
         if (this.image == null)
             return;
 

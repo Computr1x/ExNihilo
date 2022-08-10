@@ -13,28 +13,43 @@ public class ColorBlindness : IEffect
     /// <summary>
     /// The type of color blindness simulator to apply.
     /// </summary>
-    public EnumParameter<ColorBlindnessMode> ColorBlindnessMode { get; set; } 
+    public EnumParameter<ColorBlindnessMode> Mode { get; set; } 
         = new EnumParameter<ColorBlindnessMode>(SixLabors.ImageSharp.Processing.ColorBlindnessMode.Achromatomaly) ;
 
+    /// <summary>
+    /// <inheritdoc cref="ColorBlindness"/>
+    /// </summary>
     public ColorBlindness() { }
 
+    /// <summary>
+    /// <inheritdoc cref="ColorBlindness"/>
+    /// </summary>
+    /// <param name="mode"><inheritdoc cref="Mode" path="/summary"/></param>
     public ColorBlindness(ColorBlindnessMode mode)
     {
-        ColorBlindnessMode.Value = mode;
+        Mode.Value = mode;
     }
 
+    /// <summary>
+    /// Set ColorBlindnessMode value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Mode" path="/summary"/></param>
     public ColorBlindness WithMode(ColorBlindnessMode value)
     {
-        ColorBlindnessMode.Value = value;
+        Mode.Value = value;
         return this;
     }
 
+    /// <summary>
+    /// Set ColorBlindnessMode randomization parameters.
+    /// </summary>
+    /// <param name="values">List of value for randomization</param>
     public ColorBlindness WithRandomizedMode(IEnumerable<ColorBlindnessMode> values)
     {
-        ColorBlindnessMode.EnumValues = values.ToArray();
+        Mode.EnumValues = values.ToArray();
         return this;
     }
 
     public void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.ColorBlindness(ColorBlindnessMode));
+        image.Mutate(x => x.ColorBlindness(Mode));
 }

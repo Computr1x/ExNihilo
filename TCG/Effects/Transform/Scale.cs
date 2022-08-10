@@ -19,37 +19,59 @@ public class Scale : IEffect
     /// </summary>
     public FloatParameter YScale { get; set; } = new(0) { Min = 0, Max = 2 };
 
+    /// <summary>
+    /// <inheritdoc cref="Scale"/>
+    /// </summary>
     public Scale() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Scale"/>
+    /// </summary>
+    /// <param name="xScale"><inheritdoc cref="XScale" path="/summary"/></param>
+    /// <param name="yScale"><inheritdoc cref="YScale" path="/summary"/></param>
     public Scale(float xScale, float yScale)
     {
         XScale.Value = xScale;
         YScale.Value = yScale;
     }
 
+    /// <summary>
+    /// Set XScale value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="XScale" path="/summary"/></param>
     public Scale WithXScale(float value)
     {
         XScale.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set XScale randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="XScale" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="XScale" path="/summary"/></param>
     public Scale WithRandomizedXScale(float min, float max)
     {
-        XScale.Min = min;
-        XScale.Max = max;
+        XScale.WithRandomizedValue(min, max);
         return this;
     }
 
+    /// <summary>
+    /// Set YScale value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="YScale" path="/summary"/></param>
     public Scale WithYScale(float value)
     {
         YScale.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set YScale randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="YScale" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="YScale" path="/summary"/></param>
     public Scale WithRandomizedYScale(float min, float max)
     {
-        YScale.Min = min;
-        YScale.Max = max;
+        YScale.WithRandomizedValue(min, max);
         return this;
     }
 

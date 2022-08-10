@@ -30,8 +30,17 @@ public class PerlinNoise : IEffect
     /// </summary>
     public BoolParameter Monochrome { get; set; } = new();
 
+    /// <summary>
+    /// <inheritdoc cref="PerlinNoise"/>
+    /// </summary>
     public PerlinNoise() { }
 
+    /// <summary>
+    /// <inheritdoc cref="PerlinNoise"/>
+    /// </summary>
+    /// <param name="octaves"><inheritdoc cref="Octaves" path="/summary"/></param>
+    /// <param name="persistence"><inheritdoc cref="Persistence" path="/summary"/></param>
+    /// <param name="isMonochrome"><inheritdoc cref="Monochrome" path="/summary"/></param>
     public PerlinNoise(int octaves, float persistence, bool isMonochrome) 
     { 
         Octaves.Value = octaves;
@@ -39,45 +48,70 @@ public class PerlinNoise : IEffect
         Monochrome.Value = isMonochrome;
     }
 
+    /// <summary>
+    /// Set Seed value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Seed" path="/summary"/></param>
     public PerlinNoise WithSeed(int value)
     {
         Seed.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Seed randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Seed" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Seed" path="/summary"/></param>
     public PerlinNoise WithRandomizedSeed(int min, int max)
     {
-        Seed.Min = min;
-        Seed.Max = max;
+        Seed.WithRandomizedValue(min, max);
         return this;
     }
 
+    /// <summary>
+    /// Set noise Octaves value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Octaves" path="/summary"/></param>
     public PerlinNoise WithOctaves(int value)
     {
         Octaves.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set noise Ocataves randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Octaves" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Octaves" path="/summary"/></param>
     public PerlinNoise WithRandomizedOctaves(int min, int max)
     {
-        Octaves.Min = min;
-        Octaves.Max = max;
+        Octaves.WithRandomizedValue(min, max);
         return this;
     }
 
+    /// <summary>
+    /// Set Persistence value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Persistence" path="/summary"/></param>
     public PerlinNoise WithPersistence(float value)
     {
         Persistence.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set noise Persistense randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Persistence" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Persistence" path="/summary"/></param>
     public PerlinNoise WithRandomizedPersistence(float min, float max)
     {
-        Persistence.Min = min;
-        Persistence.Max = max;
+        Persistence.WithRandomizedValue(min, max);
         return this;
     }
 
+    /// <summary>
+    /// Set Monochrome value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Monochrome" path="/summary"/></param>
     public PerlinNoise IsMonochrome(bool value)
     {
         Monochrome.Value = value;

@@ -18,69 +18,109 @@ public class Ellipse : BaseDrawableWithBrushAndPen
     /// </summary>
     public RectangleParameter Area { get; } = new RectangleParameter();
 
+    /// <summary>
+    /// <inheritdoc cref="Ellipse"/>
+    /// </summary>
     public Ellipse() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Ellipse"/>
+    /// </summary>
+    /// <param name="rectangle"><inheritdoc cref="Area" path="/summary"/></param>
     public Ellipse(SixLabors.ImageSharp.Rectangle rectangle)
     {
         Area.Value = rectangle;
     }
 
+    /// <summary>
+    /// <inheritdoc cref="Ellipse"/>
+    /// </summary>
+    /// <param name="x">Set x coordinate of Area</param>
+    /// <param name="y">Set y coordinate of Area</param>
+    /// <param name="width">Set width of Area</param>
+    /// <param name="height">Set height of Area</param>
     public Ellipse(int x, int y, int width, int height) : this(new SixLabors.ImageSharp.Rectangle(x, y, width, height)) { }
+    
 
-
+    /// <summary>
+    /// Set brush value.
+    /// </summary>
     public Ellipse WithBrush(IBrush brush)
     {
         Brush.Value = brush;
         return this;
     }
+    /// <summary>
+    /// Set brush value.
+    /// </summary>
     public Ellipse WithBrush(Action<BrushParameter> actionBrush)
     {
         actionBrush(Brush);
         return this;
     }
-
+    /// <summary>
+    /// Set pen value.
+    /// </summary>
     public Ellipse WithPen(IPen pen)
     {
         Pen.Value = pen;
         return this;
     }
-
+    /// <summary>
+    /// Set pen value.
+    /// </summary>
     public Ellipse WithPen(Action<PenParameter> actionPen)
     {
         actionPen(Pen);
         return this;
     }
-
+    /// <summary>
+    /// Set drawable type value.
+    /// </summary>
     public Ellipse WithType(DrawableType value)
     {
         Type.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set drawable point value.
+    /// </summary>
     public Ellipse WithPoint(Point p)
     {
         Area.WithPoint(p);
         return this;
     }
-
+    /// <summary>
+    /// Set point randomization parameters.
+    /// </summary>
     public Ellipse WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
     {
         Area.WithRandomizedPoint(minX, maxX, minY, maxY);
         return this;
     }
 
+    /// <summary>
+    /// Set drawable size value.
+    /// </summary>
     public Ellipse WithSize(Size size)
     {
         Area.WithSize(size);
         return this;
     }
 
+    /// <summary>
+    /// Set size randomization parameters.
+    /// </summary>
     public Ellipse WithRandomizedSize(int minWidth, int maxWidth, int minHeight, int maxHeight)
     {
         Area.WithRandomizedSize(minWidth, maxWidth, minHeight, maxHeight);
         return this;
     }
-
+    /// <summary>
+    /// Set area Size randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Size" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Size" path="/summary"/></param>
     public Ellipse WithRandomizedSize(int min, int max)
     {
         Area.WithRandomizedSize(min, max, min, max);

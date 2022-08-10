@@ -32,19 +32,37 @@ public class Slices : IEffect
     /// </summary>
     public IntParameter SliceHeight { get; set; } = new(1, int.MaxValue, 1) { Min = 1, Max = 10 };
 
+    /// <summary>
+    /// <inheritdoc cref="Slices"/>
+    /// </summary>
     public Slices() { }
+
+    /// <summary>
+    /// <inheritdoc cref="Slices"/>
+    /// </summary>
+    /// <param name="count"><inheritdoc cref="Count" path="/summary"/></param>
+    /// <param name="sliceHeight">< inheritdoc cref="SliceHeight" path="/summary"/></param>
     public Slices(int count, int sliceHeight)
     {
         Count.Value = count;
         SliceHeight.Value = sliceHeight;
     }
 
+    /// <summary>
+    /// Set Count value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Count" path="/summary"/></param>
     public Slices WithCount(int value)
     {
         Count.Value = value;
         return this;
     }
 
+    /// <summary>
+    /// Set slices Count randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Count" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Count" path="/summary"/></param>
     public Slices WithRandomizedCount(int min, int max)
     {
         Count.Min = min;
@@ -52,12 +70,20 @@ public class Slices : IEffect
         return this;
     }
 
+    /// <summary>
+    /// Set Seed value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Seed" path="/summary"/></param>
     public Slices WithSeed(int value)
     {
         Seed.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Seed randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Seed" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Seed" path="/summary"/></param>
     public Slices WithRandomizedSeed(int min, int max)
     {
         Seed.Min = min;
@@ -65,38 +91,60 @@ public class Slices : IEffect
         return this;
     }
 
+    /// <summary>
+    /// Set MinOffset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="MinOffset" path="/summary"/></param>
     public Slices WithMinOffset(int value)
     {
         MinOffset.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Min offset randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="MinOffset" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="MinOffset" path="/summary"/></param>
     public Slices WithRandomizedMinOffset(int min, int max)
     {
         MinOffset.Min = min;
         MinOffset.Max = max;
         return this;
     }
-
+    /// <summary>
+    /// Set MaxOffset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="MaxOffset" path="/summary"/></param>
     public Slices WithMaxOffset(int value)
     {
         MaxOffset.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Max offset randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="MaxOffset" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="MaxOffset" path="/summary"/></param>
     public Slices WithRandomizedMaxOffset(int min, int max)
     {
         MaxOffset.Min = min;
         MaxOffset.Max = max;
         return this;
     }
-
+    /// <summary>
+    /// Set Slide height value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="SliceHeight" path="/summary"/></param>
     public Slices WithSliceHeight(int value)
     {
         SliceHeight.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set slice Height randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="SliceHeight" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="SliceHeight" path="/summary"/></param>
     public Slices WithRandomizedSliceHeight(int min, int max)
     {
         SliceHeight.Min = min;

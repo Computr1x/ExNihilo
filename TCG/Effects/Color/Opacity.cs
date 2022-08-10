@@ -15,19 +15,34 @@ public class Opacity : IEffect
     /// </summary>
     public FloatParameter Amount { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1 };
 
+    /// <summary>
+    /// <inheritdoc cref="Opacity"/>
+    /// </summary>
     public Opacity() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Opacity"/>
+    /// </summary>
+    /// <param name="amount"><inheritdoc cref="Amount" path="/summary"/></param>
     public Opacity(float amount)
     {
         Amount.Value = amount;
     }
 
+    /// <summary>
+    /// Set Amount value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Amount" path="/summary"/></param>
     public Opacity WithAmount(float value)
     {
         Amount.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Amount value randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Amount" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Amount" path="/summary"/></param>
     public Opacity WithRandomizedAmount(float min, float max)
     {
         Amount.Min = min;

@@ -17,13 +17,23 @@ public class PolarCoordinates : IEffect
     /// </summary>
     public EnumParameter<PolarConversionType> ConversionType { get; } = new(PolarConversionType.CartesianToPolar);
 
+    /// <summary>
+    /// <inheritdoc cref="PolarCoordinates"/>
+    /// </summary>
     public PolarCoordinates() { }
 
+    /// <summary>
+    /// <inheritdoc cref="PolarCoordinates"/>
+    /// </summary>
+    /// <param name="conversionType"><inheritdoc cref="ConversionType" path="/summary"/></param>
     public PolarCoordinates(PolarConversionType conversionType)
     {
         ConversionType.Value = conversionType;
     }
-
+    /// <summary>
+    /// Set polar conversion Type value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Type" path="/summary"/></param>
     public PolarCoordinates WithType(PolarConversionType value)
     {
         ConversionType.Value = value;

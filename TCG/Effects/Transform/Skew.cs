@@ -19,37 +19,58 @@ public class Skew : IEffect
     /// </summary>
     public FloatParameter YDegree { get; set; } = new(0) { Min = 0, Max = 360 };
 
+    /// <summary>
+    /// <inheritdoc cref="Skew"/>
+    /// </summary>
     public Skew() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Skew"/>
+    /// </summary>
+    /// <param name="xDegree"><inheritdoc cref="XDegree" path="/summary"/></param>
+    /// <param name="yDegree"><inheritdoc cref="YDegree" path="/summary"/></param>
     public Skew(float xDegree, float yDegree)
     {
         XDegree.Value = xDegree;
         YDegree.Value = yDegree;
     }
 
+    /// <summary>
+    /// Set XDegree value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="XDegree" path="/summary"/></param>
     public Skew WithXDegree(float value)
     {
         XDegree.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set XDegree randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="XDegree" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="XDegree" path="/summary"/></param>
     public Skew WithRandomizedXDegree(float min, float max)
     {
-        XDegree.Min = min;
-        XDegree.Max = max;
+        XDegree.WithRandomizedValue(min, max);
         return this;
     }
-
+    /// <summary>
+    /// Set YDegree value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="YDegree" path="/summary"/></param>
     public Skew WithYDegree(float value)
     {
         YDegree.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set YDegree randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="YDegree" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="YDegree" path="/summary"/></param>
     public Skew WithRandomizedYDegree(float min, float max)
     {
-        YDegree.Min = min;
-        YDegree.Max = max;
+        YDegree.WithRandomizedValue(min, max);
         return this;
     }
 

@@ -28,8 +28,18 @@ public class Ripple : IEffect
     /// </summary>
     public FloatParameter TraintWidth { get; set; } = new(1, float.MaxValue, 2) { Min = 1f, Max = 10f };
 
+    /// <summary>
+    /// <inheritdoc cref="Ripple"/>
+    /// </summary>
     public Ripple() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Ripple"/>
+    /// </summary>
+    /// <param name="point"><inheritdoc cref="Point" path="/summary"/></param>
+    /// <param name="radius"><inheritdoc cref="Radius" path="/summary"/></param>
+    /// <param name="waveLength"><inheritdoc cref="WaveLength" path="/summary"/></param>
+    /// <param name="traintWidth"><inheritdoc cref="TraintWidth" path="/summary"/></param>
     public Ripple(Point point, float radius, float waveLength, float traintWidth)
     {
         Point.Value = point;
@@ -38,27 +48,43 @@ public class Ripple : IEffect
         TraintWidth.Value = traintWidth;
     }
 
+    /// <summary>
+    /// Set Point value
+    /// </summary>
+    /// <param name="x">Define x coordinate of Point</param>
+    /// <param name="y">Define y coordinate of Point</param>
     public Ripple WithPoint(int x, int y)
     {
         Point.Value = new Point(x, y);
         return this;
     }
-
+    /// <summary>
+    /// Set Point randomization parameters.
+    /// </summary>
+    /// <param name="minX">Minimal randomization value of x asix.</param>
+    /// <param name="maxX">Maximum randomization value of x asix.</param>
+    /// <param name="minY">Minimal randomization value of y asix.</param>
+    /// <param name="maxY">Maximum randomization value of y asix.</param>
     public Ripple WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
     {
-        Point.X.Min = minX;
-        Point.X.Max = maxX;
-        Point.Y.Min = minY;
-        Point.Y.Max = maxY;
+        Point.WithRandomizedValue(minX, maxX, minY, maxY);
         return this;
     }
 
+    /// <summary>
+    /// Set Radius value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Radius" path="/summary"/></param>
     public Ripple WithRadius(float value)
     {
         Radius.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Radius randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Radius" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Radius" path="/summary"/></param>
     public Ripple WithRandomizedRadius(float min, float max)
     {
         Radius.Min = min;
@@ -66,12 +92,20 @@ public class Ripple : IEffect
         return this;
     }
 
+    /// <summary>
+    /// Set Wave length value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="WaveLength" path="/summary"/></param>
     public Ripple WithWaveLength(float value)
     {
         WaveLength.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Wave length randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="WaveLength" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="WaveLength" path="/summary"/></param>
     public Ripple WithRandomizedWaveLength(float min, float max)
     {
         WaveLength.Min = min;
@@ -79,12 +113,20 @@ public class Ripple : IEffect
         return this;
     }
 
+    /// <summary>
+    /// Set Traint width value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="TraintWidth" path="/summary"/></param>
     public Ripple WithTraintWidth(float value)
     {
         TraintWidth.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Traing width randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="TraintWidth" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="TraintWidth" path="/summary"/></param>
     public Ripple WithRandomizedTraintWidth(float min, float max)
     {
         TraintWidth.Min = min;

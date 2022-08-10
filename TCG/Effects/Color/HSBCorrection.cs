@@ -24,8 +24,17 @@ public class HSBCorrection : IEffect
     /// </summary>
     public IntParameter Brightness { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
 
+    /// <summary>
+    /// <inheritdoc cref="HSBCorrection"/>
+    /// </summary>
     public HSBCorrection() { }
 
+    /// <summary>
+    /// <inheritdoc cref="HSBCorrection"/>
+    /// </summary>
+    /// <param name="hue"><inheritdoc cref="Hue" path="/summary"/></param>
+    /// <param name="saturation"><inheritdoc cref="Saturation" path="/summary"/></param>
+    /// <param name="brightness"><inheritdoc cref="Brightness" path="/summary"/></param>
     public HSBCorrection(int hue, int saturation, int brightness)
     {
         Hue.Value = hue;
@@ -33,12 +42,20 @@ public class HSBCorrection : IEffect
         Brightness.Value = brightness;
     }
 
+    /// <summary>
+    /// Set Hue value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Hue" path="/summary"/></param>
     public HSBCorrection WithHue(int value)
     {
         Hue.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Hue value randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Hue" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Hue" path="/summary"/></param>
     public HSBCorrection WithRandomizedHue(int min, int max)
     {
         Hue.Min = min;
@@ -46,12 +63,20 @@ public class HSBCorrection : IEffect
         return this;
     }
 
+    /// <summary>
+    /// Set Saturation value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Saturation" path="/summary"/></param>
     public HSBCorrection WithSaturation(int value)
     {
         Saturation.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Saturation value randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Saturation" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Saturation" path="/summary"/></param>
     public HSBCorrection WithRandomizedSaturation(int min, int max)
     {
         Saturation.Min = min;
@@ -59,12 +84,20 @@ public class HSBCorrection : IEffect
         return this;
     }
 
+    /// <summary>
+    /// Set Brightness value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Brightness" path="/summary"/></param>
     public HSBCorrection WithBrightness(int value)
     {
         Brightness.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Brightness value randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Brightness" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Brightness" path="/summary"/></param>
     public HSBCorrection WithRandomizedBrightness(int min, int max)
     {
         Brightness.Min = min;

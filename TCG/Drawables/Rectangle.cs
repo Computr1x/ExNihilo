@@ -18,71 +18,106 @@ public class Rectangle : BaseDrawableWithBrushAndPen
     /// </summary>
     public RectangleParameter Area { get; } = new RectangleParameter();
 
+    /// <summary>
+    /// <inheritdoc cref="Rectangle"/>
+    /// </summary>
     public Rectangle() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Rectangle"/>
+    /// </summary>
+    /// <param name="rectangle"><inheritdoc cref="Area" path="/summary"/></param>
     public Rectangle(SixLabors.ImageSharp.Rectangle rectangle) 
     {
         Area.Value = rectangle;
     }
 
+    /// <summary>
+    /// <inheritdoc cref="Rectangle"/>
+    /// </summary>
+    /// <param name="x">Set x coordinate of Area</param>
+    /// <param name="y">Set y coordinate of Area</param>
+    /// <param name="width">Set width of Area</param>
+    /// <param name="height">Set height of Area</param>
     public Rectangle(int x, int y, int width, int height) : this(new SixLabors.ImageSharp.Rectangle(x, y, width, height))
     {
         
     }
-
+    /// <summary>
+    /// Set brush value.
+    /// </summary>
     public Rectangle WithBrush(IBrush brush)
     {
         Brush.Value = brush;
         return this;
     }
+    /// <summary>
+    /// Set brush value.
+    /// </summary>
     public Rectangle WithBrush(Action<BrushParameter> actionBrush)
     {
         actionBrush(Brush);
         return this;
     }
-
+    /// <summary>
+    /// Set pen value.
+    /// </summary>
     public Rectangle WithPen(IPen pen)
     {
         Pen.Value = pen;
         return this;
     }
-
+    /// <summary>
+    /// Set pen value.
+    /// </summary>
     public Rectangle WithPen(Action<PenParameter> actionPen)
     {
         actionPen(Pen);
         return this;
     }
-
+    /// <summary>
+    /// Set drawable type value.
+    /// </summary>
     public Rectangle WithType(DrawableType value)
     {
         Type.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set area point value.
+    /// </summary>
     public Rectangle WithPoint(Point p)
     {
         Area.WithPoint(p);
         return this;
     }
-
+    /// <summary>
+    /// Set points randomization parameters.
+    /// </summary>
     public Rectangle WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
     {
         Area.WithRandomizedPoint(minX, maxX, minY, maxY);
         return this;
     }
-
+    /// <summary>
+    /// Set area size value.
+    /// </summary>
     public Rectangle WithSize(Size size)
     {
         Area.WithSize(size);
         return this;
     }
-
+    /// <summary>
+    /// Set size randomization parameters.
+    /// </summary>
     public Rectangle WithRandomizedSize(int minWidth, int maxWidth, int minHeight, int maxHeight)
     {
         Area.WithRandomizedSize(minWidth, maxWidth, minHeight, maxHeight);
         return this;
     }
-
+    /// <summary>
+    /// Set size randomization parameters.
+    /// </summary>
     public Rectangle WithRandomizedSize(int min, int max)
     {
         Area.WithRandomizedSize(min, max, min, max);

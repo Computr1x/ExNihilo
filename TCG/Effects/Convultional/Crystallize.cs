@@ -20,19 +20,34 @@ public class Crystallize : IEffect
     /// </summary>
     public IntParameter Seed { get; set; } = new(0) { Min = 0, Max = int.MaxValue };
 
+    /// <summary>
+    /// <inheritdoc cref="Crystallize"/>
+    /// </summary>
     public Crystallize() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Crystallize"/>
+    /// </summary>
+    /// <param name="crystalsCount"><inheritdoc cref="CrystalsCount" path="/summary"/></param>
     public Crystallize(int crystalsCount)
     {
         CrystalsCount.Value = crystalsCount;
     }
 
+    /// <summary>
+    /// Set CrystalsCount value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="CrystalsCount" path="/summary"/></param>
     public Crystallize WithCrystalsCount(int value)
     {
         CrystalsCount.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Crystals count randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="CrystalsCount" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="CrystalsCount" path="/summary"/></param>
     public Crystallize WithRandomizedCrystalsCount(int min, int max)
     {
         CrystalsCount.Min = min;
@@ -40,12 +55,20 @@ public class Crystallize : IEffect
         return this;
     }
 
+    /// <summary>
+    /// Set Seed value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Seed" path="/summary"/></param>
     public Crystallize WithSeed(int value)
     {
         Seed.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Seed randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Seed" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Seed" path="/summary"/></param>
     public Crystallize WithRandomizedSeed(int min, int max)
     {
         Seed.Min = min;

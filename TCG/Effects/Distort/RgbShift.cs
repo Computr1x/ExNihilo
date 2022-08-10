@@ -50,13 +50,29 @@ public class RgbShift : IEffect
     /// </summary>
     public IntParameter RedXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
 
+    /// <summary>
+    /// <inheritdoc cref="RgbShift"/>
+    /// </summary>
     public RgbShift() { }
 
+    /// <summary>
+    /// <inheritdoc cref="RgbShift"/>
+    /// </summary>
+    /// <param name="offset"><inheritdoc cref="Offset" path="/summary"/></param>
     public RgbShift(int offset)
     {
         Offset = offset;
     }
 
+    /// <summary>
+    /// <inheritdoc cref="RgbShift"/>
+    /// </summary>
+    /// <param name="redXOffset"><inheritdoc cref="RedXOffset" path="/summary"/></param>
+    /// <param name="redYOffset"><inheritdoc cref="RedYOffset" path="/summary"/></param>
+    /// <param name="greenXOffset"><inheritdoc cref="GreenXOffset" path="/summary"/></param>
+    /// <param name="greenYOffset"><inheritdoc cref="GreenYOffset" path="/summary"/></param>
+    /// <param name="blueXOffset"><inheritdoc cref="BlueXOffset" path="/summary"/></param>
+    /// <param name="blueYOffset"><inheritdoc cref="BlueYOffset" path="/summary"/></param>
     public RgbShift(int redXOffset, int redYOffset, int greenXOffset, int greenYOffset, int blueXOffset, int blueYOffset)
     {
         RedXOffset.Value = redXOffset;
@@ -67,42 +83,77 @@ public class RgbShift : IEffect
         BlueYOffset.Value = blueYOffset;
     }
 
+    /// <summary>
+    /// Set Offset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Offset" path="/summary"/></param>
     public RgbShift WithOffset(int value)
     {
         Offset = value;
         return this;
     }
 
+    /// <summary>
+    /// Set Offset randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Offset" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Offset" path="/summary"/></param>
+    public RgbShift WithRandomizedOffset(int min, int max)
+    {
+        RedXOffset.Min = RedYOffset.Min = GreenXOffset.Min = GreenYOffset.Min = BlueXOffset.Min = BlueYOffset.Min = min;
+        RedXOffset.Max = RedYOffset.Max = GreenXOffset.Max = GreenYOffset.Max = BlueXOffset.Max = BlueYOffset.Max = max;
+        return this;
+    }
+
+    /// <summary>
+    /// Set BlueXOffset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="BlueXOffset" path="/summary"/></param>
     public RgbShift WithBlueXOfffset(int value)
     {
         BlueXOffset.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set GreenXOffset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="GreenXOffset" path="/summary"/></param>
     public RgbShift WithGreenXOffset(int value)
     {
         GreenXOffset.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set RedXOffset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="RedXOffset" path="/summary"/></param>
     public RgbShift WithRedXOfffset(int value)
     {
         RedXOffset.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set BlueYOffset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="BlueYOffset" path="/summary"/></param>
     public RgbShift WithBlueYOfffset(int value)
     {
         BlueYOffset.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set GreenYOffset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="GreenYOffset" path="/summary"/></param>
     public RgbShift WithGreenYOffset(int value)
     {
         GreenYOffset.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set RedYOffset value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="RedYOffset" path="/summary"/></param>
     public RgbShift WithRedYOfffset(int value)
     {
         RedYOffset.Value = value;

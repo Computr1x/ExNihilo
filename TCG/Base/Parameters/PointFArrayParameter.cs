@@ -11,10 +11,10 @@ namespace TCG.Base.Parameters;
 
 public class PointFArrayParameter : GenericParameter<PointF[]>
 {
-    public IntParameter Length { get; set; } = new IntParameter(0);
+    public IntParameter Length { get; } = new IntParameter(0);
 
-    public IntParameter X { get; set; } = new IntParameter(0);
-    public IntParameter Y { get; set; } = new IntParameter(0);
+    public IntParameter X { get; } = new IntParameter(0);
+    public IntParameter Y { get;  } = new IntParameter(0);
 
     public PointFArrayParameter(PointF[] defaultValue) : base(defaultValue)
     {
@@ -22,7 +22,13 @@ public class PointFArrayParameter : GenericParameter<PointF[]>
 
     public PointFArrayParameter WithLength(int value)
     {
-        Length.Value = value;
+        Length.WithValue(value);
+        return this;
+    }
+
+    public PointFArrayParameter WithRadnomizeLength(int min, int max)
+    {
+        Length.WithRandomizedValue(min, max);
         return this;
     }
 

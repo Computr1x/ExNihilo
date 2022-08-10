@@ -15,23 +15,37 @@ public class GaussianSharpen : IEffect
     /// </summary>
     public FloatParameter Sigma { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1 };
 
+    /// <summary>
+    /// <inheritdoc cref="Sigma"/>
+    /// </summary>
     public GaussianSharpen() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Sigma"/>
+    /// </summary>
+    /// <param name="sigma"><inheritdoc cref="Sigma" path="/summary"/></param>
     public GaussianSharpen(float sigma)
     {
         Sigma.Value = sigma;
     }
 
+    /// <summary>
+    /// Set Sigma value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Sigma" path="/summary"/></param>
     public GaussianSharpen WithSigma(float value)
     {
         Sigma.Value = value;
         return this;
     }
-
-    public GaussianSharpen WithRandomizedAmount(float min, float max)
+    /// <summary>
+    /// Set Sigma randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Sigma" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Sigma" path="/summary"/></param>
+    public GaussianSharpen WithRandomizedSigma(float min, float max)
     {
-        Sigma.Min = min;
-        Sigma.Max = max;
+        Sigma.WithRandomizedValue(min, max);
         return this;
     }
 

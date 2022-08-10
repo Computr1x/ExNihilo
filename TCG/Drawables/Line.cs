@@ -19,54 +19,72 @@ public class Line : BaseDrawable
     /// <summary>
     /// Specifies if line type is bezier curve.
     /// </summary>
-    public BoolParameter IsBeziers { get;  } = new BoolParameter(false);
+    public bool IsBeziers { get; set; } = false;
     /// <summary>
     /// Defines a set of line points. For bezier curves, the length of the array must be greater than or equal to four.
     /// </summary>
     public PointFArrayParameter Points { get;  } = new PointFArrayParameter(new PointF[0]) { Length = { DefaultValue = 4}};
 
+    /// <summary>
+    /// <inheritdoc cref="Line"/>
+    /// </summary>
     public Line() { }
 
+    /// <summary>
+    /// <inheritdoc cref="Line"/>
+    /// </summary>
+    /// <param name="points"><inheritdoc cref="Points" path="/summary"/></param>
     public Line(PointF[] points) 
     { 
         Points.Value = points;
     }
-
+    /// <summary>
+    /// Set pen value.
+    /// </summary>
     public Line WithPen(IPen pen)
     {
         Pen.Value = pen;
         return this;
     }
-
+    /// <summary>
+    /// Set pen value.
+    /// </summary>
     public Line WithPen(Action<PenParameter> setPen)
     {
         setPen(Pen);
         return this;
     }
-
+    /// <summary>
+    /// Set line is bezeir value.
+    /// </summary>
     public Line IsBezier(bool value)
     {
-        IsBeziers.Value = value;
+        IsBeziers = value;
         return this;
     }
-
+    /// <summary>
+    /// Set line point values.
+    /// </summary>
     public Line WithPoints(PointF[] points)
     {
         Points.Value = points;
         return this;
     }
 
+    /// <summary>
+    /// Set points randomization parameters.
+    /// </summary>
     public Line WithRandomizedPoints(int minCount, int maxCount, int minX, int maxX, int minY, int maxY)
     {
-        Points.Length.Min = minCount;
-        Points.Length.Max = maxCount;
-        Points.X.Min = minX;
-        Points.X.Max = maxX;
-        Points.Y.Min = minY;
-        Points.Y.Max = maxY;
+        Points.Length.WithRandomizedValue(minCount, maxCount);
+        Points.X.WithRandomizedValue(minX, maxX);
+        Points.Y.WithRandomizedValue(minY, maxY);
         return this;
     }
 
+    /// <summary>
+    /// Set points randomization parameters.
+    /// </summary>
     public Line WithRandomizedPoints(int count, int minX, int maxX, int minY, int maxY)
     {
         return WithRandomizedPoints(count, count, minX, maxX, minY, maxY);

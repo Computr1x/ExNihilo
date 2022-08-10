@@ -15,20 +15,35 @@ public class GaussianBlur : IEffect
     /// </summary>
     public FloatParameter Sigma { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1};
 
+    /// <summary>
+    /// <inheritdoc cref="GaussianBlur"/>
+    /// </summary>
     public GaussianBlur() { }
 
+    /// <summary>
+    /// <inheritdoc cref="GaussianBlur"/>
+    /// </summary>
+    /// <param name="sigma"><inheritdoc cref="Sigma" path="/summary"/></param>
     public GaussianBlur(float sigma)
     {
         Sigma.Value = sigma;
     }
 
+    /// <summary>
+    /// Set Sigma value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Sigma" path="/summary"/></param>
     public GaussianBlur WithSigma(float value)
     {
         Sigma.Value = value;
         return this;
     }
-
-    public GaussianBlur WithRandomizedAmount(float min, float max)
+    /// <summary>
+    /// Set Sigma randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Sigma" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Sigma" path="/summary"/></param>
+    public GaussianBlur WithRandomizedSigma(float min, float max)
     {
         Sigma.Min = min;
         Sigma.Max = max;

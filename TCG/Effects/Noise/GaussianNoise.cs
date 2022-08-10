@@ -24,39 +24,66 @@ public class GaussianNoise : IEffect
     /// </summary>
     public BoolParameter Monochrome { get; set; } = new();
 
+    /// <summary>
+    /// <inheritdoc cref="GaussianNoise"/>
+    /// </summary>
     public GaussianNoise() { }
+
+    /// <summary>
+    /// <inheritdoc cref="GaussianNoise"/>
+    /// </summary>
+    /// <param name="amount"><inheritdoc cref="Amount" path="/summary"/></param>
+    /// <param name="isMonochome"><inheritdoc cref="Monochrome" path="/summary"/></param>
     public GaussianNoise(byte amount, bool isMonochome)
     {
         Amount.Value = amount;
         Monochrome.Value = isMonochome;
     }
 
+    /// <summary>
+    /// Set Seed value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Seed" path="/summary"/></param>
     public GaussianNoise WithSeed(int value)
     {
         Seed.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Seed randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Seed" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Seed" path="/summary"/></param>
     public GaussianNoise WithRandomizedSeed(int min, int max)
     {
-        Seed.Min = min;
-        Seed.Max = max;
+        Seed.WithRandomizedValue(min, max);
         return this;
     }
 
+    /// <summary>
+    /// Set Amount value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Amount" path="/summary"/></param>
     public GaussianNoise WithAmount(byte value)
     {
         Amount.Value = value;
         return this;
     }
-
+    /// <summary>
+    /// Set Amount randomization parameters.
+    /// </summary>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Amount" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Amount" path="/summary"/></param>
     public GaussianNoise WithRandomizedAmount(byte min, byte max)
     {
-        Amount.Min = min;
-        Amount.Max = max;
+        Amount.WithRandomizedValue(min, max);
         return this;
     }
 
+    /// <summary>
+    /// Set Monochrome value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Monochrome" path="/summary"/></param>
     public GaussianNoise IsMonochrome(bool value)
     {
         Monochrome.Value = value;
