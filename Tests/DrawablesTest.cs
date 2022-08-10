@@ -5,10 +5,10 @@ using TCG.Base.Hierarchy;
 using TCG.Base.Utils;
 using TCG.Drawables;
 
-namespace TCG.Tests.Drawables
+namespace TCG.Tests
 {
     [TestClass]
-    public class Drawables
+    public class DrawablesTest
     {
         Size canvasSize = new Size(512, 256);
         Point center = new Point(256, 128);
