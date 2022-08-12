@@ -88,13 +88,15 @@ public class CaptchaGenerator
             rnd.RandomizeCanvas(_template);
 
             List<string> captchaStrings = new List<string>();
-            foreach (int captchaIndex in captchaIndexMapping.Keys)
+            foreach (int captchaIndex in captchaIndexMapping.Keys.OrderBy(x => x))
             {
                 foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])
                 {
-                    captchaDrawable.Text = _captchaText[captchaIndex][seedId];
+                    if (_captchaText.ContainsKey(captchaIndex))
+                        captchaDrawable.Text = _captchaText[captchaIndex][seedId];
                     captchaStrings.Add(captchaDrawable.Text);
                 }
+                    
             }
             yield return new(seed, _template.Render(), captchaStrings.ToArray());
         }

@@ -8,7 +8,7 @@ using TCG.Base.Utils;
 namespace TCG.Drawables;
 
 /// <summary>
-/// Define captcha drawable object
+/// Define captcha drawable object.
 /// </summary>
 public class Captcha : Text, ICaptcha
 {
@@ -17,6 +17,9 @@ public class Captcha : Text, ICaptcha
     /// </summary>
     public int Index { get; set; }
 
+    /// <summary>
+    /// Captcha text value.
+    /// </summary>
     public string Text
     {
         get => Content;
