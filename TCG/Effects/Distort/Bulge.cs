@@ -37,7 +37,7 @@ public class Bulge : IEffect
     /// <param name="strenght"><inheritdoc cref="Strenght" path="/summary"/></param>
     public Bulge(Point point, float radius, float strenght)
     {
-        Point.Value = point;
+        Point.WithValue(point);
         Radius.Value = radius;
         Strenght.Value = strenght;
     }
@@ -48,7 +48,7 @@ public class Bulge : IEffect
     /// <param name="value"><inheritdoc cref="Point" path="/summary"/></param>
     public Bulge WithPoint(Point value)
     {
-        Point.Value = value;
+        Point.WithValue(value);
         return this;
     }
 

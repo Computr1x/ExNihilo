@@ -96,7 +96,7 @@ namespace TCG.Tests
         private Canvas CreateSecondTemplate()
         {
             Size canvasSize = new Size(512, 256);
-            Point center = new Point(256, 128);
+            Point center = new Point(0, 128);
 
             var fontFamily = new FontCollection().AddSystemFonts().Families.First();
 
@@ -132,7 +132,7 @@ namespace TCG.Tests
         }
 
         [TestMethod]
-        public void TestGeneratorWithSeeds2()
+        public void TestGeneratorWithCaptchaSymbols()
         {
             foreach (var captchaRes in new CaptchaGenerator(CreateSecondTemplate()).WithSeedsCount(5).Generate())
             {
@@ -177,7 +177,7 @@ namespace TCG.Tests
         {
             foreach (var captchaRes in new CaptchaGenerator(CreateThirdTemplate()).WithCaptchaInput(new string[] { "abc", "def", "xyz"}, 1).Generate())
             {
-                captchaRes.Image.SaveAsPng(Path.Combine(currentPath, "s_" + captchaRes.GetName() + ".png"));
+                captchaRes.Image.SaveAsPng(Path.Combine(currentPath, "s2_" + captchaRes.GetName() + ".png"));
             }
         }
     }

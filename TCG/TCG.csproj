@@ -5,14 +5,16 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.0.1-alpha</Version>
+    <Version>1.0.2-alpha</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Description>TCG - text captcha generator library.</Description>
+    <Description>ExNihilo is a modern, powerful and flexible text captcha generator library for .NET.</Description>
     <RepositoryUrl>https://github.com/Computr1x/TCG</RepositoryUrl>
     <PackageIcon>logo128_round.png</PackageIcon>
     <PackageTags>captcha;text;image</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>

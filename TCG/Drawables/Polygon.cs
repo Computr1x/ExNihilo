@@ -34,9 +34,9 @@ public class Polygon : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set brush value.
     /// </summary>
-    public Polygon WithBrush(IBrush brush)
+    public Polygon WithBrush(BrushType brushType, Color color)
     {
-        Brush.Value = brush;
+        Brush.WithValue(brushType, color);
         return this;
     }
     /// <summary>
@@ -50,9 +50,9 @@ public class Polygon : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Polygon WithPen(IPen pen)
+    public Polygon WithPen(PenType penType, int width, Color color)
     {
-        Pen.Value = pen;
+        Pen.WithValue(penType, width, color);
         return this;
     }
     /// <summary>
@@ -109,9 +109,9 @@ public class Polygon : BaseDrawableWithBrushAndPen
         image.Mutate((x) =>
         {
             if (((DrawableType)Type).HasFlag(DrawableType.Filled))
-                x.FillPolygon(dopt, Brush.Value ?? Brush.DefaultValue, Points);
+                x.FillPolygon(dopt, Brush.Value, Points);
             if (((DrawableType)Type).HasFlag(DrawableType.Outlined))
-                x.DrawPolygon(dopt, Pen.Value ?? Pen.DefaultValue, Points);
+                x.DrawPolygon(dopt, Pen.Value, Points);
         });
     }
 }

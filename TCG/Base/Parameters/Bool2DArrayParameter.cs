@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TCG.Base.Abstract;
-using TCG.Base.Parameters;
+﻿using TCG.Base.Abstract;
 
 namespace TCG.Base.Parameters;
 
 public class Bool2DArrayParameter : GenericParameter<bool[,]>
 {
-    public IntParameter Width { get; set; } = new IntParameter(2) { Min = 2, Max = 2};
-    public IntParameter Height { get; set; } = new IntParameter(2) { Min = 2, Max = 2 };
+    public IntParameter Width { get; set; } = new IntParameter(0, int.MaxValue, 2) { Min = 2, Max = 2 };
+    public IntParameter Height { get; set; } = new IntParameter(0, int.MaxValue, 2) { Min = 2, Max = 2 };
 
     public Bool2DArrayParameter(bool[,] defaultValue) : base(defaultValue)
     {
@@ -25,10 +19,8 @@ public class Bool2DArrayParameter : GenericParameter<bool[,]>
 
     public Bool2DArrayParameter WithRandomizedSize(int min, int max)
     {
-        Width.Min = min;
-        Height.Min = min;
-        Width.Max = max;
-        Height.Max = max;
+        Width.WithRandomizedValue(min, max);
+        Width.WithRandomizedValue(min, max);
         return this;
     }
 

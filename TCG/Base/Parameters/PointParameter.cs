@@ -4,20 +4,12 @@ using TCG.Base.Abstract;
 
 namespace TCG.Base.Parameters;
 
-public class PointParameter : GenericStructParameter<Point>
+public class PointParameter : ComplexParameter
 {
     public IntParameter X { get; init; } = new IntParameter(0);
     public IntParameter Y { get; init; } = new IntParameter(0);
 
-    public PointParameter() : base(new Point())
-    {
-    }
-
-    public PointParameter(Point defaultValue) : base(defaultValue)
-    {
-    }
-
-    public override PointParameter WithValue(Point value)
+    public PointParameter WithValue(Point value)
     {
         X.WithValue(value.X);
         Y.WithValue(value.Y);
@@ -35,13 +27,15 @@ public class PointParameter : GenericStructParameter<Point>
     {
         X.Randomize(r);
         Y.Randomize(r);
-        
-        Value = new(X, Y);
     }
 
-    public static implicit operator PointF(PointParameter pointParameter)
+    public static implicit operator SixLabors.ImageSharp.PointF(PointParameter pointParameter)
     {
-        Point p = pointParameter;
-        return new PointF(p.X, p.Y);
+        return new PointF(pointParameter.X, pointParameter.Y);
+    }
+
+    public static implicit operator SixLabors.ImageSharp.Point(PointParameter pointParameter)
+    {
+        return new SixLabors.ImageSharp.Point(pointParameter.X, pointParameter.Y);
     }
 }

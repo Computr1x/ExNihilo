@@ -83,7 +83,7 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
     /// </summary>
     public CaptchaSymbols WithBrush(Color color)
     {
-        TextSymbols.Brush.Value = Brushes.Solid(color);
+        TextSymbols.Brush.WithValue(BrushType.Solid, color);
         return this;
     }
     /// <summary>
@@ -105,9 +105,9 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public CaptchaSymbols WithPen(IPen pen)
+    public CaptchaSymbols WithPen(PenType penType, int width, Color color)
     {
-        TextSymbols.Pen.Value = pen;
+        TextSymbols.Pen.WithValue(penType, width, color);
         return this;
     }
     /// <summary>
@@ -147,7 +147,7 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
     /// </summary>
     public CaptchaSymbols WithPoint(Point p)
     {
-        Point.Value = p;
+        Point.WithValue(p);
         return this;
     }
     /// <summary>
@@ -230,7 +230,7 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        if (string.IsNullOrEmpty(TextSymbols.Content.Value ?? TextSymbols.Content.DefaultValue) || TextSymbols.FontFamily.Value is null)
+        if (string.IsNullOrEmpty(TextSymbols.Content) || TextSymbols.FontFamily.Value is null)
             return;
 
         // create text options
@@ -250,14 +250,13 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
         // set text origin point
-        Point origin;
+        Point origin = Point;
         if (TextAlignment == TextAlignment.Start)
             origin = Point;
         else if (TextAlignment == TextAlignment.Center)
-            origin = new Point((int)(Point.X - rect.Width / 2f), (int)(Point.Y - rect.Height / 2f));
+            origin = new Point((int)(origin.X - rect.Width / 2f), (int)(origin.Y - rect.Height / 2f));
         else
-            origin = new Point((int)(Point.X - rect.Width), (int)(Point.Y - rect.Height));
-
+            origin = new Point((int)(origin.X - rect.Width), (int)(origin.Y - rect.Height));
         Image<Rgba32>? tempImg = null;
         image.Mutate((x) =>
         {
@@ -266,22 +265,31 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
             {
                 // create temp image
                 rect = TextMeasurer.Measure(symbolsParams.Content.Value, opt);
+
+                // skip symbol drawing if he outside of image
+                if (origin.X + rect.Width < 0 || origin.X + rect.Width >= image.Width ||
+                    origin.Y + rect.Height < 0 || origin.Y + rect.Height >= image.Height)
+                {
+                    origin = new Point(origin.X + (int)rect.Width, origin.Y);
+                    continue;
+                }
+
                 tempImg = new((int)rect.Width + 1, (int)rect.Height + 1);
 
                 // draw cymbol
                 tempImg.Mutate(y =>
                 {
-                    // depend on drawing type choose drawing method
+                        // depend on drawing type choose drawing method
                     if (((DrawableType)symbolsParams.Type).HasFlag(DrawableType.FillWithOutline))
                         y.DrawText(dopt, opt, symbolsParams.Content,
-                            symbolsParams.Brush.Value ?? symbolsParams.Brush.DefaultValue,
-                            symbolsParams.Pen.Value ?? symbolsParams.Pen.DefaultValue);
+                            symbolsParams.Brush.Value,
+                            symbolsParams.Pen.Value);
                     else if (((DrawableType)symbolsParams.Type).HasFlag(DrawableType.Filled))
                         y.DrawText(dopt, opt, symbolsParams.Content,
-                            symbolsParams.Brush.Value ?? symbolsParams.Brush.DefaultValue, null);
+                            symbolsParams.Brush.Value, null);
                     else if (((DrawableType)symbolsParams.Type).HasFlag(DrawableType.Outlined))
                         y.DrawText(dopt, opt, symbolsParams.Content,
-                            null, symbolsParams.Pen.Value ?? symbolsParams.Pen.DefaultValue);
+                            null, symbolsParams.Pen.Value);
                 });
 
                 // render effects for symbol
@@ -303,26 +311,55 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
 
 public class TextSymbolsParameter : IRandomizableParameter
 {
+    /// <summary>
+    /// Specifies the text to be displayed
+    /// </summary>
     public StringParameter Content { get; } = new StringParameter() { DefaultValue = "TEST" };
+    /// <summary>
+    /// <inheritdoc cref="TextOptions.Origin"/>
+    /// </summary>
+    public PointParameter Point { get; } = new PointParameter();
+    /// <summary>
+    /// Specifies text font family.
+    /// </summary>
     public FontFamilyParameter FontFamily { get; } = new FontFamilyParameter();
+    /// <summary>
+    /// Specifies font size. Default value is 64;
+    /// </summary>
     public FloatParameter FontSize { get; } = new FloatParameter(64) { Min = 32, Max = 128 };
+    /// <summary>
+    /// Specifies font style. By default it's regular.
+    /// </summary>
     public EnumParameter<FontStyle> Style { get; } = new EnumParameter<FontStyle>(FontStyle.Regular);
 
-    public BrushParameter Brush { get; } = new() { DefaultValue = Brushes.Solid(Color.Black) };
-    public PenParameter Pen { get; } = new(Pens.Solid(Color.White, 1));
+    /// <summary>
+    /// Represents the pen with which to stroke an object.
+    /// </summary>
+    public BrushParameter Brush { get; } = new();
+    /// <summary>
+    /// Represents the pen with which to outlined an object.
+    /// </summary>
+    public PenParameter Pen { get; } = new();
+    /// <summary>
+    /// Specifies the rendering type of an object
+    /// </summary>
     public EnumParameter<DrawableType> Type { get; } = new(DrawableType.Filled);
 
+    /// <summary>
+    /// Specify collection of effect that will be applied to all characters.
+    /// </summary>
     public List<IEffect> Effects { get; set; } = new List<IEffect>();
-
+    /// <summary>
+    /// Specify collection of randomized text parameters for every character.
+    /// </summary>
     public List<TextSymbolsParameter> RandomizedTextParameters { get; } = new List<TextSymbolsParameter>();
-
 
     public void Randomize(Random r, bool force = false)
     {
         Content.Randomize(r, force);
         RandomizedTextParameters.Clear();
 
-        foreach (var symbol in Content.Value)
+        foreach (var symbol in (string)Content)
         {
             FontFamily.Randomize(r, force);
             FontSize.Randomize(r, force);
@@ -334,17 +371,19 @@ public class TextSymbolsParameter : IRandomizableParameter
             foreach (var effect in Effects)
                 RandomizeProperties(r, effect, force);
 
-            RandomizedTextParameters.Add(new TextSymbolsParameter()
+            var symbolParams = new TextSymbolsParameter()
             {
                 Content = { Value = symbol.ToString() },
                 FontFamily = { Value = FontFamily.Value },
                 FontSize = { Value = FontSize.Value },
                 Style = { Value = Style.Value },
-                Brush = { Value = Brush.Value },
-                Pen = { Value = Pen.Value },
                 Type = { Value = Type.Value },
                 Effects = Effects.Select(x => x.Copy()).ToList()
-            });
+            };
+            symbolParams.Brush.WithValue(Brush.Type, Brush.Color);
+            symbolParams.Pen.WithValue(Pen.Type, Pen.Width, Pen.Color);
+
+            RandomizedTextParameters.Add(symbolParams);
         }
     }
 
@@ -354,7 +393,6 @@ public class TextSymbolsParameter : IRandomizableParameter
         {
             if (property.PropertyType.GetInterfaces().Contains(typeof(IRandomizableParameter)))
             {
-                //Console.WriteLine(renderable.GetType().ToString() + " " + property.Name);
                 object? propValue = property.GetValue(renderable);
                 if (propValue != null)
                     (propValue as IRandomizableParameter)!.Randomize(rnd, force);

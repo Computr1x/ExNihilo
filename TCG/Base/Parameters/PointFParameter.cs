@@ -9,12 +9,8 @@ using TCG.Base.Parameters;
 
 namespace TCG.Base.Parameters;
 
-public class PointFParameter : GenericStructParameter<PointF>
+public class PointFParameter : ComplexParameter
 {
-    public PointFParameter(PointF defaultValue) : base(defaultValue)
-    {
-    }
-
     public FloatParameter X { get; init; } = new FloatParameter(0);
     public FloatParameter Y { get; init; } = new FloatParameter(0);
 
@@ -22,13 +18,24 @@ public class PointFParameter : GenericStructParameter<PointF>
     {
         X.Randomize(r);
         Y.Randomize(r);
-        
-        Value = new(X, Y);
     }
 
-    public static implicit operator Point(PointFParameter pointParameter)
+    public PointFParameter WithValue(PointF value)
     {
-        PointF p = pointParameter;
-        return new Point((int)p.X, (int)p.Y);
+        X.WithValue(value.X);
+        Y.WithValue(value.Y);
+        return this;
+    }
+
+    public PointFParameter WithRandomizedValue(int minX, int maxX, int minY, int maxY)
+    {
+        X.WithRandomizedValue(minX, maxX);
+        Y.WithRandomizedValue(minY, maxY);
+        return this;
+    }
+
+    public static implicit operator PointF(PointFParameter pointParameter)
+    {
+        return new PointF((int)pointParameter.X, (int)pointParameter.Y);
     }
 }

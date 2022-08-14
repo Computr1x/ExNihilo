@@ -42,10 +42,10 @@ public class Swirl : IEffect
     /// <param name="twists"><inheritdoc cref="Twists" path="/summary"/></param>
     public Swirl(Point point, float radius, float degree, float twists)
     {
-        Point.Value = point;
-        Radius.Value = radius;
-        Degree.Value = degree;
-        Twists.Value = twists;
+        Point.WithValue(point);
+        Radius.WithValue(radius);
+        Degree.WithValue(degree);
+        Twists.WithValue(twists);
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ public class Swirl : IEffect
     /// <param name="y">Define y coordinate of Point</param>
     public Swirl WithPoint(int x, int y)
     {
-        Point.Value = new Point(x, y);
+        Point.WithValue(new Point(x, y));
         return this;
     }
 

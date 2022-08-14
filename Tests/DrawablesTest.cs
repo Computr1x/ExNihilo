@@ -84,7 +84,7 @@ namespace TCG.Tests
             Polygon polygon =
                 new Polygon()
                     .WithPoints(new PointF[] { new(400, 200), new(350, 150), new(300, 179) })
-                    .WithBrush(Brushes.Solid(Color.Peru))
+                    .WithBrush(BrushType.Solid, Color.Peru)
                     .WithType(DrawableType.Filled);
             canvas.Layers[0].WithDrawable(polygon).Render().Save(Path.Join(currentPath, "polygon.png"));
         }
@@ -94,7 +94,7 @@ namespace TCG.Tests
         {
             TCG.Drawables.Rectangle rectangle =
                 new TCG.Drawables.Rectangle(50, 200, 100, 50)
-                .WithPen(Pens.Dash(Color.Olive, 5))
+                .WithPen(PenType.Dash, 1, Color.Olive)
                 .WithType(DrawableType.Outlined);
             canvas.Layers[0].WithDrawable(rectangle).Render().Save(Path.Join(currentPath, "rectangle.png"));
         }

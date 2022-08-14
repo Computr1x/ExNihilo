@@ -1,22 +1,23 @@
-﻿using SixLabors.ImageSharp.Drawing.Processing;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using TCG.Base.Abstract;
 using TCG.Base.Utils;
-using TCG.Base.Parameters;
 
 namespace TCG.Base.Parameters;
 
-public class PenParameter : GenericParameter<IPen>
+public class PenParameter : ComplexParameter
 {
-    public EnumParameter<PenType> Type { get; set; } = new EnumParameter<PenType>(PenType.Solid);
-    public IntParameter Width { get; set; } = new IntParameter(1) { Min = 1, Max = 10 };
-    public ColorParameter Color { get; set; } = new ColorParameter(SixLabors.ImageSharp.Color.Black, 10);
+    public EnumParameter<PenType> Type { get; } = new EnumParameter<PenType>(PenType.Solid);
+    public IntParameter Width { get; } = new IntParameter(1) { Min = 1, Max = 10 };
+    public ColorParameter Color { get; } = new ColorParameter(SixLabors.ImageSharp.Color.Black, 10);
 
-    public override IPen DefaultValue
+    public PenParameter WithValue(PenType type, int width, Color color)
     {
-        get => GetPen();
+        Type.WithValue(type);
+        Width.WithValue(width);
+        Color.WithValue(color);
+        return this;
     }
-
-    public PenParameter(IPen defaultValue) : base(defaultValue) { }
 
     public PenParameter WithType(PenType type)
     {
@@ -68,7 +69,14 @@ public class PenParameter : GenericParameter<IPen>
         return this;
     }
 
-    private IPen GetPen()
+    protected override void RandomizeImplementation(Random r)
+    {
+        Type.Randomize(r);
+        Width.Randomize(r);
+        Color.Randomize(r);
+    }
+
+    public IPen GetValue()
     {
         return Type.Value switch
         {
@@ -79,13 +87,5 @@ public class PenParameter : GenericParameter<IPen>
             _ => Pens.Solid(Color, Width)
         };
     }
-
-    protected override void RandomizeImplementation(Random r)
-    {  
-        Type.Randomize(r);
-        Width.Randomize(r);
-        Color.Randomize(r);
-
-        Value = GetPen();
-    }
+    public IPen Value { get => GetValue(); }
 }

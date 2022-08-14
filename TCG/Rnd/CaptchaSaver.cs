@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace TCG.Rnd;
 
+/// <summary>
+/// Allows you to automate the saving of captcha generation results.
+/// </summary>
 public class CaptchaSaver
 {
     private string _path = "";
@@ -16,21 +19,32 @@ public class CaptchaSaver
     private ImageType _imageType = ImageType.Png;
     private IEnumerable<CaptchaResult> _captchaResults;
 
+
+    /// <summary>
+    /// <inheritdoc cref="CaptchaSaver"/>
+    /// </summary>
     public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults)
     {
         _captchaResults = captchaResults;
     }
-
+    /// <summary>
+    /// <inheritdoc cref="CaptchaSaver"/>
+    /// </summary>
     public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults, ImageType imageType) : this(captchaResults)
     {
         _imageType = imageType;
     }
-
+    /// <summary>
+    /// <inheritdoc cref="CaptchaSaver"/>
+    /// </summary>
     public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults, string path, ImageType imageType) : this(captchaResults, imageType)
     {
         _path = path;
     }
 
+    /// <summary>
+    /// Save results synchronously as separate files.
+    /// </summary>
     public void Save()
     {
         foreach(CaptchaResult captchaResult in _captchaResults)
@@ -50,13 +64,13 @@ public class CaptchaSaver
                 case ImageType.Webp:
                     captchaResult.Image.SaveAsWebp(resPath);
                     break;
-                default:
-                    throw new Exception("Unknown image type");
             }
         }
     }
 
-
+    /// <summary>
+    /// Save results asynchronously as separate files.
+    /// </summary>
     public async Task SaveAsync()
     {
         foreach (CaptchaResult captchaResult in _captchaResults)
@@ -76,12 +90,12 @@ public class CaptchaSaver
                 case ImageType.Webp:
                     await captchaResult.Image.SaveAsWebpAsync(resPath);
                     break;
-                default:
-                    throw new Exception("Unknown image type");
             }
         }
     }
-
+    /// <summary>
+    /// Save results synchronously as zip archive.
+    /// </summary>
     public void SaveAsZip(string archiveName = "archive", CompressionLevel compressionLevel = CompressionLevel.Fastest)
     {
         using (var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.Create))
@@ -107,14 +121,14 @@ public class CaptchaSaver
                         case ImageType.Webp:
                             captchaResult.Image.SaveAsWebp(zipStream);
                             break;
-                        default:
-                            throw new Exception("Unknown image type");
                     }
                 }
             }
         }
     }
-
+    /// <summary>
+    /// Save results asynchronously as zip archive.
+    /// </summary>
     public async Task SaveAsZipAsync(string archiveName = "archive", CompressionLevel compressionLevel = CompressionLevel.Fastest)
     {
         using (var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.CreateNew, FileAccess.Write))
@@ -141,7 +155,7 @@ public class CaptchaSaver
                             await captchaResult.Image.SaveAsWebpAsync(zipStream);
                             break;
                         default:
-                            throw new Exception("Unknown image type");
+                            throw new ArgumentException("Unknown image type");
                     }
                 }
             }
@@ -165,14 +179,19 @@ public class CaptchaSaver
         }
     }
 
-
+    /// <summary>
+    /// Create folder and combine with current path.
+    /// </summary>
     public CaptchaSaver CreateFolder(string folderName)
     {
         _path = Directory.CreateDirectory(Path.Join(_path, folderName)).FullName;
         _folderName = folderName;
         return this;
     }
-
+    /// <summary>
+    /// Specify path for output results.
+    /// </summary>
+    /// <exception cref="ArgumentException"></exception>
     public CaptchaSaver WithOutputPath(string path)
     {
         if (!Directory.Exists(path))
@@ -180,13 +199,17 @@ public class CaptchaSaver
         _path = path;
         return this;
     }
-
+    /// <summary>
+    /// Specify type of output images.
+    /// </summary>
     public CaptchaSaver WithOutputType(ImageType type)
     {
         _imageType = type;
         return this;
     }
-
+    /// <summary>
+    /// Specify prefix for files.
+    /// </summary>
     public CaptchaSaver WithFilePrefix(string prefix)
     {
         _prefix = prefix;

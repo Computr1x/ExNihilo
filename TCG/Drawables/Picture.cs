@@ -14,7 +14,7 @@ public class Picture : BaseDrawable
     /// <summary>
     /// Specifies the coordinate of the upper left corner of the image from which to start rendering
     /// </summary>
-    public PointParameter Point { get; } = new PointParameter(new Point());
+    public PointParameter Point { get; } = new PointParameter();
 
     private Image? image = null;
 
@@ -50,7 +50,7 @@ public class Picture : BaseDrawable
     /// </summary>
     public Picture WithPoint(Point p)
     {
-        Point.Value = p;
+        Point.WithValue(p);
         return this;
     }
     /// <summary>
@@ -58,7 +58,7 @@ public class Picture : BaseDrawable
     /// </summary>
     public Picture WithRandomiPoint(Point p)
     {
-        Point.Value = p;
+        Point.WithValue(p);
         return this;
     }
 

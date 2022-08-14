@@ -2,12 +2,27 @@
 
 namespace TCG.Rnd;
 
+/// <summary>
+/// Stores captcha generation results.
+/// </summary>
 public class CaptchaResult
 {
+    /// <summary>
+    /// The seed with which the image was generated.
+    /// </summary>
     public int Seed { get; }
+    /// <summary>
+    /// Generated image.
+    /// </summary>
     public Image Image { get; }
+    /// <summary>
+    /// Generated captcha text.
+    /// </summary>
     public string[] CaptchaText { get; }
 
+    /// <summary>
+    /// <inheritdoc cref="CaptchaResult"/>
+    /// </summary>
     public CaptchaResult(int seed, Image image, string[] captchaText)
     {
         Seed = seed;

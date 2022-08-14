@@ -29,7 +29,7 @@ public class Rectangle : BaseDrawableWithBrushAndPen
     /// <param name="rectangle"><inheritdoc cref="Area" path="/summary"/></param>
     public Rectangle(SixLabors.ImageSharp.Rectangle rectangle) 
     {
-        Area.Value = rectangle;
+        Area.WithValue(rectangle);
     }
 
     /// <summary>
@@ -46,9 +46,9 @@ public class Rectangle : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set brush value.
     /// </summary>
-    public Rectangle WithBrush(IBrush brush)
+    public Rectangle WithBrush(BrushType brushType, Color color)
     {
-        Brush.Value = brush;
+        Brush.WithValue(brushType, color);
         return this;
     }
     /// <summary>
@@ -62,9 +62,9 @@ public class Rectangle : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Rectangle WithPen(IPen pen)
+    public Rectangle WithPen(PenType penType, int width, Color color)
     {
-        Pen.Value = pen;
+        Pen.WithValue(penType, width, color);
         return this;
     }
     /// <summary>
@@ -126,7 +126,7 @@ public class Rectangle : BaseDrawableWithBrushAndPen
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        SixLabors.ImageSharp.Rectangle rect = Area.Value ?? new SixLabors.ImageSharp.Rectangle(Area.Point, Area.Size);
+        SixLabors.ImageSharp.Rectangle rect = Area;
 
         if (rect.Width <= 0 || rect.Height <= 0)
             return;
@@ -136,9 +136,9 @@ public class Rectangle : BaseDrawableWithBrushAndPen
         image.Mutate((x) =>
         {
             if (((DrawableType)Type).HasFlag(DrawableType.Filled))
-                x.Fill(dopt, Brush.Value ?? Brush.DefaultValue, path);
+                x.Fill(dopt, Brush.Value, path);
             if (((DrawableType)Type).HasFlag(DrawableType.Outlined))
-                x.Draw(dopt, Pen.Value ?? Pen.DefaultValue, path);
+                x.Draw(dopt, Pen.Value, path);
         });
     }
 }

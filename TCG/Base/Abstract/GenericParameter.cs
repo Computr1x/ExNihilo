@@ -39,6 +39,5 @@ public abstract class GenericParameter<T> : IRandomizableParameter where T : cla
         return this;
     }
 
-    public static implicit operator T(GenericParameter<T> genericValue) => genericValue.Value ?? genericValue.DefaultValue;
-            
+    public static implicit operator T(GenericParameter<T> genericValue) => genericValue.Value ?? genericValue.DefaultValue;  
 }

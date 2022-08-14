@@ -42,7 +42,7 @@ public class Ripple : IEffect
     /// <param name="traintWidth"><inheritdoc cref="TraintWidth" path="/summary"/></param>
     public Ripple(Point point, float radius, float waveLength, float traintWidth)
     {
-        Point.Value = point;
+        Point.WithValue(point);
         Radius.Value = radius;
         WaveLength.Value = waveLength;
         TraintWidth.Value = traintWidth;
@@ -55,7 +55,7 @@ public class Ripple : IEffect
     /// <param name="y">Define y coordinate of Point</param>
     public Ripple WithPoint(int x, int y)
     {
-        Point.Value = new Point(x, y);
+        Point.WithValue(new Point(x, y));
         return this;
     }
     /// <summary>

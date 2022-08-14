@@ -27,8 +27,8 @@ public class Crop : IEffect
     /// <param name="size"><inheritdoc cref="Size" path="/summary"/></param>
     public Crop(Point point, Size size)
     {
-        Area.Point.Value = point;
-        Area.Size.Value = size;
+        Area.Point.WithValue(point);
+        Area.Size.WithValue(size);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public class Crop : IEffect
     /// <param name="value"><inheritdoc cref="Point" path="/summary"/></param>
     public Crop WithPoint(Point p)
     {
-        Area.Point.Value = p;
+        Area.Point.WithValue(p);
         return this;
     }
     /// <summary>

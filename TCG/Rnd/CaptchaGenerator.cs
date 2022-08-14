@@ -3,6 +3,9 @@ using TCG.Base.Interfaces;
 
 namespace TCG.Rnd;
 
+/// <summary>
+/// Allows you to automate randomization and generation of captchas.
+/// </summary>
 public class CaptchaGenerator
 {
     RandomManager rnd = new RandomManager(0);
@@ -11,35 +14,48 @@ public class CaptchaGenerator
     private int[] _seeds;
     private Dictionary<int, string[]> _captchaText = new Dictionary<int, string[]>();
 
+    /// <summary>
+    /// <inheritdoc cref="CaptchaGenerator"/>
+    /// </summary>
     public CaptchaGenerator(Canvas template)
     {
         _template = template;
     }
 
+    /// <summary>
+    /// Set template for generator.
+    /// </summary>
     public CaptchaGenerator WithTemplate(Canvas template)
     {
         _template = template;
         return this;
     }
-
+    /// <summary>
+    /// Set seeds for randomization.
+    /// </summary>
     public CaptchaGenerator WithSeeds(int[] seeds)
     {
         _seeds = seeds;
         return this;
     }
-
+    /// <summary>
+    /// Set count of seeds for randomization.
+    /// </summary>
     public CaptchaGenerator WithSeedsCount(int count)
     {
         _seeds = Enumerable.Range(0, count).ToArray();
         return this;
     }
-
+    /// <summary>  Set manual input for captchas. </summary>
     public CaptchaGenerator WithCaptchaInput(string[] input, int index = 0)
     {
         _captchaText[index] = input;
         return this;
     }
-
+    /// <summary>
+    /// Generate collection of captchas by defined seed and/or input.
+    /// </summary>
+    /// <exception cref="ArgumentException">Thrown when serial number is outside valid     range</exception>
     public IEnumerable<CaptchaResult> Generate()
     {
         if (_seeds == null || _seeds.Length == 0)
@@ -79,7 +95,6 @@ public class CaptchaGenerator
     private IEnumerable<CaptchaResult> GenerateManualCaptcha()
     {
         Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
-        
 
         for (int seedId = 0; seedId < _seeds.Length; seedId++)
         {
@@ -87,7 +102,7 @@ public class CaptchaGenerator
             rnd.ResetRandom(seed);
             rnd.RandomizeCanvas(_template);
 
-            List<string> captchaStrings = new List<string>();
+            List<string> captchaStrings = new ();
             foreach (int captchaIndex in captchaIndexMapping.Keys.OrderBy(x => x))
             {
                 foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])

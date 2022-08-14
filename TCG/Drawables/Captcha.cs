@@ -72,7 +72,7 @@ public class Captcha : Text, ICaptcha
     /// </summary>
     public new Captcha WithBrush(Color color)
     {
-        Brush.Value = Brushes.Solid(color);
+        Brush.WithValue(BrushType.Solid, color);
         return this;
     }
 
@@ -97,9 +97,9 @@ public class Captcha : Text, ICaptcha
     }
 
     // Disabled via error in ImageSharp library
-    //public new Captcha WithBrush(IBrush brush)
+    //public new Captcha WithBrush(BrushType brushType, Color color)
     //{
-    //    Brush.Value = brush;
+    //    Brush.WithValue(brushType, color);
     //    return this;
     //}
 
@@ -113,9 +113,9 @@ public class Captcha : Text, ICaptcha
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public new Captcha WithPen(IPen pen)
+    public new Captcha WithPen(PenType type, int width, Color color)
     {
-        Pen.Value = pen;
+        Pen.WithValue(type, width, color);
         return this;
     }
 
@@ -161,7 +161,7 @@ public class Captcha : Text, ICaptcha
     /// </summary>
     public new Captcha WithPoint(Point p)
     {
-        Point.Value = p;
+        Point.WithValue(p);
         return this;
     }
 

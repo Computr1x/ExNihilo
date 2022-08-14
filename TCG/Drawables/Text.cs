@@ -108,7 +108,7 @@ public class Text : BaseDrawableWithBrushAndPen
     /// </summary>
     public Text WithBrush(Color color)
     {
-        Brush.Value = Brushes.Solid(color);
+        Brush.WithValue(BrushType.Solid, color);
         return this;
     }
     /// <summary>
@@ -129,9 +129,9 @@ public class Text : BaseDrawableWithBrushAndPen
     }
 
     // Disabled via error in ImageSharp library
-    //public Text WithBrush(IBrush brush)
+    //public Text WithBrush(BrushType brushType, Color color)
     //{
-    //    Brush.Value = brush;
+    //    Brush.WithValue(brushType, color);
     //    return this;
     //}
 
@@ -144,9 +144,9 @@ public class Text : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Text WithPen(IPen pen)
+    public Text WithPen(PenType penType, int width, Color color)
     {
-        Pen.Value = pen;
+        Pen.WithValue(penType, width, color);
         return this;
     }
     /// <summary>
@@ -186,7 +186,7 @@ public class Text : BaseDrawableWithBrushAndPen
     /// </summary>
     public Text WithPoint(Point p)
     {
-        Point.Value = p;
+        Point.WithValue(p);
         return this;
     }
     /// <summary>
@@ -301,11 +301,11 @@ public class Text : BaseDrawableWithBrushAndPen
         image.Mutate((x) =>
         {
             if(((DrawableType)Type).HasFlag(DrawableType.FillWithOutline))
-                x.DrawText(dopt, TextOptions, Content, Brush.Value ?? Brush.DefaultValue, Pen.Value ?? Pen.DefaultValue);
+                x.DrawText(dopt, TextOptions, Content, Brush.Value, Pen.Value);
             else if (((DrawableType)Type).HasFlag(DrawableType.Filled))
-                x.DrawText(dopt, TextOptions, Content, Brush.Value ?? Brush.DefaultValue, null);
+                x.DrawText(dopt, TextOptions, Content, Brush.Value, null);
             else if (((DrawableType)Type).HasFlag(DrawableType.Outlined))
-                x.DrawText(dopt, TextOptions, Content, null, Pen.Value ?? Pen.DefaultValue);
+                x.DrawText(dopt, TextOptions, Content, null, Pen.Value);
         });
     }
 }

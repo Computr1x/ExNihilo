@@ -3,42 +3,39 @@ using TCG.Base.Abstract;
 
 namespace TCG.Base.Parameters;
 
-public class RectangleParameter : GenericStructParameter<Rectangle>
+public class RectangleParameter : ComplexParameter
 {
-    public PointParameter Point { get; init; } = new PointParameter(default);
-    public SizeParameter Size { get; init; } = new SizeParameter(default);
+    public PointParameter Point { get; } = new PointParameter();
+    public SizeParameter Size { get; } = new SizeParameter();
 
-    public RectangleParameter(Rectangle defaultValue = default) : base(defaultValue)
+    public RectangleParameter WithValue(Rectangle value)
     {
-    }
-
-    public Rectangle WithPoint(Point p)
-    {
-        Point.Value = p;
+        Point.WithValue(new Point(value.X, value.Y));
+        Size.WithValue(new Size(value.Width, value.Height));
         return this;
     }
 
-    public Rectangle WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
+    public RectangleParameter WithPoint(Point p)
     {
-        Point.X.Min = minX;
-        Point.X.Max = maxX;
-        Point.Y.Min = minY;
-        Point.Y.Max = maxY;
+        Point.WithValue(p);
         return this;
     }
 
-    public Rectangle WithSize(Size size)
+    public RectangleParameter WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
     {
-        Size.Value = size;
+        Point.WithRandomizedValue(minX, maxX, minY, maxY);
         return this;
     }
 
-    public Rectangle WithRandomizedSize(int minWidth, int maxWidth, int minHeight, int maxHeight)
+    public RectangleParameter WithSize(Size size)
     {
-        Size.Width.Min = minWidth;
-        Size.Width.Max = maxWidth;
-        Size.Height.Min = minHeight;
-        Size.Height.Max = maxHeight;
+        Size.WithValue(size);
+        return this;
+    }
+
+    public RectangleParameter WithRandomizedSize(int minWidth, int maxWidth, int minHeight, int maxHeight)
+    {
+        Size.WithRandomizedValue(minWidth, maxWidth, minHeight, maxHeight);
         return this;
     }
 
@@ -46,13 +43,15 @@ public class RectangleParameter : GenericStructParameter<Rectangle>
     {
         Point.Randomize(r);
         Size.Randomize(r);
-        
-        Value = new(Point, Size);
     }
 
-    public static implicit operator RectangleF(RectangleParameter rectParamater)
+    public static implicit operator SixLabors.ImageSharp.RectangleF(RectangleParameter rectParamater)
     {
-        Rectangle rect = rectParamater;
-        return new RectangleF(rect.X, rect.Y, rect.Width, rect.Height);
+        return new SixLabors.ImageSharp.RectangleF(rectParamater.Point, rectParamater.Size);
+    }
+
+    public static implicit operator SixLabors.ImageSharp.Rectangle(RectangleParameter rectParamater)
+    {
+        return new SixLabors.ImageSharp.Rectangle(rectParamater.Point, rectParamater.Size);
     }
 }

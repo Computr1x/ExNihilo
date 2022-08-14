@@ -4,6 +4,7 @@ using SixLabors.ImageSharp.Processing;
 using TCG.Base.Abstract;
 using TCG.Base.Interfaces;
 using TCG.Base.Parameters;
+using TCG.Base.Utils;
 
 namespace TCG.Drawables;
 
@@ -15,7 +16,7 @@ public class Line : BaseDrawable
     /// <summary>
     /// Represents the pen with which to outlined an object.
     /// </summary>
-    public PenParameter Pen { get; } = new PenParameter(Pens.Solid(Color.Black, 1));
+    public PenParameter Pen { get; } = new PenParameter();
     /// <summary>
     /// Specifies if line type is bezier curve.
     /// </summary>
@@ -41,9 +42,9 @@ public class Line : BaseDrawable
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Line WithPen(IPen pen)
+    public Line WithPen(PenType penType, int width, Color color)
     {
-        Pen.Value = pen;
+        Pen.WithValue(penType, width, color);
         return this;
     }
     /// <summary>
@@ -100,9 +101,9 @@ public class Line : BaseDrawable
         image.Mutate((x) =>
         {
             if (IsBeziers)
-                x.DrawBeziers(dopt, Pen.Value ?? Pen.DefaultValue, Points);
+                x.DrawBeziers(dopt, Pen.Value, Points);
             else
-                x.DrawLines(dopt, Pen.Value ?? Pen.DefaultValue, Points);
+                x.DrawLines(dopt, Pen.Value, Points);
         });
     }
 }

@@ -40,7 +40,7 @@ public class Pattern : BaseDrawable
     /// <param name="pattern"><inheritdoc cref="Pattern" path="/summary"/></param>
     public Pattern(SixLabors.ImageSharp.Rectangle rectangle, bool[,] pattern)
     {
-        Area.Value = rectangle;
+        Area.WithValue(rectangle);
         Template.Value = pattern;
     }
 
@@ -67,12 +67,24 @@ public class Pattern : BaseDrawable
         Background.Value = background;
     }
 
+    public Pattern WithArea(int x, int y, int width, int height)
+    {
+        Area.WithValue(new SixLabors.ImageSharp.Rectangle(x, y, width, height));
+        return this;
+    }
+
+    public Pattern WithArea(SixLabors.ImageSharp.Rectangle value)
+    {
+        Area.WithValue(value);
+        return this;
+    }
+
     /// <summary>
     /// Set area point value.
     /// </summary>
     public Pattern WithPoint(Point p)
     {
-        Area.Point.Value = p;
+        Area.Point.WithValue(p);
         return this;
     }
 
@@ -91,7 +103,7 @@ public class Pattern : BaseDrawable
     /// </summary>
     public Pattern WithSize(Size size)
     {
-        Area.Size.Value = size;
+        Area.Size.WithValue(size);
         return this;
     }
 
@@ -187,7 +199,7 @@ public class Pattern : BaseDrawable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        SixLabors.ImageSharp.Rectangle rect = Area.Value ?? new SixLabors.ImageSharp.Rectangle(Area.Point, Area.Size);
+        SixLabors.ImageSharp.Rectangle rect = Area;
 
         if (rect.Width <= 0 || rect.Height <= 0)
             return;

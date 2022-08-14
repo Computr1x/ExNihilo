@@ -11,11 +11,11 @@ public abstract class BaseDrawableWithBrushAndPen : BaseDrawable
     /// <summary>
     /// Represents the pen with which to stroke an object.
     /// </summary>
-    public BrushParameter Brush { get; } = new() {  DefaultValue = Brushes.Solid(Color.Black) };
+    public BrushParameter Brush { get; } = new();
     /// <summary>
     /// Represents the pen with which to outlined an object.
     /// </summary>
-    public PenParameter Pen { get; } = new(Pens.Solid(Color.White, 1));
+    public PenParameter Pen { get; } = new();
     /// <summary>
     /// Specifies the rendering type of an object
     /// </summary>

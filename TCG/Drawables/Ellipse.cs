@@ -29,7 +29,7 @@ public class Ellipse : BaseDrawableWithBrushAndPen
     /// <param name="rectangle"><inheritdoc cref="Area" path="/summary"/></param>
     public Ellipse(SixLabors.ImageSharp.Rectangle rectangle)
     {
-        Area.Value = rectangle;
+        Area.WithValue(rectangle);
     }
 
     /// <summary>
@@ -45,11 +45,12 @@ public class Ellipse : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set brush value.
     /// </summary>
-    public Ellipse WithBrush(IBrush brush)
+    public Ellipse WithBrush(BrushType brushType, Color color)
     {
-        Brush.Value = brush;
+        Brush.WithValue(brushType, color);
         return this;
     }
+
     /// <summary>
     /// Set brush value.
     /// </summary>
@@ -61,11 +62,12 @@ public class Ellipse : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Ellipse WithPen(IPen pen)
+    public Ellipse WithPen(PenType penType, int width, Color color)
     {
-        Pen.Value = pen;
+        Pen.WithValue(penType, width, color);
         return this;
     }
+
     /// <summary>
     /// Set pen value.
     /// </summary>
@@ -129,7 +131,7 @@ public class Ellipse : BaseDrawableWithBrushAndPen
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        SixLabors.ImageSharp.Rectangle rect = Area.Value ?? new SixLabors.ImageSharp.Rectangle(Area.Point, Area.Size); 
+        SixLabors.ImageSharp.Rectangle rect = Area; 
 
         if (rect.Width <= 0 || rect.Height <= 0)
             return;
@@ -140,9 +142,9 @@ public class Ellipse : BaseDrawableWithBrushAndPen
         image.Mutate((x) =>
         {
             if (((DrawableType)Type).HasFlag(DrawableType.Filled))
-                x.Fill(dopt, (Brush.Value ?? Brush.DefaultValue), path);
+                x.Fill(dopt, (Brush.Value), path);
             if (((DrawableType)Type).HasFlag(DrawableType.Outlined))
-                x.Draw(dopt, (Pen.Value ?? Pen.DefaultValue), path);
+                x.Draw(dopt, (Pen.Value), path);
         });
     }
 }
