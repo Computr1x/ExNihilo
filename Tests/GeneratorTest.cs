@@ -62,7 +62,7 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestGeneratorWithSeeds()
         {
-            foreach(var captchaRes in new CaptchaGenerator(CreateTemplate()).WithSeedsCount(5).Generate())
+            foreach(var captchaRes in new ImageGenerator(CreateTemplate()).WithSeedsCount(5).Generate())
             {
                 captchaRes.Image.SaveAsPng(Path.Combine(currentPath, captchaRes.GetName() + ".png"));
             }
@@ -71,7 +71,7 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestGeneratorWithText()
         {
-            foreach (var captchaRes in new CaptchaGenerator(CreateTemplate()).WithCaptchaInput(new string[] { "Igor", "so", "small"}).Generate())
+            foreach (var captchaRes in new ImageGenerator(CreateTemplate()).WithCaptchaInput(new string[] { "Igor", "so", "small"}).Generate())
             {
                 captchaRes.Image.SaveAsPng(Path.Combine(currentPath, captchaRes.GetName() + ".png"));
             }
@@ -82,7 +82,7 @@ namespace ExNihilo.Tests
         {
             try
             {
-                foreach (var captchaRes in new CaptchaGenerator(CreateTemplate()).Generate())
+                foreach (var captchaRes in new ImageGenerator(CreateTemplate()).Generate())
                 {
                     captchaRes.Image.SaveAsPng(Path.Combine(currentPath, captchaRes.GetName() + ".png"));
                 }
@@ -134,7 +134,7 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestGeneratorWithCaptchaSymbols()
         {
-            foreach (var captchaRes in new CaptchaGenerator(CreateSecondTemplate()).WithSeedsCount(5).Generate())
+            foreach (var captchaRes in new ImageGenerator(CreateSecondTemplate()).WithSeedsCount(5).Generate())
             {
                 captchaRes.Image.SaveAsPng(Path.Combine(currentPath, "s_" + captchaRes.GetName() + ".png"));
             }
@@ -175,7 +175,7 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestGeneratorWithRandomAndText()
         {
-            foreach (var captchaRes in new CaptchaGenerator(CreateThirdTemplate()).WithCaptchaInput(new string[] { "abc", "def", "xyz"}, 1).Generate())
+            foreach (var captchaRes in new ImageGenerator(CreateThirdTemplate()).WithCaptchaInput(new string[] { "abc", "def", "xyz"}, 1).Generate())
             {
                 captchaRes.Image.SaveAsPng(Path.Combine(currentPath, "s2_" + captchaRes.GetName() + ".png"));
             }

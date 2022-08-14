@@ -3,9 +3,9 @@
 namespace ExNihilo.Rnd;
 
 /// <summary>
-/// Stores captcha generation results.
+/// Stores image generation results.
 /// </summary>
-public class CaptchaResult
+public class ImageResult
 {
     /// <summary>
     /// The seed with which the image was generated.
@@ -21,16 +21,16 @@ public class CaptchaResult
     public string[] CaptchaText { get; }
 
     /// <summary>
-    /// <inheritdoc cref="CaptchaResult"/>
+    /// <inheritdoc cref="ImageResult"/>
     /// </summary>
-    public CaptchaResult(int seed, Image image, string[] captchaText)
+    public ImageResult(int seed, Image image, string[] captchaText)
     {
         Seed = seed;
         Image = image;
         CaptchaText = captchaText;
     }
 
-    ~CaptchaResult()
+    ~ImageResult()
     {
         Image?.Dispose();
     }

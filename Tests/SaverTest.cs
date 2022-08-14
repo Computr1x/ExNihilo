@@ -61,19 +61,19 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestSaveAsSeparateFiles()
         {
-            var captchaResults = new CaptchaGenerator(CreateTemplate()).WithSeedsCount(5).Generate();
+            var captchaResults = new ImageGenerator(CreateTemplate()).WithSeedsCount(5).Generate();
 
-            new CaptchaSaver(captchaResults).WithOutputPath(currentPath).CreateFolder("TestFolder1").WithFilePrefix("_test_").WithOutputType(ImageType.Png).Save();
-            new CaptchaSaver(captchaResults).WithOutputPath(Path.Join(currentPath, "TestFolder1")).WithFilePrefix("_test_").WithOutputType(ImageType.Jpeg).Save();
+            new ImageSaver(captchaResults).WithOutputPath(currentPath).CreateFolder("TestFolder1").WithFilePrefix("_test_").WithOutputType(ImageType.Png).Save();
+            new ImageSaver(captchaResults).WithOutputPath(Path.Join(currentPath, "TestFolder1")).WithFilePrefix("_test_").WithOutputType(ImageType.Jpeg).Save();
         }
 
         [TestMethod]
         public void TestSaveAsZip()
         {
-            var captchaResults = new CaptchaGenerator(CreateTemplate()).WithSeedsCount(5).Generate();
+            var captchaResults = new ImageGenerator(CreateTemplate()).WithSeedsCount(5).Generate();
 
-            new CaptchaSaver(captchaResults).WithOutputPath(currentPath).SaveAsZip();
-            new CaptchaSaver(captchaResults).WithOutputPath(currentPath).WithFilePrefix("_test_").WithOutputType(ImageType.Jpeg).SaveAsZip("archive2");
+            new ImageSaver(captchaResults).WithOutputPath(currentPath).SaveAsZip();
+            new ImageSaver(captchaResults).WithOutputPath(currentPath).WithFilePrefix("_test_").WithOutputType(ImageType.Jpeg).SaveAsZip("archive2");
         }
     }
 }

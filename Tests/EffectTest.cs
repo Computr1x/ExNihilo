@@ -55,7 +55,7 @@ namespace ExNihilo.Tests
             Canvas template = CreateTemplate();
             template.Layers[1].WithEffect(effect);
 
-            foreach (var captchaRes in new CaptchaGenerator(template).WithSeedsCount(3).Generate())
+            foreach (var captchaRes in new ImageGenerator(template).WithSeedsCount(3).Generate())
             {
                 captchaRes.Image.SaveAsPng(Path.Combine(currentPath, effect.GetType().Name + captchaRes.GetName() + ".png"));
             }

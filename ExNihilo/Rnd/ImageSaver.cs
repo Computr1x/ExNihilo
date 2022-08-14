@@ -11,33 +11,33 @@ namespace ExNihilo.Rnd;
 /// <summary>
 /// Allows you to automate the saving of captcha generation results.
 /// </summary>
-public class CaptchaSaver
+public class ImageSaver
 {
     private string _path = "";
     private string _folderName = "";
     private string _prefix = "";
     private ImageType _imageType = ImageType.Png;
-    private IEnumerable<CaptchaResult> _captchaResults;
+    private IEnumerable<ImageResult> _captchaResults;
 
 
     /// <summary>
-    /// <inheritdoc cref="CaptchaSaver"/>
+    /// <inheritdoc cref="ImageSaver"/>
     /// </summary>
-    public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults)
+    public ImageSaver(IEnumerable<ImageResult> captchaResults)
     {
         _captchaResults = captchaResults;
     }
     /// <summary>
-    /// <inheritdoc cref="CaptchaSaver"/>
+    /// <inheritdoc cref="ImageSaver"/>
     /// </summary>
-    public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults, ImageType imageType) : this(captchaResults)
+    public ImageSaver(IEnumerable<ImageResult> captchaResults, ImageType imageType) : this(captchaResults)
     {
         _imageType = imageType;
     }
     /// <summary>
-    /// <inheritdoc cref="CaptchaSaver"/>
+    /// <inheritdoc cref="ImageSaver"/>
     /// </summary>
-    public CaptchaSaver(IEnumerable<CaptchaResult> captchaResults, string path, ImageType imageType) : this(captchaResults, imageType)
+    public ImageSaver(IEnumerable<ImageResult> captchaResults, string path, ImageType imageType) : this(captchaResults, imageType)
     {
         _path = path;
     }
@@ -47,7 +47,7 @@ public class CaptchaSaver
     /// </summary>
     public void Save()
     {
-        foreach(CaptchaResult captchaResult in _captchaResults)
+        foreach(ImageResult captchaResult in _captchaResults)
         {
             string resPath = Path.Join(_path, _prefix + captchaResult.GetName() + GetImageTypeExtenstion(_imageType));
             switch (_imageType)
@@ -73,7 +73,7 @@ public class CaptchaSaver
     /// </summary>
     public async Task SaveAsync()
     {
-        foreach (CaptchaResult captchaResult in _captchaResults)
+        foreach (ImageResult captchaResult in _captchaResults)
         {
             string resPath = Path.Join(_path, _prefix + captchaResult.GetName() + GetImageTypeExtenstion(_imageType));
             switch (_imageType)
@@ -102,7 +102,7 @@ public class CaptchaSaver
         {
             using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
             {
-                foreach (CaptchaResult captchaResult in _captchaResults)
+                foreach (ImageResult captchaResult in _captchaResults)
                 {
                     var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
                     
@@ -135,7 +135,7 @@ public class CaptchaSaver
         {
             using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
             {
-                foreach (CaptchaResult captchaResult in _captchaResults)
+                foreach (ImageResult captchaResult in _captchaResults)
                 {
                     var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
 
@@ -182,7 +182,7 @@ public class CaptchaSaver
     /// <summary>
     /// Create folder and combine with current path.
     /// </summary>
-    public CaptchaSaver CreateFolder(string folderName)
+    public ImageSaver CreateFolder(string folderName)
     {
         _path = Directory.CreateDirectory(Path.Join(_path, folderName)).FullName;
         _folderName = folderName;
@@ -192,7 +192,7 @@ public class CaptchaSaver
     /// Specify path for output results.
     /// </summary>
     /// <exception cref="ArgumentException"></exception>
-    public CaptchaSaver WithOutputPath(string path)
+    public ImageSaver WithOutputPath(string path)
     {
         if (!Directory.Exists(path))
             throw new ArgumentException($"Dirrectory specified by path '{path}' doesnt' exist");
@@ -202,7 +202,7 @@ public class CaptchaSaver
     /// <summary>
     /// Specify type of output images.
     /// </summary>
-    public CaptchaSaver WithOutputType(ImageType type)
+    public ImageSaver WithOutputType(ImageType type)
     {
         _imageType = type;
         return this;
@@ -210,7 +210,7 @@ public class CaptchaSaver
     /// <summary>
     /// Specify prefix for files.
     /// </summary>
-    public CaptchaSaver WithFilePrefix(string prefix)
+    public ImageSaver WithFilePrefix(string prefix)
     {
         _prefix = prefix;
         return this;

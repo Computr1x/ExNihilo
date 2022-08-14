@@ -6,7 +6,7 @@ namespace ExNihilo.Rnd;
 /// <summary>
 /// Allows you to automate randomization and generation of captchas.
 /// </summary>
-public class CaptchaGenerator
+public class ImageGenerator
 {
     RandomManager rnd = new RandomManager(0);
 
@@ -15,9 +15,9 @@ public class CaptchaGenerator
     private Dictionary<int, string[]> _captchaText = new Dictionary<int, string[]>();
 
     /// <summary>
-    /// <inheritdoc cref="CaptchaGenerator"/>
+    /// <inheritdoc cref="ImageGenerator"/>
     /// </summary>
-    public CaptchaGenerator(Canvas template)
+    public ImageGenerator(Canvas template)
     {
         _template = template;
     }
@@ -25,7 +25,7 @@ public class CaptchaGenerator
     /// <summary>
     /// Set template for generator.
     /// </summary>
-    public CaptchaGenerator WithTemplate(Canvas template)
+    public ImageGenerator WithTemplate(Canvas template)
     {
         _template = template;
         return this;
@@ -33,7 +33,7 @@ public class CaptchaGenerator
     /// <summary>
     /// Set seeds for randomization.
     /// </summary>
-    public CaptchaGenerator WithSeeds(int[] seeds)
+    public ImageGenerator WithSeeds(int[] seeds)
     {
         _seeds = seeds;
         return this;
@@ -41,13 +41,13 @@ public class CaptchaGenerator
     /// <summary>
     /// Set count of seeds for randomization.
     /// </summary>
-    public CaptchaGenerator WithSeedsCount(int count)
+    public ImageGenerator WithSeedsCount(int count)
     {
         _seeds = Enumerable.Range(0, count).ToArray();
         return this;
     }
     /// <summary>  Set manual input for captchas. </summary>
-    public CaptchaGenerator WithCaptchaInput(string[] input, int index = 0)
+    public ImageGenerator WithCaptchaInput(string[] input, int index = 0)
     {
         _captchaText[index] = input;
         return this;
@@ -56,7 +56,7 @@ public class CaptchaGenerator
     /// Generate collection of captchas by defined seed and/or input.
     /// </summary>
     /// <exception cref="ArgumentException">Thrown when serial number is outside valid     range</exception>
-    public IEnumerable<CaptchaResult> Generate()
+    public IEnumerable<ImageResult> Generate()
     {
         if (_seeds == null || _seeds.Length == 0)
         {
@@ -69,7 +69,7 @@ public class CaptchaGenerator
         return _captchaText.Keys.Count > 0 ? GenerateManualCaptcha() : GenerateRandomizedCaptcha();
     }
 
-    private IEnumerable<CaptchaResult> GenerateRandomizedCaptcha()
+    private IEnumerable<ImageResult> GenerateRandomizedCaptcha()
     {
         Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
 
@@ -92,7 +92,7 @@ public class CaptchaGenerator
         }
     }
 
-    private IEnumerable<CaptchaResult> GenerateManualCaptcha()
+    private IEnumerable<ImageResult> GenerateManualCaptcha()
     {
         Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
 
