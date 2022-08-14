@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TCG\ExNihilo.csproj" />
+    <ProjectReference Include="..\ExNihilo\ExNihilo.csproj" />
   </ItemGroup>
 
   <ItemGroup>
