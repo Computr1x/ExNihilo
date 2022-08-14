@@ -1,11 +1,11 @@
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
-using TCG.Base.Hierarchy;
-using TCG.Base.Utils;
-using TCG.Drawables;
+using ExNihilo.Base.Hierarchy;
+using ExNihilo.Base.Utils;
+using ExNihilo.Drawables;
 
-namespace TCG.Tests
+namespace ExNihilo.Tests
 {
     [TestClass]
     public class DrawablesTest
@@ -92,8 +92,8 @@ namespace TCG.Tests
         [TestMethod]
         public void TestRectangle()
         {
-            TCG.Drawables.Rectangle rectangle =
-                new TCG.Drawables.Rectangle(50, 200, 100, 50)
+            ExNihilo.Drawables.Rectangle rectangle =
+                new ExNihilo.Drawables.Rectangle(50, 200, 100, 50)
                 .WithPen(PenType.Dash, 1, Color.Olive)
                 .WithType(DrawableType.Outlined);
             canvas.Layers[0].WithDrawable(rectangle).Render().Save(Path.Join(currentPath, "rectangle.png"));

@@ -1,13 +1,13 @@
 ﻿using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
-using TCG.Base.Hierarchy;
-using TCG.Base.Utils;
-using TCG.Drawables;
-using TCG.Effects;
-using TCG.Rnd;
+using ExNihilo.Base.Hierarchy;
+using ExNihilo.Base.Utils;
+using ExNihilo.Drawables;
+using ExNihilo.Effects;
+using ExNihilo.Rnd;
 
-namespace TCG.Tests
+namespace ExNihilo.Tests
 {
     [TestClass]
     public class GeneratorTest
