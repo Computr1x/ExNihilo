@@ -10,8 +10,8 @@ namespace ExNihilo.Tests
     [TestClass]
     public class DrawablesTest
     {
-        Size canvasSize = new Size(512, 256);
-        Point center = new Point(256, 128);
+        Size canvasSize = new(512, 256);
+        Point center = new(256, 128);
         Canvas canvas;
         string currentPath = Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "DrawablesTest")).FullName;
 
@@ -74,7 +74,7 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestPicture()
         {
-            Picture picture = new Picture(@"./Assets/Images/cat.png");
+            Picture picture = new(@"./Assets/Images/cat.png");
             canvas.Layers[0].WithDrawable(picture).Render().Save(Path.Join(currentPath, "picture.png"));
         }
 

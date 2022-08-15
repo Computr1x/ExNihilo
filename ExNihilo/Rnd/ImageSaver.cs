@@ -98,31 +98,28 @@ public class ImageSaver
     /// </summary>
     public void SaveAsZip(string archiveName = "archive", CompressionLevel compressionLevel = CompressionLevel.Fastest)
     {
-        using (var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.Create))
+        using var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.Create);
+        using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true);
+       
+        foreach (ImageResult captchaResult in _captchaResults)
         {
-            using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
+            var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
+
+            using var zipStream = zipArchiveEntry.Open();
+            switch (_imageType)
             {
-                foreach (ImageResult captchaResult in _captchaResults)
-                {
-                    var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
-                    
-                    using var zipStream = zipArchiveEntry.Open();
-                    switch (_imageType)
-                    {
-                        case ImageType.Png:
-                            captchaResult.Image.SaveAsPng(zipStream);
-                            break;
-                        case ImageType.Jpeg:
-                            captchaResult.Image.SaveAsJpeg(zipStream);
-                            break;
-                        case ImageType.Bmp:
-                            captchaResult.Image.SaveAsBmp(zipStream);
-                            break;
-                        case ImageType.Webp:
-                            captchaResult.Image.SaveAsWebp(zipStream);
-                            break;
-                    }
-                }
+                case ImageType.Png:
+                    captchaResult.Image.SaveAsPng(zipStream);
+                    break;
+                case ImageType.Jpeg:
+                    captchaResult.Image.SaveAsJpeg(zipStream);
+                    break;
+                case ImageType.Bmp:
+                    captchaResult.Image.SaveAsBmp(zipStream);
+                    break;
+                case ImageType.Webp:
+                    captchaResult.Image.SaveAsWebp(zipStream);
+                    break;
             }
         }
     }
@@ -131,53 +128,41 @@ public class ImageSaver
     /// </summary>
     public async Task SaveAsZipAsync(string archiveName = "archive", CompressionLevel compressionLevel = CompressionLevel.Fastest)
     {
-        using (var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.CreateNew, FileAccess.Write))
+        using var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.CreateNew, FileAccess.Write);
+        using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true);
+        foreach (ImageResult captchaResult in _captchaResults)
         {
-            using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true))
-            {
-                foreach (ImageResult captchaResult in _captchaResults)
-                {
-                    var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
+            var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
 
-                    using var zipStream = zipArchiveEntry.Open();
-                    switch (_imageType)
-                    {
-                        case ImageType.Png:
-                            await captchaResult.Image.SaveAsPngAsync(zipStream);
-                            break;
-                        case ImageType.Jpeg:
-                            await captchaResult.Image.SaveAsJpegAsync(zipStream);
-                            break;
-                        case ImageType.Bmp:
-                            await captchaResult.Image.SaveAsBmpAsync(zipStream);
-                            break;
-                        case ImageType.Webp:
-                            await captchaResult.Image.SaveAsWebpAsync(zipStream);
-                            break;
-                        default:
-                            throw new ArgumentException("Unknown image type");
-                    }
-                }
+            using var zipStream = zipArchiveEntry.Open();
+            switch (_imageType)
+            {
+                case ImageType.Png:
+                    await captchaResult.Image.SaveAsPngAsync(zipStream);
+                    break;
+                case ImageType.Jpeg:
+                    await captchaResult.Image.SaveAsJpegAsync(zipStream);
+                    break;
+                case ImageType.Bmp:
+                    await captchaResult.Image.SaveAsBmpAsync(zipStream);
+                    break;
+                case ImageType.Webp:
+                    await captchaResult.Image.SaveAsWebpAsync(zipStream);
+                    break;
+                default:
+                    throw new ArgumentException("Unknown image type");
             }
         }
     }
 
-    private static string GetImageTypeExtenstion(ImageType imageType)
+    private static string GetImageTypeExtenstion(ImageType imageType) => imageType switch
     {
-        switch (imageType)
-        {
-            case ImageType.Png:
-                return ".png";
-            case ImageType.Jpeg:
-                return ".jpeg";
-            case ImageType.Bmp:
-                return ".bmp";
-            case ImageType.Webp:
-                return ".webp";
-            default:
-                throw new Exception("Unknown image type");
-        }
-    }
+        ImageType.Png => ".png",
+        ImageType.Jpeg => ".jpeg",
+        ImageType.Bmp => ".bmp",
+        ImageType.Webp => ".webp",
+        _ => throw new Exception("Unknown image type"),
+    };
 
     /// <summary>
     /// Create folder and combine with current path.
@@ -217,7 +202,12 @@ public class ImageSaver
     }
 }
 
-public enum ImageType { Png, Jpeg, Bmp, Webp }
+public enum ImageType {
+    Png,
+    Jpeg,
+    Bmp,
+    Webp
+}
 
 // set output type
 public interface ISetOutputType

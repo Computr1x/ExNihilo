@@ -36,6 +36,6 @@ public class PointFParameter : ComplexParameter
 
     public static implicit operator PointF(PointFParameter pointParameter)
     {
-        return new PointF((int)pointParameter.X, (int)pointParameter.Y);
+        return new PointF((int) pointParameter.X, (int) pointParameter.Y);
     }
 }

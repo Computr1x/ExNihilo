@@ -30,9 +30,9 @@ public class Bool2DArrayParameter : GenericParameter<bool[,]>
         Height.Randomize(r);
 
         Value = new bool[Width, Height];
-        for (int i = 0; i < (int)Width; i++)
+        for (int i = 0; i < (int) Width; i++)
         {
-            for (int j = 0; j < (int)Height; j++)
+            for (int j = 0; j < (int) Height; j++)
             {
                 Value[i, j] = r.NextSingle() > 0.5f;
             }

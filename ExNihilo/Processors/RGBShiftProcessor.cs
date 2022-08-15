@@ -77,46 +77,85 @@ internal class RGBShiftProcessor : IImageProcessor
             int imageWidth = source.Width, imageHeight = source.Height;
 
             int width = Math.Min(workArea.Width, source.Width), height = Math.Min(workArea.Height, source.Height);
+            
             if (workArea.X + width > source.Width)
                 width = source.Width - workArea.X;
+            
             if (workArea.Y + height > source.Height)
                 height = source.Height - workArea.Y;
-            Rgba32 r = new(), g = new(), b = new();
-
-
+            
+            Rgba32
+                r = new(),
+                g = new(),
+                b = new();
 
             for (int y = workArea.Y; y < height + workArea.Y; y++)
             {
                 for (int x = workArea.X; x < width + workArea.X; x++)
                 {
                     // red shift
-                    RGBShiftMethod(pixelArray, in x, in y, rgbShiftProcessor.RedXOffset, rgbShiftProcessor.RedYOffset,
-                        in imageWidth, in imageHeight, ref r);
+                    RGBShiftMethod(
+                        pixelArray,
+                        in x,
+                        in y,
+                        rgbShiftProcessor.RedXOffset,
+                        rgbShiftProcessor.RedYOffset,
+                        in imageWidth,
+                        in imageHeight,
+                        ref r
+                    );
+                    
                     // green shift
-                    RGBShiftMethod(pixelArray, in x, in y, rgbShiftProcessor.GreenXOffset, rgbShiftProcessor.GreenYOffset,
-                        in imageWidth, in imageHeight, ref g);
+                    RGBShiftMethod(
+                        pixelArray,
+                        in x,
+                        in y,
+                        rgbShiftProcessor.GreenXOffset,
+                        rgbShiftProcessor.GreenYOffset,
+                        in imageWidth,
+                        in imageHeight,
+                        ref g
+                    );
+                    
                     // blue shift
-                    RGBShiftMethod(pixelArray, in x, in y, rgbShiftProcessor.BlueXOffset, rgbShiftProcessor.BlueYOffset,
-                        in imageWidth, in imageHeight, ref b);
+                    RGBShiftMethod(
+                        pixelArray,
+                        in x,
+                        in y,
+                        rgbShiftProcessor.BlueXOffset,
+                        rgbShiftProcessor.BlueYOffset,
+                        in imageWidth,
+                        in imageHeight,
+                        ref b
+                    );
 
                     var resPixel = new TPixel();
-                    resPixel.FromRgba32(new Rgba32(r.R, g.G, b.B, (byte)(r.A | g.A | b.A)));
+                    resPixel.FromRgba32(new Rgba32(r.R, g.G, b.B, (byte) (r.A | g.A | b.A)));
                     resPixelArray[y * imageWidth + x] = resPixel;
                 }
             }
         }
 
-        void RGBShiftMethod(TPixel[] src, in int x, in int y, in int xOffset, in int yOffset,
-                in int width, in int height, ref Rgba32 resColor)
-        {
-            int curXOffset = x + xOffset;
-            int curYOffset = y + yOffset;
+        static void RGBShiftMethod(
+            TPixel[] src,
+            in int x,
+            in int y,
+            in int xOffset,
+            in int yOffset,
+            in int width,
+            in int height,
+            ref Rgba32 resColor
+        ) {
+            int
+                curXOffset = x + xOffset,
+                curYOffset = y + yOffset;
 
             // check bounds
             if (curXOffset >= width)
                 curXOffset -= width;
             else if (curXOffset < 0)
                 curXOffset += width;
+            
             if (curYOffset >= height)
                 curYOffset -= height;
             else if (curYOffset < 0)

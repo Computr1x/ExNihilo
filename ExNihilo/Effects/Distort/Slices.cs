@@ -41,7 +41,7 @@ public class Slices : IEffect
     /// <inheritdoc cref="Slices"/>
     /// </summary>
     /// <param name="count"><inheritdoc cref="Count" path="/summary"/></param>
-    /// <param name="sliceHeight">< inheritdoc cref="SliceHeight" path="/summary"/></param>
+    /// <param name="sliceHeight"><inheritdoc cref="SliceHeight" path="/summary"/></param>
     public Slices(int count, int sliceHeight)
     {
         Count.Value = count;

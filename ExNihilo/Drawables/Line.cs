@@ -24,7 +24,11 @@ public class Line : BaseDrawable
     /// <summary>
     /// Defines a set of line points. For bezier curves, the length of the array must be greater than or equal to four.
     /// </summary>
-    public PointFArrayParameter Points { get;  } = new PointFArrayParameter(new PointF[0]) { Length = { DefaultValue = 4}};
+    public PointFArrayParameter Points { get;  } = new PointFArrayParameter(Array.Empty<PointF>()) {
+        Length = {
+            DefaultValue = 4
+        }
+    };
 
     /// <summary>
     /// <inheritdoc cref="Line"/>

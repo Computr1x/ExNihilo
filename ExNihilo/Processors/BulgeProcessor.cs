@@ -88,8 +88,8 @@ internal class BulgeProcessor : IImageProcessor
                             CalculateBulge(in x, in y, ref interpolationFactor, ref pixelDistance, ref pixelAngle,
                                     ref pixelX, ref pixelY, ref offsetX, ref offsetY);
 
-                            intOffsetX = (int)offsetX;
-                            intOffsetY = (int)offsetY;
+                            intOffsetX = (int) offsetX;
+                            intOffsetY = (int) offsetY;
 
                             if (0 <= intOffsetX && intOffsetX < imageWidth && 0 <= intOffsetY && intOffsetY < imageHeight)
                             {

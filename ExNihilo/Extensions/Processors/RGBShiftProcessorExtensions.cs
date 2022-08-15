@@ -15,9 +15,9 @@ public static class RGBShiftProcessorExtensions
     /// </summary>
     /// <param name="source">The image this method extends.</param>
     /// <returns>The <see cref="IImageProcessingContext"/> to allow chaining of operations.</returns>
-    public static IImageProcessingContext RGBShift(this IImageProcessingContext sourse)
+    public static IImageProcessingContext RGBShift(this IImageProcessingContext source)
     {
-        return sourse.ApplyProcessor(new RGBShiftProcessor(3));
+        return source.ApplyProcessor(new RGBShiftProcessor(3));
     }
 
     /// <summary>
@@ -26,9 +26,9 @@ public static class RGBShiftProcessorExtensions
     /// <param name="source">The image this method extends.</param>
     /// <param name="offset">The 'offset' value representing the amount of channels shift value in pixels.</param>
     /// <returns>The <see cref="IImageProcessingContext"/> to allow chaining of operations.</returns>
-    public static IImageProcessingContext RGBShift(this IImageProcessingContext sourse, int offset)
+    public static IImageProcessingContext RGBShift(this IImageProcessingContext source, int offset)
     {
-        return sourse.ApplyProcessor(new RGBShiftProcessor(offset));
+        return source.ApplyProcessor(new RGBShiftProcessor(offset));
     }
 
     /// <summary>
@@ -40,9 +40,12 @@ public static class RGBShiftProcessorExtensions
     /// The <see cref="Rectangle"/> structure that specifies the portion of the image object to alter.
     /// </param>
     /// <returns>The <see cref="IImageProcessingContext"/> to allow chaining of operations.</returns>
-    public static IImageProcessingContext RGBShift(this IImageProcessingContext sourse, int offset, Rectangle rectangle)
-    {
-        return sourse.ApplyProcessor(new RGBShiftProcessor(offset) { Area = rectangle });
+    public static IImageProcessingContext RGBShift(
+        this IImageProcessingContext source,
+        int offset,
+        Rectangle rectangle
+    ) {
+        return source.ApplyProcessor(new RGBShiftProcessor(offset) { Area = rectangle });
     }
 
     /// <summary>
@@ -56,10 +59,16 @@ public static class RGBShiftProcessorExtensions
     /// <param name="greenXOffset">The 'greenXOffset' value representing the amount of channels shift of green channel by x coordinate in pixels.</param>
     /// <param name="greenYOffset">The 'greenYOffset' value representing the amount of channels shift of green channel by y coordinate in pixels.</param>
     /// <returns>The <see cref="IImageProcessingContext"/> to allow chaining of operations.</returns>
-    public static IImageProcessingContext RgbShift(this IImageProcessingContext sourse,
-         int redXOffset, int redYOffset, int blueXOffset, int blueYOffset, int greenXOffset, int greenYOffset)
-    {
-        return sourse.ApplyProcessor(new RGBShiftProcessor(blueXOffset, blueYOffset, greenXOffset, greenYOffset, redXOffset, redYOffset));
+    public static IImageProcessingContext RgbShift(
+        this IImageProcessingContext source,
+        int redXOffset,
+        int redYOffset,
+        int blueXOffset,
+        int blueYOffset,
+        int greenXOffset,
+        int greenYOffset
+    ) {
+        return source.ApplyProcessor(new RGBShiftProcessor(blueXOffset, blueYOffset, greenXOffset, greenYOffset, redXOffset, redYOffset));
     }
 
     /// <summary>
@@ -72,12 +81,18 @@ public static class RGBShiftProcessorExtensions
     /// <param name="blueYOffset">The 'blueYOffset' value representing the amount of channels shift of blue channel by y coordinate in pixels.</param>
     /// <param name="greenXOffset">The 'greenXOffset' value representing the amount of channels shift of green channel by x coordinate in pixels.</param>
     /// <param name="greenYOffset">The 'greenYOffset' value representing the amount of channels shift of green channel by y coordinate in pixels.</param>
-    /// /// The <see cref="Rectangle"/> structure that specifies the portion of the image object to alter.
-    /// </param>
+    /// <param name="rectangle">The <see cref="Rectangle"/> structure that specifies the portion of the image object to alter.</param>
     /// <returns>The <see cref="IImageProcessingContext"/> to allow chaining of operations.</returns>
-    public static IImageProcessingContext RGBShift(this IImageProcessingContext sourse, Rectangle rectangle,
-         int redXOffset, int redYOffset, int blueXOffset, int blueYOffset, int greenXOffset, int greenYOffset)
-    {
-        return sourse.ApplyProcessor(new RGBShiftProcessor(blueXOffset, blueYOffset, greenXOffset, greenYOffset, redXOffset, redYOffset) { Area = rectangle });
+    public static IImageProcessingContext RGBShift(
+        this IImageProcessingContext source,
+        Rectangle rectangle,
+        int redXOffset,
+        int redYOffset,
+        int blueXOffset,
+        int blueYOffset,
+        int greenXOffset,
+        int greenYOffset
+    ) {
+        return source.ApplyProcessor(new RGBShiftProcessor(blueXOffset, blueYOffset, greenXOffset, greenYOffset, redXOffset, redYOffset) { Area = rectangle });
     }
 }

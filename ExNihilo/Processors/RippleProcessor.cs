@@ -123,8 +123,8 @@ internal class RippleProcessor : IImageProcessor
                                 ref offsetX, ref offsetY);
 
 
-                        intOffsetX = (int)offsetX;
-                        intOffsetY = (int)offsetY;
+                        intOffsetX = (int) offsetX;
+                        intOffsetY = (int) offsetY;
 
                         if (0 <= intOffsetX && intOffsetX < imageWidth && 0 <= intOffsetY && intOffsetY < imageHeight)
                         {

@@ -15,7 +15,7 @@ public class Polygon : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Defines a set of polygon points.
     /// </summary>
-    public PointFArrayParameter Points { get; } = new PointFArrayParameter(new PointF[0]);
+    public PointFArrayParameter Points { get; } = new PointFArrayParameter(Array.Empty<PointF>());
 
     /// <summary>
     /// <inheritdoc cref="Polygon"/>
@@ -108,9 +108,9 @@ public class Polygon : BaseDrawableWithBrushAndPen
 
         image.Mutate((x) =>
         {
-            if (((DrawableType)Type).HasFlag(DrawableType.Filled))
+            if (((DrawableType) Type).HasFlag(DrawableType.Filled))
                 x.FillPolygon(dopt, Brush.Value, Points);
-            if (((DrawableType)Type).HasFlag(DrawableType.Outlined))
+            if (((DrawableType) Type).HasFlag(DrawableType.Outlined))
                 x.DrawPolygon(dopt, Pen.Value, Points);
         });
     }

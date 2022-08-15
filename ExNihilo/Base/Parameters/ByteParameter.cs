@@ -10,6 +10,6 @@ public class ByteParameter : NumericParameter<byte>
 
     protected override void RandomizeImplementation(Random r)
     {
-        Value = (byte)r.Next(Min, Max);
+        Value = (byte) r.Next(Min, Max);
     }
 }

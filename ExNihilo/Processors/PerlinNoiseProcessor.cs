@@ -82,8 +82,8 @@ internal class PerlinNoiseProcessor : IImageProcessor
                         if (sourcePixel.A == 0)
                             continue;
 
-                        noise = (byte)(MathF.Round(
-                            (Noise(x / (float)width, y / (float)height, processor.Octaves, processor.Persistence) + 1f / 2f)
+                        noise = (byte) (MathF.Round(
+                            (Noise(x / (float) width, y / (float) height, processor.Octaves, processor.Persistence) + 1f / 2f)
                                 * 255 / processor.Step) * processor.Step);
 
 
@@ -136,8 +136,8 @@ internal class PerlinNoiseProcessor : IImageProcessor
 
         private float Noise(float fx, float fy)
         {
-            int left = (int)MathF.Floor(fx);
-            int top = (int)MathF.Floor(fy);
+            int left = (int) MathF.Floor(fx);
+            int top = (int) MathF.Floor(fy);
             float pointInQuadX = fx - left;
             float pointInQuadY = fy - top;
 

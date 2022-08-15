@@ -254,9 +254,9 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
         if (TextAlignment == TextAlignment.Start)
             origin = Point;
         else if (TextAlignment == TextAlignment.Center)
-            origin = new Point((int)(origin.X - rect.Width / 2f), (int)(origin.Y - rect.Height / 2f));
+            origin = new Point((int) (origin.X - rect.Width / 2f), (int) (origin.Y - rect.Height / 2f));
         else
-            origin = new Point((int)(origin.X - rect.Width), (int)(origin.Y - rect.Height));
+            origin = new Point((int) (origin.X - rect.Width), (int) (origin.Y - rect.Height));
         Image<Rgba32>? tempImg = null;
         image.Mutate((x) =>
         {
@@ -270,24 +270,24 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
                 if (origin.X + rect.Width < 0 || origin.X + rect.Width >= image.Width ||
                     origin.Y + rect.Height < 0 || origin.Y + rect.Height >= image.Height)
                 {
-                    origin = new Point(origin.X + (int)rect.Width, origin.Y);
+                    origin = new Point(origin.X + (int) rect.Width, origin.Y);
                     continue;
                 }
 
-                tempImg = new((int)rect.Width + 1, (int)rect.Height + 1);
+                tempImg = new((int) rect.Width + 1, (int) rect.Height + 1);
 
                 // draw cymbol
                 tempImg.Mutate(y =>
                 {
                         // depend on drawing type choose drawing method
-                    if (((DrawableType)symbolsParams.Type).HasFlag(DrawableType.FillWithOutline))
+                    if (((DrawableType) symbolsParams.Type).HasFlag(DrawableType.FillWithOutline))
                         y.DrawText(dopt, opt, symbolsParams.Content,
                             symbolsParams.Brush.Value,
                             symbolsParams.Pen.Value);
-                    else if (((DrawableType)symbolsParams.Type).HasFlag(DrawableType.Filled))
+                    else if (((DrawableType) symbolsParams.Type).HasFlag(DrawableType.Filled))
                         y.DrawText(dopt, opt, symbolsParams.Content,
                             symbolsParams.Brush.Value, null);
-                    else if (((DrawableType)symbolsParams.Type).HasFlag(DrawableType.Outlined))
+                    else if (((DrawableType) symbolsParams.Type).HasFlag(DrawableType.Outlined))
                         y.DrawText(dopt, opt, symbolsParams.Content,
                             null, symbolsParams.Pen.Value);
                 });
@@ -300,7 +300,7 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
                 x.DrawImage(tempImg, origin, graphicsOptions);
 
                 // shift origin on symbol width
-                origin = new Point(origin.X + (int)rect.Width, origin.Y);
+                origin = new Point(origin.X + (int) rect.Width, origin.Y);
             }
         });
         // dispose unmanaged resourse
@@ -359,7 +359,7 @@ public class TextSymbolsParameter : IRandomizableParameter
         Content.Randomize(r, force);
         RandomizedTextParameters.Clear();
 
-        foreach (var symbol in (string)Content)
+        foreach (var symbol in (string) Content)
         {
             FontFamily.Randomize(r, force);
             FontSize.Randomize(r, force);
@@ -387,7 +387,7 @@ public class TextSymbolsParameter : IRandomizableParameter
         }
     }
 
-    public void RandomizeProperties(Random rnd, IRenderable renderable, bool force = false)
+    public static void RandomizeProperties(Random rnd, IRenderable renderable, bool force = false)
     {
         foreach (var property in renderable.GetType().GetProperties())
         {

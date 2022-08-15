@@ -1,22 +1,28 @@
-<h1 align="center">ExNihilo</h1>  
+![logo](https://user-images.githubusercontent.com/11760002/184577160-674d9764-0022-4194-b4e9-d07b9103dcf5.png)
 
-ExNihilo - modern, powerfull and flexible random image generation library.  
+This is an extremely powerful tool for creating procedural images from scratch. You can use it to generate captchas, datasets to train neural networks or unique game mechanics - in other words, for anything your imagination can do
 
-## Featrures  
-- The layer system allows you to add objects and effects without changing other entities.
-- The parameters of objects and effects can be set randomly, which allows you to generate unique images that are great for captcha.
-- Fluent interface lets you create images in one line of code if you want.
-- A large number of effects will allow you to create an image the way you want.
-- The library is cross-platform, which will allow you to work with it regardless of your operating system.
+## Features  
 
-# Documentation
-All documentation you can find on [Wiki](https://github.com/Computr1x/TCG/wiki) page.
+- Multi-layer system for processing visual entities without the need for complete redrawing
+- Full randomizability of all properties of all entities - from color and font size to the strength of the distortion/blur/any effects
+- A huge number of effects for post-processing images - from color correction and geometric distortion, to sharpness and pixelation modifiers
+- Ability to write code with confinient [fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) and the classic object-oriented approach
+- Full cross-platform without being tied to any specific operating system
 
-# Example  
-``` cs
-var fontFamily = new FontCollection().AddSystemFonts().GetByCulture(CultureInfo.CurrentCulture).First();
+## Getting started
+
+For detailed illustrated code examples, we recommend you go to the [Wiki section](https://github.com/Computr1x/ExNihilo/wiki). However, here is a sample:
+
+```csharp
+var fontFamily = new FontCollection()
+    .AddSystemFonts()
+    .GetByCulture(CultureInfo.CurrentCulture)
+    .First();
+    
 Size canvasSize = new(512, 256);
-Canvas canvas = new Canvas(canvasSize)
+
+Canvas canvas = new(canvasSize)
     .WithLayer(
         new Layer(canvasSize)
             .WithBackground(Color.White)
@@ -24,26 +30,38 @@ Canvas canvas = new Canvas(canvasSize)
                 new Captcha()
                     .WithPoint(new Point(256,128))
                     .WithFontSize(100)
-                    .WithRandomizedContent(content =>
-                    { content.WithLength(5); content.WithCharactersSet(StringParameter.asciiUpperCase);})
+                    .WithRandomizedContent(content => {
+                        content.WithLength(5);
+                        content.WithCharactersSet(StringParameter.asciiUpperCase);
+                    })
                     .WithRandomizedBrush(10)
                     .WithFontFamily(fontFamily)
-                    .WithType(ExNihilo.Base.Utils.DrawableType.Filled)));
+                    .WithType(ExNihilo.Base.Utils.DrawableType.Filled)
+            )
+    );
 
-new ImageSaver(new ImageGenerator(canvas).WithSeedsCount(3).Generate()).
-    WithOutputPath("./").CreateFolder("Results").Save();
+new ImageSaver(
+    new ImageGenerator(canvas)
+        .WithSeedsCount(3)
+        .Generate()
+)
+    .WithOutputPath("./")
+    .CreateFolder("Results")
+    .Save();
 ```
 
-# Samples
-Few samples here and more you can find in samples [repository](https://github.com/Computr1x/ExNihilo-Samples).  
-| Example            | Description | Result |
+## Example projects
+
+You can always find several test projects with detailed code explanations in a separate [repository](https://github.com/Computr1x/ExNihilo-Samples):
+
+| Project | Description | Result |
 |--------------------|-------------|-------------------------------------------------------------------------------------------------------------------------|
-| [AdvancedCaptcha](https://github.com/Computr1x/ExNihilo-Samples/tree/master/AdvancedCaptcha)    | An advanced example shows working with effects, parameter randomization, and a variety of visual objects.            |   ![9_DRWKU](https://user-images.githubusercontent.com/44768267/184555570-1d092b6c-73dc-4208-8186-7c211a6b9932.png)     |
-| [MathCaptcha](https://github.com/Computr1x/ExNihilo-Samples/tree/master/MathCaptcha)        | This example shows how to create a math captcha with little distortion.            |   ![3_6_-_0](https://user-images.githubusercontent.com/44768267/184555560-e031a7ed-a677-4dfb-9e5a-2106cea80a04.png)     |
+| [MathCaptcha](https://github.com/Computr1x/ExNihilo-Samples/tree/master/MathCaptcha)        | Creating a simple math captcha with a little distortion effect           |   ![3_6_-_0](https://user-images.githubusercontent.com/44768267/184555560-e031a7ed-a677-4dfb-9e5a-2106cea80a04.png)     |
+| [AdvancedCaptcha](https://github.com/Computr1x/ExNihilo-Samples/tree/master/AdvancedCaptcha) | Advanced work with multiple visual objects, randomization of their parameters and post-processing effects |   ![9_DRWKU](https://user-images.githubusercontent.com/44768267/184555570-1d092b6c-73dc-4208-8186-7c211a6b9932.png)     |
 
 
 
+# License
 
-# Licence
 ExNihilo is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0 "Apache License, Version 2.0")
-The licenses of the used libraries can be found [here](https://github.com/Computr1x/TCG/blob/master/THIRD-PARTY-NOTICES.TXT).
+The licenses of the used libraries can be found [here](https://github.com/Computr1x/ExNihilo/blob/master/THIRD-PARTY-NOTICES.TXT)

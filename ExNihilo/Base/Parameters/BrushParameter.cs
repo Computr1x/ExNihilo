@@ -31,7 +31,7 @@ public class BrushParameter : ComplexParameter
 
     public BrushParameter WithRandomizedType()
     {
-        Type.EnumValues = (BrushType[])Enum.GetValues(typeof(BrushType));
+        Type.EnumValues = (BrushType[]) Enum.GetValues(typeof(BrushType));
         return this;
     }
 
@@ -41,7 +41,7 @@ public class BrushParameter : ComplexParameter
         return this;
     }
 
-    public BrushParameter WithColor(SixLabors.ImageSharp.Color color)
+    public BrushParameter WithColor(Color color)
     {
         Color.Value = color;
         return this;
@@ -54,26 +54,23 @@ public class BrushParameter : ComplexParameter
         return this;
     }
 
-    public BrushParameter WithRandomizedColor(SixLabors.ImageSharp.Color[] palette)
+    public BrushParameter WithRandomizedColor(Color[] palette)
     {
         Color.Colors = palette;
         return this;
     }
 
-    private IBrush GetBrush()
+    private IBrush GetBrush() => Type.Value switch
     {
-       return Type.Value switch
-        {
-            BrushType.Vertical => Brushes.Vertical(Color),
-            BrushType.Horizontal => Brushes.Horizontal(Color),
-            BrushType.BackwardDiagonal => Brushes.BackwardDiagonal(Color),
-            BrushType.ForwardDiagonal => Brushes.ForwardDiagonal(Color),
-            BrushType.Min => Brushes.Min(Color),
-            BrushType.Percent10 => Brushes.Percent10(Color),
-            BrushType.Percent20 => Brushes.Percent20(Color),
-            _ => Brushes.Solid(Color)
-        };
-    }
+        BrushType.Vertical => Brushes.Vertical(Color),
+        BrushType.Horizontal => Brushes.Horizontal(Color),
+        BrushType.BackwardDiagonal => Brushes.BackwardDiagonal(Color),
+        BrushType.ForwardDiagonal => Brushes.ForwardDiagonal(Color),
+        BrushType.Min => Brushes.Min(Color),
+        BrushType.Percent10 => Brushes.Percent10(Color),
+        BrushType.Percent20 => Brushes.Percent20(Color),
+        _ => Brushes.Solid(Color)
+    };
 
     protected override void RandomizeImplementation(Random r)
     {
@@ -83,20 +80,17 @@ public class BrushParameter : ComplexParameter
 
     public IBrush Value { get => GetValue(); }
 
-    public IBrush GetValue()
+    public IBrush GetValue() => Type.Value switch
     {
-        return Type.Value switch
-        {
-            BrushType.Vertical => Brushes.Vertical(Color),
-            BrushType.Horizontal => Brushes.Horizontal(Color),
-            BrushType.BackwardDiagonal => Brushes.BackwardDiagonal(Color),
-            BrushType.ForwardDiagonal => Brushes.ForwardDiagonal(Color),
-            BrushType.Min => Brushes.Min(Color),
-            BrushType.Percent10 => Brushes.Percent10(Color),
-            BrushType.Percent20 => Brushes.Percent20(Color),
-            _ => Brushes.Solid(Color)
-        };
-    }
+        BrushType.Vertical => Brushes.Vertical(Color),
+        BrushType.Horizontal => Brushes.Horizontal(Color),
+        BrushType.BackwardDiagonal => Brushes.BackwardDiagonal(Color),
+        BrushType.ForwardDiagonal => Brushes.ForwardDiagonal(Color),
+        BrushType.Min => Brushes.Min(Color),
+        BrushType.Percent10 => Brushes.Percent10(Color),
+        BrushType.Percent20 => Brushes.Percent20(Color),
+        _ => Brushes.Solid(Color)
+    };
 
     //public static implicit operator IBrush(BrushParameter brushParameter)
     //{

@@ -8,11 +8,11 @@ namespace ExNihilo.Rnd;
 /// </summary>
 public class ImageGenerator
 {
-    RandomManager rnd = new RandomManager(0);
+    RandomManager rnd = new(0);
 
     private Canvas _template;
     private int[] _seeds;
-    private Dictionary<int, string[]> _captchaText = new Dictionary<int, string[]>();
+    private Dictionary<int, string[]> _captchaText = new();
 
     /// <summary>
     /// <inheritdoc cref="ImageGenerator"/>
@@ -79,7 +79,7 @@ public class ImageGenerator
             rnd.ResetRandom(seed);
             rnd.RandomizeCanvas(_template);
 
-            List<string> captchaStrings = new List<string>();
+            List<string> captchaStrings = new();
             foreach (int captchaIndex in captchaIndexMapping.Keys)
             {
                 foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])
@@ -121,8 +121,8 @@ public class ImageGenerator
     {
         int min, max;
 
-        min = _captchaText.Values.Min(x => ((int?)x.Length)) ?? 0;
-        max = _captchaText.Values.Max(x => ((int?)x.Length)) ?? 0;
+        min = _captchaText.Values.Min(x => ((int?) x.Length)) ?? 0;
+        max = _captchaText.Values.Max(x => ((int?) x.Length)) ?? 0;
 
         if (min != max)
             throw new ArgumentException("Captcha inputs should have same input array size. ");
@@ -134,7 +134,7 @@ public class ImageGenerator
             throw new ArgumentException("For captcha generation you should specify captha input or seeds");
     }
 
-    protected Dictionary<int, List<ICaptcha>> GetCanvasCaptchas(Canvas canvas)
+    protected static Dictionary<int, List<ICaptcha>> GetCanvasCaptchas(Canvas canvas)
     {
         Dictionary<int, List<ICaptcha>> captchas = new();
         foreach (var layer in canvas.Layers)

@@ -17,15 +17,17 @@ namespace ExNihilo.Tests
         public static void Init(TestContext context)
         {
             currentPath = Path.Combine(Directory.GetCurrentDirectory(), "SaverTest");
+           
             if (Directory.Exists(currentPath))
                 Directory.Delete(currentPath, true);
+         
             Directory.CreateDirectory(currentPath);
         }
 
-        private Canvas CreateTemplate()
+        private static Canvas CreateTemplate()
         {
-            Size canvasSize = new Size(512, 256);
-            Point center = new Point(256, 128);
+            Size canvasSize = new(512, 256);
+            Point center = new(256, 128);
 
             var fontFamily = new FontCollection().AddSystemFonts().Families.First();
 
