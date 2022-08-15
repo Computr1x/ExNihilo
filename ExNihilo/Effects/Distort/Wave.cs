@@ -3,27 +3,27 @@ using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
 using ExNihilo.Extensions.Processors;
 using ExNihilo.Processors;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of wave effect on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of wave effect on an <see cref="Drawable"/>
 /// </summary>
-public class Wave : IEffect
+public class Wave : Effect
 {
     /// <summary>
     /// Wave length. Must be greater or equal to 0
     /// </summary>
-    public FloatParameter WaveLength { get; set; } = new(0, float.MaxValue, 3f) { Min = 1f, Max = 10f };
+    public FloatProperty WaveLength { get; set; } = new(0, float.MaxValue, 3f) { Min = 1f, Max = 10f };
     /// <summary>
     /// Wave amplitude. Must be greater or equal to 0
     /// </summary>
-    public FloatParameter Amplitude { get; set; } = new(0, float.MaxValue, 2f) { Min = 1f, Max = 10f };
+    public FloatProperty Amplitude { get; set; } = new(0, float.MaxValue, 2f) { Min = 1f, Max = 10f };
     /// <summary>
     /// Type of wave.
     /// </summary>
-    public EnumParameter<WaveType> Type { get; set; } = new(WaveType.Sine);
+    public EnumProperty<WaveType> Type { get; set; } = new(WaveType.Sine);
 
     /// <summary>
     /// <inheritdoc cref="Wave"/>
@@ -111,6 +111,6 @@ public class Wave : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Wave(WaveLength, Amplitude, Type));
 }

@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Utils;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Drawables;
 
@@ -16,7 +16,7 @@ public class Rectangle : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Represent rectangular area where object will be drawn.
     /// </summary>
-    public RectangleParameter Area { get; } = new RectangleParameter();
+    public RectangleProperty Area { get; } = new RectangleProperty();
 
     /// <summary>
     /// <inheritdoc cref="Rectangle"/>
@@ -54,7 +54,7 @@ public class Rectangle : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set brush value.
     /// </summary>
-    public Rectangle WithBrush(Action<BrushParameter> actionBrush)
+    public Rectangle WithBrush(Action<BrushProperty> actionBrush)
     {
         actionBrush(Brush);
         return this;
@@ -70,7 +70,7 @@ public class Rectangle : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Rectangle WithPen(Action<PenParameter> actionPen)
+    public Rectangle WithPen(Action<PenProperty> actionPen)
     {
         actionPen(Pen);
         return this;

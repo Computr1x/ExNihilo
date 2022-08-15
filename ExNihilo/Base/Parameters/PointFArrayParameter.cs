@@ -5,28 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class PointFArrayParameter : GenericParameter<PointF[]>
+public class PointFArrayProperty : GenericProperty<PointF[]>
 {
-    public IntParameter Length { get; } = new IntParameter(0);
+    public IntProperty Length { get; } = new IntProperty(0);
 
-    public IntParameter X { get; } = new IntParameter(0);
-    public IntParameter Y { get;  } = new IntParameter(0);
+    public IntProperty X { get; } = new IntProperty(0);
+    public IntProperty Y { get;  } = new IntProperty(0);
 
-    public PointFArrayParameter(PointF[] defaultValue) : base(defaultValue)
+    public PointFArrayProperty(PointF[] defaultValue) : base(defaultValue)
     {
     }
 
-    public PointFArrayParameter WithLength(int value)
+    public PointFArrayProperty WithLength(int value)
     {
         Length.WithValue(value);
         return this;
     }
 
-    public PointFArrayParameter WithRadnomizeLength(int min, int max)
+    public PointFArrayProperty WithRadnomizeLength(int min, int max)
     {
         Length.WithRandomizedValue(min, max);
         return this;

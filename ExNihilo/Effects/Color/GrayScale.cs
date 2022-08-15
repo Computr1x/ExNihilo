@@ -5,10 +5,10 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of grayscale toning of the <see cref="IDrawable"/>
+/// Defines effect that allow the application of grayscale toning of the <see cref="Drawable"/>
 /// </summary>
-public class GrayScale : IEffect
+public class GrayScale : Effect
 {
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Grayscale());
 }

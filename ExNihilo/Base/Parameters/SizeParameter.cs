@@ -1,21 +1,21 @@
 ﻿using SixLabors.ImageSharp;
 using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class SizeParameter : ComplexParameter
+public class SizeProperty : ComplexProperty
 {
-    public IntParameter Width { get; set; } = new IntParameter(0);
-    public IntParameter Height { get; set; } = new IntParameter(0);
+    public IntProperty Width { get; set; } = new IntProperty(0);
+    public IntProperty Height { get; set; } = new IntProperty(0);
 
-    public SizeParameter WithValue(Size value)
+    public SizeProperty WithValue(Size value)
     {
         Width.WithValue(value.Width);
         Height.WithValue(value.Height);
         return this;
     }
 
-    public SizeParameter WithRandomizedValue(int minWidth, int maxWidth, int minHeught, int maxHeight)
+    public SizeProperty WithRandomizedValue(int minWidth, int maxWidth, int minHeught, int maxHeight)
     {
         Width.WithRandomizedValue(minWidth, maxWidth);
         Height.WithRandomizedValue(minHeught, maxHeight);
@@ -28,13 +28,13 @@ public class SizeParameter : ComplexParameter
         Height.Randomize(r);
     }
 
-    public static implicit operator Size(SizeParameter sizeParameter)
+    public static implicit operator Size(SizeProperty sizeProperty)
     {
-        return new Size(sizeParameter.Width, sizeParameter.Height);
+        return new Size(sizeProperty.Width, sizeProperty.Height);
     }
 
-    public static implicit operator SizeF(SizeParameter sizeParameter)
+    public static implicit operator SizeF(SizeProperty sizeProperty)
     {
-        return new SizeF(sizeParameter.Width, sizeParameter.Height);
+        return new SizeF(sizeProperty.Width, sizeProperty.Height);
     }
 }

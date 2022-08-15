@@ -1,39 +1,39 @@
 ﻿using SixLabors.ImageSharp;
 using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class RectangleParameter : ComplexParameter
+public class RectangleProperty : ComplexProperty
 {
-    public PointParameter Point { get; } = new PointParameter();
-    public SizeParameter Size { get; } = new SizeParameter();
+    public PointProperty Point { get; } = new PointProperty();
+    public SizeProperty Size { get; } = new SizeProperty();
 
-    public RectangleParameter WithValue(Rectangle value)
+    public RectangleProperty WithValue(Rectangle value)
     {
         Point.WithValue(new Point(value.X, value.Y));
         Size.WithValue(new Size(value.Width, value.Height));
         return this;
     }
 
-    public RectangleParameter WithPoint(Point p)
+    public RectangleProperty WithPoint(Point p)
     {
         Point.WithValue(p);
         return this;
     }
 
-    public RectangleParameter WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
+    public RectangleProperty WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
     {
         Point.WithRandomizedValue(minX, maxX, minY, maxY);
         return this;
     }
 
-    public RectangleParameter WithSize(Size size)
+    public RectangleProperty WithSize(Size size)
     {
         Size.WithValue(size);
         return this;
     }
 
-    public RectangleParameter WithRandomizedSize(int minWidth, int maxWidth, int minHeight, int maxHeight)
+    public RectangleProperty WithRandomizedSize(int minWidth, int maxWidth, int minHeight, int maxHeight)
     {
         Size.WithRandomizedValue(minWidth, maxWidth, minHeight, maxHeight);
         return this;
@@ -45,12 +45,12 @@ public class RectangleParameter : ComplexParameter
         Size.Randomize(r);
     }
 
-    public static implicit operator RectangleF(RectangleParameter rectParamater)
+    public static implicit operator RectangleF(RectangleProperty rectParamater)
     {
         return new RectangleF(rectParamater.Point, rectParamater.Size);
     }
 
-    public static implicit operator Rectangle(RectangleParameter rectParamater)
+    public static implicit operator Rectangle(RectangleProperty rectParamater)
     {
         return new Rectangle(rectParamater.Point, rectParamater.Size);
     }

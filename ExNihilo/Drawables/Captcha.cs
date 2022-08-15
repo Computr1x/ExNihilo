@@ -2,7 +2,7 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 
 namespace ExNihilo.Drawables;
@@ -104,7 +104,7 @@ public class Captcha : Text, ICaptcha
     //}
 
 
-    //public new Captcha WithBrush(Action<BrushParameter> actionBrush)
+    //public new Captcha WithBrush(Action<BrushProperty> actionBrush)
     //{
     //    actionBrush(Brush);
     //    return this;
@@ -122,7 +122,7 @@ public class Captcha : Text, ICaptcha
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public new Captcha WithPen(Action<PenParameter> actionPen)
+    public new Captcha WithPen(Action<PenProperty> actionPen)
     {
         actionPen(Pen);
         return this;
@@ -149,10 +149,10 @@ public class Captcha : Text, ICaptcha
     /// <summary>
     /// Set content randomization parameters.
     /// </summary>
-    /// <param name="stringParameterSetter">Content set actions</param>
-    public new Captcha WithRandomizedContent(Action<StringParameter> stringParameterSetter)
+    /// <param name="stringPropertySetter">Content set actions</param>
+    public new Captcha WithRandomizedContent(Action<StringProperty> stringPropertySetter)
     {
-        stringParameterSetter(Content);
+        stringPropertySetter(Content);
         return this;
     }
 

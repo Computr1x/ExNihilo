@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class PointFParameter : ComplexParameter
+public class PointFProperty : ComplexProperty
 {
-    public FloatParameter X { get; init; } = new FloatParameter(0);
-    public FloatParameter Y { get; init; } = new FloatParameter(0);
+    public FloatProperty X { get; init; } = new FloatProperty(0);
+    public FloatProperty Y { get; init; } = new FloatProperty(0);
 
     protected override void RandomizeImplementation(Random r)
     {
@@ -20,22 +20,22 @@ public class PointFParameter : ComplexParameter
         Y.Randomize(r);
     }
 
-    public PointFParameter WithValue(PointF value)
+    public PointFProperty WithValue(PointF value)
     {
         X.WithValue(value.X);
         Y.WithValue(value.Y);
         return this;
     }
 
-    public PointFParameter WithRandomizedValue(int minX, int maxX, int minY, int maxY)
+    public PointFProperty WithRandomizedValue(int minX, int maxX, int minY, int maxY)
     {
         X.WithRandomizedValue(minX, maxX);
         Y.WithRandomizedValue(minY, maxY);
         return this;
     }
 
-    public static implicit operator PointF(PointFParameter pointParameter)
+    public static implicit operator PointF(PointFProperty pointProperty)
     {
-        return new PointF((int) pointParameter.X, (int) pointParameter.Y);
+        return new PointF((int) pointProperty.X, (int) pointProperty.Y);
     }
 }

@@ -1,12 +1,12 @@
 ﻿using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class ByteParameter : NumericParameter<byte>
+public class ByteProperty : NumericProperty<byte>
 {
-    public ByteParameter(byte defaultValue = default) : base(defaultValue) { }
+    public ByteProperty(byte defaultValue = default) : base(defaultValue) { }
 
-    public ByteParameter(byte min, byte max, byte defaultValue = default) : base(min, max, defaultValue) { }
+    public ByteProperty(byte min, byte max, byte defaultValue = default) : base(min, max, defaultValue) { }
 
     protected override void RandomizeImplementation(Random r)
     {

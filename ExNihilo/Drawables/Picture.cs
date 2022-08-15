@@ -2,19 +2,20 @@
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
+using ExNihilo.Base.Interfaces;
 
 namespace ExNihilo.Drawables;
 
 /// <summary>
 /// Define picture drawable object.
 /// </summary>
-public class Picture : BaseDrawable
+public class Picture : Drawable
 {
     /// <summary>
     /// Specifies the coordinate of the upper left corner of the image from which to start rendering
     /// </summary>
-    public PointParameter Point { get; } = new PointParameter();
+    public PointProperty Point { get; } = new PointProperty();
 
     private Image? image = null;
 

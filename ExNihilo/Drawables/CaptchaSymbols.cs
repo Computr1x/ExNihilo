@@ -5,7 +5,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 using ExNihilo.Rnd;
 
@@ -14,7 +14,7 @@ namespace ExNihilo.Drawables;
 /// <summary>
 /// Define captcha drawable object.
 /// </summary>
-public class CaptchaSymbols : BaseDrawable, ICaptcha
+public class CaptchaSymbols : Drawable, ICaptcha
 {
     /// <summary>
     /// Index of captcha. Needed to assign a captcha value.
@@ -36,11 +36,11 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
     /// <summary>
     /// Captcha drawing position.
     /// </summary>
-    public PointParameter Point { get; } = new PointParameter();
+    public PointProperty Point { get; } = new PointProperty();
     /// <summary>
     /// Text parameters of symbols.
     /// </summary>
-    public TextSymbolsParameter TextSymbols { get; } = new TextSymbolsParameter();
+    public TextSymbolsProperty TextSymbols { get; } = new TextSymbolsProperty();
 
     /// <summary>
     /// Text DPI.
@@ -114,7 +114,7 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public CaptchaSymbols WithPen(Action<PenParameter> actionPen)
+    public CaptchaSymbols WithPen(Action<PenProperty> actionPen)
     {
         actionPen(TextSymbols.Pen);
         return this;
@@ -138,9 +138,9 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
     /// <summary>
     /// Set content randomization parameters.
     /// </summary>
-    public CaptchaSymbols WithRandomizedContent(Action<StringParameter> stringParameterSetter)
+    public CaptchaSymbols WithRandomizedContent(Action<StringProperty> stringPropertySetter)
     {
-        stringParameterSetter(TextSymbols.Content);
+        stringPropertySetter(TextSymbols.Content);
         return this;
     }
     /// <summary>
@@ -223,7 +223,7 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
     /// <summary>
     /// Sets the effect that will be applied to each captcha character.
     /// </summary>
-    public CaptchaSymbols WithSymbolsEffect(IEffect effect)
+    public CaptchaSymbols WithSymbolsEffect(Effect effect)
     {
         TextSymbols.Effects.Add(effect);
         return this;
@@ -262,7 +262,7 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
         image.Mutate((x) =>
         {
             // draw text by symbols
-            foreach (var symbolsParams in TextSymbols.RandomizedTextParameters)
+            foreach (var symbolsParams in TextSymbols.RandomizedTextProperties)
             {
                 // create temp image
                 rect = TextMeasurer.Measure(symbolsParams.Content.Value, opt);
@@ -310,12 +310,12 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
 }
 
 
-public class TextSymbolsParameter : IRandomizableParameter
+public class TextSymbolsProperty : IRandomizableProperty
 {
     /// <summary>
     /// Specifies the text to be displayed
     /// </summary>
-    public StringParameter Content { get; } = new StringParameter
+    public StringProperty Content { get; } = new StringProperty
     {
         DefaultValue = "TEST"
     };
@@ -323,46 +323,46 @@ public class TextSymbolsParameter : IRandomizableParameter
     /// <summary>
     /// <inheritdoc cref="TextOptions.Origin"/>
     /// </summary>
-    public PointParameter Point { get; } = new PointParameter();
+    public PointProperty Point { get; } = new PointProperty();
     /// <summary>
     /// Specifies text font family.
     /// </summary>
-    public FontFamilyParameter FontFamily { get; } = new FontFamilyParameter();
+    public FontFamilyProperty FontFamily { get; } = new FontFamilyProperty();
     /// <summary>
     /// Specifies font size. Default value is 64;
     /// </summary>
-    public FloatParameter FontSize { get; } = new FloatParameter(64) { Min = 32, Max = 128 };
+    public FloatProperty FontSize { get; } = new FloatProperty(64) { Min = 32, Max = 128 };
     /// <summary>
     /// Specifies font style. By default it's regular.
     /// </summary>
-    public EnumParameter<FontStyle> Style { get; } = new EnumParameter<FontStyle>(FontStyle.Regular);
+    public EnumProperty<FontStyle> Style { get; } = new EnumProperty<FontStyle>(FontStyle.Regular);
 
     /// <summary>
     /// Represents the pen with which to stroke an object.
     /// </summary>
-    public BrushParameter Brush { get; } = new();
+    public BrushProperty Brush { get; } = new();
     /// <summary>
     /// Represents the pen with which to outlined an object.
     /// </summary>
-    public PenParameter Pen { get; } = new();
+    public PenProperty Pen { get; } = new();
     /// <summary>
     /// Specifies the rendering type of an object
     /// </summary>
-    public EnumParameter<DrawableType> Type { get; } = new(DrawableType.Filled);
+    public EnumProperty<DrawableType> Type { get; } = new(DrawableType.Filled);
 
     /// <summary>
     /// Specify collection of effect that will be applied to all characters.
     /// </summary>
-    public List<IEffect> Effects { get; set; } = new List<IEffect>();
+    public List<Effect> Effects { get; set; } = new List<Effect>();
     /// <summary>
     /// Specify collection of randomized text parameters for every character.
     /// </summary>
-    public List<TextSymbolsParameter> RandomizedTextParameters { get; } = new List<TextSymbolsParameter>();
+    public List<TextSymbolsProperty> RandomizedTextProperties { get; } = new List<TextSymbolsProperty>();
 
     public void Randomize(Random r, bool force = false)
     {
         Content.Randomize(r, force);
-        RandomizedTextParameters.Clear();
+        RandomizedTextProperties.Clear();
 
         foreach (var symbol in (string) Content)
         {
@@ -376,7 +376,7 @@ public class TextSymbolsParameter : IRandomizableParameter
             foreach (var effect in Effects)
                 RandomManager.RandomizeProperties(effect, force);
 
-            var symbolParams = new TextSymbolsParameter()
+            var symbolParams = new TextSymbolsProperty()
             {
                 Content = { Value = symbol.ToString() },
                 FontFamily = { Value = FontFamily.Value },
@@ -389,7 +389,7 @@ public class TextSymbolsParameter : IRandomizableParameter
             symbolParams.Brush.WithValue(Brush.Type, Brush.Color);
             symbolParams.Pen.WithValue(Pen.Type, Pen.Width, Pen.Color);
 
-            RandomizedTextParameters.Add(symbolParams);
+            RandomizedTextProperties.Add(symbolParams);
         }
     }
 }

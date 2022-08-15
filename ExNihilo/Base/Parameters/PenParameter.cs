@@ -3,15 +3,15 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Utils;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class PenParameter : ComplexParameter
+public class PenProperty : ComplexProperty
 {
-    public EnumParameter<PenType> Type { get; } = new EnumParameter<PenType>(PenType.Solid);
-    public IntParameter Width { get; } = new IntParameter(1) { Min = 1, Max = 10 };
-    public ColorParameter Color { get; } = new ColorParameter(SixLabors.ImageSharp.Color.Black, 10);
+    public EnumProperty<PenType> Type { get; } = new EnumProperty<PenType>(PenType.Solid);
+    public IntProperty Width { get; } = new IntProperty(1) { Min = 1, Max = 10 };
+    public ColorProperty Color { get; } = new ColorProperty(SixLabors.ImageSharp.Color.Black, 10);
 
-    public PenParameter WithValue(PenType type, int width, Color color)
+    public PenProperty WithValue(PenType type, int width, Color color)
     {
         Type.WithValue(type);
         Width.WithValue(width);
@@ -19,51 +19,51 @@ public class PenParameter : ComplexParameter
         return this;
     }
 
-    public PenParameter WithType(PenType type)
+    public PenProperty WithType(PenType type)
     {
         Type.Value = type;
         return this;
     }
 
-    public PenParameter WithRandomizedType()
+    public PenProperty WithRandomizedType()
     {
         Type.EnumValues = (PenType[]) Enum.GetValues(typeof(PenType));
         return this;
     }
 
-    public PenParameter WithRandomizedType(IEnumerable<PenType> types)
+    public PenProperty WithRandomizedType(IEnumerable<PenType> types)
     {
         Type.EnumValues = types.ToArray();
         return this;
     }
 
-    public PenParameter WithWidth(int value)
+    public PenProperty WithWidth(int value)
     {
         Width.Value = value;
         return this;
     }
 
-    public PenParameter WithRandomizedWidth(int min, int max)
+    public PenProperty WithRandomizedWidth(int min, int max)
     {
         Width.Min = min;
         Width.Max = max;
         return this;
     }
 
-    public PenParameter WithColor(Color color)
+    public PenProperty WithColor(Color color)
     {
         Color.Value = color;
         return this;
     }
 
-    public PenParameter WithRandomizedColor(int colorsCount, byte opacity = 255)
+    public PenProperty WithRandomizedColor(int colorsCount, byte opacity = 255)
     {
         Color.Opacity = opacity;
         Color.Colors = Color.GeneratePalette(colorsCount);
         return this;
     }
 
-    public PenParameter WithRandomizedColor(Color[] palette)
+    public PenProperty WithRandomizedColor(Color[] palette)
     {
         Color.Colors = palette;
         return this;

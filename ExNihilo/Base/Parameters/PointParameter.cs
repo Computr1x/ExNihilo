@@ -2,21 +2,21 @@
 using System.Numerics;
 using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class PointParameter : ComplexParameter
+public class PointProperty : ComplexProperty
 {
-    public IntParameter X { get; init; } = new IntParameter(0);
-    public IntParameter Y { get; init; } = new IntParameter(0);
+    public IntProperty X { get; init; } = new IntProperty(0);
+    public IntProperty Y { get; init; } = new IntProperty(0);
 
-    public PointParameter WithValue(Point value)
+    public PointProperty WithValue(Point value)
     {
         X.WithValue(value.X);
         Y.WithValue(value.Y);
         return this;
     }
 
-    public PointParameter WithRandomizedValue(int minX, int maxX, int minY, int maxY)
+    public PointProperty WithRandomizedValue(int minX, int maxX, int minY, int maxY)
     {
         X.WithRandomizedValue(minX, maxX);
         Y.WithRandomizedValue(minY, maxY);
@@ -29,13 +29,13 @@ public class PointParameter : ComplexParameter
         Y.Randomize(r);
     }
 
-    public static implicit operator PointF(PointParameter pointParameter)
+    public static implicit operator PointF(PointProperty pointProperty)
     {
-        return new PointF(pointParameter.X, pointParameter.Y);
+        return new PointF(pointProperty.X, pointProperty.Y);
     }
 
-    public static implicit operator Point(PointParameter pointParameter)
+    public static implicit operator Point(PointProperty pointProperty)
     {
-        return new Point(pointParameter.X, pointParameter.Y);
+        return new Point(pointProperty.X, pointProperty.Y);
     }
 }

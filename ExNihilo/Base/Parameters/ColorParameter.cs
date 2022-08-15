@@ -1,27 +1,27 @@
 ﻿using SixLabors.ImageSharp;
 using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class ColorParameter : GenericStructParameter<Color>
+public class ColorProperty : GenericStructProperty<Color>
 {
     public Color[] Colors { get; set; }
     public byte Opacity { get; set; }
 
-    public ColorParameter(Color defaultColor, Color[] colors, byte opacity = 255) : base(defaultColor)
+    public ColorProperty(Color defaultColor, Color[] colors, byte opacity = 255) : base(defaultColor)
     {
         Opacity = opacity;
 
         Colors = colors.Length > 0 ? colors : GeneratePalette(opacity);
     }
 
-    public ColorParameter(Color defaultColor, int colorsCount = 10, byte opacity = 255) : base(defaultColor)
+    public ColorProperty(Color defaultColor, int colorsCount = 10, byte opacity = 255) : base(defaultColor)
     {
         Opacity = opacity;
         Colors = GeneratePalette(colorsCount);
     }
 
-    public ColorParameter WithRandomizedValue(Color[] palette)
+    public ColorProperty WithRandomizedValue(Color[] palette)
     {
         Colors = palette;
         return this;

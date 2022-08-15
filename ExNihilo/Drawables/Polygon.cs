@@ -2,7 +2,7 @@
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 
 namespace ExNihilo.Drawables;
@@ -15,7 +15,7 @@ public class Polygon : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Defines a set of polygon points.
     /// </summary>
-    public PointFArrayParameter Points { get; } = new PointFArrayParameter(Array.Empty<PointF>());
+    public PointFArrayProperty Points { get; } = new PointFArrayProperty(Array.Empty<PointF>());
 
     /// <summary>
     /// <inheritdoc cref="Polygon"/>
@@ -42,7 +42,7 @@ public class Polygon : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set brush value.
     /// </summary>
-    public Polygon WithBrush(Action<BrushParameter> actionBrush)
+    public Polygon WithBrush(Action<BrushProperty> actionBrush)
     {
         actionBrush(Brush);
         return this;
@@ -58,7 +58,7 @@ public class Polygon : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Polygon WithPen(Action<PenParameter> actionPen)
+    public Polygon WithPen(Action<PenProperty> actionPen)
     {
         actionPen(Pen);
         return this;

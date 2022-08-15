@@ -7,7 +7,7 @@ using ExNihilo.Base.Interfaces;
 
 namespace ExNihilo.Base.Abstract;
 
-public abstract class ComplexParameter : IRandomizableParameter
+public abstract class ComplexProperty : IRandomizableProperty
 {
     public void Randomize(Random r, bool force = false)
     {

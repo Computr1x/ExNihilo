@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class StringParameter : GenericParameter<string>
+public class StringProperty : GenericProperty<string>
 {
     public static readonly char[] punctuation = "!\"#$%&'()*+, -./:;<=>?@[\\]^_`{|}~".ToArray();
     public static readonly char[] asciiLowerCase = "abcdefghijklmnopqrstuvwxyz".ToArray();
@@ -18,26 +18,26 @@ public class StringParameter : GenericParameter<string>
     public static readonly char[] hexDigits = "0123456789abcdefABCDEF".ToArray();
     public static readonly char[] octDigits = "01234567".ToArray();
 
-    public IntParameter Length { get; } = new IntParameter() { Min = 1, Max = 6 };
+    public IntProperty Length { get; } = new IntProperty() { Min = 1, Max = 6 };
     public char[] CharactersSet { get; set; } = (char[]) asciiUpperCase.Clone();
 
-    public StringParameter(string defaultValue = "") : base(defaultValue)
+    public StringProperty(string defaultValue = "") : base(defaultValue)
     {
     }
 
-    public StringParameter WithLength(int value)
+    public StringProperty WithLength(int value)
     {
         Length.WithValue(value);
         return this;
     }
 
-    public StringParameter WithRandomizedLength(int min, int max)
+    public StringProperty WithRandomizedLength(int min, int max)
     {
         Length.WithRandomizedValue(min, max);
         return this;
     }
 
-    public StringParameter WithCharactersSet(char[] charactersSet)
+    public StringProperty WithCharactersSet(char[] charactersSet)
     {
         CharactersSet = charactersSet;
         return this;

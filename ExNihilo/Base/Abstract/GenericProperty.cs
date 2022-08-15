@@ -2,7 +2,7 @@
 
 namespace ExNihilo.Base.Abstract;
 
-public abstract class GenericParameter<T> : IRandomizableParameter where T : class
+public abstract class GenericProperty<T> : IRandomizableProperty where T : class
 {
     protected T value;
     protected T defaultValue;
@@ -19,7 +19,7 @@ public abstract class GenericParameter<T> : IRandomizableParameter where T : cla
 
     public virtual T DefaultValue { get => defaultValue; set => defaultValue = value; }
 
-    public GenericParameter(T defaultValue)
+    public GenericProperty(T defaultValue)
     {
         DefaultValue = defaultValue;
     }
@@ -33,11 +33,11 @@ public abstract class GenericParameter<T> : IRandomizableParameter where T : cla
     }
     protected abstract void RandomizeImplementation(Random r);
 
-    public virtual GenericParameter<T> WithValue(T value)
+    public virtual GenericProperty<T> WithValue(T value)
     {
         Value = value;
         return this;
     }
 
-    public static implicit operator T(GenericParameter<T> genericValue) => genericValue.Value ?? genericValue.DefaultValue;  
+    public static implicit operator T(GenericProperty<T> genericValue) => genericValue.Value ?? genericValue.DefaultValue;  
 }

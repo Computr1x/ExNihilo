@@ -1,12 +1,12 @@
 ﻿using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class IntParameter : NumericParameter<int>
+public class IntProperty : NumericProperty<int>
 {
-    public IntParameter(int defaultValue = default) : base(defaultValue) { }
+    public IntProperty(int defaultValue = default) : base(defaultValue) { }
 
-    public IntParameter(int min, int max, int defaultValue = default) : base(min, max, defaultValue) { }
+    public IntProperty(int min, int max, int defaultValue = default) : base(min, max, defaultValue) { }
 
     protected override void RandomizeImplementation(Random r)
     {

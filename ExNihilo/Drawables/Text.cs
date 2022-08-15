@@ -3,7 +3,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 
 namespace ExNihilo.Drawables;
@@ -16,23 +16,23 @@ public class Text : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Specifies the text to be displayed
     /// </summary>
-    public StringParameter Content { get; } = new StringParameter() { DefaultValue = "TEST" };
+    public StringProperty Content { get; } = new StringProperty() { DefaultValue = "TEST" };
     /// <summary>
     /// <inheritdoc cref="TextOptions.Origin"/>
     /// </summary>
-    public PointParameter Point { get; } = new PointParameter();
+    public PointProperty Point { get; } = new PointProperty();
     /// <summary>
     /// Specifies text font family.
     /// </summary>
-    public FontFamilyParameter FontFamily { get; } = new FontFamilyParameter();
+    public FontFamilyProperty FontFamily { get; } = new FontFamilyProperty();
     /// <summary>
     /// Specifies font size. Default value is 64;
     /// </summary>
-    public FloatParameter FontSize { get; } = new FloatParameter(64) { Min = 32, Max = 128};
+    public FloatProperty FontSize { get; } = new FloatProperty(64) { Min = 32, Max = 128};
     /// <summary>
     /// Specifies font style. By default it's regular.
     /// </summary>
-    public EnumParameter<FontStyle> Style { get; } = new EnumParameter<FontStyle>(FontStyle.Regular);
+    public EnumProperty<FontStyle> Style { get; } = new EnumProperty<FontStyle>(FontStyle.Regular);
 
     /// <summary>
     /// <inheritdoc cref="TextOptions.Dpi"/>
@@ -136,7 +136,7 @@ public class Text : BaseDrawableWithBrushAndPen
     //}
 
 
-    //public Text WithBrush(Action<BrushParameter> actionBrush)
+    //public Text WithBrush(Action<BrushProperty> actionBrush)
     //{
     //    actionBrush(Brush);
     //    return this;
@@ -152,7 +152,7 @@ public class Text : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Text WithPen(Action<PenParameter> actionPen)
+    public Text WithPen(Action<PenProperty> actionPen)
     {
         actionPen(Pen);
         return this;
@@ -176,9 +176,9 @@ public class Text : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set content randomization parameters.
     /// </summary>
-    public Text WithRandomizedContent(Action<StringParameter> stringParameterSetter)
+    public Text WithRandomizedContent(Action<StringProperty> stringPropertySetter)
     {
-        stringParameterSetter(Content);
+        stringPropertySetter(Content);
         return this;
     }
     /// <summary>

@@ -4,7 +4,7 @@ This is an extremely powerful tool for creating procedural images from scratch. 
 
 ## Features  
 
-- Multi-layer system for processing visual entities without the need for complete redrawing
+- Multi-container system for processing visual entities without the need for complete redrawing
 - Full randomizability of all properties of all entities - from color and font size to the strength of the distortion/blur/any effects
 - A huge number of effects for post-processing images - from color correction and geometric distortion, to sharpness and pixelation modifiers
 - Ability to write code with confinient [fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) and the classic object-oriented approach
@@ -20,11 +20,11 @@ var fontFamily = new FontCollection()
     .GetByCulture(CultureInfo.CurrentCulture)
     .First();
     
-Size canvasSize = new(512, 256);
+Size containerSize = new(512, 256);
 
-Canvas canvas = new(canvasSize)
-    .WithLayer(
-        new Layer(canvasSize)
+Container container = new(containerSize)
+    .WithContainer(
+        new Container(containerSize)
             .WithBackground(Color.White)
             .WithDrawable(
                 new Captcha()
@@ -32,7 +32,7 @@ Canvas canvas = new(canvasSize)
                     .WithFontSize(100)
                     .WithRandomizedContent(content => {
                         content.WithLength(5);
-                        content.WithCharactersSet(StringParameter.asciiUpperCase);
+                        content.WithCharactersSet(StringProperty.asciiUpperCase);
                     })
                     .WithRandomizedBrush(10)
                     .WithFontFamily(fontFamily)
@@ -41,7 +41,7 @@ Canvas canvas = new(canvasSize)
     );
 
 new ImageSaver(
-    new ImageGenerator(canvas)
+    new ImageGenerator(container)
         .WithSeedsCount(3)
         .Generate()
 )

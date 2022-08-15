@@ -24,9 +24,9 @@ namespace ExNihilo.Tests
             Directory.CreateDirectory(currentPath);
         }
 
-        private static Canvas CreateTemplate()
+        private static Container CreateTemplate()
         {
-            Size canvasSize = new(512, 256);
+            Size containerSize = new(512, 256);
             Point center = new(256, 128);
 
             int size = 10;
@@ -37,11 +37,11 @@ namespace ExNihilo.Tests
                 template[0, index] = true;
             });
 
-            return new Canvas(canvasSize)
-                .WithLayer(new Layer(canvasSize).WithBackground(Color.White))
-                .WithLayer(
-                    new Layer(canvasSize)
-                        .WithDrawable(
+            return new Container(containerSize)
+                .WithContainer(new Container(containerSize).WithBackground(Color.White))
+                .WithContainer(
+                    new Container(containerSize)
+                        .WithChild(
                             new Pattern()
                                 .WithArea(new SixLabors.ImageSharp.Rectangle(0,0, 512, 256))
                                 .WithTemplate(template)
@@ -50,10 +50,10 @@ namespace ExNihilo.Tests
                 );
         }
 
-        private static void TestEffect(IEffect effect)
+        private static void TestEffect(Effect effect)
         {
-            Canvas template = CreateTemplate();
-            template.Layers[1].WithEffect(effect);
+            Container template = CreateTemplate();
+            template.Children[1].WithEffect(effect);
 
             foreach (var captchaRes in new ImageGenerator(template).WithSeedsCount(3).Generate())
             {
@@ -64,7 +64,7 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestGeneratorWithSeeds()
         {
-            IEffect effect = new Swirl(new Point(256, 128), 75, 10, 0.15f);
+            Effect effect = new Swirl(new Point(256, 128), 75, 10, 0.15f);
             TestEffect(effect);
         }
     }

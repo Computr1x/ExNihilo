@@ -1,28 +1,28 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 using ExNihilo.Extensions.Processors;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of gaussian noise on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of gaussian noise on an <see cref="Drawable"/>
 /// </summary>
-public class GaussianNoise : IEffect
+public class GaussianNoise : Effect
 {
     /// <summary>
     /// Seed for noise randomizer.
     /// </summary>
-    public IntParameter Seed { get; set; } = new(0) { Min = 0, Max = 10 };
+    public IntProperty Seed { get; set; } = new(0) { Min = 0, Max = 10 };
     /// <summary>
     /// Amount of noise (0-255).
     /// </summary>
-    public ByteParameter Amount { get; set; } = new(0, byte.MaxValue, byte.MaxValue) { Min = 0, Max = byte.MaxValue };
+    public ByteProperty Amount { get; set; } = new(0, byte.MaxValue, byte.MaxValue) { Min = 0, Max = byte.MaxValue };
     /// <summary>
     /// Define is noise monochrome or not.
     /// </summary>
-    public BoolParameter Monochrome { get; set; } = new();
+    public BoolProperty Monochrome { get; set; } = new();
 
     /// <summary>
     /// <inheritdoc cref="GaussianNoise"/>
@@ -90,7 +90,7 @@ public class GaussianNoise : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions)
+    public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         image.Mutate(x => { x.GaussianNoise(Seed, Amount, Monochrome); });
     }

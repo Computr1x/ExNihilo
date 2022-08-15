@@ -2,31 +2,32 @@
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
+using ExNihilo.Base.Interfaces;
 
 namespace ExNihilo.Drawables;
 
 /// <summary>
 /// Define pattern drawable object.
 /// </summary>
-public class Pattern : BaseDrawable
+public class Pattern : Drawable
 {
     /// <summary>
     /// Specifies the rectangular area on which the template will draw.
     /// </summary>
-    public RectangleParameter Area { get; } = new RectangleParameter();
+    public RectangleProperty Area { get; } = new RectangleProperty();
     /// <summary>
     /// Defines a rendering template.
     /// </summary>
-    public Bool2DArrayParameter Template { get; } = new Bool2DArrayParameter(new bool[,] { { true, false }, { false, true } });
+    public Bool2DArrayProperty Template { get; } = new Bool2DArrayProperty(new bool[,] { { true, false }, { false, true } });
     /// <summary>
     /// Specifies the template color for false values. By the default it's transparent.
     /// </summary>
-    public ColorParameter Background { get; } = new ColorParameter(SixLabors.ImageSharp.Color.Transparent);
+    public ColorProperty Background { get; } = new ColorProperty(SixLabors.ImageSharp.Color.Transparent);
     /// <summary>
     /// Specifies the template color for true values.
     /// </summary>
-    public ColorParameter Foreground { get; } = new ColorParameter(SixLabors.ImageSharp.Color.Black, 5);
+    public ColorProperty Foreground { get; } = new ColorProperty(SixLabors.ImageSharp.Color.Black, 5);
 
     /// <summary>
     /// <inheritdoc cref="Pattern"/>
@@ -128,7 +129,7 @@ public class Pattern : BaseDrawable
     /// <summary>
     /// Set area template value.
     /// </summary>
-    public Pattern WithTemplate(Action<Bool2DArrayParameter> templateSetter)
+    public Pattern WithTemplate(Action<Bool2DArrayProperty> templateSetter)
     {
         templateSetter(Template);
         return this;

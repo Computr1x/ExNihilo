@@ -5,10 +5,10 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of radial vignette effect on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of radial vignette effect on an <see cref="Drawable"/>
 /// </summary>
-public class Vignette : IEffect
+public class Vignette : Effect
 {
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Vignette());
 }

@@ -87,7 +87,7 @@ internal class SlitScanProcessor : IImageProcessor
 
                     for (int x = workArea.X; x < width + workArea.X; x++)
                     {
-                        intOffsetX = (int) x;
+                        intOffsetX = x;
                         intOffsetY = (int) offsetY;
 
                         if (0 <= intOffsetX && intOffsetX < imageWidth && 0 <= intOffsetY && intOffsetY < imageHeight)

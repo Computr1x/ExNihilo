@@ -1,5 +1,6 @@
 ﻿using ExNihilo.Base.Hierarchy;
 using ExNihilo.Base.Interfaces;
+using SixLabors.ImageSharp;
 
 namespace ExNihilo.Rnd;
 
@@ -9,14 +10,14 @@ namespace ExNihilo.Rnd;
 public class ImageGenerator
 {
     private RandomManager _randomManager = new(0);
-    private Canvas _template;
+    private Container _template;
     private int[]? _seeds;
     private Dictionary<int, string[]> _captchaText = new();
 
     /// <summary>
     /// <inheritdoc cref="ImageGenerator"/>
     /// </summary>
-    public ImageGenerator(Canvas template)
+    public ImageGenerator(Container template)
     {
         _template = template;
     }
@@ -24,7 +25,7 @@ public class ImageGenerator
     /// <summary>
     /// Set template for generator.
     /// </summary>
-    public ImageGenerator WithTemplate(Canvas template)
+    public ImageGenerator WithTemplate(Container template)
     {
         _template = template;
         return this;
@@ -70,36 +71,34 @@ public class ImageGenerator
 
     private IEnumerable<ImageResult> GenerateRandomizedCaptcha()
     {
-        Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
+        Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetContainerCaptchas(_template);
 
         for (int seedId = 0; seedId < _seeds!.Length; seedId++)
         {
             int seed = _seeds[seedId];
             _randomManager.ResetRandom(seed);
-            _randomManager.RandomizeCanvas(_template);
+            _template.Randomize();
 
             List<string> captchaStrings = new();
             foreach (int captchaIndex in captchaIndexMapping.Keys)
             {
                 foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])
-                {
                     captchaStrings.Add(captchaDrawable.Text);
-
-                }
             }
+
             yield return new(seed, _template.Render(), captchaStrings.ToArray());
         }
     }
 
     private IEnumerable<ImageResult> GenerateManualCaptcha()
     {
-        Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
+        Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetContainerCaptchas(_template);
 
         for (int seedID = 0; seedID < _seeds!.Length; seedID++)
         {
             var seed = _seeds[seedID];
             _randomManager.ResetRandom(seed);
-            _randomManager.RandomizeCanvas(_template);
+            _template.Randomize();
 
             List<string> captchaStrings = new();
 
@@ -109,6 +108,7 @@ public class ImageGenerator
                 {
                     if (_captchaText.ContainsKey(captchaIndex))
                         captchaDrawable.Text = _captchaText[captchaIndex][seedID];
+
                     captchaStrings.Add(captchaDrawable.Text);
                 }
                     
@@ -135,23 +135,20 @@ public class ImageGenerator
             throw new ArgumentException("For captcha generation you should specify captha input or seeds");
     }
 
-    protected static Dictionary<int, List<ICaptcha>> GetCanvasCaptchas(Canvas canvas)
+    protected static Dictionary<int, List<ICaptcha>> GetContainerCaptchas(Container container)
     {
         Dictionary<int, List<ICaptcha>> captchas = new();
         
-        foreach (var layer in canvas.Layers)
+        foreach (var drawable in container.Children)
         {
-            foreach (var drawable in layer.Drawables)
+            if (drawable is ICaptcha captcha)
             {
-                if (drawable is ICaptcha captcha)
-                {
-                    if(captchas.ContainsKey(captcha.Index))
-                        captchas[captcha.Index].Add(captcha);
-                    else
-                        captchas[captcha.Index] = new List<ICaptcha>() {
-                            captcha
-                        };
-                }
+                if(captchas.ContainsKey(captcha.Index))
+                    captchas[captcha.Index].Add(captcha);
+                else
+                    captchas[captcha.Index] = new List<ICaptcha>() {
+                        captcha
+                    };
             }
         }
 

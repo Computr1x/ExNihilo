@@ -7,8 +7,8 @@ namespace ExNihilo.Effects;
 /// <summary>
 /// Defines extension that allow the adjustment of the contrast of an image via its histogram.
 /// </summary>
-public class HistogramEqualization : IEffect
+public class HistogramEqualization : Effect
 {
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.HistogramEqualization());
 }

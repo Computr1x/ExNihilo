@@ -7,18 +7,18 @@ using System.Text;
 using System.Threading.Tasks;
 using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class FontFamilyParameter : GenericStructParameter<FontFamily>
+public class FontFamilyProperty : GenericStructProperty<FontFamily>
 {
     public List<FontFamily> Collection { get; } = new List<FontFamily>();
     public CultureInfo CultureInfo { get; set; } = CultureInfo.InvariantCulture;
 
-    public FontFamilyParameter() : base(default)
+    public FontFamilyProperty() : base(default)
     {
     }
 
-    public FontFamilyParameter(IEnumerable<FontFamily> collection) : base(default)
+    public FontFamilyProperty(IEnumerable<FontFamily> collection) : base(default)
     {
         if (!collection.Any())
             throw new ArgumentException("Font collection should have at least one item");
@@ -26,7 +26,7 @@ public class FontFamilyParameter : GenericStructParameter<FontFamily>
         Collection.AddRange(collection);
     }
 
-    public FontFamilyParameter WithRandomizedValue(IEnumerable<FontFamily> values)
+    public FontFamilyProperty WithRandomizedValue(IEnumerable<FontFamily> values)
     {
         Collection.Clear();
         Collection.AddRange(values);

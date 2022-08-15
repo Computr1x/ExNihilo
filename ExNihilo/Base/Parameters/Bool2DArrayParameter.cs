@@ -1,23 +1,23 @@
 ﻿using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class Bool2DArrayParameter : GenericParameter<bool[,]>
+public class Bool2DArrayProperty : GenericProperty<bool[,]>
 {
-    public IntParameter Width { get; set; } = new IntParameter(0, int.MaxValue, 2) { Min = 2, Max = 2 };
-    public IntParameter Height { get; set; } = new IntParameter(0, int.MaxValue, 2) { Min = 2, Max = 2 };
+    public IntProperty Width { get; set; } = new IntProperty(0, int.MaxValue, 2) { Min = 2, Max = 2 };
+    public IntProperty Height { get; set; } = new IntProperty(0, int.MaxValue, 2) { Min = 2, Max = 2 };
 
-    public Bool2DArrayParameter(bool[,] defaultValue) : base(defaultValue)
+    public Bool2DArrayProperty(bool[,] defaultValue) : base(defaultValue)
     {
     }
 
-    public Bool2DArrayParameter WithSize(int size)
+    public Bool2DArrayProperty WithSize(int size)
     {
         Width.Value = Height.Value = size;
         return this;
     }
 
-    public Bool2DArrayParameter WithRandomizedSize(int min, int max)
+    public Bool2DArrayProperty WithRandomizedSize(int min, int max)
     {
         Width.WithRandomizedValue(min, max);
         Width.WithRandomizedValue(min, max);

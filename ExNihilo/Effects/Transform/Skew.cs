@@ -1,23 +1,23 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of skew operations on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of skew operations on an <see cref="Drawable"/>
 /// </summary>
-public class Skew : IEffect
+public class Skew : Effect
 {
     /// <summary>
     /// The X angle, in degrees.
     /// </summary>
-    public FloatParameter XDegree { get; set; } = new(0) { Min = 0, Max = 360 };
+    public FloatProperty XDegree { get; set; } = new(0) { Min = 0, Max = 360 };
     /// <summary>
     /// The Y angle, in degrees.
     /// </summary>
-    public FloatParameter YDegree { get; set; } = new(0) { Min = 0, Max = 360 };
+    public FloatProperty YDegree { get; set; } = new(0) { Min = 0, Max = 360 };
 
     /// <summary>
     /// <inheritdoc cref="Skew"/>
@@ -74,7 +74,7 @@ public class Skew : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x =>
             x.Transform(new AffineTransformBuilder().AppendSkewDegrees(XDegree, YDegree)));
 }

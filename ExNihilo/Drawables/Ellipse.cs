@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Utils;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Drawables;
 
@@ -16,7 +16,7 @@ public class Ellipse : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Represent rectangular area where ellipse will be drawn.
     /// </summary>
-    public RectangleParameter Area { get; } = new RectangleParameter();
+    public RectangleProperty Area { get; } = new RectangleProperty();
 
     /// <summary>
     /// <inheritdoc cref="Ellipse"/>
@@ -54,7 +54,7 @@ public class Ellipse : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set brush value.
     /// </summary>
-    public Ellipse WithBrush(Action<BrushParameter> actionBrush)
+    public Ellipse WithBrush(Action<BrushProperty> actionBrush)
     {
         actionBrush(Brush);
         return this;
@@ -71,7 +71,7 @@ public class Ellipse : BaseDrawableWithBrushAndPen
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Ellipse WithPen(Action<PenParameter> actionPen)
+    public Ellipse WithPen(Action<PenProperty> actionPen)
     {
         actionPen(Pen);
         return this;

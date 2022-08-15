@@ -6,55 +6,55 @@ using System.Text;
 using System.Threading.Tasks;
 using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Utils;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 using SixLabors.ImageSharp;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class BrushParameter : ComplexParameter
+public class BrushProperty : ComplexProperty
 {
-    public EnumParameter<BrushType> Type { get; set; } = new EnumParameter<BrushType>(BrushType.Solid);
-    public ColorParameter Color { get; set; } = new ColorParameter(SixLabors.ImageSharp.Color.Black);
+    public EnumProperty<BrushType> Type { get; set; } = new EnumProperty<BrushType>(BrushType.Solid);
+    public ColorProperty Color { get; set; } = new ColorProperty(SixLabors.ImageSharp.Color.Black);
 
-    public BrushParameter WithValue(BrushType type, Color color)
+    public BrushProperty WithValue(BrushType type, Color color)
     {
         Type.WithValue(type);
         Color.WithValue(color);
         return this;
     }
 
-    public BrushParameter WithType(BrushType type)
+    public BrushProperty WithType(BrushType type)
     {
         Type.Value = type;
         return this;
     }
 
-    public BrushParameter WithRandomizedType()
+    public BrushProperty WithRandomizedType()
     {
         Type.EnumValues = (BrushType[]) Enum.GetValues(typeof(BrushType));
         return this;
     }
 
-    public BrushParameter WithRandomizedType(IEnumerable<BrushType> types)
+    public BrushProperty WithRandomizedType(IEnumerable<BrushType> types)
     {
         Type.EnumValues = types.ToArray();
         return this;
     }
 
-    public BrushParameter WithColor(Color color)
+    public BrushProperty WithColor(Color color)
     {
         Color.Value = color;
         return this;
     }
 
-    public BrushParameter WithRandomizedColor(int colorsCount, byte opacity = 255)
+    public BrushProperty WithRandomizedColor(int colorsCount, byte opacity = 255)
     {
         Color.Opacity = opacity;
         Color.Colors = Color.GeneratePalette(colorsCount);
         return this;
     }
 
-    public BrushParameter WithRandomizedColor(Color[] palette)
+    public BrushProperty WithRandomizedColor(Color[] palette)
     {
         Color.Colors = palette;
         return this;
@@ -92,18 +92,18 @@ public class BrushParameter : ComplexParameter
         _ => Brushes.Solid(Color)
     };
 
-    //public static implicit operator IBrush(BrushParameter brushParameter)
+    //public static implicit operator IBrush(BrushProperty brushProperty)
     //{
-    //    return brushParameter.Type.Value switch
+    //    return brushProperty.Type.Value switch
     //    {
-    //        BrushType.Vertical => Brushes.Vertical(brushParameter.Color),
-    //        BrushType.Horizontal => Brushes.Horizontal(brushParameter.Color),
-    //        BrushType.BackwardDiagonal => Brushes.BackwardDiagonal(brushParameter.Color),
-    //        BrushType.ForwardDiagonal => Brushes.ForwardDiagonal(brushParameter.Color),
-    //        BrushType.Min => Brushes.Min(brushParameter.Color),
-    //        BrushType.Percent10 => Brushes.Percent10(brushParameter.Color),
-    //        BrushType.Percent20 => Brushes.Percent20(brushParameter.Color),
-    //        _ => Brushes.Solid(brushParameter.Color)
+    //        BrushType.Vertical => Brushes.Vertical(brushProperty.Color),
+    //        BrushType.Horizontal => Brushes.Horizontal(brushProperty.Color),
+    //        BrushType.BackwardDiagonal => Brushes.BackwardDiagonal(brushProperty.Color),
+    //        BrushType.ForwardDiagonal => Brushes.ForwardDiagonal(brushProperty.Color),
+    //        BrushType.Min => Brushes.Min(brushProperty.Color),
+    //        BrushType.Percent10 => Brushes.Percent10(brushProperty.Color),
+    //        BrushType.Percent20 => Brushes.Percent20(brushProperty.Color),
+    //        _ => Brushes.Solid(brushProperty.Color)
     //    };
     //}
 }

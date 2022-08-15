@@ -2,31 +2,31 @@
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
 using ExNihilo.Extensions.Processors;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of ripple effect on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of ripple effect on an <see cref="Drawable"/>
 /// </summary>
-public class Ripple : IEffect
+public class Ripple : Effect
 {
     /// <summary>
     /// Coordinates of effect center.
     /// </summary>
-    public PointParameter Point { get; set; } = new();
+    public PointProperty Point { get; set; } = new();
     /// <summary>
     /// Radius of effect in pixels. Must be greater or equal to 1.
     /// </summary>
-    public FloatParameter Radius { get; set; } = new(1, float.MaxValue, 1100f) { Min = 1f, Max = 100f };
+    public FloatProperty Radius { get; set; } = new(1, float.MaxValue, 1100f) { Min = 1f, Max = 100f };
     /// <summary>
     /// Wavelength of ripples, in pixels.Must be greater or equal to 1.
     /// </summary>
-    public FloatParameter WaveLength { get; set; } = new FloatParameter(1, float.MaxValue, 10f) { Min = 1f, Max = 10f };
+    public FloatProperty WaveLength { get; set; } = new FloatProperty(1, float.MaxValue, 10f) { Min = 1f, Max = 10f };
     /// <summary>
     /// Approximate width of wave train, in wavelengths. Must be greater or equal to 1.
     /// </summary>
-    public FloatParameter TraintWidth { get; set; } = new(1, float.MaxValue, 2) { Min = 1f, Max = 10f };
+    public FloatProperty TraintWidth { get; set; } = new(1, float.MaxValue, 2) { Min = 1f, Max = 10f };
 
     /// <summary>
     /// <inheritdoc cref="Ripple"/>
@@ -134,7 +134,7 @@ public class Ripple : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions)
+    public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         image.Mutate(x => x.Ripple(Point.X, Point.Y, Radius, WaveLength, TraintWidth));
     }

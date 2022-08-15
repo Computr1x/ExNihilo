@@ -2,14 +2,14 @@
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
 using ExNihilo.Extensions.Processors;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of slices effect on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of slices effect on an <see cref="Drawable"/>
 /// </summary>
-public class RgbShift : IEffect
+public class RgbShift : Effect
 {
     /// <summary>
     /// Shift offset value by all channel. 
@@ -28,27 +28,27 @@ public class RgbShift : IEffect
     /// <summary>
     /// Shift offset by y of blue channel
     /// </summary>
-    public IntParameter BlueYOffset { get; set; } = new(0) { Min = -10, Max = 10};
+    public IntProperty BlueYOffset { get; set; } = new(0) { Min = -10, Max = 10};
     /// <summary>
     /// Shift offset by y of green channel
     /// </summary>
-    public IntParameter GreenYOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntProperty GreenYOffset { get; set; } = new(0) { Min = -10, Max = 10 };
     /// <summary>
     /// Shift offset by y of red channel
     /// </summary>
-    public IntParameter RedYOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntProperty RedYOffset { get; set; } = new(0) { Min = -10, Max = 10 };
     /// <summary>
     /// Shift offset by x of blue channel
     /// </summary>
-    public IntParameter BlueXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntProperty BlueXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
     /// <summary>
     /// Shift offset by x of green channel
     /// </summary>
-    public IntParameter GreenXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntProperty GreenXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
     /// <summary>
     /// Shift offset by x of red channel
     /// </summary>
-    public IntParameter RedXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
+    public IntProperty RedXOffset { get; set; } = new(0) { Min = -10, Max = 10 };
 
     /// <summary>
     /// <inheritdoc cref="RgbShift"/>
@@ -160,7 +160,7 @@ public class RgbShift : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x =>
             x.RgbShift(RedXOffset, GreenXOffset, BlueXOffset, RedYOffset, GreenYOffset, BlueYOffset));
 

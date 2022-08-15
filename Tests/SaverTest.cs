@@ -24,17 +24,17 @@ namespace ExNihilo.Tests
             Directory.CreateDirectory(currentPath);
         }
 
-        private static Canvas CreateTemplate()
+        private static Container CreateTemplate()
         {
-            Size canvasSize = new(512, 256);
+            Size containerSize = new(512, 256);
             Point center = new(256, 128);
 
             var fontFamily = new FontCollection().AddSystemFonts().Families.First();
 
-            return new Canvas(canvasSize).WithLayer(new Layer(canvasSize).WithBackground(Color.Orange)).
-                WithLayer(
-                    new Layer(canvasSize)
-                        .WithDrawables(
+            return new Container(containerSize).WithContainer(new Container(containerSize).WithBackground(Color.Orange)).
+                WithContainer(
+                    new Container(containerSize)
+                        .WithChildren(
                             Enumerable.Range(0, 15).Select(
                                 x => new Ellipse()
                                     .WithRandomizedPoint(0, 512, 0, 256)
@@ -46,9 +46,9 @@ namespace ExNihilo.Tests
                                     })
                                     .WithType(DrawableType.Filled)))
                         .WithBlendPercentage(0.5f))
-                .WithLayer(
-                    new Layer(canvasSize)
-                        .WithDrawable(
+                .WithContainer(
+                    new Container(containerSize)
+                        .WithChild(
                             new Captcha(fontFamily)
                                 .WithRandomizedContent(content =>
                                 {

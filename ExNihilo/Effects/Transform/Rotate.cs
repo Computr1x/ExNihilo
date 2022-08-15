@@ -1,19 +1,19 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of rotation operations on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of rotation operations on an <see cref="Drawable"/>
 /// </summary>
-public class Rotate : IEffect
+public class Rotate : Effect
 {
     /// <summary>
     /// Amount of rotation in degrees (-360-360).
     /// </summary>
-    public FloatParameter Degree { get; set; } = new(-360, 360, 0) { Min = 0, Max = 360 };
+    public FloatProperty Degree { get; set; } = new(-360, 360, 0) { Min = 0, Max = 360 };
 
     /// <summary>
     /// <inheritdoc cref="Rotate"/>
@@ -50,6 +50,6 @@ public class Rotate : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Rotate(Degree));
 }

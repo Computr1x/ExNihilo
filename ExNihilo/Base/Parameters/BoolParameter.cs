@@ -1,10 +1,10 @@
 ﻿using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class BoolParameter : GenericStructParameter<bool>
+public class BoolProperty : GenericStructProperty<bool>
 {
-    public BoolParameter(bool defaultValue = false) : base(defaultValue)
+    public BoolProperty(bool defaultValue = false) : base(defaultValue)
     {
     }
 

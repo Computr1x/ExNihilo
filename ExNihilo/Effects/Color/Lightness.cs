@@ -1,19 +1,19 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow to alter brightness component of the <see cref="IDrawable"/>
+/// Defines effect that allow to alter brightness component of the <see cref="Drawable"/>
 /// </summary>
-public class Lightness : IEffect
+public class Lightness : Effect
 {
     /// <summary>
     /// The proportion of the conversion. Must be greater than or equal to 0.
     /// </summary>
-    public FloatParameter Amount { get; set; } = new(1) { Min = 0, Max = 3};
+    public FloatProperty Amount { get; set; } = new(1) { Min = 0, Max = 3};
 
     /// <summary>
     /// <inheritdoc cref="Lightness"/>
@@ -50,6 +50,6 @@ public class Lightness : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Lightness(Amount));
 }

@@ -2,27 +2,27 @@
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
 using ExNihilo.Extensions.Processors;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of bulge effect on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of bulge effect on an <see cref="Drawable"/>
 /// </summary>
-public class Bulge : IEffect
+public class Bulge : Effect
 {
     /// <summary>
     /// Center of bulge effect
     /// </summary>
-    public PointParameter Point { get; set; } = new();
+    public PointProperty Point { get; set; } = new();
     /// <summary>
     /// Radius of effect
     /// </summary>
-    public FloatParameter Radius { get; set; } = new(1, int.MaxValue, 50f) { Min = 1, Max = 150};
+    public FloatProperty Radius { get; set; } = new(1, int.MaxValue, 50f) { Min = 1, Max = 150};
     /// <summary>
     /// Amount of bulge (0.0-1.0)
     /// </summary>
-    public FloatParameter Strenght { get; set; } = new(0.5f) { Min = 0, Max = 2f };
+    public FloatProperty Strenght { get; set; } = new(0.5f) { Min = 0, Max = 2f };
 
     /// <summary>
     /// <inheritdoc cref="Bulge"/>
@@ -114,6 +114,6 @@ public class Bulge : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Bulge(Point.X, Point.Y, Radius, Strenght));
 }

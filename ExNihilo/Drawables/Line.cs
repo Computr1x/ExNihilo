@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 
 namespace ExNihilo.Drawables;
@@ -11,12 +11,12 @@ namespace ExNihilo.Drawables;
 /// <summary>
 /// Define line drawable object.
 /// </summary>
-public class Line : BaseDrawable
+public class Line : Drawable
 {
     /// <summary>
     /// Represents the pen with which to outlined an object.
     /// </summary>
-    public PenParameter Pen { get; } = new PenParameter();
+    public PenProperty Pen { get; } = new PenProperty();
     /// <summary>
     /// Specifies if line type is bezier curve.
     /// </summary>
@@ -24,7 +24,7 @@ public class Line : BaseDrawable
     /// <summary>
     /// Defines a set of line points. For bezier curves, the length of the array must be greater than or equal to four.
     /// </summary>
-    public PointFArrayParameter Points { get;  } = new PointFArrayParameter(Array.Empty<PointF>()) {
+    public PointFArrayProperty Points { get;  } = new PointFArrayProperty(Array.Empty<PointF>()) {
         Length = {
             DefaultValue = 4
         }
@@ -54,7 +54,7 @@ public class Line : BaseDrawable
     /// <summary>
     /// Set pen value.
     /// </summary>
-    public Line WithPen(Action<PenParameter> setPen)
+    public Line WithPen(Action<PenProperty> setPen)
     {
         setPen(Pen);
         return this;

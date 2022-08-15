@@ -10,15 +10,15 @@ namespace ExNihilo.Tests
     [TestClass]
     public class DrawablesTest
     {
-        Size canvasSize = new(512, 256);
+        Size containerSize = new(512, 256);
         Point center = new(256, 128);
-        Canvas canvas;
+        Container container;
         string currentPath = Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "DrawablesTest")).FullName;
 
         [TestInitialize]
-        public void InitCanvas()
+        public void InitContainer()
         {
-            canvas = new Canvas(canvasSize).WithLayer(new Layer(canvasSize).WithBackground(Color.Orange));
+            container = new Container(containerSize).WithBackground(Color.Orange);
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace ExNihilo.Tests
                     })
                     .WithType(DrawableType.FillWithOutline);
 
-            canvas.Layers[0].WithDrawable(ellipse).Render().Save(Path.Join(currentPath, "ellipse.png"));
+            container.WithChild(ellipse).Render().Save(Path.Join(currentPath, "ellipse.png"));
         }
 
         [TestMethod]
@@ -56,7 +56,7 @@ namespace ExNihilo.Tests
                         pen.WithType(PenType.Dash);
                     });
 
-            canvas.Layers[0].WithDrawable(line).Render().Save(Path.Join(currentPath, "line.png"));
+            container.WithChild(line).Render().Save(Path.Join(currentPath, "line.png"));
         }
 
         [TestMethod]
@@ -65,17 +65,17 @@ namespace ExNihilo.Tests
             Pattern pattern =
                 new Pattern()
                     .WithTemplate(new bool[,] { { true, false, false, false }, { false, false, false, false }, { false, false, false, false } })
-                    .WithSize(canvasSize)
+                    .WithSize(containerSize)
                     .WithBackgroundColor(Color.Transparent)
                     .WithForegroundColor(Color.Gray);
-            canvas.Layers[0].WithDrawable(pattern).Render();
+            container.WithChild(pattern).Render();
         }
 
         [TestMethod]
         public void TestPicture()
         {
             Picture picture = new(@"./Assets/Images/cat.png");
-            canvas.Layers[0].WithDrawable(picture).Render().Save(Path.Join(currentPath, "picture.png"));
+            container.WithChild(picture).Render().Save(Path.Join(currentPath, "picture.png"));
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace ExNihilo.Tests
                     .WithPoints(new PointF[] { new(400, 200), new(350, 150), new(300, 179) })
                     .WithBrush(BrushType.Solid, Color.Peru)
                     .WithType(DrawableType.Filled);
-            canvas.Layers[0].WithDrawable(polygon).Render().Save(Path.Join(currentPath, "polygon.png"));
+            container.WithChild(polygon).Render().Save(Path.Join(currentPath, "polygon.png"));
         }
 
         [TestMethod]
@@ -96,7 +96,7 @@ namespace ExNihilo.Tests
                 new Drawables.Rectangle(50, 200, 100, 50)
                 .WithPen(PenType.Dash, 1, Color.Olive)
                 .WithType(DrawableType.Outlined);
-            canvas.Layers[0].WithDrawable(rectangle).Render().Save(Path.Join(currentPath, "rectangle.png"));
+            container.WithChild(rectangle).Render().Save(Path.Join(currentPath, "rectangle.png"));
         }
 
         [TestMethod]
@@ -108,7 +108,7 @@ namespace ExNihilo.Tests
                 .WithBrush(Color.Red)
                 .WithContent("HELLO");
 
-            canvas.Layers[0].WithDrawable(text).Render().Save(Path.Join(currentPath, "text.png"));
+            container.WithChild(text).Render().Save(Path.Join(currentPath, "text.png"));
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Parameters;
+namespace ExNihilo.Base.Properties;
 
-public class FloatParameter : NumericParameter<float>
+public class FloatProperty : NumericProperty<float>
 {
-    public FloatParameter(float defaultValue = default) : base(defaultValue) { }
+    public FloatProperty(float defaultValue = default) : base(defaultValue) { }
 
-    public FloatParameter(float min, float max, float defaultValue = default) : base(min, max, defaultValue) { }
+    public FloatProperty(float min, float max, float defaultValue = default) : base(min, max, defaultValue) { }
 
     protected override void RandomizeImplementation(Random r)
     {

@@ -1,19 +1,19 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of glow effect of the <see cref="IDrawable"/>
+/// Defines effect that allow the application of glow effect of the <see cref="Drawable"/>
 /// </summary>
-public class Glow : IEffect
+public class Glow : Effect
 {
     /// <summary>
     /// The radius of the glow
     /// </summary>
-    public FloatParameter Radius { get; set; } = new FloatParameter(15) { Min = 1, Max = 150 };
+    public FloatProperty Radius { get; set; } = new FloatProperty(15) { Min = 1, Max = 150 };
 
     /// <summary>
     /// <inheritdoc cref="Glow"/>
@@ -50,6 +50,6 @@ public class Glow : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Glow(Radius));
 }

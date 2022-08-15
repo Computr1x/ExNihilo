@@ -1,23 +1,23 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of padding operations on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of padding operations on an <see cref="Drawable"/>
 /// </summary>
-public class Pad : IEffect
+public class Pad : Effect
 {
     /// <summary>
     /// The new width.
     /// </summary>
-    public IntParameter Width { get; set; } = new(1, int.MaxValue, 0) { Min = 0, Max = 50 };
+    public IntProperty Width { get; set; } = new(1, int.MaxValue, 0) { Min = 0, Max = 50 };
     /// <summary>
     /// The new height
     /// </summary>
-    public IntParameter Height { get; set; } = new(1, int.MaxValue, 0) { Min = 0, Max = 50 };
+    public IntProperty Height { get; set; } = new(1, int.MaxValue, 0) { Min = 0, Max = 50 };
 
     /// <summary>
     /// <inheritdoc cref="Pad"/>
@@ -74,6 +74,6 @@ public class Pad : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Pad(Width, Height));
 }

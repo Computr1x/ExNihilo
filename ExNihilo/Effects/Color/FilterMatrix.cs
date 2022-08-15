@@ -5,9 +5,9 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow filter <see cref="IDrawable"/> by the give color matrix
+/// Defines effect that allow filter <see cref="Drawable"/> by the give color matrix
 /// </summary>
-public class FilterMatrix : IEffect
+public class FilterMatrix : Effect
 {
     /// <summary>
     /// The filter color matrix
@@ -38,6 +38,6 @@ public class FilterMatrix : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Filter(Matrix));
 }
