@@ -11,7 +11,7 @@ public static class ColorsConverter
         //	throw new OverflowException();
         float hCopy = h / (1f / 6f);
 
-        var integer = (int)hCopy;
+        var integer = (int) hCopy;
         var fractional = hCopy - integer;
 
         float
@@ -47,23 +47,39 @@ public static class ColorsConverter
     {
         HsbFToRgb(in h, in s, in v, out float rF, out float gF, out float bF);
 
-        r = (byte)(rF * 255); g = (byte)(gF * 255); b = (byte)(bF * 255);
+        r = (byte) (rF * 255); g = (byte) (gF * 255); b = (byte) (bF * 255);
     }
 
     /// <summary>Converts HSB color model values to RGB values without ref optimization</summary>
-    public static void HsbToRgb(in byte h, in byte s, in byte v,
-        out byte r, out byte g, out byte b)
-    {
+    public static void HsbToRgb(
+        in byte h,
+        in byte s,
+        in byte v,
+
+        out byte r,
+        out byte g,
+        out byte b
+    ) {
         byte region = 0, remainder = 0, p = 0, q = 0, t = 0;
 
         HsbToRgb(h, s, v, ref region, ref remainder, ref p, ref q, ref t, out r, out g, out b);
     }
 
     /// <summary>Converts HSB color model values to RGB values with ref optimization</summary>
-    public static void HsbToRgb(in byte h, in byte s, in byte v,
-        ref byte region, ref byte remainder, ref byte p, ref byte q, ref byte t,
-        out byte r, out byte g, out byte b)
-    {
+    public static void HsbToRgb(
+        in byte h,
+        in byte s,
+        in byte v,
+        ref byte region,
+        ref byte remainder,
+        ref byte p,
+        ref byte q,
+        ref byte t,
+
+        out byte r,
+        out byte g,
+        out byte b
+    ) {
 
         if (s == 0)
         {
@@ -73,7 +89,7 @@ public static class ColorsConverter
             return;
         }
 
-        region = (byte)(h / 43);
+        region = (byte) (h / 43);
         remainder = (byte)((h - (region * 43)) * 6);
 
         p = (byte)((v * (255 - s)) >> 8);
@@ -167,7 +183,7 @@ public static class ColorsConverter
             return;
         }
 
-        s = (byte)(255 * (rgbMax - rgbMin) / v);
+        s = (byte) (255 * (rgbMax - rgbMin) / v);
         if (s == 0)
         {
             h = 0;
@@ -175,11 +191,11 @@ public static class ColorsConverter
         }
 
         if (rgbMax == r)
-            h = (byte)(0 + 43 * (g - b) / (rgbMax - rgbMin));
+            h = (byte) (0 + 43 * (g - b) / (rgbMax - rgbMin));
         else if (rgbMax == g)
-            h = (byte)(85 + 43 * (b - r) / (rgbMax - rgbMin));
+            h = (byte) (85 + 43 * (b - r) / (rgbMax - rgbMin));
         else
-            h = (byte)(171 + 43 * (r - g) / (rgbMax - rgbMin));
+            h = (byte) (171 + 43 * (r - g) / (rgbMax - rgbMin));
 
         return;
     }

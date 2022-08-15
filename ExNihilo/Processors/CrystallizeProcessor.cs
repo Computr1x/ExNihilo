@@ -62,8 +62,8 @@ internal class CrystallizeProcessor : IImageProcessor
 
             // init vars
             // centers of crystals
-            uint[] xn = Enumerable.Range(0, processor.CrystalsCount).Select(x => (uint)processor._r.Next(workArea.X, width + workArea.X)).ToArray();
-            uint[] yn = Enumerable.Range(0, processor.CrystalsCount).Select(x => (uint)processor._r.Next(workArea.Y, height + workArea.Y)).ToArray();
+            uint[] xn = Enumerable.Range(0, processor.CrystalsCount).Select(x => (uint) processor._r.Next(workArea.X, width + workArea.X)).ToArray();
+            uint[] yn = Enumerable.Range(0, processor.CrystalsCount).Select(x => (uint) processor._r.Next(workArea.Y, height + workArea.Y)).ToArray();
             uint d = 0, dMin = 0, dIndex = 0; ;
             Rgba32 sourcePixel = new();
 

@@ -93,16 +93,16 @@ internal class GaussianNoiseProcessor : IImageProcessor
 
                         if (processor.Monochrome)
                         {
-                            float gaussValue = GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal);
-                            sourcePixel.R = (byte)(sourcePixel.R * gaussValue);
-                            sourcePixel.G = (byte)(sourcePixel.G * gaussValue);
-                            sourcePixel.B = (byte)(sourcePixel.B * gaussValue);
+                            float gaussValue = GaussianNoiseProcessorInner<TPixel>.GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal);
+                            sourcePixel.R = (byte) (sourcePixel.R * gaussValue);
+                            sourcePixel.G = (byte) (sourcePixel.G * gaussValue);
+                            sourcePixel.B = (byte) (sourcePixel.B * gaussValue);
                         }
                         else
                         {
-                            sourcePixel.R = (byte)(sourcePixel.R * GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
-                            sourcePixel.G = (byte)(sourcePixel.G * GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
-                            sourcePixel.B = (byte)(sourcePixel.B * GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
+                            sourcePixel.R = (byte) (sourcePixel.R * GaussianNoiseProcessorInner<TPixel>.GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
+                            sourcePixel.G = (byte) (sourcePixel.G * GaussianNoiseProcessorInner<TPixel>.GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
+                            sourcePixel.B = (byte) (sourcePixel.B * GaussianNoiseProcessorInner<TPixel>.GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
                         }
 
                         var resPixel = new TPixel();
@@ -113,11 +113,11 @@ internal class GaussianNoiseProcessor : IImageProcessor
             });
         }
 
-        private float GetNextGaussian(Random rand, in float mean, in float stdDev, ref float u1, ref float u2, ref float randStdNormal)
+        private static float GetNextGaussian(Random rand, in float mean, in float stdDev, ref float u1, ref float u2, ref float randStdNormal)
         {
             //uniform(0,1] random doubles
-            u1 = 1.0f - (float)rand.NextDouble();
-            u2 = 1.0f - (float)rand.NextDouble();
+            u1 = 1.0f - (float) rand.NextDouble();
+            u2 = 1.0f - (float) rand.NextDouble();
             randStdNormal = MathF.Sqrt(-2.0f * MathF.Log(u1)) *
                          MathF.Sin(2.0f * MathF.PI * u2);
             //random normal (0,1)

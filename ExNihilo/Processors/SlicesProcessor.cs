@@ -87,8 +87,8 @@ internal class SlicesProcessor : IImageProcessor
                                 else if (offsetX < workArea.X)
                                     offsetX = width + workArea.X + sliceOffsets[i];
 
-                                intOffsetX = (int)offsetX;
-                                intOffsetY = (int)y;
+                                intOffsetX = (int) offsetX;
+                                intOffsetY = (int) y;
 
                                 pixelRow[x] = imageCopyArray[intOffsetY * imageWidth + intOffsetX];
                             }
@@ -102,8 +102,8 @@ internal class SlicesProcessor : IImageProcessor
                                 else if (offsetX < workArea.X)
                                     offsetX = width + workArea.X + sliceOffsets[i];
 
-                                intOffsetX = (int)offsetX;
-                                intOffsetY = (int)y;
+                                intOffsetX = (int) offsetX;
+                                intOffsetY = (int) y;
 
                                 pixelRow[x] = imageCopyArray[intOffsetY * imageWidth + intOffsetX];
                             }

@@ -24,10 +24,10 @@ namespace ExNihilo.Tests
             Directory.CreateDirectory(currentPath);
         }
 
-        private Canvas CreateTemplate()
+        private static Canvas CreateTemplate()
         {
-            Size canvasSize = new Size(512, 256);
-            Point center = new Point(256, 128);
+            Size canvasSize = new(512, 256);
+            Point center = new(256, 128);
 
             int size = 10;
             bool[,] template = new bool[size, size];
@@ -50,7 +50,7 @@ namespace ExNihilo.Tests
                 );
         }
 
-        private void TestEffect(IEffect effect)
+        private static void TestEffect(IEffect effect)
         {
             Canvas template = CreateTemplate();
             template.Layers[1].WithEffect(effect);

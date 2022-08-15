@@ -19,7 +19,7 @@ public class StringParameter : GenericParameter<string>
     public static readonly char[] octDigits = "01234567".ToArray();
 
     public IntParameter Length { get; } = new IntParameter() { Min = 1, Max = 6 };
-    public char[] CharactersSet { get; set; } = (char[])asciiUpperCase.Clone();
+    public char[] CharactersSet { get; set; } = (char[]) asciiUpperCase.Clone();
 
     public StringParameter(string defaultValue = "") : base(defaultValue)
     {
@@ -47,7 +47,7 @@ public class StringParameter : GenericParameter<string>
     {
         Length.Randomize(r);
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new();
         for (int i = 0; i < Length; i++)
             sb.Append(CharactersSet[r.Next(0, CharactersSet.Length)]);
         Value = sb.ToString();

@@ -109,8 +109,8 @@ internal class SwirlProcessor : IImageProcessor
                             ref pixelAngle, ref twistAngle, ref swirlAmount,
                             ref swirlX, ref swirlY, ref offsetX, ref offsetY);
 
-                        intOffsetX = (int)offsetX;
-                        intOffsetY = (int)offsetY;
+                        intOffsetX = (int) offsetX;
+                        intOffsetY = (int) offsetY;
 
                         if (0 <= intOffsetX && intOffsetX < imageWidth && 0 <= intOffsetY && intOffsetY < imageHeight)
                         {

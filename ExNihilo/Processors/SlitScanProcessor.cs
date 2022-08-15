@@ -76,19 +76,19 @@ internal class SlitScanProcessor : IImageProcessor
                 {
                     Span<TPixel> pixelRow = accessor.GetRowSpan(y);
 
-                    v = y / (float)height;
+                    v = y / (float) height;
 
-                    offset1 = MathF.Sin((v + 0.5f) * Mix(3f, 12f, UpDown(time))) * 15;
-                    offset2 = MathF.Sin((v + 0.5f) * Mix(3f, 12f, UpDown(t2))) * 15;
+                    offset1 = MathF.Sin((v + 0.5f) * SlitScanProcessorInner<TPixel>.Mix(3f, 12f, SlitScanProcessorInner<TPixel>.UpDown(time))) * 15;
+                    offset2 = MathF.Sin((v + 0.5f) * SlitScanProcessorInner<TPixel>.Mix(3f, 12f, SlitScanProcessorInner<TPixel>.UpDown(t2))) * 15;
                     offset = offset1 + offset2;
 
-                    offsetY = y * height / (float)height + offset;
+                    offsetY = y * height / (float) height + offset;
                     offsetY = Math.Max(0, Math.Min(height - 1, offsetY));
 
                     for (int x = workArea.X; x < width + workArea.X; x++)
                     {
-                        intOffsetX = (int)x;
-                        intOffsetY = (int)offsetY;
+                        intOffsetX = (int) x;
+                        intOffsetY = (int) offsetY;
 
                         if (0 <= intOffsetX && intOffsetX < imageWidth && 0 <= intOffsetY && intOffsetY < imageHeight)
                         {
@@ -101,12 +101,12 @@ internal class SlitScanProcessor : IImageProcessor
             });
         }
 
-        private float Mix(float a, float b, float l)
+        private static float Mix(float a, float b, float l)
         {
             return a + (b - a) * l;
         }
 
-        private float UpDown(float v)
+        private static float UpDown(float v)
         {
             return MathF.Sin(v) * 0.5f + 0.5f;
         }

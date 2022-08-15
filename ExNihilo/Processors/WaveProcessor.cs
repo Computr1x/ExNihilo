@@ -91,10 +91,10 @@ internal class WaveProcessor : IImageProcessor
 
                     for (int x = workArea.X; x < width + workArea.X; x++)
                     {
-                        CalculateWave(in x, in y, ref pixelX, ref pixelY, ref offsetX, ref offsetY, ref calcWave);
+                        WaveProcessorInner<TPixel>.CalculateWave(in x, in y, ref pixelX, ref pixelY, ref offsetX, ref offsetY, ref calcWave);
 
-                        intOffsetX = (int)offsetX;
-                        intOffsetY = (int)offsetY;
+                        intOffsetX = (int) offsetX;
+                        intOffsetY = (int) offsetY;
 
                         if (0 <= intOffsetX && intOffsetX < imageWidth && 0 <= intOffsetY && intOffsetY < imageHeight)
                         {
@@ -107,7 +107,7 @@ internal class WaveProcessor : IImageProcessor
             });
         }
 
-        private void CalculateWave(in int x, in int y,
+        private static void CalculateWave(in int x, in int y,
                 ref float pixelX, ref float pixelY,
                 ref float xOffset, ref float yOffset,
                 ref WaveDeleagate calcWave)

@@ -80,8 +80,8 @@ internal class PolarCoordinatesProcessor : IImageProcessor
                         CalcPolar(ref x, ref y, ref scaleX, ref scaleY, ref centerX, ref centerY,
                             ref pixelX, ref pixelY, ref offsetX, ref offsetY);
 
-                        intOffsetX = (int)offsetX;
-                        intOffsetY = (int)offsetY;
+                        intOffsetX = (int) offsetX;
+                        intOffsetY = (int) offsetY;
 
                         if (0 <= intOffsetX && intOffsetX < imageWidth && 0 <= intOffsetY && intOffsetY < imageHeight)
                         {

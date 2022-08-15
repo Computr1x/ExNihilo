@@ -27,7 +27,7 @@ public class PenParameter : ComplexParameter
 
     public PenParameter WithRandomizedType()
     {
-        Type.EnumValues = (PenType[])Enum.GetValues(typeof(PenType));
+        Type.EnumValues = (PenType[]) Enum.GetValues(typeof(PenType));
         return this;
     }
 

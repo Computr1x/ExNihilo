@@ -300,11 +300,11 @@ public class Text : BaseDrawableWithBrushAndPen
 
         image.Mutate((x) =>
         {
-            if(((DrawableType)Type).HasFlag(DrawableType.FillWithOutline))
+            if(((DrawableType) Type).HasFlag(DrawableType.FillWithOutline))
                 x.DrawText(dopt, TextOptions, Content, Brush.Value, Pen.Value);
-            else if (((DrawableType)Type).HasFlag(DrawableType.Filled))
+            else if (((DrawableType) Type).HasFlag(DrawableType.Filled))
                 x.DrawText(dopt, TextOptions, Content, Brush.Value, null);
-            else if (((DrawableType)Type).HasFlag(DrawableType.Outlined))
+            else if (((DrawableType) Type).HasFlag(DrawableType.Outlined))
                 x.DrawText(dopt, TextOptions, Content, null, Pen.Value);
         });
     }

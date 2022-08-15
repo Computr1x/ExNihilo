@@ -141,9 +141,9 @@ public class Ellipse : BaseDrawableWithBrushAndPen
 
         image.Mutate((x) =>
         {
-            if (((DrawableType)Type).HasFlag(DrawableType.Filled))
+            if (((DrawableType) Type).HasFlag(DrawableType.Filled))
                 x.Fill(dopt, (Brush.Value), path);
-            if (((DrawableType)Type).HasFlag(DrawableType.Outlined))
+            if (((DrawableType) Type).HasFlag(DrawableType.Outlined))
                 x.Draw(dopt, (Pen.Value), path);
         });
     }

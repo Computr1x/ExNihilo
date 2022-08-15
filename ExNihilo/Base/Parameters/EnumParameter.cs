@@ -13,7 +13,7 @@ public class EnumParameter<T> : GenericStructParameter<T> where T : struct
 
     public EnumParameter(T defaultValue = default) : base(defaultValue)
     {
-        EnumValues = (T[])Enum.GetValues(typeof(T));
+        EnumValues = (T[]) Enum.GetValues(typeof(T));
     }
 
     public EnumParameter(List<T> enumValues, T defaultValue = default) : base(defaultValue)

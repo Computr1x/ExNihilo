@@ -20,8 +20,9 @@ public class FontFamilyParameter : GenericStructParameter<FontFamily>
 
     public FontFamilyParameter(IEnumerable<FontFamily> collection) : base(default)
     {
-        if (collection.Count() <= 0)
+        if (!collection.Any())
             throw new ArgumentException("Font collection should have at least one item");
+       
         Collection.AddRange(collection);
     }
 
@@ -29,6 +30,7 @@ public class FontFamilyParameter : GenericStructParameter<FontFamily>
     {
         Collection.Clear();
         Collection.AddRange(values);
+
         return this;
     }
 

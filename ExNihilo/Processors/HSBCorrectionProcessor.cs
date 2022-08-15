@@ -12,19 +12,19 @@ internal class HSBCorrectionProcessor : IImageProcessor
     public int Hue
     {
         get => hue;
-        set { hue = (sbyte)(value % 256); }
+        set { hue = (sbyte) (value % 256); }
     }
 
     public int Saturation
     {
         get => saturation;
-        set { saturation = (sbyte)(value % 256); }
+        set { saturation = (sbyte) (value % 256); }
     }
 
     public int Brightness
     {
         get => brightness;
-        set { brightness = (sbyte)(value % 256); }
+        set { brightness = (sbyte) (value % 256); }
     }
 
     public Rectangle Area { get; set; }
@@ -74,18 +74,31 @@ internal class HSBCorrectionProcessor : IImageProcessor
             var workArea = processor.Area;
 
             // init vars
-            int imageWidth = source.Width, imageHeight = source.Height;
+            int
+                width = Math.Min(workArea.Width, source.Width),
+                height = Math.Min(workArea.Height, source.Height),
 
-            int width = Math.Min(workArea.Width, source.Width), height = Math.Min(workArea.Height, source.Height);
+                imageWidth = source.Width,
+                imageHeight = source.Height;
+            
             if (workArea.X + width > source.Width)
                 width = source.Width - workArea.X;
+            
             if (workArea.Y + height > source.Height)
                 height = source.Height - workArea.Y;
+
             Rgba32 sourcePixel = new();
             TPixel rawPixel = new();
+            
             byte h, s, v;
+
             // addititonal fields for ref optimization
-            byte region = 0, remainder = 0, p = 0, q = 0, t = 0;
+            byte
+                region = 0,
+                remainder = 0,
+                p = 0,
+                q = 0,
+                t = 0;
 
             source.ProcessPixelRows(accessor =>
             {
@@ -99,12 +112,11 @@ internal class HSBCorrectionProcessor : IImageProcessor
 
                         ColorsConverter.RgbToHsb(in sourcePixel.R, in sourcePixel.G, in sourcePixel.B, out h, out s, out v);
 
+                        h = (byte) Math.Clamp(h + processor.Hue, 0, 255);
+                        s = (byte) Math.Clamp(s + processor.Saturation, 0, 255);
+                        v = (byte) Math.Clamp(v + processor.Brightness, 0, 255);
 
-                        h = (byte)Math.Clamp(h + processor.Hue, 0, 255);
-                        s = (byte)Math.Clamp(s + processor.Saturation, 0, 255);
-                        v = (byte)Math.Clamp(v + processor.Brightness, 0, 255);
-
-                        ColorsConverter.HsbToRgb(h, s, v, ref region, ref remainder, ref p, ref q, ref t, out sourcePixel.R, out sourcePixel.G, out sourcePixel.B);
+                        ColorsConverter.HsbToRgb(in h, in s, in v, ref region, ref remainder, ref p, ref q, ref t, out sourcePixel.R, out sourcePixel.G, out sourcePixel.B);
 
                         var resPixel = new TPixel();
                         resPixel.FromRgba32(sourcePixel);
