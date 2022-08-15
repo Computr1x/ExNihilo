@@ -8,13 +8,12 @@ internal class CrystallizeProcessor : IImageProcessor
 {
     public Rectangle Area { get; set; }
 
-    private readonly Random _r;
+    private readonly Random _random;
     public int CrystalsCount { get; set; } = 64;
-
 
     public CrystallizeProcessor(int seed = 0)
     {
-        _r = new Random(seed);
+        _random = new Random(seed);
     }
 
     public IImageProcessor<TPixel> CreatePixelSpecificProcessor<TPixel>(Configuration configuration, Image<TPixel> source, Rectangle sourceRectangle)
@@ -29,13 +28,13 @@ internal class CrystallizeProcessor : IImageProcessor
     private class CrystallizeProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private CrystallizeProcessor processor;
-        private Image<TPixel> source;
+        private CrystallizeProcessor _processor;
+        private Image<TPixel> _source;
 
         public CrystallizeProcessorInner(CrystallizeProcessor processor, Image<TPixel> source)
         {
-            this.processor = processor;
-            this.source = source;
+            _processor = processor;
+            _source = source;
         }
 
         public void Dispose()
@@ -44,31 +43,32 @@ internal class CrystallizeProcessor : IImageProcessor
 
         public void Execute()
         {
-            var workArea = processor.Area;
+            var workArea = _processor.Area;
 
             // create copy of image
-            TPixel[] imageCopyArray = new TPixel[source.Width * source.Height];
-            source.CopyPixelDataTo(imageCopyArray);
-
+            TPixel[] imageCopyArray = new TPixel[_source.Width * _source.Height];
+            _source.CopyPixelDataTo(imageCopyArray);
 
             // calculate work area
-            int imageWidth = source.Width, imageHeight = source.Height;
+            int imageWidth = _source.Width, imageHeight = _source.Height;
 
-            int width = Math.Min(workArea.Width, source.Width), height = Math.Min(workArea.Height, source.Height);
-            if (workArea.X + width > source.Width)
-                width = source.Width - workArea.X;
-            if (workArea.Y + height > source.Height)
-                height = source.Height - workArea.Y;
+            int width = Math.Min(workArea.Width, _source.Width), height = Math.Min(workArea.Height, _source.Height);
+            
+            if (workArea.X + width > _source.Width)
+                width = _source.Width - workArea.X;
+            
+            if (workArea.Y + height > _source.Height)
+                height = _source.Height - workArea.Y;
 
             // init vars
             // centers of crystals
-            uint[] xn = Enumerable.Range(0, processor.CrystalsCount).Select(x => (uint) processor._r.Next(workArea.X, width + workArea.X)).ToArray();
-            uint[] yn = Enumerable.Range(0, processor.CrystalsCount).Select(x => (uint) processor._r.Next(workArea.Y, height + workArea.Y)).ToArray();
+            uint[] xn = Enumerable.Range(0, _processor.CrystalsCount).Select(x => (uint) _processor._random.Next(workArea.X, width + workArea.X)).ToArray();
+            uint[] yn = Enumerable.Range(0, _processor.CrystalsCount).Select(x => (uint) _processor._random.Next(workArea.Y, height + workArea.Y)).ToArray();
             uint d = 0, dMin = 0, dIndex = 0; ;
             Rgba32 sourcePixel = new();
+            TPixel resPixel;
 
-
-            source.ProcessPixelRows(accessor =>
+            _source.ProcessPixelRows(accessor =>
             {
                 for (int y = workArea.Y; y < height + workArea.Y; y++)
                 {
@@ -78,17 +78,19 @@ internal class CrystallizeProcessor : IImageProcessor
                     {
                         // find neares crystal center
                         dMin = uint.MaxValue;
-                        for (uint i = 0; i < processor.CrystalsCount; i++)
+                        
+                        for (uint i = 0; i < _processor.CrystalsCount; i++)
                         {
                             // calculate distance
                             d = (uint)((y - yn[i]) * (y - yn[i]) + (x - xn[i]) * (x - xn[i]));
 
                             if (d >= dMin) continue;
+
                             dMin = d;
                             dIndex = i;
                         }
 
-                        TPixel resPixel = imageCopyArray[yn[dIndex] * width + xn[dIndex]];
+                        resPixel = imageCopyArray[yn[dIndex] * width + xn[dIndex]];
                         resPixel.ToRgba32(ref sourcePixel);
                         pixelRow[x].FromRgba32(sourcePixel);
                     }

@@ -8,7 +8,7 @@ internal class SlicesProcessor : IImageProcessor
 {
     public Rectangle Area { get; set; }
 
-    private Random _r;
+    private Random _random;
     public int Count { get; set; } = 1;
     public int MinOffset { get; set; } = -10;
     public int MaxOffset { get; set; } = 20;
@@ -17,7 +17,7 @@ internal class SlicesProcessor : IImageProcessor
 
     public SlicesProcessor(int seed)
     {
-        _r = new Random(seed);
+        _random = new Random(seed);
     }
 
     public IImageProcessor<TPixel> CreatePixelSpecificProcessor<TPixel>(Configuration configuration, Image<TPixel> source, Rectangle sourceRectangle)
@@ -66,8 +66,8 @@ internal class SlicesProcessor : IImageProcessor
             // init vars
             int intOffsetX = 0, intOffsetY = 0;
 
-            int[] sliceIndexes = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(workArea.Y, height + workArea.Y)).OrderBy(x => x).ToArray();
-            int[] sliceOffsets = Enumerable.Range(0, processor.Count).Select(x => processor._r.Next(processor.MinOffset, processor.MaxOffset)).ToArray();
+            int[] sliceIndexes = Enumerable.Range(0, processor.Count).Select(x => processor._random.Next(workArea.Y, height + workArea.Y)).OrderBy(x => x).ToArray();
+            int[] sliceOffsets = Enumerable.Range(0, processor.Count).Select(x => processor._random.Next(processor.MinOffset, processor.MaxOffset)).ToArray();
 
 
             source.ProcessPixelRows(accessor =>

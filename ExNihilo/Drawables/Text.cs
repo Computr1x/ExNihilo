@@ -255,7 +255,7 @@ public class Text : BaseDrawableWithBrushAndPen
     /// </summary>
     public Text WithTextAligment(TextAlignment value)
     {
-        this.TextAlignment = value;
+        TextAlignment = value;
         return this;
     }
     /// <summary>

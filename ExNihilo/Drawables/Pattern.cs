@@ -145,7 +145,7 @@ public class Pattern : BaseDrawable
     /// <summary>
     /// Set area background value.
     /// </summary>
-    public Pattern WithBackgroundColor(SixLabors.ImageSharp.Color color)
+    public Pattern WithBackgroundColor(Color color)
     {
         Background.Value = color;
         return this;
@@ -164,7 +164,7 @@ public class Pattern : BaseDrawable
     /// Set background color randomization parameters.
     /// </summary>
     /// <param name="colorsCount">Color palette for background</param>
-    public Pattern WithRandomizedBackgroundColor(SixLabors.ImageSharp.Color[] palette)
+    public Pattern WithRandomizedBackgroundColor(Color[] palette)
     {
         Background.Colors = palette;
         return this;
@@ -172,7 +172,7 @@ public class Pattern : BaseDrawable
     /// <summary>
     /// Set area foreground value.
     /// </summary>
-    public Pattern WithForegroundColor(SixLabors.ImageSharp.Color color)
+    public Pattern WithForegroundColor(Color color)
     {
         Foreground.Value = color;
         return this;
@@ -191,7 +191,7 @@ public class Pattern : BaseDrawable
     /// Set foreground color randomization parameters.
     /// </summary>
     /// <param name="colorsCount">Color palette for foreground</param>
-    public Pattern WithRandomizedForegroundColor(SixLabors.ImageSharp.Color[] palette)
+    public Pattern WithRandomizedForegroundColor(Color[] palette)
     {
         Foreground.Colors = palette;
         return this;

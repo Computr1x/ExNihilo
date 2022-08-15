@@ -38,6 +38,7 @@ public abstract class NumericParameter<T> : GenericStructParameter<T>, IHasMinMa
         {
             if (value == null)
                 throw new ArgumentNullException(nameof(value));
+
             CheckLimit(value.Value);
             this.value = value;
             ValueIsRandomized = false;
@@ -48,12 +49,15 @@ public abstract class NumericParameter<T> : GenericStructParameter<T>, IHasMinMa
     {
         if (minLimit.HasValue && value.CompareTo(minLimit.Value) < 0)
             throw new ArgumentNullException(nameof(value) + " should be equal or bigger then " + minLimit);
+
         if (maxLimit.HasValue && value.CompareTo(maxLimit.Value) > 0)
             throw new ArgumentNullException(nameof(value) + " should be equal or lower then " + maxLimit);
     }
 
 
-    public NumericParameter(T defaultValue = default) : base(defaultValue) { }
+    public NumericParameter(T defaultValue = default) : base(defaultValue) {
+        
+    }
 
     public NumericParameter(T minLimit, T maxLimit, T defaultValue = default) : base(defaultValue)
     {

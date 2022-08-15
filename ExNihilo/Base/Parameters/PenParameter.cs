@@ -50,7 +50,7 @@ public class PenParameter : ComplexParameter
         return this;
     }
 
-    public PenParameter WithColor(SixLabors.ImageSharp.Color color)
+    public PenParameter WithColor(Color color)
     {
         Color.Value = color;
         return this;
@@ -63,7 +63,7 @@ public class PenParameter : ComplexParameter
         return this;
     }
 
-    public PenParameter WithRandomizedColor(SixLabors.ImageSharp.Color[] palette)
+    public PenParameter WithRandomizedColor(Color[] palette)
     {
         Color.Colors = palette;
         return this;

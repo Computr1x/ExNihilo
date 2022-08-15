@@ -238,7 +238,7 @@ public class Captcha : Text, ICaptcha
     /// </summary>
     public new Captcha WithTextAligment(TextAlignment value)
     {
-        this.TextAlignment = value;
+        TextAlignment = value;
         return this;
     }
     /// <summary>

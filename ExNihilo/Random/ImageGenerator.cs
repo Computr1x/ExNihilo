@@ -8,10 +8,9 @@ namespace ExNihilo.Rnd;
 /// </summary>
 public class ImageGenerator
 {
-    RandomManager rnd = new(0);
-
+    private RandomManager _randomManager = new(0);
     private Canvas _template;
-    private int[] _seeds;
+    private int[]? _seeds;
     private Dictionary<int, string[]> _captchaText = new();
 
     /// <summary>
@@ -58,7 +57,7 @@ public class ImageGenerator
     /// <exception cref="ArgumentException">Thrown when serial number is outside valid     range</exception>
     public IEnumerable<ImageResult> Generate()
     {
-        if (_seeds == null || _seeds.Length == 0)
+        if (_seeds is null || _seeds.Length == 0)
         {
             int count = _captchaText.Values.FirstOrDefault()?.Length ?? 0;
             WithSeedsCount(count);
@@ -73,11 +72,11 @@ public class ImageGenerator
     {
         Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
 
-        for (int seedId = 0; seedId < _seeds.Length; seedId++)
+        for (int seedId = 0; seedId < _seeds!.Length; seedId++)
         {
             int seed = _seeds[seedId];
-            rnd.ResetRandom(seed);
-            rnd.RandomizeCanvas(_template);
+            _randomManager.ResetRandom(seed);
+            _randomManager.RandomizeCanvas(_template);
 
             List<string> captchaStrings = new();
             foreach (int captchaIndex in captchaIndexMapping.Keys)
@@ -96,23 +95,25 @@ public class ImageGenerator
     {
         Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetCanvasCaptchas(_template);
 
-        for (int seedId = 0; seedId < _seeds.Length; seedId++)
+        for (int seedID = 0; seedID < _seeds!.Length; seedID++)
         {
-            int seed = _seeds[seedId];
-            rnd.ResetRandom(seed);
-            rnd.RandomizeCanvas(_template);
+            var seed = _seeds[seedID];
+            _randomManager.ResetRandom(seed);
+            _randomManager.RandomizeCanvas(_template);
 
-            List<string> captchaStrings = new ();
+            List<string> captchaStrings = new();
+
             foreach (int captchaIndex in captchaIndexMapping.Keys.OrderBy(x => x))
             {
                 foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])
                 {
                     if (_captchaText.ContainsKey(captchaIndex))
-                        captchaDrawable.Text = _captchaText[captchaIndex][seedId];
+                        captchaDrawable.Text = _captchaText[captchaIndex][seedID];
                     captchaStrings.Add(captchaDrawable.Text);
                 }
                     
             }
+
             yield return new(seed, _template.Render(), captchaStrings.ToArray());
         }
     }
@@ -137,6 +138,7 @@ public class ImageGenerator
     protected static Dictionary<int, List<ICaptcha>> GetCanvasCaptchas(Canvas canvas)
     {
         Dictionary<int, List<ICaptcha>> captchas = new();
+        
         foreach (var layer in canvas.Layers)
         {
             foreach (var drawable in layer.Drawables)
@@ -146,10 +148,13 @@ public class ImageGenerator
                     if(captchas.ContainsKey(captcha.Index))
                         captchas[captcha.Index].Add(captcha);
                     else
-                        captchas[captcha.Index] = new List<ICaptcha>() { captcha };
+                        captchas[captcha.Index] = new List<ICaptcha>() {
+                            captcha
+                        };
                 }
             }
         }
+
         return captchas;
     }
 }

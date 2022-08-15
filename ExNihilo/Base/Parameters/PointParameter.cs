@@ -29,13 +29,13 @@ public class PointParameter : ComplexParameter
         Y.Randomize(r);
     }
 
-    public static implicit operator SixLabors.ImageSharp.PointF(PointParameter pointParameter)
+    public static implicit operator PointF(PointParameter pointParameter)
     {
         return new PointF(pointParameter.X, pointParameter.Y);
     }
 
-    public static implicit operator SixLabors.ImageSharp.Point(PointParameter pointParameter)
+    public static implicit operator Point(PointParameter pointParameter)
     {
-        return new SixLabors.ImageSharp.Point(pointParameter.X, pointParameter.Y);
+        return new Point(pointParameter.X, pointParameter.Y);
     }
 }

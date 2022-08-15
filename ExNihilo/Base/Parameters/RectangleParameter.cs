@@ -45,13 +45,13 @@ public class RectangleParameter : ComplexParameter
         Size.Randomize(r);
     }
 
-    public static implicit operator SixLabors.ImageSharp.RectangleF(RectangleParameter rectParamater)
+    public static implicit operator RectangleF(RectangleParameter rectParamater)
     {
-        return new SixLabors.ImageSharp.RectangleF(rectParamater.Point, rectParamater.Size);
+        return new RectangleF(rectParamater.Point, rectParamater.Size);
     }
 
-    public static implicit operator SixLabors.ImageSharp.Rectangle(RectangleParameter rectParamater)
+    public static implicit operator Rectangle(RectangleParameter rectParamater)
     {
-        return new SixLabors.ImageSharp.Rectangle(rectParamater.Point, rectParamater.Size);
+        return new Rectangle(rectParamater.Point, rectParamater.Size);
     }
 }

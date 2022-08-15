@@ -92,8 +92,8 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestRectangle()
         {
-            ExNihilo.Drawables.Rectangle rectangle =
-                new ExNihilo.Drawables.Rectangle(50, 200, 100, 50)
+            Drawables.Rectangle rectangle =
+                new Drawables.Rectangle(50, 200, 100, 50)
                 .WithPen(PenType.Dash, 1, Color.Olive)
                 .WithType(DrawableType.Outlined);
             canvas.Layers[0].WithDrawable(rectangle).Render().Save(Path.Join(currentPath, "rectangle.png"));

@@ -7,6 +7,7 @@ using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Interfaces;
 using ExNihilo.Base.Parameters;
 using ExNihilo.Base.Utils;
+using ExNihilo.Rnd;
 
 namespace ExNihilo.Drawables;
 
@@ -216,7 +217,7 @@ public class CaptchaSymbols : BaseDrawable, ICaptcha
     /// </summary>
     public CaptchaSymbols WithTextAligment(TextAlignment value)
     {
-        this.TextAlignment = value;
+        TextAlignment = value;
         return this;
     }
     /// <summary>
@@ -314,7 +315,11 @@ public class TextSymbolsParameter : IRandomizableParameter
     /// <summary>
     /// Specifies the text to be displayed
     /// </summary>
-    public StringParameter Content { get; } = new StringParameter() { DefaultValue = "TEST" };
+    public StringParameter Content { get; } = new StringParameter
+    {
+        DefaultValue = "TEST"
+    };
+
     /// <summary>
     /// <inheritdoc cref="TextOptions.Origin"/>
     /// </summary>
@@ -369,7 +374,7 @@ public class TextSymbolsParameter : IRandomizableParameter
             Type.Randomize(r, force);
 
             foreach (var effect in Effects)
-                RandomizeProperties(r, effect, force);
+                RandomManager.RandomizeProperties(effect, force);
 
             var symbolParams = new TextSymbolsParameter()
             {
@@ -380,23 +385,11 @@ public class TextSymbolsParameter : IRandomizableParameter
                 Type = { Value = Type.Value },
                 Effects = Effects.Select(x => x.Copy()).ToList()
             };
+
             symbolParams.Brush.WithValue(Brush.Type, Brush.Color);
             symbolParams.Pen.WithValue(Pen.Type, Pen.Width, Pen.Color);
 
             RandomizedTextParameters.Add(symbolParams);
-        }
-    }
-
-    public static void RandomizeProperties(Random rnd, IRenderable renderable, bool force = false)
-    {
-        foreach (var property in renderable.GetType().GetProperties())
-        {
-            if (property.PropertyType.GetInterfaces().Contains(typeof(IRandomizableParameter)))
-            {
-                object? propValue = property.GetValue(renderable);
-                if (propValue != null)
-                    (propValue as IRandomizableParameter)!.Randomize(rnd, force);
-            }
         }
     }
 }

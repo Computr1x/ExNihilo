@@ -17,7 +17,7 @@ public abstract class GenericStructParameter<T> : IRandomizableParameter where T
         get => value;
         set
         {
-            this.value = value ?? throw new ArgumentNullException(nameof(value));
+            this.value = value ?? throw new ArgumentNullException(nameof(Value));
             ValueIsRandomized = false;
         }
     }
@@ -33,9 +33,11 @@ public abstract class GenericStructParameter<T> : IRandomizableParameter where T
     {
         if (Value != null && !ValueIsRandomized && !force)
             return;
+
         RandomizeImplementation(r);
         ValueIsRandomized = true;
     }
+
     protected abstract void RandomizeImplementation(Random r);
 
     public virtual GenericStructParameter<T> WithValue(T value)
