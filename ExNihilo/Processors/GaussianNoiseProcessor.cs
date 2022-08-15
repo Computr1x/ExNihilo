@@ -73,9 +73,18 @@ internal class GaussianNoiseProcessor : IImageProcessor
 
             // init vars
             Rgba32 sourcePixel = new();
-            TPixel rawPixel = new();
-            float u1 = 0, u2 = 0, randStdNormal = 0;
-            float mean = processor.Amount, stdDev = (1f - mean) / 6f;
+
+            TPixel
+                rawPixel = new(),
+                resPixel;
+
+            float
+                u1 = 0,
+                u2 = 0,
+                randStdNormal = 0,
+                mean = processor.Amount,
+                stdDev = (1f - mean) / 6f,
+                gaussValue;
 
             source.ProcessPixelRows(accessor =>
             {
@@ -90,22 +99,21 @@ internal class GaussianNoiseProcessor : IImageProcessor
                         if (sourcePixel.A == 0)
                             continue;
 
-
                         if (processor.Monochrome)
                         {
-                            float gaussValue = GaussianNoiseProcessorInner<TPixel>.GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal);
+                            gaussValue = GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal);
                             sourcePixel.R = (byte) (sourcePixel.R * gaussValue);
                             sourcePixel.G = (byte) (sourcePixel.G * gaussValue);
                             sourcePixel.B = (byte) (sourcePixel.B * gaussValue);
                         }
                         else
                         {
-                            sourcePixel.R = (byte) (sourcePixel.R * GaussianNoiseProcessorInner<TPixel>.GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
-                            sourcePixel.G = (byte) (sourcePixel.G * GaussianNoiseProcessorInner<TPixel>.GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
-                            sourcePixel.B = (byte) (sourcePixel.B * GaussianNoiseProcessorInner<TPixel>.GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
+                            sourcePixel.R = (byte) (sourcePixel.R * GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
+                            sourcePixel.G = (byte) (sourcePixel.G * GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
+                            sourcePixel.B = (byte) (sourcePixel.B * GetNextGaussian(processor._rand, in mean, in stdDev, ref u1, ref u2, ref randStdNormal));
                         }
 
-                        var resPixel = new TPixel();
+                        resPixel = new();
                         resPixel.FromRgba32(sourcePixel);
                         pixelRow[x] = resPixel;
                     }

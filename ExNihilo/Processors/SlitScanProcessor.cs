@@ -78,8 +78,8 @@ internal class SlitScanProcessor : IImageProcessor
 
                     v = y / (float) height;
 
-                    offset1 = MathF.Sin((v + 0.5f) * SlitScanProcessorInner<TPixel>.Mix(3f, 12f, SlitScanProcessorInner<TPixel>.UpDown(time))) * 15;
-                    offset2 = MathF.Sin((v + 0.5f) * SlitScanProcessorInner<TPixel>.Mix(3f, 12f, SlitScanProcessorInner<TPixel>.UpDown(t2))) * 15;
+                    offset1 = MathF.Sin((v + 0.5f) * Mix(3f, 12f, SlitScanProcessorInner<TPixel>.UpDown(time))) * 15;
+                    offset2 = MathF.Sin((v + 0.5f) * Mix(3f, 12f, SlitScanProcessorInner<TPixel>.UpDown(t2))) * 15;
                     offset = offset1 + offset2;
 
                     offsetY = y * height / (float) height + offset;

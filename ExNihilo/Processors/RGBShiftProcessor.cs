@@ -94,7 +94,7 @@ internal class RGBShiftProcessor : IImageProcessor
                 for (int x = workArea.X; x < width + workArea.X; x++)
                 {
                     // red shift
-                    RGBShiftProcessorInner<TPixel>.RGBShiftMethod(
+                    RGBShiftMethod(
                         pixelArray,
                         in x,
                         in y,
@@ -106,7 +106,7 @@ internal class RGBShiftProcessor : IImageProcessor
                     );
                     
                     // green shift
-                    RGBShiftProcessorInner<TPixel>.RGBShiftMethod(
+                    RGBShiftMethod(
                         pixelArray,
                         in x,
                         in y,
@@ -118,7 +118,7 @@ internal class RGBShiftProcessor : IImageProcessor
                     );
                     
                     // blue shift
-                    RGBShiftProcessorInner<TPixel>.RGBShiftMethod(
+                    RGBShiftMethod(
                         pixelArray,
                         in x,
                         in y,
