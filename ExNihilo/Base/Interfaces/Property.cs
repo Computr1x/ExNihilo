@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExNihilo.Base.Interfaces;
 
-public interface IRandomizableProperty
+public abstract class Property
 {
-    public void Randomize(Random r, bool force = false);
+    public abstract void Randomize(Random r, bool force = false);
 }

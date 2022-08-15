@@ -7,11 +7,12 @@ using ExNihilo.Base.Interfaces;
 
 namespace ExNihilo.Base.Abstract;
 
-public abstract class ComplexProperty : IRandomizableProperty
+public abstract class ComplexProperty : Property
 {
-    public void Randomize(Random r, bool force = false)
+    public override void Randomize(Random r, bool force = false)
     {
         RandomizeImplementation(r);
     }
+
     protected abstract void RandomizeImplementation(Random r);
 }

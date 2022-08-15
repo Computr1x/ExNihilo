@@ -64,8 +64,7 @@ namespace ExNihilo.Tests
         [TestMethod]
         public void TestGeneratorWithSeeds()
         {
-            Effect effect = new Swirl(new Point(256, 128), 75, 10, 0.15f);
-            TestEffect(effect);
+            TestEffect(new Swirl(new Point(256, 128), 75, 10, 0.15f));
         }
     }
 }

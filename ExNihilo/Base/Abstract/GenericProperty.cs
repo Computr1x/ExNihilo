@@ -2,32 +2,36 @@
 
 namespace ExNihilo.Base.Abstract;
 
-public abstract class GenericProperty<T> : IRandomizableProperty where T : class
+public abstract class GenericProperty<T> : Property where T : class
 {
-    protected T value;
-    protected T defaultValue;
     protected bool ValueIsRandomized { get; set; } = false;
 
+    T _value;
     public T Value { 
-        get => value; 
+        get => _value; 
         set
         {
-            this.value = value ?? throw new ArgumentNullException(nameof(value));
+            _value = value ?? throw new ArgumentNullException(nameof(value));
             ValueIsRandomized = false;
         }
     }
 
-    public virtual T DefaultValue { get => defaultValue; set => defaultValue = value; }
+    T _defaultValue;
+    public virtual T DefaultValue {
+        get => _defaultValue;
+        set => _defaultValue = value;
+    }
 
     public GenericProperty(T defaultValue)
     {
         DefaultValue = defaultValue;
     }
 
-    public void Randomize(Random r, bool force = false)
+    public override void Randomize(Random r, bool force = false)
     {
         if (Value != null && !ValueIsRandomized && !force)
             return;
+
         RandomizeImplementation(r); 
         ValueIsRandomized = true; 
     }

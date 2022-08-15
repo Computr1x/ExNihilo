@@ -35,17 +35,14 @@ public class RandomManager
     public static void RandomizeProperties(object source, bool force = false)
     {
         PropertyInfo[] properties = source.GetType().GetProperties();
-        PropertyInfo property;
+        PropertyInfo propertyInfo;
 
         for (int i = 0; i < properties.Length; i++)
         {
-            property = properties[i];
+            propertyInfo = properties[i];
 
-            if (!property.PropertyType.GetInterfaces().Contains(typeof(IRandomizableProperty)))
-                continue;
-
-            //Console.WriteLine(renderable.GetType().ToString() + " " + property.Name);
-            (property.GetValue(source) as IRandomizableProperty)?.Randomize(_Random!, force);
+            if (propertyInfo.GetValue(source) is Property property)
+                property.Randomize(_Random!, force);
         }
     }
 }

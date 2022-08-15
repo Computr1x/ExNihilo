@@ -310,7 +310,7 @@ public class CaptchaSymbols : Visual, ICaptcha
 }
 
 
-public class TextSymbolsProperty : IRandomizableProperty
+public class TextSymbolsProperty : Property
 {
     /// <summary>
     /// Specifies the text to be displayed
@@ -359,7 +359,7 @@ public class TextSymbolsProperty : IRandomizableProperty
     /// </summary>
     public List<TextSymbolsProperty> RandomizedTextProperties { get; } = new List<TextSymbolsProperty>();
 
-    public void Randomize(Random r, bool force = false)
+    public override void Randomize(Random r, bool force = false)
     {
         Content.Randomize(r, force);
         RandomizedTextProperties.Clear();

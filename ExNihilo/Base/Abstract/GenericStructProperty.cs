@@ -7,7 +7,7 @@ using ExNihilo.Base.Interfaces;
 
 namespace ExNihilo.Base.Abstract;
 
-public abstract class GenericStructProperty<T> : IRandomizableProperty where T : struct
+public abstract class GenericStructProperty<T> : Property where T : struct
 {
     protected T? value;
     protected bool ValueIsRandomized { get; set; } = false;
@@ -29,7 +29,7 @@ public abstract class GenericStructProperty<T> : IRandomizableProperty where T :
         DefaultValue = defaultValue;
     }
 
-    public void Randomize(Random r, bool force = false)
+    public override void Randomize(Random r, bool force = false)
     {
         if (Value != null && !ValueIsRandomized && !force)
             return;
@@ -37,7 +37,7 @@ public abstract class GenericStructProperty<T> : IRandomizableProperty where T :
         RandomizeImplementation(r);
         ValueIsRandomized = true;
     }
-
+    
     protected abstract void RandomizeImplementation(Random r);
 
     public virtual GenericStructProperty<T> WithValue(T value)
