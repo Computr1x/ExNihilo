@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExNihilo.Base.Interfaces;
-
-namespace ExNihilo.Base.Abstract;
+﻿namespace ExNihilo.Base;
 
 public abstract class GenericStructProperty<T> : Property where T : struct
 {

@@ -1,6 +1,4 @@
-﻿using ExNihilo.Base.Interfaces;
-
-namespace ExNihilo.Base.Abstract;
+﻿namespace ExNihilo.Base;
 
 public abstract class GenericProperty<T> : Property where T : class
 {

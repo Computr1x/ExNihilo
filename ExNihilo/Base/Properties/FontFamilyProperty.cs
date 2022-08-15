@@ -1,13 +1,7 @@
 ﻿using SixLabors.Fonts;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
 public class FontFamilyProperty : GenericStructProperty<FontFamily>
 {

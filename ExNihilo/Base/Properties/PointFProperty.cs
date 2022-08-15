@@ -1,20 +1,13 @@
 ﻿using SixLabors.ImageSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Properties;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
-public class PointFProperty : ComplexProperty
+public class PointFProperty : Property
 {
     public FloatProperty X { get; init; } = new FloatProperty(0);
     public FloatProperty Y { get; init; } = new FloatProperty(0);
 
-    protected override void RandomizeImplementation(Random r)
+    public override void Randomize(Random r, bool force = false)
     {
         X.Randomize(r);
         Y.Randomize(r);

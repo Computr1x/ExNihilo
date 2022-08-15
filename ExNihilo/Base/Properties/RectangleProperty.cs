@@ -1,9 +1,8 @@
 ﻿using SixLabors.ImageSharp;
-using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
-public class RectangleProperty : ComplexProperty
+public class RectangleProperty : Property
 {
     public PointProperty Point { get; } = new PointProperty();
     public SizeProperty Size { get; } = new SizeProperty();
@@ -39,7 +38,7 @@ public class RectangleProperty : ComplexProperty
         return this;
     }
 
-    protected override void RandomizeImplementation(Random r)
+    public override void Randomize(Random r, bool force = false)
     {
         Point.Randomize(r);
         Size.Randomize(r);

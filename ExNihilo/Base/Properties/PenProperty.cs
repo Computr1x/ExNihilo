@@ -1,11 +1,18 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
-using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Utils;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
-public class PenProperty : ComplexProperty
+public enum PenType
+{
+    Solid,
+    Dot,
+    Dash,
+    DashDot,
+    DashDotDot
+}
+
+public class PenProperty : Property
 {
     public EnumProperty<PenType> Type { get; } = new EnumProperty<PenType>(PenType.Solid);
     public IntProperty Width { get; } = new IntProperty(1) { Min = 1, Max = 10 };
@@ -69,7 +76,7 @@ public class PenProperty : ComplexProperty
         return this;
     }
 
-    protected override void RandomizeImplementation(Random r)
+    public override void Randomize(Random r, bool force = false)
     {
         Type.Randomize(r);
         Width.Randomize(r);

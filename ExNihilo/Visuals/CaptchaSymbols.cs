@@ -1,13 +1,11 @@
-﻿using SixLabors.Fonts;
+﻿using ExNihilo.Base;
+using ExNihilo.Extensions;
+using ExNihilo.Rnd;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Properties;
-using ExNihilo.Base.Utils;
-using ExNihilo.Rnd;
 
 namespace ExNihilo.Visuals;
 

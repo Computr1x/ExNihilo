@@ -1,7 +1,6 @@
 ﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 
-namespace ExNihilo.Base.Interfaces;
+namespace ExNihilo.Base;
 
 public abstract class Renderable
 {

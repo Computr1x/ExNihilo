@@ -1,8 +1,15 @@
 ﻿using ExNihilo.Rnd;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
 
-namespace ExNihilo.Base.Interfaces;
+namespace ExNihilo.Base;
+
+[Flags]
+public enum VisualType : byte
+{
+    Filled = 1 << 0,
+    Outlined = 1 << 1,
+    FillWithOutline = Filled | Outlined
+}
 
 public abstract class Visual : Renderable
 {

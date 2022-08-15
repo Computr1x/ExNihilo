@@ -1,4 +1,4 @@
-﻿namespace ExNihilo.Base.Utils;
+﻿namespace ExNihilo.Extensions;
 
 public static class ColorsConverter
 {

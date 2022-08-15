@@ -1,7 +1,6 @@
 ﻿using SixLabors.ImageSharp;
-using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
 public class ColorProperty : GenericStructProperty<Color>
 {
@@ -35,7 +34,7 @@ public class ColorProperty : GenericStructProperty<Color>
         for (int i = 0; i < colorsCount; i++)
         {
             SixLabors.ImageSharp.PixelFormats.Rgba32 color;
-            ExNihilo.Base.Utils.ColorsConverter.HsbFToRgb(curHue, 1, 1, out color.R, out color.G, out color.B);
+            ExNihilo.Extensions.ColorsConverter.HsbFToRgb(curHue, 1, 1, out color.R, out color.G, out color.B);
             color.A = Opacity;
             colors[i] = color;
             curHue += hueStep;

@@ -1,9 +1,7 @@
+using ExNihilo.Base;
+using ExNihilo.Visuals;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing.Processing;
-using ExNihilo.Base;
-using ExNihilo.Base.Utils;
-using ExNihilo.Visuals;
 using Rectangle = ExNihilo.Visuals.Rectangle;
 
 namespace ExNihilo.Tests

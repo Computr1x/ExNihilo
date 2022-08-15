@@ -36,7 +36,7 @@ Container container = new(containerSize)
                     })
                     .WithRandomizedBrush(10)
                     .WithFontFamily(fontFamily)
-                    .WithType(ExNihilo.Base.Utils.VisualType.Filled)
+                    .WithType(ExNihilo.Utils.VisualType.Filled)
             )
     );
 

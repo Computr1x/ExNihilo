@@ -1,10 +1,4 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Properties;
-using ExNihilo.Base.Utils;
-
-namespace ExNihilo.Base.Abstract;
+﻿namespace ExNihilo.Base;
 
 public abstract class VisualWithBrushAndPen : Visual
 {

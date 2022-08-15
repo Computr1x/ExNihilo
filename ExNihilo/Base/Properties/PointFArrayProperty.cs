@@ -1,13 +1,6 @@
 ﻿using SixLabors.ImageSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Properties;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
 public class PointFArrayProperty : GenericProperty<PointF[]>
 {

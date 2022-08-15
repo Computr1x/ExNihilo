@@ -1,17 +1,21 @@
-﻿using SixLabors.ImageSharp.Drawing.Processing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Utils;
-using ExNihilo.Base.Properties;
-using SixLabors.ImageSharp;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
-public class BrushProperty : ComplexProperty
+public enum BrushType
+{
+    Solid,
+    Vertical,
+    Horizontal,
+    BackwardDiagonal,
+    ForwardDiagonal,
+    Min,
+    Percent10,
+    Percent20
+}
+
+public class BrushProperty : Property
 {
     public EnumProperty<BrushType> Type { get; set; } = new EnumProperty<BrushType>(BrushType.Solid);
     public ColorProperty Color { get; set; } = new ColorProperty(SixLabors.ImageSharp.Color.Black);
@@ -72,7 +76,7 @@ public class BrushProperty : ComplexProperty
         _ => Brushes.Solid(Color)
     };
 
-    protected override void RandomizeImplementation(Random r)
+    public override void Randomize(Random r, bool force = false)
     {
         Type.Randomize(r);
         Color.Randomize(r);

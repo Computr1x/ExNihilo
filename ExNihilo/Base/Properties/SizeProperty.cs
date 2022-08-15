@@ -1,9 +1,8 @@
 ﻿using SixLabors.ImageSharp;
-using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
-public class SizeProperty : ComplexProperty
+public class SizeProperty : Property
 {
     public IntProperty Width { get; set; } = new IntProperty(0);
     public IntProperty Height { get; set; } = new IntProperty(0);
@@ -22,7 +21,7 @@ public class SizeProperty : ComplexProperty
         return this;
     }
 
-    protected override void RandomizeImplementation(Random r)
+    public override void Randomize(Random r, bool force = false)
     {
         Width.Randomize(r);
         Height.Randomize(r);

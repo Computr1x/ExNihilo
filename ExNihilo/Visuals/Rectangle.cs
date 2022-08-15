@@ -1,10 +1,8 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Abstract;
-using ExNihilo.Base.Utils;
-using ExNihilo.Base.Properties;
 
 namespace ExNihilo.Visuals;
 

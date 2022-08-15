@@ -1,10 +1,8 @@
-﻿using SixLabors.Fonts;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing.Processing;
-using ExNihilo.Base;
-using ExNihilo.Base.Utils;
-using ExNihilo.Visuals;
+﻿using ExNihilo.Base;
 using ExNihilo.Rnd;
+using ExNihilo.Visuals;
+using SixLabors.Fonts;
+using SixLabors.ImageSharp;
 
 namespace ExNihilo.Tests
 {

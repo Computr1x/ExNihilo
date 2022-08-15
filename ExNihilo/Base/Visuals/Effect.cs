@@ -1,4 +1,4 @@
-﻿namespace ExNihilo.Base.Interfaces;
+﻿namespace ExNihilo.Base;
 
 public abstract class Effect : Renderable
 {

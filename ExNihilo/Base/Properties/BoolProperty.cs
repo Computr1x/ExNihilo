@@ -1,6 +1,4 @@
-﻿using ExNihilo.Base.Abstract;
-
-namespace ExNihilo.Base.Properties;
+﻿namespace ExNihilo.Base;
 
 public class BoolProperty : GenericStructProperty<bool>
 {

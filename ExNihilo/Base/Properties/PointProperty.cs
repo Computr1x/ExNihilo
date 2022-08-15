@@ -1,10 +1,8 @@
 ﻿using SixLabors.ImageSharp;
-using System.Numerics;
-using ExNihilo.Base.Abstract;
 
-namespace ExNihilo.Base.Properties;
+namespace ExNihilo.Base;
 
-public class PointProperty : ComplexProperty
+public class PointProperty : Property
 {
     public IntProperty X { get; init; } = new IntProperty(0);
     public IntProperty Y { get; init; } = new IntProperty(0);
@@ -23,7 +21,7 @@ public class PointProperty : ComplexProperty
         return this;
     }
 
-    protected override void RandomizeImplementation(Random r)
+    public override void Randomize(Random r, bool force = false)
     {
         X.Randomize(r);
         Y.Randomize(r);
