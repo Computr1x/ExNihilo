@@ -5,10 +5,10 @@ using ExNihilo.Base.Interfaces;
 using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 
-namespace ExNihilo.Drawables;
+namespace ExNihilo.Visuals;
 
 /// <summary>
-/// Define captcha drawable object.
+/// Define captcha visual object.
 /// </summary>
 public class Captcha : Text, ICaptcha
 {
@@ -131,7 +131,7 @@ public class Captcha : Text, ICaptcha
     /// <summary>
     /// Set type value.
     /// </summary>
-    public new Captcha WithType(DrawableType value)
+    public new Captcha WithType(VisualType value)
     {
         Type.Value = value;
         return this;

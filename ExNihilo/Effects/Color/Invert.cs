@@ -5,7 +5,7 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Invert colors of the <see cref="Drawable"/>
+/// Invert colors of the <see cref="Visual"/>
 /// </summary>
 public class Invert : Effect
 {

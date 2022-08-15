@@ -4,13 +4,12 @@ using SixLabors.ImageSharp.Processing;
 using ExNihilo.Base.Interfaces;
 using ExNihilo.Rnd;
 
-namespace ExNihilo.Base.Hierarchy;
-
+namespace ExNihilo.Base;
 
 /// <summary>
-/// Store drawables and effects.
+/// Store visuals and effects.
 /// </summary>
-public class Container : Drawable
+public class Container : Visual
 {
     /// <summary>
     /// <inheritdoc cref="Container"/>
@@ -36,9 +35,9 @@ public class Container : Drawable
     public Size Size { get; }
 
     /// <summary>
-    /// Difine collection of container drawables.
+    /// Difine collection of container visuals.
     /// </summary>
-    public List<Drawable> Children { get; } = new();
+    public List<Visual> Children { get; } = new();
 
     /// <summary>
     /// Define container background color.
@@ -76,20 +75,20 @@ public class Container : Drawable
     public int AntialiasSubpixelDepth { get; set; } = 16;
 
     /// <summary>
-    /// Add drawable to container.
+    /// Add visual to container.
     /// </summary>
-    public Container WithChild(Drawable drawable)
+    public Container WithChild(Visual visual)
     {
-        Children.Add(drawable);
+        Children.Add(visual);
         return this;
     }
     
     /// <summary>
-    /// Add drawables to container.
+    /// Add visuals to container.
     /// </summary>
-    public Container WithChildren(IEnumerable<Drawable> drawables)
+    public Container WithChildren(IEnumerable<Visual> visuals)
     {
-        Children.AddRange(drawables);
+        Children.AddRange(visuals);
         return this;
     }
     
@@ -169,16 +168,16 @@ public class Container : Drawable
     {
         Image<Rgba32>? tempImg = null;
 
-        foreach (var drawable in Children)
+        foreach (var visual in Children)
         {
-            if (drawable.Effects.Count == 0)
+            if (visual.Effects.Count == 0)
             {
-                drawable.Render(image, graphicsOptions);
+                visual.Render(image, graphicsOptions);
             }
             else
             {
                 tempImg ??= new(Size.Width, Size.Height);
-                drawable.Render(tempImg, graphicsOptions);
+                visual.Render(tempImg, graphicsOptions);
                 image.Mutate(x => x.DrawImage(tempImg, graphicsOptions));
                 tempImg.Dispose();
             }

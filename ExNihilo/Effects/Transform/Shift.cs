@@ -6,7 +6,7 @@ using ExNihilo.Base.Properties;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of coordinates shift operations on an <see cref="Drawable"/>
+/// Defines effect that allow the application of coordinates shift operations on an <see cref="Visual"/>
 /// </summary>
 public class Shift : Effect
 {

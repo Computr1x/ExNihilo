@@ -7,7 +7,7 @@ using ExNihilo.Base.Properties;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of ripple effect on an <see cref="Drawable"/>
+/// Defines effect that allow the application of ripple effect on an <see cref="Visual"/>
 /// </summary>
 public class Ripple : Effect
 {

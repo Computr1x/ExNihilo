@@ -6,7 +6,7 @@ using ExNihilo.Base.Utils;
 
 namespace ExNihilo.Base.Abstract;
 
-public abstract class BaseDrawableWithBrushAndPen : Drawable
+public abstract class VisualWithBrushAndPen : Visual
 {
     /// <summary>
     /// Represents the pen with which to stroke an object.
@@ -19,6 +19,6 @@ public abstract class BaseDrawableWithBrushAndPen : Drawable
     /// <summary>
     /// Specifies the rendering type of an object
     /// </summary>
-    public EnumProperty<DrawableType> Type { get;  } = new(DrawableType.Filled);
+    public EnumProperty<VisualType> Type { get;  } = new(VisualType.Filled);
 }
 

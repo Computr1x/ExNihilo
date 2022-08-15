@@ -6,7 +6,7 @@ using ExNihilo.Base.Properties;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow to alter brightness component of the <see cref="Drawable"/>
+/// Defines effect that allow to alter brightness component of the <see cref="Visual"/>
 /// </summary>
 public class Lightness : Effect
 {

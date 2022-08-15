@@ -5,12 +5,12 @@ using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Properties;
 using ExNihilo.Base.Interfaces;
 
-namespace ExNihilo.Drawables;
+namespace ExNihilo.Visuals;
 
 /// <summary>
-/// Define pattern drawable object.
+/// Define pattern visual object.
 /// </summary>
-public class Pattern : Drawable
+public class Pattern : Visual
 {
     /// <summary>
     /// Specifies the rectangular area on which the template will draw.

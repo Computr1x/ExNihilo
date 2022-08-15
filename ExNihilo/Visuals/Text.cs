@@ -6,12 +6,12 @@ using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 
-namespace ExNihilo.Drawables;
+namespace ExNihilo.Visuals;
 
 /// <summary>
-/// Define text drawable object.
+/// Define text visual object.
 /// </summary>
-public class Text : BaseDrawableWithBrushAndPen
+public class Text : VisualWithBrushAndPen
 {
     /// <summary>
     /// Specifies the text to be displayed
@@ -158,9 +158,9 @@ public class Text : BaseDrawableWithBrushAndPen
         return this;
     }
     /// <summary>
-    /// Set drawable type value.
+    /// Set visual type value.
     /// </summary>
-    public Text WithType(DrawableType value)
+    public Text WithType(VisualType value)
     {
         Type.Value = value;
         return this;
@@ -300,11 +300,11 @@ public class Text : BaseDrawableWithBrushAndPen
 
         image.Mutate((x) =>
         {
-            if(((DrawableType) Type).HasFlag(DrawableType.FillWithOutline))
+            if(((VisualType) Type).HasFlag(VisualType.FillWithOutline))
                 x.DrawText(dopt, TextOptions, Content, Brush.Value, Pen.Value);
-            else if (((DrawableType) Type).HasFlag(DrawableType.Filled))
+            else if (((VisualType) Type).HasFlag(VisualType.Filled))
                 x.DrawText(dopt, TextOptions, Content, Brush.Value, null);
-            else if (((DrawableType) Type).HasFlag(DrawableType.Outlined))
+            else if (((VisualType) Type).HasFlag(VisualType.Outlined))
                 x.DrawText(dopt, TextOptions, Content, null, Pen.Value);
         });
     }

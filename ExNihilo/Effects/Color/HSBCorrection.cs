@@ -7,7 +7,7 @@ using ExNihilo.Base.Properties;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Define effect that allow to alter hue, brightness and saturation channel of the <see cref="Drawable"/> 
+/// Define effect that allow to alter hue, brightness and saturation channel of the <see cref="Visual"/> 
 /// </summary>
 public class HSBCorrection : Effect
 {

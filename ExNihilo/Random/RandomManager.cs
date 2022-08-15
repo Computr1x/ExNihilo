@@ -3,7 +3,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using System.Numerics;
 using System.Text;
-using ExNihilo.Base.Hierarchy;
+using ExNihilo.Base;
 using ExNihilo.Base.Interfaces;
 using ExNihilo.Base.Properties;
 using System.Reflection;

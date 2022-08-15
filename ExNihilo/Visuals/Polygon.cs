@@ -5,12 +5,12 @@ using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 
-namespace ExNihilo.Drawables;
+namespace ExNihilo.Visuals;
 
 /// <summary>
-/// Define polygon drawable object.
+/// Define polygon visual object.
 /// </summary>
-public class Polygon : BaseDrawableWithBrushAndPen
+public class Polygon : VisualWithBrushAndPen
 {
     /// <summary>
     /// Defines a set of polygon points.
@@ -64,9 +64,9 @@ public class Polygon : BaseDrawableWithBrushAndPen
         return this;
     }
     /// <summary>
-    /// Set drawable type value.
+    /// Set visual type value.
     /// </summary>
-    public Polygon WithType(DrawableType value)
+    public Polygon WithType(VisualType value)
     {
         Type.Value = value;
         return this;
@@ -108,9 +108,9 @@ public class Polygon : BaseDrawableWithBrushAndPen
 
         image.Mutate((x) =>
         {
-            if (((DrawableType) Type).HasFlag(DrawableType.Filled))
+            if (((VisualType) Type).HasFlag(VisualType.Filled))
                 x.FillPolygon(dopt, Brush.Value, Points);
-            if (((DrawableType) Type).HasFlag(DrawableType.Outlined))
+            if (((VisualType) Type).HasFlag(VisualType.Outlined))
                 x.DrawPolygon(dopt, Pen.Value, Points);
         });
     }

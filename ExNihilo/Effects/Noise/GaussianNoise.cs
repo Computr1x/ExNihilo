@@ -7,7 +7,7 @@ using ExNihilo.Extensions.Processors;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of gaussian noise on an <see cref="Drawable"/>
+/// Defines effect that allow the application of gaussian noise on an <see cref="Visual"/>
 /// </summary>
 public class GaussianNoise : Effect
 {

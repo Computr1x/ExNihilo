@@ -9,12 +9,12 @@ using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 using ExNihilo.Rnd;
 
-namespace ExNihilo.Drawables;
+namespace ExNihilo.Visuals;
 
 /// <summary>
-/// Define captcha drawable object.
+/// Define captcha visual object.
 /// </summary>
-public class CaptchaSymbols : Drawable, ICaptcha
+public class CaptchaSymbols : Visual, ICaptcha
 {
     /// <summary>
     /// Index of captcha. Needed to assign a captcha value.
@@ -120,9 +120,9 @@ public class CaptchaSymbols : Drawable, ICaptcha
         return this;
     }
     /// <summary>
-    /// Set drawable type value.
+    /// Set visual type value.
     /// </summary>
-    public CaptchaSymbols WithType(DrawableType value)
+    public CaptchaSymbols WithType(VisualType value)
     {
         TextSymbols.Type.Value = value;
         return this;
@@ -281,14 +281,14 @@ public class CaptchaSymbols : Drawable, ICaptcha
                 tempImg.Mutate(y =>
                 {
                         // depend on drawing type choose drawing method
-                    if (((DrawableType) symbolsParams.Type).HasFlag(DrawableType.FillWithOutline))
+                    if (((VisualType) symbolsParams.Type).HasFlag(VisualType.FillWithOutline))
                         y.DrawText(dopt, opt, symbolsParams.Content,
                             symbolsParams.Brush.Value,
                             symbolsParams.Pen.Value);
-                    else if (((DrawableType) symbolsParams.Type).HasFlag(DrawableType.Filled))
+                    else if (((VisualType) symbolsParams.Type).HasFlag(VisualType.Filled))
                         y.DrawText(dopt, opt, symbolsParams.Content,
                             symbolsParams.Brush.Value, null);
-                    else if (((DrawableType) symbolsParams.Type).HasFlag(DrawableType.Outlined))
+                    else if (((VisualType) symbolsParams.Type).HasFlag(VisualType.Outlined))
                         y.DrawText(dopt, opt, symbolsParams.Content,
                             null, symbolsParams.Pen.Value);
                 });
@@ -348,7 +348,7 @@ public class TextSymbolsProperty : IRandomizableProperty
     /// <summary>
     /// Specifies the rendering type of an object
     /// </summary>
-    public EnumProperty<DrawableType> Type { get; } = new(DrawableType.Filled);
+    public EnumProperty<VisualType> Type { get; } = new(VisualType.Filled);
 
     /// <summary>
     /// Specify collection of effect that will be applied to all characters.

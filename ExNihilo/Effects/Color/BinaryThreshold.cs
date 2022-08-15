@@ -6,7 +6,7 @@ using ExNihilo.Base.Properties;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of binarize effect to the <see cref="Drawable"/>
+/// Defines effect that allow the application of binarize effect to the <see cref="Visual"/>
 /// </summary>
 public class BinaryThreshold : Effect
 {

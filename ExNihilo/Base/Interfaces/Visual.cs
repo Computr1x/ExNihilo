@@ -4,25 +4,25 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace ExNihilo.Base.Interfaces;
 
-public abstract class Drawable : Renderable
+public abstract class Visual : Renderable
 {
     /// <summary>
-    /// Defines collection of effects. Effect will be applied after all drawables will be rendered.
+    /// Defines collection of effects. Effect will be applied after all visuals will be rendered.
     /// </summary>
     public List<Effect> Effects { get; private set; } = new();
 
     /// <summary>
-    /// Add effect to drawable.
+    /// Add effect to visual.
     /// </summary>
-    public Drawable WithEffect(Effect effect)
+    public Visual WithEffect(Effect effect)
     {
         Effects.Add(effect);
         return this;
     }
     /// <summary>
-    /// Add effects to drawable.
+    /// Add effects to visual.
     /// </summary>
-    public Drawable WithEffects(IEnumerable<Effect> effects)
+    public Visual WithEffects(IEnumerable<Effect> effects)
     {
         Effects.AddRange(effects);
         return this;

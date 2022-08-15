@@ -1,4 +1,4 @@
-﻿using ExNihilo.Base.Hierarchy;
+﻿using ExNihilo.Base;
 using ExNihilo.Base.Interfaces;
 using SixLabors.ImageSharp;
 
@@ -82,8 +82,8 @@ public class ImageGenerator
             List<string> captchaStrings = new();
             foreach (int captchaIndex in captchaIndexMapping.Keys)
             {
-                foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])
-                    captchaStrings.Add(captchaDrawable.Text);
+                foreach (var captchaVisual in captchaIndexMapping[captchaIndex])
+                    captchaStrings.Add(captchaVisual.Text);
             }
 
             yield return new(seed, _template.Render(), captchaStrings.ToArray());
@@ -104,12 +104,12 @@ public class ImageGenerator
 
             foreach (int captchaIndex in captchaIndexMapping.Keys.OrderBy(x => x))
             {
-                foreach (var captchaDrawable in captchaIndexMapping[captchaIndex])
+                foreach (var captchaVisual in captchaIndexMapping[captchaIndex])
                 {
                     if (_captchaText.ContainsKey(captchaIndex))
-                        captchaDrawable.Text = _captchaText[captchaIndex][seedID];
+                        captchaVisual.Text = _captchaText[captchaIndex][seedID];
 
-                    captchaStrings.Add(captchaDrawable.Text);
+                    captchaStrings.Add(captchaVisual.Text);
                 }
                     
             }
@@ -139,9 +139,9 @@ public class ImageGenerator
     {
         Dictionary<int, List<ICaptcha>> captchas = new();
         
-        foreach (var drawable in container.Children)
+        foreach (var visual in container.Children)
         {
-            if (drawable is ICaptcha captcha)
+            if (visual is ICaptcha captcha)
             {
                 if(captchas.ContainsKey(captcha.Index))
                     captchas[captcha.Index].Add(captcha);

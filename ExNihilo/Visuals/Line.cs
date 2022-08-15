@@ -6,12 +6,12 @@ using ExNihilo.Base.Interfaces;
 using ExNihilo.Base.Properties;
 using ExNihilo.Base.Utils;
 
-namespace ExNihilo.Drawables;
+namespace ExNihilo.Visuals;
 
 /// <summary>
-/// Define line drawable object.
+/// Define line visual object.
 /// </summary>
-public class Line : Drawable
+public class Line : Visual
 {
     /// <summary>
     /// Represents the pen with which to outlined an object.

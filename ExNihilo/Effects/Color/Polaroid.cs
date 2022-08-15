@@ -5,7 +5,7 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of polaroid effect to the <see cref="Drawable"/>
+/// Defines effect that allow the application of polaroid effect to the <see cref="Visual"/>
 /// </summary>
 public class Polaroid : Effect
 {

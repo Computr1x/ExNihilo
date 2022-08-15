@@ -5,12 +5,12 @@ using ExNihilo.Base.Abstract;
 using ExNihilo.Base.Properties;
 using ExNihilo.Base.Interfaces;
 
-namespace ExNihilo.Drawables;
+namespace ExNihilo.Visuals;
 
 /// <summary>
-/// Define picture drawable object.
+/// Define picture visual object.
 /// </summary>
-public class Picture : Drawable
+public class Picture : Visual
 {
     /// <summary>
     /// Specifies the coordinate of the upper left corner of the image from which to start rendering

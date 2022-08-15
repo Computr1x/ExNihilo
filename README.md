@@ -26,7 +26,7 @@ Container container = new(containerSize)
     .WithContainer(
         new Container(containerSize)
             .WithBackground(Color.White)
-            .WithDrawable(
+            .WithVisual(
                 new Captcha()
                     .WithPoint(new Point(256,128))
                     .WithFontSize(100)
@@ -36,7 +36,7 @@ Container container = new(containerSize)
                     })
                     .WithRandomizedBrush(10)
                     .WithFontFamily(fontFamily)
-                    .WithType(ExNihilo.Base.Utils.DrawableType.Filled)
+                    .WithType(ExNihilo.Base.Utils.VisualType.Filled)
             )
     );
 

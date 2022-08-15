@@ -5,7 +5,7 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Define the effect thar allow to alter colors of the <see cref="Drawable"/> recreating old Kodachrome camera effect
+/// Define the effect thar allow to alter colors of the <see cref="Visual"/> recreating old Kodachrome camera effect
 /// </summary>
 public class KodaChrome : Effect
 {

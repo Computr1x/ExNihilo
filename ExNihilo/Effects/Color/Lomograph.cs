@@ -5,7 +5,7 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the recreating old Lomograph camera effect to the <see cref="Drawable"/>
+/// Defines effect that allow the recreating old Lomograph camera effect to the <see cref="Visual"/>
 /// </summary>
 public class Lomograph : Effect
 {

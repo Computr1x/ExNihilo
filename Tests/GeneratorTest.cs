@@ -1,9 +1,9 @@
 ﻿using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
-using ExNihilo.Base.Hierarchy;
+using ExNihilo.Base;
 using ExNihilo.Base.Utils;
-using ExNihilo.Drawables;
+using ExNihilo.Visuals;
 using ExNihilo.Effects;
 using ExNihilo.Rnd;
 
@@ -45,7 +45,7 @@ namespace ExNihilo.Tests
                                         brush.WithRandomizedColor(50);
                                         brush.WithRandomizedType();
                                     })
-                                    .WithType(DrawableType.Filled)))
+                                    .WithType(VisualType.Filled)))
                         .WithBlendPercentage(0.5f))
                 .WithContainer(
                     new Container(containerSize)
@@ -58,7 +58,7 @@ namespace ExNihilo.Tests
                                 .WithPoint(center)
                                 .WithFontSize(100)
                                 .WithRandomizedBrush(50)
-                                .WithType(DrawableType.Filled)));
+                                .WithType(VisualType.Filled)));
         }
 
         [TestMethod]
@@ -115,7 +115,7 @@ namespace ExNihilo.Tests
                                         brush.WithRandomizedColor(50);
                                         brush.WithRandomizedType();
                                     })
-                                    .WithType(DrawableType.Filled)))
+                                    .WithType(VisualType.Filled)))
                         .WithBlendPercentage(0.5f))
                 .WithContainer(
                     new Container(containerSize)

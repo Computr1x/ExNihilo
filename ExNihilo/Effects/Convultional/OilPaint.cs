@@ -5,7 +5,7 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of oil painting effect on an <see cref="Drawable"/>
+/// Defines effect that allow the application of oil painting effect on an <see cref="Visual"/>
 /// </summary>
 public class OilPaint : Effect
 {

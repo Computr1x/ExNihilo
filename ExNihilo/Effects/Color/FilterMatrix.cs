@@ -5,7 +5,7 @@ using ExNihilo.Base.Interfaces;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow filter <see cref="Drawable"/> by the give color matrix
+/// Defines effect that allow filter <see cref="Visual"/> by the give color matrix
 /// </summary>
 public class FilterMatrix : Effect
 {

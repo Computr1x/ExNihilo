@@ -6,7 +6,7 @@ using ExNihilo.Base.Properties;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the multiplication of alpha component of the <see cref="Drawable"/>
+/// Defines effect that allow the multiplication of alpha component of the <see cref="Visual"/>
 /// </summary>
 public class Opacity : Effect
 {

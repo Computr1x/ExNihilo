@@ -8,7 +8,7 @@ using ExNihilo.Base.Properties;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the translate Euclidean coordinates to Polar coordinats and vise versa on an <see cref="Drawable"/>
+/// Defines effect that allow the translate Euclidean coordinates to Polar coordinats and vise versa on an <see cref="Visual"/>
 /// </summary>
 public class PolarCoordinates : Effect
 {

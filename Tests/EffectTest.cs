@@ -1,10 +1,10 @@
 ﻿using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
-using ExNihilo.Base.Hierarchy;
+using ExNihilo.Base;
 using ExNihilo.Base.Interfaces;
 using ExNihilo.Base.Utils;
-using ExNihilo.Drawables;
+using ExNihilo.Visuals;
 using ExNihilo.Effects;
 using ExNihilo.Rnd;
 
