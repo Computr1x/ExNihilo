@@ -16,7 +16,7 @@ public abstract class Visual : Renderable
     /// <summary>
     /// Defines collection of effects. Effect will be applied after all visuals will be rendered.
     /// </summary>
-    public List<Effect> Effects { get; private set; } = new();
+    public List<Effect> Effects { get; } = new();
 
     /// <summary>
     /// Add effect to visual.
@@ -37,15 +37,15 @@ public abstract class Visual : Renderable
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        foreach (var effect in Effects)
-            effect.Render(image, graphicsOptions);
+        for (int i = 0; i < Effects.Count; i++)
+            Effects[i].Render(image, graphicsOptions);
     }
 
-    public virtual void Randomize(bool force = false)
+    public virtual void Randomize(Random random, bool force = false)
     {
-        RandomManager.RandomizeProperties(this, force);
+        RandomizeProperties(random, force);
 
         for (int i = 0; i < Effects.Count; i++)
-            RandomManager.RandomizeProperties(Effects[i], force);
+            Effects[i].RandomizeProperties(random, force);
     }
 }

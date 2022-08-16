@@ -257,7 +257,7 @@ public class CaptchaSymbols : Visual, ICaptcha
         else
             origin = new Point((int) (origin.X - rect.Width), (int) (origin.Y - rect.Height));
         Image<Rgba32>? tempImg = null;
-        image.Mutate((x) =>
+        image.Mutate(x =>
         {
             // draw text by symbols
             foreach (var symbolsParams in TextSymbols.RandomizedTextProperties)
@@ -292,8 +292,8 @@ public class CaptchaSymbols : Visual, ICaptcha
                 });
 
                 // render effects for symbol
-                foreach (var effect in symbolsParams.Effects)
-                    effect.Render(tempImg, graphicsOptions);
+                for (int i = 0; i < symbolsParams.Effects.Count; i++)
+                    symbolsParams.Effects[i].Render(tempImg, graphicsOptions);
 
                 // draw symbol on main image
                 x.DrawImage(tempImg, origin, graphicsOptions);
@@ -357,22 +357,22 @@ public class TextSymbolsProperty : Property
     /// </summary>
     public List<TextSymbolsProperty> RandomizedTextProperties { get; } = new List<TextSymbolsProperty>();
 
-    public override void Randomize(Random r, bool force = false)
+    public override void Randomize(Random random, bool force = false)
     {
-        Content.Randomize(r, force);
+        Content.Randomize(random, force);
         RandomizedTextProperties.Clear();
 
         foreach (var symbol in (string) Content)
         {
-            FontFamily.Randomize(r, force);
-            FontSize.Randomize(r, force);
-            Style.Randomize(r, force);
-            Brush.Randomize(r, force);
-            Pen.Randomize(r, force);
-            Type.Randomize(r, force);
+            FontFamily.Randomize(random, force);
+            FontSize.Randomize(random, force);
+            Style.Randomize(random, force);
+            Brush.Randomize(random, force);
+            Pen.Randomize(random, force);
+            Type.Randomize(random, force);
 
             foreach (var effect in Effects)
-                RandomManager.RandomizeProperties(effect, force);
+                effect.RandomizeProperties(random, force);
 
             var symbolParams = new TextSymbolsProperty()
             {

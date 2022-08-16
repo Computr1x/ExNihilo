@@ -7,7 +7,6 @@ namespace ExNihilo.Rnd;
 /// </summary>
 public class ImageGenerator
 {
-    private RandomManager _randomManager = new(0);
     private Container _template;
     private int[]? _seeds;
     private Dictionary<int, string[]> _captchaText = new();
@@ -74,8 +73,7 @@ public class ImageGenerator
         for (int seedId = 0; seedId < _seeds!.Length; seedId++)
         {
             int seed = _seeds[seedId];
-            _randomManager.ResetRandom(seed);
-            _template.Randomize();
+            _template.Randomize(new Random(seed));
 
             List<string> captchaStrings = new();
             foreach (int captchaIndex in captchaIndexMapping.Keys)
@@ -91,14 +89,15 @@ public class ImageGenerator
     private IEnumerable<ImageResult> GenerateManualCaptcha()
     {
         Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetContainerCaptchas(_template);
+        int seed;
+        List<string> captchaStrings = new();
 
         for (int seedID = 0; seedID < _seeds!.Length; seedID++)
         {
-            var seed = _seeds[seedID];
-            _randomManager.ResetRandom(seed);
-            _template.Randomize();
+            seed = _seeds[seedID];
+            _template.Randomize(new Random(seed));
 
-            List<string> captchaStrings = new();
+            captchaStrings.Clear();
 
             foreach (int captchaIndex in captchaIndexMapping.Keys.OrderBy(x => x))
             {
@@ -109,7 +108,6 @@ public class ImageGenerator
 
                     captchaStrings.Add(captchaVisual.Text);
                 }
-                    
             }
 
             yield return new(seed, _template.Render(), captchaStrings.ToArray());

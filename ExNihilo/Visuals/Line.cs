@@ -99,12 +99,14 @@ public class Line : Visual
 
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
         
-        image.Mutate((x) =>
+        image.Mutate(x =>
         {
             if (IsBeziers)
                 x.DrawBeziers(dopt, Pen.Value, Points);
             else
                 x.DrawLines(dopt, Pen.Value, Points);
         });
+
+        base.Render(image, graphicsOptions);
     }
 }

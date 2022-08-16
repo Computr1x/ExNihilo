@@ -296,7 +296,7 @@ public class Text : VisualWithBrushAndPen
         
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
-        image.Mutate((x) =>
+        image.Mutate(x =>
         {
             if(((VisualType) Type).HasFlag(VisualType.FillWithOutline))
                 x.DrawText(dopt, TextOptions, Content, Brush.Value, Pen.Value);
@@ -305,5 +305,7 @@ public class Text : VisualWithBrushAndPen
             else if (((VisualType) Type).HasFlag(VisualType.Outlined))
                 x.DrawText(dopt, TextOptions, Content, null, Pen.Value);
         });
+
+        base.Render(image, graphicsOptions);
     }
 }

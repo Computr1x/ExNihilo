@@ -130,13 +130,18 @@ public class Rectangle : VisualWithBrushAndPen
             return;
 
         IPath path = new RectangularPolygon(rect);
-        DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
-        image.Mutate((x) =>
+       
+        DrawingOptions drawingOptions = new() { GraphicsOptions = graphicsOptions };
+       
+        image.Mutate(x =>
         {
             if (((VisualType) Type).HasFlag(VisualType.Filled))
-                x.Fill(dopt, Brush.Value, path);
+                x.Fill(drawingOptions, Brush.Value, path);
+            
             if (((VisualType) Type).HasFlag(VisualType.Outlined))
-                x.Draw(dopt, Pen.Value, path);
+                x.Draw(drawingOptions, Pen.Value, path);
         });
+
+        base.Render(image, graphicsOptions);
     }
 }

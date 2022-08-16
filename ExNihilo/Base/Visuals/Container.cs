@@ -1,4 +1,5 @@
 ﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
@@ -165,17 +166,26 @@ public class Container : Visual
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         Image<Rgba32>? tempImg = null;
+        Visual child;
 
-        foreach (var visual in Children)
+        // Background
+        image.Mutate(x => x.Fill(BackgroundColor));
+
+        // Children
+        for (int i = 0; i < Children.Count; i++)
         {
-            if (visual.Effects.Count == 0)
+            child = Children[i];
+
+            if (child.Effects.Count == 0)
             {
-                visual.Render(image, graphicsOptions);
+                child.Render(image, graphicsOptions);
             }
             else
             {
-                tempImg ??= new(Size.Width, Size.Height);
-                visual.Render(tempImg, graphicsOptions);
+                tempImg = new(Size.Width, Size.Height);
+                // TODO: erase img instead of creating new
+
+                child.Render(tempImg, graphicsOptions);
                 image.Mutate(x => x.DrawImage(tempImg, graphicsOptions));
                 tempImg.Dispose();
             }
@@ -186,8 +196,8 @@ public class Container : Visual
 
     public Image Render()
     {
-        var image = new Image<Rgba32>(Size.Width, Size.Height, BackgroundColor.ToPixel<Rgba32>());
-
+        Image<Rgba32> image = new(Size.Width, Size.Height);
+        
         Render(
             image,
             new()
@@ -203,11 +213,11 @@ public class Container : Visual
         return image;
     }
 
-    public override void Randomize(bool force = false)
+    public override void Randomize(Random random, bool force = false)
     {
-        base.Randomize(force);
+        base.Randomize(random, force);
 
         for (int i = 0; i < Children.Count; i++)
-            Children[i].Randomize(force);
+            Children[i].Randomize(random, force);
     }
 }

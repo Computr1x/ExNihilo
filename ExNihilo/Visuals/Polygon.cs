@@ -102,14 +102,17 @@ public class Polygon : VisualWithBrushAndPen
         if ((Points.Value ?? Points.DefaultValue).Length <= 2)
             return;
 
-        DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
+        DrawingOptions drawingOptions = new() { GraphicsOptions = graphicsOptions };
 
-        image.Mutate((x) =>
+        image.Mutate(x =>
         {
             if (((VisualType) Type).HasFlag(VisualType.Filled))
-                x.FillPolygon(dopt, Brush.Value, Points);
+                x.FillPolygon(drawingOptions, Brush.Value, Points);
+            
             if (((VisualType) Type).HasFlag(VisualType.Outlined))
-                x.DrawPolygon(dopt, Pen.Value, Points);
+                x.DrawPolygon(drawingOptions, Pen.Value, Points);
         });
+
+        base.Render(image, graphicsOptions);
     }
 }

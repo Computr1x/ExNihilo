@@ -206,9 +206,8 @@ public class Pattern : Visual
         PatternBrush patternBrush = new(Foreground, Background, Template);
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
-        image.Mutate((x) =>
-        {
-            x.Fill(dopt, patternBrush, rect);
-        });
+        image.Mutate(x => x.Fill(dopt, patternBrush, rect));
+
+        base.Render(image, graphicsOptions);
     }
 }
