@@ -151,7 +151,7 @@ public static class ColorsConverter
         }
 
         // Sector to hue
-        h *= (1f / 6f);
+        h *= 1f / 6f;
 
         // For cases like R = MAX & B > G
         if (h < 0)

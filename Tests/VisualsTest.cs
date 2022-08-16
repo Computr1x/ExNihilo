@@ -30,7 +30,7 @@ public class VisualsTest : Test
                     pen.WithColor(Color.Black);
                     pen.WithWidth(3);
                 })
-                .WithType(VisualType.FillWithOutline);
+                .WithType(VisualType.Filled | VisualType.Outlined);
 
         _container
             .WithChild(ellipse)

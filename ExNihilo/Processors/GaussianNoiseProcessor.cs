@@ -129,7 +129,7 @@ internal class GaussianNoiseProcessor : IImageProcessor
             randStdNormal = MathF.Sqrt(-2.0f * MathF.Log(u1)) *
                          MathF.Sin(2.0f * MathF.PI * u2);
             //random normal (0,1)
-            return (mean + stdDev * randStdNormal);
+            return mean + stdDev * randStdNormal;
         }
     }
 }

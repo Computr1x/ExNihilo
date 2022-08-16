@@ -6,9 +6,8 @@ namespace ExNihilo.Base;
 [Flags]
 public enum VisualType : byte
 {
-    Filled = 1 << 0,
-    Outlined = 1 << 1,
-    FillWithOutline = Filled | Outlined
+    Filled = 1,
+    Outlined = 2
 }
 
 public abstract class Visual : Renderable
@@ -35,11 +34,6 @@ public abstract class Visual : Renderable
         return this;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="image"></param>
-    /// <param name="graphicsOptions"></param>
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         for (int i = 0; i < Effects.Count; i++)

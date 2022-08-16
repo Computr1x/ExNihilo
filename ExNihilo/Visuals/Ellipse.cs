@@ -143,10 +143,10 @@ public class Ellipse : VisualWithBrushAndPen
         image.Mutate(x =>
         {
             if (((VisualType) Type).HasFlag(VisualType.Filled))
-                x.Fill(drawingOptions, (Brush.Value), path);
+                x.Fill(drawingOptions, Brush.Value, path);
             
             if (((VisualType) Type).HasFlag(VisualType.Outlined))
-                x.Draw(drawingOptions, (Pen.Value), path);
+                x.Draw(drawingOptions, Pen.Value, path);
         });
 
         base.Render(image, graphicsOptions);

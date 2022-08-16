@@ -13,6 +13,6 @@ public abstract class VisualWithBrushAndPen : Visual
     /// <summary>
     /// Specifies the rendering type of an object
     /// </summary>
-    public EnumProperty<VisualType> Type { get;  } = new(VisualType.Filled);
+    public EnumProperty<VisualType> Type { get; } = new(VisualType.Filled);
 }
 

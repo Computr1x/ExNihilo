@@ -118,8 +118,8 @@ public class ImageGenerator
     {
         int min, max;
 
-        min = _captchaText.Values.Min(x => ((int?) x.Length)) ?? 0;
-        max = _captchaText.Values.Max(x => ((int?) x.Length)) ?? 0;
+        min = _captchaText.Values.Min(x => (int?) x.Length) ?? 0;
+        max = _captchaText.Values.Max(x => (int?) x.Length) ?? 0;
 
         if (min != max)
             throw new ArgumentException("Captcha inputs should have same input array size. ");
