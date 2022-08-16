@@ -163,6 +163,23 @@ public class Container : Visual
         return this;
     }
 
+    /// <summary>
+    /// Add effect to visual.
+    /// </summary>
+    public new Container WithEffect(Effect effect)
+    {
+        Effects.Add(effect);
+        return this;
+    }
+    /// <summary>
+    /// Add effects to visual.
+    /// </summary>
+    public new Container WithEffects(IEnumerable<Effect> effects)
+    {
+        Effects.AddRange(effects);
+        return this;
+    }
+
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         Image<Rgba32>? tempImg = null;

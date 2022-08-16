@@ -44,7 +44,8 @@ public abstract class Visual : Renderable
     {
         RandomizeProperties(random, force);
 
-        for (int i = 0; i < Effects.Count; i++)
+        for (int i = 0; i < Effects.Count; i++) 
             Effects[i].RandomizeProperties(random, force);
+
     }
 }

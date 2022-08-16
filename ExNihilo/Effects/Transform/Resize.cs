@@ -12,11 +12,11 @@ public class Resize : Effect
     /// <summary>
     /// The target image width.
     /// </summary>
-    public IntProperty Width { get; set; } = new(1, int.MaxValue, 0);
+    public IntProperty Width { get; set; } = new(1, int.MaxValue, 1);
     /// <summary>
     /// The target image height.
     /// </summary>
-    public IntProperty Height { get; set; } = new(1, int.MaxValue, 0);
+    public IntProperty Height { get; set; } = new(1, int.MaxValue, 1);
 
     /// <summary>
     /// <inheritdoc cref="Resize"/>

@@ -9,15 +9,12 @@ public abstract class Renderable
 
     public void RandomizeProperties(Random random, bool force = false)
     {
-        PropertyInfo[] properties = GetType().GetProperties();
+        PropertyInfo[] properties = GetType().GetProperties().Where(x => x.PropertyType == typeof(Property)).ToArray();
         PropertyInfo propertyInfo;
 
         for (int i = 0; i < properties.Length; i++)
         {
-            propertyInfo = properties[i];
-
-            if (propertyInfo.GetValue(this) is Property property)
-                property.Randomize(random!, force);
+            (properties[i].GetValue(this) as Property).Randomize(random!, force);
         }
     }
 }

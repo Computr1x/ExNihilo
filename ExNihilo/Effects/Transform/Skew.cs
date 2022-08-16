@@ -74,6 +74,6 @@ public class Skew : Effect
     }
 
     public override void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x =>
-            x.Transform(new AffineTransformBuilder().AppendSkewDegrees(XDegree, YDegree)));
+        image.Mutate(x => 
+            x.Transform(new AffineTransformBuilder().AppendSkewDegrees(XDegree, YDegree, new System.Numerics.Vector2(image.Width/2, image.Height/2))));
 }

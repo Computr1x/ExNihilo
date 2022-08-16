@@ -12,11 +12,11 @@ public class Pad : Effect
     /// <summary>
     /// The new width.
     /// </summary>
-    public IntProperty Width { get; set; } = new(1, int.MaxValue, 0) { Min = 0, Max = 50 };
+    public IntProperty Width { get; set; } = new(1, int.MaxValue, 1) { Min = 1, Max = 50 };
     /// <summary>
     /// The new height
     /// </summary>
-    public IntProperty Height { get; set; } = new(1, int.MaxValue, 0) { Min = 0, Max = 50 };
+    public IntProperty Height { get; set; } = new(1, int.MaxValue, 1) { Min = 1, Max = 50 };
 
     /// <summary>
     /// <inheritdoc cref="Pad"/>

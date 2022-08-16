@@ -12,7 +12,7 @@ public class EntropyCrop : Effect
     /// <summary>
     /// The threshold for entropic density.
     /// </summary>
-    public FloatProperty Threshold { get; set; } = new(0.5f) { Min = 0, Max = 1 };
+    public FloatProperty Threshold { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1 };
 
     /// <summary>
     /// <inheritdoc cref="EntropyCrop"/>
