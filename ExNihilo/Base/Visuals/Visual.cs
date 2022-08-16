@@ -7,7 +7,8 @@ namespace ExNihilo.Base;
 public enum VisualType : byte
 {
     Filled = 1,
-    Outlined = 2
+    Outlined = 2,
+    FilledAndOutlined = 4,
 }
 
 public abstract class Visual : Renderable
