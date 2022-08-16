@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of cropping operations on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of cropping operations on an <see cref="Visual"/>
 /// </summary>
-public class Crop : IEffect
+public class Crop : Effect
 {
     /// <summary>
     /// <see cref="Rectangle"/> structure that specifies the portion of the image object to retain.
     /// </summary>
-    public RectangleParameter Area { get; set; } = new();
+    public RectangleProperty Area { get; set; } = new();
 
     /// <summary>
     /// <inheritdoc cref="Crop"/>
@@ -76,6 +75,6 @@ public class Crop : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Crop(Area));
 }

@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of gaussian blur on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of gaussian blur on an <see cref="Visual"/>
 /// </summary>
-public class GaussianBlur : IEffect
+public class GaussianBlur : Effect
 {
     /// <summary>
     /// The 'sigma' (0.0-1.0) value representing the weight of the blur.
     /// </summary>
-    public FloatParameter Sigma { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1};
+    public FloatProperty Sigma { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1};
 
     /// <summary>
     /// <inheritdoc cref="GaussianBlur"/>
@@ -50,6 +49,6 @@ public class GaussianBlur : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
             image.Mutate(x => x.GaussianBlur(Sigma));
 }

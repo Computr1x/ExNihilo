@@ -1,20 +1,19 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of color blindness toning of the <see cref="IDrawable"/>
+/// Defines effect that allow the application of color blindness toning of the <see cref="Visual"/>
 /// </summary>
-public class ColorBlindness : IEffect
+public class ColorBlindness : Effect
 {
     /// <summary>
     /// The type of color blindness simulator to apply.
     /// </summary>
-    public EnumParameter<ColorBlindnessMode> Mode { get; set; } 
-        = new EnumParameter<ColorBlindnessMode>(SixLabors.ImageSharp.Processing.ColorBlindnessMode.Achromatomaly) ;
+    public EnumProperty<ColorBlindnessMode> Mode { get; set; } 
+        = new EnumProperty<ColorBlindnessMode>(SixLabors.ImageSharp.Processing.ColorBlindnessMode.Achromatomaly) ;
 
     /// <summary>
     /// <inheritdoc cref="ColorBlindness"/>
@@ -50,6 +49,6 @@ public class ColorBlindness : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.ColorBlindness(Mode));
 }

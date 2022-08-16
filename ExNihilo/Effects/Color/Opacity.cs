@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the multiplication of alpha component of the <see cref="IDrawable"/>
+/// Defines effect that allow the multiplication of alpha component of the <see cref="Visual"/>
 /// </summary>
-public class Opacity : IEffect
+public class Opacity : Effect
 {
     /// <summary>
     /// The proportion of the conversion. Must be between 0 and 1.
     /// </summary>
-    public FloatParameter Amount { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1 };
+    public FloatProperty Amount { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1 };
 
     /// <summary>
     /// <inheritdoc cref="Opacity"/>
@@ -50,6 +49,6 @@ public class Opacity : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Opacity(Amount));
 }

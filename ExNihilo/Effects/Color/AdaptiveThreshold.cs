@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of Bradley adaptive threshold to the <see cref="IDrawable"/>.
+/// Defines effect that allow the application of Bradley adaptive threshold to the <see cref="Visual"/>.
 /// </summary>
-public class AdaptiveThreshold : IEffect
+public class AdaptiveThreshold : Effect
 {
     /// <summary>
     /// Threshold limit (0.0-1.0) to consider for binarization.
     /// </summary>
-    public FloatParameter ThresholdLimit { get; set; } = new(0, 1, 0.15f) { Min = 0f, Max = 1f };
+    public FloatProperty ThresholdLimit { get; set; } = new(0, 1, 0.15f) { Min = 0f, Max = 1f };
 
     /// <summary>
     /// <inheritdoc cref="AdaptiveThreshold"/>
@@ -51,6 +50,6 @@ public class AdaptiveThreshold : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.AdaptiveThreshold(ThresholdLimit));
 }

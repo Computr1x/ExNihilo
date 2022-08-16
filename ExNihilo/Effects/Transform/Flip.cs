@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of flip operations on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of flip operations on an <see cref="Visual"/>
 /// </summary>
-public class Flip : IEffect
+public class Flip : Effect
 {
     /// <summary>
     /// The <see cref="FlipMode"/> to perform the flip.
     /// </summary>
-    public EnumParameter<FlipMode> Mode { get; set; } = new(FlipMode.Horizontal);
+    public EnumProperty<FlipMode> Mode { get; set; } = new(FlipMode.Horizontal);
 
     /// <summary>
     /// <inheritdoc cref="Flip"/>
@@ -48,6 +47,6 @@ public class Flip : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Flip(Mode));
 }

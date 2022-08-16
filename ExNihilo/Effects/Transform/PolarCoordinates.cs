@@ -1,21 +1,20 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
+﻿using ExNihilo.Base;
 using ExNihilo.Extensions.Processors;
 using ExNihilo.Processors;
-using ExNihilo.Base.Parameters;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the translate Euclidean coordinates to Polar coordinats and vise versa on an <see cref="IDrawable"/>
+/// Defines effect that allow the translate Euclidean coordinates to Polar coordinats and vise versa on an <see cref="Visual"/>
 /// </summary>
-public class PolarCoordinates : IEffect
+public class PolarCoordinates : Effect
 {
     /// <summary>
     /// The <see cref="PolarConversionType"/> to perform the translate.
     /// </summary>
-    public EnumParameter<PolarConversionType> ConversionType { get; } = new(PolarConversionType.CartesianToPolar);
+    public EnumProperty<PolarConversionType> ConversionType { get; } = new(PolarConversionType.CartesianToPolar);
 
     /// <summary>
     /// <inheritdoc cref="PolarCoordinates"/>
@@ -40,6 +39,6 @@ public class PolarCoordinates : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.PolarCoordinates(ConversionType));
 }

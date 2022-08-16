@@ -1,32 +1,31 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
+﻿using ExNihilo.Base;
 using ExNihilo.Extensions.Processors;
-using ExNihilo.Base.Parameters;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of swirl effect on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of swirl effect on an <see cref="Visual"/>
 /// </summary>
-public class Swirl : IEffect
+public class Swirl : Effect
 {
     /// <summary>
     /// Coordinates of effect center.
     /// </summary>
-    public PointParameter Point { get; set; } = new();
+    public PointProperty Point { get; set; } = new();
     /// <summary>
     /// Radius of effect. Must be greater or equal to 0.
     /// </summary>
-    public FloatParameter Radius { get; set; } = new(0, float.MaxValue, 100f) { Min = 1f, Max = 150f };
+    public FloatProperty Radius { get; set; } = new(0, float.MaxValue, 100f) { Min = 1f, Max = 150f };
     /// <summary>
     /// Swirl angle in degrees. Must be greater or equal to 0.
     /// </summary>
-    public FloatParameter Degree { get; set; } = new(0, float.MaxValue, 10f) { Min = 0f, Max = 360f };
+    public FloatProperty Degree { get; set; } = new(0, float.MaxValue, 10f) { Min = 0f, Max = 360f };
     /// <summary>
     /// Swirl twists count. Must be greater or equal to 0.
     /// </summary>
-    public FloatParameter Twists { get; set; } = new(0, float.MaxValue, 0.5f) { Min = 0f, Max = 3f };
+    public FloatProperty Twists { get; set; } = new(0, float.MaxValue, 0.5f) { Min = 0f, Max = 3f };
 
     /// <summary>
     /// <inheritdoc cref="Swirl"/>
@@ -134,7 +133,7 @@ public class Swirl : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions)
+    public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         image.Mutate(x => x.Swirl(Point.X, Point.Y, Radius, Degree, Twists));
     }

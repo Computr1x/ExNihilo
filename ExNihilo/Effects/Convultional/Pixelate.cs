@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of pixelatation on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of pixelatation on an <see cref="Visual"/>
 /// </summary>
-public class Pixelate : IEffect
+public class Pixelate : Effect
 {
     /// <summary>
     /// The size of the pixels. Must be greater then 1
     /// </summary>
-    public IntParameter PixelSize { get; set; } = new(1, int.MaxValue, 4) { Min = 2, Max = 32 };
+    public IntProperty PixelSize { get; set; } = new(1, int.MaxValue, 4) { Min = 2, Max = 32 };
 
     /// <summary>
     /// <inheritdoc cref="Pixelate"/>
@@ -50,6 +49,6 @@ public class Pixelate : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Pixelate(PixelSize));
 }

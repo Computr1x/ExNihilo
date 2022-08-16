@@ -1,28 +1,27 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
+﻿using ExNihilo.Base;
 using ExNihilo.Extensions.Processors;
-using ExNihilo.Base.Parameters;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Define effect that allow to alter hue, brightness and saturation channel of the <see cref="IDrawable"/> 
+/// Define effect that allow to alter hue, brightness and saturation channel of the <see cref="Visual"/> 
 /// </summary>
-public class HSBCorrection : IEffect
+public class HSBCorrection : Effect
 {
     /// <summary>
     /// Hue shift value (-255 - 255)
     /// </summary>
-    public IntParameter Hue { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue};
+    public IntProperty Hue { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue};
     /// <summary>
     /// Saturation shift value (-255 - 255)
     /// </summary>
-    public IntParameter Saturation { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
+    public IntProperty Saturation { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
     /// <summary>
     /// Brightness shift value (-255 - 255)
     /// </summary>
-    public IntParameter Brightness { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
+    public IntProperty Brightness { get; set; } = new(-255, 255, 0) { Min = sbyte.MinValue, Max = sbyte.MaxValue };
 
     /// <summary>
     /// <inheritdoc cref="HSBCorrection"/>
@@ -105,6 +104,6 @@ public class HSBCorrection : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.HSBCorrection(Hue, Saturation, Brightness));
 }

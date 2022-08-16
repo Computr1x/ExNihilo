@@ -1,6 +1,6 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Processors;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Processors;
 
 namespace ExNihilo.Extensions.Processors;
 

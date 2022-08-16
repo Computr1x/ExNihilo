@@ -1,36 +1,35 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
+﻿using ExNihilo.Base;
 using ExNihilo.Extensions.Processors;
-using ExNihilo.Base.Parameters;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of slices effect on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of slices effect on an <see cref="Visual"/>
 /// </summary>
-public class Slices : IEffect
+public class Slices : Effect
 {
     /// <summary>
     /// Seed value
     /// </summary>
-    public IntParameter Seed { get; set; } = new(0) { Min = 0, Max = int.MaxValue };
+    public IntProperty Seed { get; set; } = new(0) { Min = 0, Max = int.MaxValue };
     /// <summary>
     /// Count of slices. Must greater or equal to 1.
     /// </summary>
-    public IntParameter Count { get; set; } = new(10) { Min = 1, Max = 10 };
+    public IntProperty Count { get; set; } = new(10) { Min = 1, Max = 10 };
     /// <summary>
     /// Min value of slice shift.
     /// </summary>
-    public IntParameter MinOffset { get; set; } = new() { Min = -10, Max = 0 };
+    public IntProperty MinOffset { get; set; } = new() { Min = -10, Max = 0 };
     /// <summary>
     /// Max value of slice shift
     /// </summary>
-    public IntParameter MaxOffset { get; set; } = new() { Min = 0, Max = 10 };
+    public IntProperty MaxOffset { get; set; } = new() { Min = 0, Max = 10 };
     /// <summary>
     /// Height of the slice. Must greater or equal to 1.
     /// </summary>
-    public IntParameter SliceHeight { get; set; } = new(1, int.MaxValue, 1) { Min = 1, Max = 10 };
+    public IntProperty SliceHeight { get; set; } = new(1, int.MaxValue, 1) { Min = 1, Max = 10 };
 
     /// <summary>
     /// <inheritdoc cref="Slices"/>
@@ -152,6 +151,6 @@ public class Slices : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Slices(Seed, Count, SliceHeight, MinOffset, MaxOffset));
 }

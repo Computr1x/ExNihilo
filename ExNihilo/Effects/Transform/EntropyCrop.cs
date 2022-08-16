@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of entropy cropping operations on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of entropy cropping operations on an <see cref="Visual"/>
 /// </summary>
-public class EntropyCrop : IEffect
+public class EntropyCrop : Effect
 {
     /// <summary>
     /// The threshold for entropic density.
     /// </summary>
-    public FloatParameter Threshold { get; set; } = new(0.5f) { Min = 0, Max = 1 };
+    public FloatProperty Threshold { get; set; } = new(0.5f) { Min = 0, Max = 1 };
 
     /// <summary>
     /// <inheritdoc cref="EntropyCrop"/>
@@ -49,6 +48,6 @@ public class EntropyCrop : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.EntropyCrop(Threshold));
 }

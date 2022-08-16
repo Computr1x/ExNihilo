@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of binarize effect to the <see cref="IDrawable"/>
+/// Defines effect that allow the application of binarize effect to the <see cref="Visual"/>
 /// </summary>
-public class BinaryThreshold : IEffect
+public class BinaryThreshold : Effect
 {
     /// <summary>
     /// Threshold limit (0.0-1.0) to consider for binarization.
     /// </summary>
-    public FloatParameter ThresholdLimit { get; set; } = new FloatParameter(0, 1, 0.5f) { Min = 0f, Max = 1f };
+    public FloatProperty ThresholdLimit { get; set; } = new FloatProperty(0, 1, 0.5f) { Min = 0f, Max = 1f };
 
     /// <summary>
     /// <inheritdoc cref="BinaryThreshold"/>
@@ -51,7 +50,7 @@ public class BinaryThreshold : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.BinaryThreshold(ThresholdLimit));
 
 }

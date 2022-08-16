@@ -1,19 +1,18 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that alter contrast component of the <see cref="IDrawable"/>
+/// Defines effect that alter contrast component of the <see cref="Visual"/>
 /// </summary>
-public class Contrast : IEffect
+public class Contrast : Effect
 {
     /// <summary>
     /// The proportion of the conversion. Must be greater than or equal to 0.
     /// </summary>
-    public FloatParameter Amount { get; set; } = new FloatParameter(0, float.MaxValue, 3) { Min = 0, Max = 3};
+    public FloatProperty Amount { get; set; } = new FloatProperty(0, float.MaxValue, 3) { Min = 0, Max = 3};
 
     /// <summary>
     /// <inheritdoc cref="Contrast"/>
@@ -50,6 +49,6 @@ public class Contrast : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Contrast(Amount));
 }

@@ -1,23 +1,22 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of scale operations on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of scale operations on an <see cref="Visual"/>
 /// </summary>
-public class Scale : IEffect
+public class Scale : Effect
 {
     /// <summary>
     /// Amount of scale by x axis.
     /// </summary>
-    public FloatParameter XScale { get; set; } = new(0) { Min = 0, Max = 2 };
+    public FloatProperty XScale { get; set; } = new(0) { Min = 0, Max = 2 };
     /// <summary>
     /// Amount of scale by y axis.
     /// </summary>
-    public FloatParameter YScale { get; set; } = new(0) { Min = 0, Max = 2 };
+    public FloatProperty YScale { get; set; } = new(0) { Min = 0, Max = 2 };
 
     /// <summary>
     /// <inheritdoc cref="Scale"/>
@@ -75,7 +74,7 @@ public class Scale : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x =>
             x.Transform(new AffineTransformBuilder().AppendScale(new System.Numerics.Vector2(XScale, YScale))));
 }

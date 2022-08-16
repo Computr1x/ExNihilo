@@ -1,0 +1,46 @@
+﻿using SixLabors.Fonts;
+using System.Globalization;
+
+namespace ExNihilo.Base;
+
+public class FontFamilyProperty : GenericStructProperty<FontFamily>
+{
+    public List<FontFamily> Collection { get; } = new List<FontFamily>();
+    public CultureInfo CultureInfo { get; set; } = CultureInfo.InvariantCulture;
+
+    public FontFamilyProperty() : base(default)
+    {
+    }
+
+    public FontFamilyProperty(IEnumerable<FontFamily> collection) : base(default)
+    {
+        if (!collection.Any())
+            throw new ArgumentException("Font collection should have at least one item");
+       
+        Collection.AddRange(collection);
+    }
+
+    public FontFamilyProperty WithRandomizedValue(IEnumerable<FontFamily> values)
+    {
+        Collection.Clear();
+        Collection.AddRange(values);
+
+        return this;
+    }
+
+    protected override void RandomizeImplementation(Random r)
+    {
+        if (Collection.Count <= 0)
+        {
+            var defaultFontsCollection = new FontCollection();
+            defaultFontsCollection.AddSystemFonts();
+
+            var currentCultureFonts = defaultFontsCollection.GetByCulture(CultureInfo);
+            Value = currentCultureFonts.ElementAt(r.Next(currentCultureFonts.Count()));
+        }
+        else
+        {
+            Value = Collection[r.Next(Collection.Count)];
+        }
+    }
+}

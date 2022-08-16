@@ -1,20 +1,19 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
+﻿using ExNihilo.Base;
 using ExNihilo.Extensions.Processors;
-using ExNihilo.Base.Parameters;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of slitscan effect on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of slitscan effect on an <see cref="Visual"/>
 /// </summary>
-public class SlitScan : IEffect
+public class SlitScan : Effect
 {
     /// <summary>
     /// SlitScan time value. Must be greater then 0.
     /// </summary>
-    public FloatParameter Time { get; set; } = new(0, float.MaxValue, 2f) { Min = 1f, Max = 10f };
+    public FloatProperty Time { get; set; } = new(0, float.MaxValue, 2f) { Min = 1f, Max = 10f };
 
     /// <summary>
     /// <inheritdoc cref="SlitScan"/>
@@ -51,6 +50,6 @@ public class SlitScan : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.SlitScan(Time));
 }

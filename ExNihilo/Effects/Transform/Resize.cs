@@ -1,23 +1,22 @@
-﻿using SixLabors.ImageSharp;
+﻿using ExNihilo.Base;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
-using ExNihilo.Base.Interfaces;
-using ExNihilo.Base.Parameters;
 
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of resize operations on an <see cref="IDrawable"/>
+/// Defines effect that allow the application of resize operations on an <see cref="Visual"/>
 /// </summary>
-public class Resize : IEffect
+public class Resize : Effect
 {
     /// <summary>
     /// The target image width.
     /// </summary>
-    public IntParameter Width { get; set; } = new(1, int.MaxValue, 0);
+    public IntProperty Width { get; set; } = new(1, int.MaxValue, 0);
     /// <summary>
     /// The target image height.
     /// </summary>
-    public IntParameter Height { get; set; } = new(1, int.MaxValue, 0);
+    public IntProperty Height { get; set; } = new(1, int.MaxValue, 0);
 
     /// <summary>
     /// <inheritdoc cref="Resize"/>
@@ -76,6 +75,6 @@ public class Resize : IEffect
         return this;
     }
 
-    public void Render(Image image, GraphicsOptions graphicsOptions) =>
+    public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Resize(Width, Height));
 }
