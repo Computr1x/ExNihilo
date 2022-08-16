@@ -35,6 +35,11 @@ public abstract class Visual : Renderable
         return this;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="image"></param>
+    /// <param name="graphicsOptions"></param>
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         for (int i = 0; i < Effects.Count; i++)
