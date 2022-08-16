@@ -9,7 +9,7 @@ public abstract class Renderable
 
     public void RandomizeProperties(Random random, bool force = false)
     {
-        PropertyInfo[] properties = GetType().GetProperties().Where(x => x.PropertyType == typeof(Property)).ToArray();
+        PropertyInfo[] properties = GetType().GetProperties().Where(x => x.PropertyType.IsSubclassOf(typeof(Property))).ToArray();
         PropertyInfo propertyInfo;
 
         for (int i = 0; i < properties.Length; i++)

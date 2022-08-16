@@ -1,50 +1,39 @@
 ﻿using ExNihilo.Base;
-using ExNihilo.Rnd;
 using ExNihilo.Visuals;
 using SixLabors.Fonts;
-using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace WPF;
 
-public class CaptchaViewer : FrameworkElement {
-	public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register(
-		nameof(ImageSource),
-		typeof(ImageSource),
+public class CaptchaViewer : FrameworkElement
+{
+    public static readonly DependencyProperty ImageSourceProperty = DependencyProperty.Register(
+        nameof(ImageSource),
+        typeof(ImageSource),
         typeof(CaptchaViewer),
-		new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender)
-	);
+        new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender)
+    );
 
-	public ImageSource ImageSource
-	{
-		get => (ImageSource) GetValue(ImageSourceProperty);
-		set => SetValue(ImageSourceProperty, value);
-	}
+    public ImageSource ImageSource
+    {
+        get => (ImageSource)GetValue(ImageSourceProperty);
+        set => SetValue(ImageSourceProperty, value);
+    }
 
-	public void Randomize()
-	{
+    public void Randomize()
+    {
         var renderSize = RenderSize;
 
         if (renderSize.Width == 0 || renderSize.Height == 0)
             return;
 
-        SixLabors.ImageSharp.Size visualSize = new((int) renderSize.Width, (int) renderSize.Height);
+        SixLabors.ImageSharp.Size visualSize = new((int)renderSize.Width, (int)renderSize.Height);
         SixLabors.ImageSharp.Point textCenter = new(visualSize.Width / 2, visualSize.Height / 2);
 
         var visual = new Container(visualSize)
@@ -53,10 +42,11 @@ public class CaptchaViewer : FrameworkElement {
                 new Container(visualSize)
                     .WithChildren(
                         Enumerable.Range(0, 15).Select(
-                            x => new ExNihilo.Visuals.Ellipse()
+                            x => new Ellipse()
                                 .WithRandomizedPoint(0, visualSize.Width, 0, visualSize.Height)
                                 .WithRandomizedSize(30, 60)
-                                .WithBrush(brush => {
+                                .WithBrush(brush =>
+                                {
                                     brush.WithRandomizedColor(50);
                                     brush.WithRandomizedType();
                                 })
@@ -81,8 +71,8 @@ public class CaptchaViewer : FrameworkElement {
         ImageSource = BitmapFrame.Create(memoryStream, BitmapCreateOptions.None, BitmapCacheOption.None);
     }
 
-	protected override void OnRender(DrawingContext dc)
-	{
+    protected override void OnRender(DrawingContext dc)
+    {
         Rect rect = new(RenderSize);
 
         // Transparent background for hit testing
@@ -91,14 +81,14 @@ public class CaptchaViewer : FrameworkElement {
         // Captcha image
         if (ImageSource is not null)
             dc.DrawImage(ImageSource, new Rect(RenderSize));
-	}
+    }
 }
 
 public partial class MainWindow : Window
 {
-	public MainWindow()
-	{
-		InitializeComponent();
+    public MainWindow()
+    {
+        InitializeComponent();
 
         // First generation
         CaptchaViewer.Loaded += (s, e) => CaptchaViewer.Randomize();
