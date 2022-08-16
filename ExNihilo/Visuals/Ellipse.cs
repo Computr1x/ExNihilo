@@ -14,7 +14,7 @@ public class Ellipse : VisualWithBrushAndPen
     /// <summary>
     /// Represent rectangular area where ellipse will be drawn.
     /// </summary>
-    public RectangleProperty Area { get; } = new RectangleProperty();
+    public RectangleProperty Area { get; } = new();
 
     /// <summary>
     /// <inheritdoc cref="Ellipse"/>

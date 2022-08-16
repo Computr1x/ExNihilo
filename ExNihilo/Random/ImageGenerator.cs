@@ -35,6 +35,20 @@ public class ImageGenerator
         _seeds = seeds;
         return this;
     }
+
+    /// <summary>
+    /// Set seeds for randomization.
+    /// </summary>
+    public ImageGenerator WithSeed(int seed)
+    {
+        _seeds = new int[]
+        {
+            seed
+        };
+
+        return this;
+    }
+
     /// <summary>
     /// Set count of seeds for randomization.
     /// </summary>
@@ -56,10 +70,7 @@ public class ImageGenerator
     public IEnumerable<ImageResult> Generate()
     {
         if (_seeds is null || _seeds.Length == 0)
-        {
-            int count = _captchaText.Values.FirstOrDefault()?.Length ?? 0;
-            WithSeedsCount(count);
-        }
+            WithSeedsCount(_captchaText.Values.FirstOrDefault()?.Length ?? 1);
 
         ValidateFields();
 
