@@ -15,6 +15,11 @@ public class Glow : Effect
     public FloatProperty Radius { get; set; } = new FloatProperty(15) { Min = 1, Max = 150 };
 
     /// <summary>
+    /// The radius of the glow
+    /// </summary>
+    public ColorProperty Color { get; set; } = new ColorProperty(SixLabors.ImageSharp.Color.Black);
+
+    /// <summary>
     /// <inheritdoc cref="Glow"/>
     /// </summary>
     public Glow() { }
@@ -50,5 +55,5 @@ public class Glow : Effect
     }
 
     public override void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.Glow(Radius));
+        image.Mutate(x => x.Glow(Color, Radius, new Rectangle(0,0,image.Width, image.Height)));
 }
