@@ -1,5 +1,6 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
+using System.Globalization;
 
 namespace ExNihilo.Tests;
 
@@ -21,7 +22,8 @@ public class EffectTest : Test
             template[index, 0] = true;
             template[0, index] = true;
         });
-
+        
+        var fontFamily = new FontCollection().Add(".\\Assets\\Fonts\\OpenSans.ttf");
         return new Container(containerSize)
             .WithBackground(Color.White)
             .WithChild(
@@ -63,7 +65,13 @@ public class EffectTest : Test
                 new Rectangle(50, 200, 100, 50)
                     .WithPen(PenType.DashDot, 5, Color.Olive)
                     .WithType(VisualType.Outlined)
-            );
+            )
+            .WithChild(
+                new Text(fontFamily, "HELLO")
+                    .WithPoint(center)
+                    .WithFontSize(72)
+                    .WithBrush(Color.Green)
+                    .WithType(VisualType.Filled));
     }
 
     private void GenerateTemplateWithEffect(Effect effect)
@@ -71,12 +79,6 @@ public class EffectTest : Test
         Container template = CreateTemplate().WithEffect(effect);
         new ImageSaver(new ImageGenerator(template).WithSeedsCount(1).Generate()).WithOutputPath(CurrentPath).WithFilePrefix(effect.GetType().Name + '_').Save();
     }
-
-    //[TestMethod]
-    //public void Test()
-    //{
-    //    GenerateTemplateWithEffect(new());
-    //}
 
     [TestMethod]
     public void TestColorEffects()
@@ -89,10 +91,6 @@ public class EffectTest : Test
             new ColorBlindness(),
             new Contrast(1.5f),
             new Dithering(),
-            //; Swap RGB to BGR
-            //ColorMatrix1 = 0; 0; 1; 0; 0
-            //ColorMatrix2 = 0; 1; 0; 0; 0
-            //ColorMatrix3 = 1; 0; 0; 0; 0
             new FilterMatrix(
                 new ColorMatrix(
                     2, 0, 0, 0,
@@ -119,7 +117,7 @@ public class EffectTest : Test
     }
 
     [TestMethod]
-    public void TestColorConvultional()
+    public void TestConvultional()
     {
         List<Effect> effects = new List<Effect>()
         {
@@ -175,7 +173,7 @@ public class EffectTest : Test
             new EntropyCrop(0.5f),
             new Flip(SixLabors.ImageSharp.Processing.FlipMode.Vertical),
             new Pad(256, 100),
-            new PolarCoordinates(),
+            new PolarCoordinates(Processors.PolarConversionType.CartesianToPolar),
             new Resize(256, 100),
             new Rotate(30),
             new Scale(1.5f, 1.5f),

@@ -118,7 +118,8 @@ public class VisualsTest : Test
     [TestMethod]
     public void TestText()
     {
-        var text = new Text(new FontCollection().AddSystemFonts().Families.First())
+        var fontFamily = new FontCollection().Add(@".\Assets\Fonts\OpenSans.ttf");
+        var text = new Text(fontFamily)
             .WithPoint(new Point(350, 50))
             .WithBrush(Color.Red)
             .WithContent("HELLO");
