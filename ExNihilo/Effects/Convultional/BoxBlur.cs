@@ -9,6 +9,9 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class BoxBlur : Effect
 {
+    /// <summary>  The 'radius' value representing the size of the area to sample. </summary>
+    public IntProperty Radius = new(1, int.MaxValue, 32);
+
     public override void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.BoxBlur());
+        image.Mutate(x => x.BoxBlur(Radius));
 }
