@@ -5,7 +5,7 @@ using SixLabors.ImageSharp.Processing;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of quantinization on an <see cref="Visual"/>
+/// Defines effect that allow the application of gaussian sharpen effect on an <see cref="Visual"/>
 /// </summary>
 public class GaussianSharpen : Effect
 {
