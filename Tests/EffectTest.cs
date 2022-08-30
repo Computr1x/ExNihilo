@@ -77,7 +77,9 @@ public class EffectTest : Test
     private void GenerateTemplateWithEffect(Effect effect)
     {
         Container template = CreateTemplate().WithEffect(effect);
-        new ImageSaver(new ImageGenerator(template).WithSeedsCount(1).Generate()).WithOutputPath(CurrentPath).WithFilePrefix(effect.GetType().Name + '_').Save();
+        new ImageSaver(
+            new ImageGenerator(template).WithSeedsCount(1).Generate())
+            .WithOutputPath(CurrentPath).WithFilePrefix(effect.GetType().Name + '_').Save();
     }
 
     [TestMethod]

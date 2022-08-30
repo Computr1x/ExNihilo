@@ -1,28 +1,37 @@
 ﻿using ExNihilo.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ExNihilo.Rnd;
+namespace ExNihilo.Utils;
 
 /// <summary>
 /// Allows you to automate randomization and generation of captchas.
 /// </summary>
-public class ImageGenerator
+public class CaptchaGenerator : ImageGenerator
 {
-    private Container _template;
-    private int[]? _seeds;
     private Dictionary<int, string[]> _captchaText = new();
 
     /// <summary>
-    /// <inheritdoc cref="ImageGenerator"/>
+    /// <inheritdoc cref="CaptchaGenerator"/>
     /// </summary>
-    public ImageGenerator(Container template)
+    public CaptchaGenerator(Container template) : base(template)
     {
-        _template = template;
+    }
+
+    /// <summary>  Set manual input for captchas. </summary>
+    public CaptchaGenerator WithCaptchaInput(string[] input, int index = 0)
+    {
+        _captchaText[index] = input;
+        return this;
     }
 
     /// <summary>
     /// Set template for generator.
     /// </summary>
-    public ImageGenerator WithTemplate(Container template)
+    public override CaptchaGenerator WithTemplate(Container template)
     {
         _template = template;
         return this;
@@ -30,7 +39,7 @@ public class ImageGenerator
     /// <summary>
     /// Set seeds for randomization.
     /// </summary>
-    public ImageGenerator WithSeeds(int[] seeds)
+    public override CaptchaGenerator WithSeeds(int[] seeds)
     {
         _seeds = seeds;
         return this;
@@ -39,35 +48,30 @@ public class ImageGenerator
     /// <summary>
     /// Set seeds for randomization.
     /// </summary>
-    public ImageGenerator WithSeed(int seed)
+    public override CaptchaGenerator WithSeed(int seed)
     {
         _seeds = new int[]
         {
             seed
         };
 
-        return this;
+        return (CaptchaGenerator)base.WithSeed(seed);
     }
 
     /// <summary>
     /// Set count of seeds for randomization.
     /// </summary>
-    public ImageGenerator WithSeedsCount(int count)
+    public override CaptchaGenerator WithSeedsCount(int count)
     {
         _seeds = Enumerable.Range(0, count).ToArray();
         return this;
     }
-    /// <summary>  Set manual input for captchas. </summary>
-    public ImageGenerator WithCaptchaInput(string[] input, int index = 0)
-    {
-        _captchaText[index] = input;
-        return this;
-    }
+
     /// <summary>
     /// Generate collection of captchas by defined seed and/or input.
     /// </summary>
     /// <exception cref="ArgumentException">Thrown when serial number is outside valid     range</exception>
-    public IEnumerable<ImageResult> Generate()
+    public override IEnumerable<CaptchaResult> Generate()
     {
         if (_seeds is null || _seeds.Length == 0)
             WithSeedsCount(_captchaText.Values.FirstOrDefault()?.Length ?? 1);
@@ -77,7 +81,7 @@ public class ImageGenerator
         return _captchaText.Keys.Count > 0 ? GenerateManualCaptcha() : GenerateRandomizedCaptcha();
     }
 
-    private IEnumerable<ImageResult> GenerateRandomizedCaptcha()
+    private IEnumerable<CaptchaResult> GenerateRandomizedCaptcha()
     {
         Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetContainerCaptchas(_template);
 
@@ -97,7 +101,7 @@ public class ImageGenerator
         }
     }
 
-    private IEnumerable<ImageResult> GenerateManualCaptcha()
+    private IEnumerable<CaptchaResult> GenerateManualCaptcha()
     {
         Dictionary<int, List<ICaptcha>> captchaIndexMapping = GetContainerCaptchas(_template);
         int seed;
@@ -129,8 +133,8 @@ public class ImageGenerator
     {
         int min, max;
 
-        min = _captchaText.Values.Min(x => (int?) x.Length) ?? 0;
-        max = _captchaText.Values.Max(x => (int?) x.Length) ?? 0;
+        min = _captchaText.Values.Min(x => (int?)x.Length) ?? 0;
+        max = _captchaText.Values.Max(x => (int?)x.Length) ?? 0;
 
         if (min != max)
             throw new ArgumentException("Captcha inputs should have same input array size. ");
@@ -144,18 +148,29 @@ public class ImageGenerator
 
     protected static Dictionary<int, List<ICaptcha>> GetContainerCaptchas(Container container)
     {
-        Dictionary<int, List<ICaptcha>> captchas = new();
-        
-        foreach (var visual in container.Children)
+        void CreateOrAdd(Dictionary<int, List<ICaptcha>> dic, ICaptcha captcha)
         {
-            if (visual is ICaptcha captcha)
-            {
-                if(captchas.ContainsKey(captcha.Index))
-                    captchas[captcha.Index].Add(captcha);
-                else
-                    captchas[captcha.Index] = new List<ICaptcha>() {
+            if (dic.ContainsKey(captcha.Index))
+                dic[captcha.Index].Add(captcha);
+            else
+                dic[captcha.Index] = 
+                    new List<ICaptcha>() {
                         captcha
                     };
+        }
+        Dictionary<int, List<ICaptcha>> captchas = new();
+
+        foreach (var visual in container.Children)
+        {
+            if (visual is Container innerContainer)
+            {
+                var innerCaptchas = GetContainerCaptchas(innerContainer);
+                foreach(var innerCaptcha in innerCaptchas.Values)
+                    innerCaptcha.ForEach(x => CreateOrAdd(captchas, x));
+            }
+            if (visual is ICaptcha captcha)
+            {
+                CreateOrAdd(captchas, captcha);
             }
         }
 

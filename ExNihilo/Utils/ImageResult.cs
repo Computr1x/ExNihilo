@@ -1,11 +1,11 @@
 ﻿using SixLabors.ImageSharp;
 
-namespace ExNihilo.Rnd;
+namespace ExNihilo.Utils;
 
 /// <summary>
 /// Stores image generation results.
 /// </summary>
-public class ImageResult
+public class ImageResult : IDisposable
 {
     /// <summary>
     /// The seed with which the image was generated.
@@ -15,28 +15,26 @@ public class ImageResult
     /// Generated image.
     /// </summary>
     public Image Image { get; }
-    /// <summary>
-    /// Generated captcha text.
-    /// </summary>
-    public string[] CaptchaText { get; }
+   
 
     /// <summary>
     /// <inheritdoc cref="ImageResult"/>
     /// </summary>
-    public ImageResult(int seed, Image image, string[] captchaText)
+    public ImageResult(int seed, Image image)
     {
         Seed = seed;
         Image = image;
-        CaptchaText = captchaText;
     }
 
-    ~ImageResult()
+    public virtual string GetName()
+    {
+        return Seed.ToString();
+    }
+
+    public void Dispose()
     {
         Image?.Dispose();
-    }
-
-    public string GetName(char separator = '_')
-    {
-        return Seed.ToString() + separator + string.Join(separator, CaptchaText);
+        // Not sure about this
+        //GC.SuppressFinalize(this);
     }
 }

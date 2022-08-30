@@ -183,29 +183,39 @@ public class Container : Visual
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
         Image<Rgba32>? tempImg = null;
-        Visual child;
 
-        // Background
-        image.Mutate(x => x.Fill(BackgroundColor));
-
-        // Children
-        for (int i = 0; i < Children.Count; i++)
+        try
         {
-            child = Children[i];
+            Visual child;
 
-            if (child.Effects.Count == 0)
-            {
-                child.Render(image, graphicsOptions);
-            }
-            else
-            {
-                tempImg = new(Size.Width, Size.Height);
-                // TODO: erase img instead of creating new
+            // Background
+            image.Mutate(x => x.Fill(BackgroundColor));
 
-                child.Render(tempImg, graphicsOptions);
-                image.Mutate(x => x.DrawImage(tempImg, graphicsOptions));
-                tempImg.Dispose();
+            // Children
+            for (int i = 0; i < Children.Count; i++)
+            {
+                child = Children[i];
+
+                if (child.Effects.Count == 0)
+                {
+                    child.Render(image, graphicsOptions);
+                }
+                else
+                {
+                    if (tempImg == null)
+                        tempImg = new(Size.Width, Size.Height);
+                    else
+                        tempImg.Mutate(x => x.Fill(Color.Transparent));
+                    // TODO: erase img instead of creating new
+
+                    child.Render(tempImg, graphicsOptions);
+                    image.Mutate(x => x.DrawImage(tempImg, graphicsOptions));
+                }
             }
+        }
+        finally
+        {
+            tempImg?.Dispose();
         }
 
         base.Render(image, graphicsOptions);

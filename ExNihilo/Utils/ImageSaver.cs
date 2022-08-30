@@ -1,7 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using System.IO.Compression;
 
-namespace ExNihilo.Rnd;
+namespace ExNihilo.Utils;
 
 /// <summary>
 /// Allows you to automate the saving of captcha generation results.
@@ -12,27 +12,27 @@ public class ImageSaver
     private string _folderName = "";
     private string _prefix = "";
     private ImageType _imageType = ImageType.Png;
-    private IEnumerable<ImageResult> _captchaResults;
+    private IEnumerable<ImageResult> _imageResults;
 
 
     /// <summary>
     /// <inheritdoc cref="ImageSaver"/>
     /// </summary>
-    public ImageSaver(IEnumerable<ImageResult> captchaResults)
+    public ImageSaver(IEnumerable<ImageResult> imageResults)
     {
-        _captchaResults = captchaResults;
+        _imageResults = imageResults;
     }
     /// <summary>
     /// <inheritdoc cref="ImageSaver"/>
     /// </summary>
-    public ImageSaver(IEnumerable<ImageResult> captchaResults, ImageType imageType) : this(captchaResults)
+    public ImageSaver(IEnumerable<ImageResult> imageResults, ImageType imageType) : this(imageResults)
     {
         _imageType = imageType;
     }
     /// <summary>
     /// <inheritdoc cref="ImageSaver"/>
     /// </summary>
-    public ImageSaver(IEnumerable<ImageResult> captchaResults, string path, ImageType imageType) : this(captchaResults, imageType)
+    public ImageSaver(IEnumerable<ImageResult> imageResults, string path, ImageType imageType) : this(imageResults, imageType)
     {
         _path = path;
     }
@@ -42,22 +42,22 @@ public class ImageSaver
     /// </summary>
     public void Save()
     {
-        foreach(ImageResult captchaResult in _captchaResults)
+        foreach(ImageResult imageResult in _imageResults)
         {
-            string resPath = Path.Join(_path, _prefix + captchaResult.GetName() + GetImageTypeExtenstion(_imageType));
+            string resPath = Path.Join(_path, _prefix + imageResult.GetName() + GetImageTypeExtenstion(_imageType));
             switch (_imageType)
             {
                 case ImageType.Png:
-                    captchaResult.Image.SaveAsPng(resPath);
+                    imageResult.Image.SaveAsPng(resPath);
                     break;
                 case ImageType.Jpeg:
-                    captchaResult.Image.SaveAsJpeg(resPath);
+                    imageResult.Image.SaveAsJpeg(resPath);
                     break;
                 case ImageType.Bmp:
-                    captchaResult.Image.SaveAsBmp(resPath);
+                    imageResult.Image.SaveAsBmp(resPath);
                     break;
                 case ImageType.Webp:
-                    captchaResult.Image.SaveAsWebp(resPath);
+                    imageResult.Image.SaveAsWebp(resPath);
                     break;
             }
         }
@@ -68,7 +68,7 @@ public class ImageSaver
     /// </summary>
     public async Task SaveAsync()
     {
-        foreach (ImageResult captchaResult in _captchaResults)
+        foreach (ImageResult captchaResult in _imageResults)
         {
             string resPath = Path.Join(_path, _prefix + captchaResult.GetName() + GetImageTypeExtenstion(_imageType));
             switch (_imageType)
@@ -96,7 +96,7 @@ public class ImageSaver
         using var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.Create);
         using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true);
        
-        foreach (ImageResult captchaResult in _captchaResults)
+        foreach (ImageResult captchaResult in _imageResults)
         {
             var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
 
@@ -125,7 +125,7 @@ public class ImageSaver
     {
         using var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.CreateNew, FileAccess.Write);
         using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true);
-        foreach (ImageResult captchaResult in _captchaResults)
+        foreach (ImageResult captchaResult in _imageResults)
         {
             var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
 
@@ -202,57 +202,4 @@ public enum ImageType {
     Jpeg,
     Bmp,
     Webp
-}
-
-// set output type
-public interface ISetOutputType
-{
-    public IHasTypeSetOutputPath SetOutputType(ImageType type);
-}
-
-// set path
-public interface IHasTypeSetOutputPath
-{
-    public IHasTypeAndPath SetOutputPath(string path);
-}
-
-// choose save type
-public interface IHasTypeAndPath
-{
-    public ISeparateFileSaver SaveAsSeparateFile();
-    public IZipFileSaver SaveAsZip(string archiveName);
-}
-
-// separate file type
-public interface ISeparateFileSaver : ISaveSeparateFiles
-{
-    public ISeparateFileSaverWithFilePrefix WithFilePrefix(string prefix);
-    public ISeparateFileSaverWithFolder CreateFolder(string folderName);
-}
-
-public interface ISeparateFileSaverWithFilePrefix : ISaveSeparateFiles
-{
-    public ISaveSeparateFiles CreateFolder(string folderName);
-}
-
-public interface ISeparateFileSaverWithFolder : ISaveSeparateFiles
-{
-    public ISaveSeparateFiles WithFilePrefix(string prefix);
-}
-
-public interface ISaveSeparateFiles
-{
-    public void Save();
-    public Task SaveAsync();
-}
-
-// zip file type
-public interface IZipFileSaver : ISaveZipFile
-{
-    public ISaveZipFile WithFilePrefix(string prefix);
-}
-public interface ISaveZipFile
-{
-    public void Save();
-    public Task SaveAsync();
 }

@@ -45,7 +45,7 @@ public class SaverTest : Test
 	[TestMethod]
 	public void TestSaveAsSeparateFiles()
 	{
-		var captchaResults = new ImageGenerator(CreateTemplate()).WithSeedsCount(5).Generate();
+		var captchaResults = new CaptchaGenerator(CreateTemplate()).WithSeedsCount(5).Generate();
 
 		new ImageSaver(captchaResults).WithOutputPath(CurrentPath).CreateFolder("TestFolder1").WithFilePrefix("_test_").WithOutputType(ImageType.Png).Save();
 		new ImageSaver(captchaResults).WithOutputPath(Path.Join(CurrentPath, "TestFolder1")).WithFilePrefix("_test_").WithOutputType(ImageType.Jpeg).Save();
@@ -54,7 +54,7 @@ public class SaverTest : Test
 	[TestMethod]
 	public void TestSaveAsZip()
 	{
-		var captchaResults = new ImageGenerator(CreateTemplate()).WithSeedsCount(5).Generate();
+		var captchaResults = new CaptchaGenerator(CreateTemplate()).WithSeedsCount(5).Generate();
 
 		new ImageSaver(captchaResults).WithOutputPath(CurrentPath).SaveAsZip();
 		new ImageSaver(captchaResults).WithOutputPath(CurrentPath).WithFilePrefix("_test_").WithOutputType(ImageType.Jpeg).SaveAsZip("archive2");

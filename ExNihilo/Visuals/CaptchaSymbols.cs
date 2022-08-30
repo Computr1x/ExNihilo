@@ -1,6 +1,6 @@
 ﻿using ExNihilo.Base;
 using ExNihilo.Extensions;
-using ExNihilo.Rnd;
+using ExNihilo.Utils;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
