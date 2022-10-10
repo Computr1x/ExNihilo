@@ -12,13 +12,13 @@ namespace ExNihilo.Effects;
 public class Wave : Effect
 {
     /// <summary>
-    /// Wave length. Must be greater or equal to 0
+    /// Wave length. Must be greater or equal to 1
     /// </summary>
-    public FloatProperty WaveLength { get; set; } = new(0, float.MaxValue, 3f) { Min = 1f, Max = 10f };
+    public FloatProperty WaveLength { get; set; } = new(1, float.MaxValue, 3f) { Min = 1f, Max = 10f };
     /// <summary>
-    /// Wave amplitude. Must be greater or equal to 0
+    /// Wave amplitude. Must be greater or equal to 1
     /// </summary>
-    public FloatProperty Amplitude { get; set; } = new(0, float.MaxValue, 2f) { Min = 1f, Max = 10f };
+    public FloatProperty Amplitude { get; set; } = new(1, float.MaxValue, 2f) { Min = 1f, Max = 10f };
     /// <summary>
     /// Type of wave.
     /// </summary>

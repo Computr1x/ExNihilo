@@ -12,11 +12,11 @@ public class Scale : Effect
     /// <summary>
     /// Amount of scale by x axis.
     /// </summary>
-    public FloatProperty XScale { get; set; } = new(0) { Min = 0, Max = 2 };
+    public FloatProperty XScale { get; set; } = new(0, float.MaxValue, 1) { Min = 0, Max = 2 };
     /// <summary>
     /// Amount of scale by y axis.
     /// </summary>
-    public FloatProperty YScale { get; set; } = new(0) { Min = 0, Max = 2 };
+    public FloatProperty YScale { get; set; } = new(0, float.MaxValue, 1) { Min = 0, Max = 2 };
 
     /// <summary>
     /// <inheritdoc cref="Scale"/>

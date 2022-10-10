@@ -17,7 +17,7 @@ public class Slices : Effect
     /// <summary>
     /// Count of slices. Must greater or equal to 1.
     /// </summary>
-    public IntProperty Count { get; set; } = new(10) { Min = 1, Max = 10 };
+    public IntProperty Count { get; set; } = new(1, int.MaxValue, 10) { Min = 1, Max = 10 };
     /// <summary>
     /// Min value of slice shift.
     /// </summary>

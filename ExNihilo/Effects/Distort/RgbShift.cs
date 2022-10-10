@@ -6,7 +6,7 @@ using SixLabors.ImageSharp.Processing;
 namespace ExNihilo.Effects;
 
 /// <summary>
-/// Defines effect that allow the application of slices effect on an <see cref="Visual"/>
+/// Defines effect that allow the application of rgb shift effect on an <see cref="Visual"/>
 /// </summary>
 public class RgbShift : Effect
 {
