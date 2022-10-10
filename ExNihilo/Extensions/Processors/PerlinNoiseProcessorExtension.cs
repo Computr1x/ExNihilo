@@ -13,16 +13,16 @@ public static class PerlinNoiseProcessorExtension
     /// <summary>
     /// Applies Perlin noise to the image.
     /// </summary>
-    public static IImageProcessingContext PerlinNoise(this IImageProcessingContext sourse, int seed, int octaves, float persistence, bool monochrome)
+    public static IImageProcessingContext PerlinNoise(this IImageProcessingContext sourse, int seed, int octaves, float persistence, byte amount, bool monochrome)
     {
-        return sourse.ApplyProcessor(new PerlinNoiseProcessor(seed) { Monochrome = monochrome, Octaves = octaves, Persistence = persistence });
+        return sourse.ApplyProcessor(new PerlinNoiseProcessor(seed, amount) { Monochrome = monochrome, Octaves = octaves, Persistence = persistence });
     }
 
     /// <summary>
     /// Applies Perlin noise to the image.
     /// </summary>
-    public static IImageProcessingContext PerlinNoise(this IImageProcessingContext sourse, Rectangle rectangle, int seed, int octaves, float persistence, bool monochrome)
+    public static IImageProcessingContext PerlinNoise(this IImageProcessingContext sourse, Rectangle rectangle, int seed, int octaves, float persistence, byte amount, bool monochrome)
     {
-        return sourse.ApplyProcessor(new PerlinNoiseProcessor(seed) { Monochrome = monochrome, Octaves = octaves, Persistence = persistence, Area = rectangle });
+        return sourse.ApplyProcessor(new PerlinNoiseProcessor(seed, amount) { Monochrome = monochrome, Octaves = octaves, Persistence = persistence, Area = rectangle });
     }
 }

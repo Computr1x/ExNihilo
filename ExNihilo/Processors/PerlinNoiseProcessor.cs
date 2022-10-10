@@ -9,6 +9,7 @@ namespace ExNihilo.Processors;
 internal class PerlinNoiseProcessor : IImageProcessor
 {
     private byte[] permutationTable;
+    private float _amount;
 
     public int Step { get; set; } = 1;
 
@@ -16,12 +17,23 @@ internal class PerlinNoiseProcessor : IImageProcessor
 
     public int Octaves { get; set; } = 5;
 
+    // public range 0 - 255
+    public float Amount
+    {
+        get => _amount;
+        set
+        {
+            _amount = 1 - (value % 256 / 255f);
+        }
+    }
+
     public float Persistence { get; set; } = 0.5f;
 
     public Rectangle Area { get; set; }
 
-    public PerlinNoiseProcessor(int seed = 0)
+    public PerlinNoiseProcessor(int seed = 0, byte amount = 255)
     {
+        Amount = amount;
         var rand = new Random(seed);
         permutationTable = new byte[1024];
         rand.NextBytes(permutationTable);
@@ -67,7 +79,8 @@ internal class PerlinNoiseProcessor : IImageProcessor
             // init vars
             Rgba32 sourcePixel = new();
             TPixel rawPixel = new();
-            byte noise = 0;
+            float noise = 0;
+            float opacity = processor.Amount;
 
             source.ProcessPixelRows(accessor =>
             {
@@ -82,21 +95,24 @@ internal class PerlinNoiseProcessor : IImageProcessor
                         if (sourcePixel.A == 0)
                             continue;
 
-                        noise = (byte) (MathF.Round(
-                            (Noise(x / (float) width, y / (float) height, processor.Octaves, processor.Persistence) + 1f / 2f)
-                                * 255 / processor.Step) * processor.Step);
-
-
+                        noise = Noise(x / (float)width, y / (float)height, processor.Octaves, processor.Persistence);
                         if (processor.Monochrome)
                         {
-                            sourcePixel.R = noise;
-                            sourcePixel.G = noise;
-                            sourcePixel.B = noise;
+                            
+                            sourcePixel.R = (byte)(sourcePixel.R * noise);
+                            sourcePixel.G = (byte)(sourcePixel.G * noise);
+                            sourcePixel.B = (byte)(sourcePixel.B * noise);
                         }
                         else
                         {
-                            ColorsConverter.HsbFToRgb(noise / 255f, 1f, 1f, out sourcePixel.R, out sourcePixel.G, out sourcePixel.B);
+                            float r, g, b;
+                            ColorsConverter.HsbFToRgb(noise, 1f, 1f, out r, out g, out b);
+                            sourcePixel.R = (byte)(r * sourcePixel.R);
+                            sourcePixel.G = (byte)(g * sourcePixel.G);
+                            sourcePixel.B = (byte)(b * sourcePixel.B);
                         }
+
+                        sourcePixel.A = (byte)(sourcePixel.A * opacity);
 
                         TPixel resPixel = new();
                         resPixel.FromRgba32(sourcePixel);
@@ -136,8 +152,8 @@ internal class PerlinNoiseProcessor : IImageProcessor
 
         private float Noise(float fx, float fy)
         {
-            int left = (int) MathF.Floor(fx);
-            int top = (int) MathF.Floor(fy);
+            int left = (int)MathF.Floor(fx);
+            int top = (int)MathF.Floor(fy);
             float pointInQuadX = fx - left;
             float pointInQuadY = fy - top;
 

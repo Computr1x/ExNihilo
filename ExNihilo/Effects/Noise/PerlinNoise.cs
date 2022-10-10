@@ -25,6 +25,10 @@ public class PerlinNoise : Effect
     /// </summary>
     public FloatProperty Persistence { get; set; } = new (0, 1, 1f) { Value = 0.5f };
     /// <summary>
+    /// Opacity of noise [0, 1].
+    /// </summary>
+    public FloatProperty Opacity { get; set; } = new(0, 1, 1) { Min = 0, Max = 1 };
+    /// <summary>
     /// Define is noise monochrome or not.
     /// </summary>
     public BoolProperty Monochrome { get; set; } = new();
@@ -40,10 +44,11 @@ public class PerlinNoise : Effect
     /// <param name="octaves"><inheritdoc cref="Octaves" path="/summary"/></param>
     /// <param name="persistence"><inheritdoc cref="Persistence" path="/summary"/></param>
     /// <param name="isMonochrome"><inheritdoc cref="Monochrome" path="/summary"/></param>
-    public PerlinNoise(int octaves, float persistence, bool isMonochrome) 
+    public PerlinNoise(int octaves, float persistence, float amount, bool isMonochrome) 
     { 
         Octaves.Value = octaves;
         Persistence.Value = persistence;
+        Opacity.Value = amount;
         Monochrome.Value = isMonochrome;
     }
 
@@ -108,6 +113,16 @@ public class PerlinNoise : Effect
     }
 
     /// <summary>
+    /// Set Opacity value
+    /// </summary>
+    /// <param name="value"><inheritdoc cref="Opacity" path="/summary"/></param>
+    public PerlinNoise WithOpacity(float value)
+    {
+        Opacity.Value = value;
+        return this;
+    }
+
+    /// <summary>
     /// Set Monochrome value
     /// </summary>
     /// <param name="value"><inheritdoc cref="Monochrome" path="/summary"/></param>
@@ -118,5 +133,5 @@ public class PerlinNoise : Effect
     }
 
     public override void Render(Image image, GraphicsOptions graphicsOptions) =>
-        image.Mutate(x => x.PerlinNoise(Seed, Octaves, Persistence, Monochrome));
+        image.Mutate(x => x.PerlinNoise(Seed, Octaves, Persistence, (byte)(Opacity * 255), Monochrome));
 }

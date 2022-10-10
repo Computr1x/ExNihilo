@@ -15,9 +15,9 @@ public class GaussianNoise : Effect
     /// </summary>
     public IntProperty Seed { get; set; } = new(0) { Min = 0, Max = 10 };
     /// <summary>
-    /// Amount of noise (0-255).
+    /// Opcity of noise [0, 1].
     /// </summary>
-    public ByteProperty Amount { get; set; } = new(0, byte.MaxValue, byte.MaxValue) { Min = 0, Max = byte.MaxValue };
+    public FloatProperty Opacity { get; set; } = new(0, 1, 1) { Min = 0, Max = 1 };
     /// <summary>
     /// Define is noise monochrome or not.
     /// </summary>
@@ -31,11 +31,11 @@ public class GaussianNoise : Effect
     /// <summary>
     /// <inheritdoc cref="GaussianNoise"/>
     /// </summary>
-    /// <param name="amount"><inheritdoc cref="Amount" path="/summary"/></param>
+    /// <param name="opacity"><inheritdoc cref="Opacity" path="/summary"/></param>
     /// <param name="isMonochome"><inheritdoc cref="Monochrome" path="/summary"/></param>
-    public GaussianNoise(byte amount, bool isMonochome)
+    public GaussianNoise(float opacity, bool isMonochome)
     {
-        Amount.Value = amount;
+        Opacity.Value = opacity;
         Monochrome.Value = isMonochome;
     }
 
@@ -60,22 +60,22 @@ public class GaussianNoise : Effect
     }
 
     /// <summary>
-    /// Set Amount value
+    /// Set Opacity value
     /// </summary>
-    /// <param name="value"><inheritdoc cref="Amount" path="/summary"/></param>
-    public GaussianNoise WithAmount(byte value)
+    /// <param name="value"><inheritdoc cref="Opacity" path="/summary"/></param>
+    public GaussianNoise WithOpacity(float value)
     {
-        Amount.Value = value;
+        Opacity.Value = value;
         return this;
     }
     /// <summary>
     /// Set Amount randomization parameters.
     /// </summary>
-    /// <param name="min">Minimal randomization value. <inheritdoc cref="Amount" path="/summary"/></param>
-    /// <param name="max">Maximal randomization value. <inheritdoc cref="Amount" path="/summary"/></param>
-    public GaussianNoise WithRandomizedAmount(byte min, byte max)
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Opacity" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Opacity" path="/summary"/></param>
+    public GaussianNoise WithRandomizedAmount(float min, float max)
     {
-        Amount.WithRandomizedValue(min, max);
+        Opacity.WithRandomizedValue(min, max);
         return this;
     }
 
@@ -91,6 +91,6 @@ public class GaussianNoise : Effect
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        image.Mutate(x => { x.GaussianNoise(Seed, Amount, Monochrome); });
+        image.Mutate(x => { x.GaussianNoise(Seed, (byte) (Opacity * 255), Monochrome); });
     }
 }

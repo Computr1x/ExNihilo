@@ -145,7 +145,7 @@ public class EffectTest : Test
             new Bulge(center, 100, 0.5f),
             new RgbShift(3),
             new Ripple(center, 250, 10, 3),
-            new Slices(10, 3),
+            new Slices(15, 6),
             new SlitScan(0.5f),
             new Swirl(center, 150, 10, 1.5f),
             new Wave(100, 10, Processors.WaveType.Sine)
@@ -159,8 +159,8 @@ public class EffectTest : Test
     {
         List<Effect> effects = new List<Effect>()
         {
-            new GaussianNoise(),
-            new PerlinNoise(3, 0.5f, false)
+            new GaussianNoise(0.5f, false),
+            new PerlinNoise(3, 0.5f, 0.5f, false)
         };
         foreach (var effect in effects)
             GenerateTemplateWithEffect(effect);
