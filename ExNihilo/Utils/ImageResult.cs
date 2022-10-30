@@ -1,4 +1,5 @@
 ﻿using SixLabors.ImageSharp;
+using System.Data.Common;
 
 namespace ExNihilo.Utils;
 
@@ -30,11 +31,18 @@ public class ImageResult : IDisposable
     {
         return Seed.ToString();
     }
-
+    
     public void Dispose()
     {
-        Image?.Dispose();
-        // Not sure about this
-        //GC.SuppressFinalize(this);
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            Image?.Dispose();
+        }
     }
 }
