@@ -9,10 +9,9 @@ namespace ExNihilo.Utils;
 public class ImageSaver
 {
     private string _path = "";
-    private string _folderName = "";
     private string _prefix = "";
     private ImageType _imageType = ImageType.Png;
-    private IEnumerable<ImageResult> _imageResults;
+    private readonly IEnumerable<ImageResult> _imageResults;
 
 
     /// <summary>
@@ -22,6 +21,19 @@ public class ImageSaver
     {
         _imageResults = imageResults;
     }
+
+    /// <summary>
+    /// <inheritdoc cref="ImageSaver"/>
+    /// </summary>
+    public ImageSaver(IEnumerable<Image> images)
+    {
+        List<ImageResult> imageResults = new();
+        int i = 0;
+        foreach(var image in images)        
+            imageResults.Add(new ImageResult(i++, image));
+        _imageResults = imageResults;
+    }
+
     /// <summary>
     /// <inheritdoc cref="ImageSaver"/>
     /// </summary>
@@ -29,6 +41,15 @@ public class ImageSaver
     {
         _imageType = imageType;
     }
+
+    /// <summary>
+    /// <inheritdoc cref="ImageSaver"/>
+    /// </summary>
+    public ImageSaver(IEnumerable<Image> images, ImageType imageType) : this(images)
+    {
+        _imageType = imageType;
+    }
+
     /// <summary>
     /// <inheritdoc cref="ImageSaver"/>
     /// </summary>
@@ -38,52 +59,39 @@ public class ImageSaver
     }
 
     /// <summary>
+    /// <inheritdoc cref="ImageSaver"/>
+    /// </summary>
+    public ImageSaver(IEnumerable<Image> images, string path, ImageType imageType) : this(images, imageType)
+    {
+        _path = path;
+    }
+
+    /// <summary>
     /// Save results synchronously as separate files.
     /// </summary>
-    public void Save()
-    {
-        foreach(ImageResult imageResult in _imageResults)
-        {
-            string resPath = Path.Join(_path, _prefix + imageResult.GetName() + GetImageTypeExtenstion(_imageType));
-            switch (_imageType)
-            {
-                case ImageType.Png:
-                    imageResult.Image.SaveAsPng(resPath);
-                    break;
-                case ImageType.Jpeg:
-                    imageResult.Image.SaveAsJpeg(resPath);
-                    break;
-                case ImageType.Bmp:
-                    imageResult.Image.SaveAsBmp(resPath);
-                    break;
-                case ImageType.Webp:
-                    imageResult.Image.SaveAsWebp(resPath);
-                    break;
-            }
-        }
-    }
+    public void Save() => SaveAsync().Wait();
 
     /// <summary>
     /// Save results asynchronously as separate files.
     /// </summary>
     public async Task SaveAsync()
     {
-        foreach (ImageResult captchaResult in _imageResults)
+        foreach (ImageResult imageResult in _imageResults)
         {
-            string resPath = Path.Join(_path, _prefix + captchaResult.GetName() + GetImageTypeExtenstion(_imageType));
+            string resPath = Path.Join(_path, _prefix + imageResult.GetName() + GetImageTypeExtenstion(_imageType));
             switch (_imageType)
             {
                 case ImageType.Png:
-                    await captchaResult.Image.SaveAsPngAsync(resPath);
+                    await imageResult.Image.SaveAsPngAsync(resPath);
                     break;
                 case ImageType.Jpeg:
-                    await captchaResult.Image.SaveAsJpegAsync(resPath);
+                    await imageResult.Image.SaveAsJpegAsync(resPath);
                     break;
                 case ImageType.Bmp:
-                    await captchaResult.Image.SaveAsBmpAsync(resPath);
+                    await imageResult.Image.SaveAsBmpAsync(resPath);
                     break;
                 case ImageType.Webp:
-                    await captchaResult.Image.SaveAsWebpAsync(resPath);
+                    await imageResult.Image.SaveAsWebpAsync(resPath);
                     break;
             }
         }
@@ -92,32 +100,8 @@ public class ImageSaver
     /// Save results synchronously as zip archive.
     /// </summary>
     public void SaveAsZip(string archiveName = "archive", CompressionLevel compressionLevel = CompressionLevel.Fastest)
-    {
-        using var archiveStream = new FileStream(Path.Join(_path, archiveName + ".zip"), FileMode.Create);
-        using var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, true);
-       
-        foreach (ImageResult captchaResult in _imageResults)
-        {
-            var zipArchiveEntry = archive.CreateEntry(captchaResult.GetName() + GetImageTypeExtenstion(_imageType), compressionLevel);
+        => SaveAsZipAsync(archiveName, compressionLevel).Wait();
 
-            using var zipStream = zipArchiveEntry.Open();
-            switch (_imageType)
-            {
-                case ImageType.Png:
-                    captchaResult.Image.SaveAsPng(zipStream);
-                    break;
-                case ImageType.Jpeg:
-                    captchaResult.Image.SaveAsJpeg(zipStream);
-                    break;
-                case ImageType.Bmp:
-                    captchaResult.Image.SaveAsBmp(zipStream);
-                    break;
-                case ImageType.Webp:
-                    captchaResult.Image.SaveAsWebp(zipStream);
-                    break;
-            }
-        }
-    }
     /// <summary>
     /// Save results asynchronously as zip archive.
     /// </summary>
@@ -165,7 +149,6 @@ public class ImageSaver
     public ImageSaver CreateFolder(string folderName)
     {
         _path = Directory.CreateDirectory(Path.Join(_path, folderName)).FullName;
-        _folderName = folderName;
         return this;
     }
     /// <summary>
