@@ -1,24 +1,23 @@
-﻿using SixLabors.Fonts;
-using SixLabors.ImageSharp;
-using ExNihilo.Base.Hierarchy;
-using ExNihilo.Drawables;
-using ExNihilo.Rnd;
+﻿using ExNihilo.Base;
 using ExNihilo.Effects;
-using ExNihilo.Base.Parameters;
+using ExNihilo.Utils;
+using ExNihilo.Visuals;
+using SixLabors.Fonts;
+using SixLabors.ImageSharp;
 using System.Globalization;
 
 FontFamily fontFamily = new FontCollection().AddSystemFonts().GetByCulture(CultureInfo.CurrentCulture).First();
 
-Size canvasSize = new(512, 256);
+Size containerSize = new(512, 256);
 Point leftSide = new(256 - 128, 128);
 Point rightSide = new(256 + 128, 128);
 Point center = new(256, 128);
-// create and render canvas
-Canvas canvas = new Canvas(canvasSize)
-    .WithLayer(
-        new Layer(canvasSize)
+// create and render container
+Container container = new Container(containerSize)
+    .WithContainer(
+        new Container(containerSize)
             .WithBackground(Color.White)
-            .WithDrawable(
+            .WithChild(
                 new Captcha()
                     .WithIndex(0)
                     .WithPoint(leftSide)
@@ -26,16 +25,16 @@ Canvas canvas = new Canvas(canvasSize)
                     .WithRandomizedContent(content =>
                     {
                         content.WithRandomizedLength(1, 2);
-                        content.WithCharactersSet(StringParameter.decdigits);
+                        content.WithCharactersSet(StringProperty.decdigits);
                     })
-                    .WithPen((PenParameter pen) =>
+                    .WithPen((PenProperty pen) =>
                     {
                         pen.WithRandomizedWidth(1, 3);
                     })
                     .WithRandomizedBrush(10)
                     .WithFontFamily(fontFamily)
-                    .WithType(ExNihilo.Base.Utils.DrawableType.Filled))
-            .WithDrawable(
+                    .WithType(VisualType.Filled))
+            .WithChild(
                 new Captcha()
                     .WithIndex(1)
                     .WithPoint(center)
@@ -46,12 +45,12 @@ Canvas canvas = new Canvas(canvasSize)
                         content.WithCharactersSet("+-".ToCharArray());
                     })
                     .WithRandomizedBrush(10)
-                    .WithPen((PenParameter pen) =>
+                    .WithPen((PenProperty pen) =>
                     {
                         pen.WithWidth(1);
                     })
                     .WithFontFamily(fontFamily))
-            .WithDrawable(
+            .WithChild(
                 new Captcha()
                     .WithIndex(2)
                     .WithPoint(rightSide)
@@ -59,9 +58,9 @@ Canvas canvas = new Canvas(canvasSize)
                     .WithRandomizedContent(content =>
                     {
                         content.WithRandomizedLength(1, 2);
-                        content.WithCharactersSet(StringParameter.decdigits);
+                        content.WithCharactersSet(StringProperty.decdigits);
                     })
-                    .WithPen((PenParameter pen) =>
+                    .WithPen((PenProperty pen) =>
                     {
                         pen.WithRandomizedWidth(1,3);
                     })
@@ -75,6 +74,6 @@ Canvas canvas = new Canvas(canvasSize)
     );
 
 // lazy generation of three captchas
-var captchaResults = new ImageGenerator(canvas).WithSeedsCount(10).Generate();
+var captchaResults = new ImageGenerator(container).WithSeedsCount(10).Generate();
 // save captcha as separate files
 new ImageSaver(captchaResults).WithOutputPath("./").CreateFolder("Results").Save();

@@ -17,13 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{38
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF", "Examples\WPF\WPF.csproj", "{B5964E1E-5078-4D61-936E-1AF3FE685159}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedCaptcha", "..\ExNihilo Samples\AdvancedCaptcha\AdvancedCaptcha.csproj", "{0CF5A815-8D18-45C1-BD0E-D0781AEFAB04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedCaptcha", "Examples\AdvancedCaptcha\AdvancedCaptcha.csproj", "{0CF5A815-8D18-45C1-BD0E-D0781AEFAB04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCaptcha", "..\ExNihilo Samples\MathCaptcha\MathCaptcha.csproj", "{CEF1EF14-3D6E-4E5E-A56E-C73C60A1B947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCaptcha", "Examples\MathCaptcha\MathCaptcha.csproj", "{CEF1EF14-3D6E-4E5E-A56E-C73C60A1B947}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleCaptcha", "..\ExNihilo Samples\SimpleCaptcha\SimpleCaptcha.csproj", "{EEE37AEA-43CE-4B17-B256-ACAF3CE6D6AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleCaptcha", "Examples\SimpleCaptcha\SimpleCaptcha.csproj", "{EEE37AEA-43CE-4B17-B256-ACAF3CE6D6AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoLanguageCaptcha", "..\ExNihilo Samples\TwoLanguageCaptcha\TwoLanguageCaptcha.csproj", "{8B55D8EC-AB3E-4213-B794-EBF650132D24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoLanguageCaptcha", "Examples\TwoLanguageCaptcha\TwoLanguageCaptcha.csproj", "{8B55D8EC-AB3E-4213-B794-EBF650132D24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

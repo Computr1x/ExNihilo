@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExNihilo" Version="1.0.2-alpha" />
+    <PackageReference Include="ExNihilo" Version="1.0.0-alpha" />
   </ItemGroup>
 
 </Project>
