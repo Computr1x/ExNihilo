@@ -10,6 +10,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Bulge : Effect
 {
+    public override EffectType EffectType => EffectType.Distort;
     /// <summary>
     /// Center of bulge effect
     /// </summary>

@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Pixelate : Effect
 {
+    public override EffectType EffectType => EffectType.Convultional;
     /// <summary>
     /// The size of the pixels. Must be greater then 1
     /// </summary>

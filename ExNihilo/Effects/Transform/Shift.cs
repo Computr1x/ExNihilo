@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Shift : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// Amount of shift by x axis.
     /// </summary>

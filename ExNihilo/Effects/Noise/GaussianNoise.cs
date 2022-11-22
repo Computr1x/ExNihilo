@@ -10,6 +10,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class GaussianNoise : Effect
 {
+    public override EffectType EffectType => EffectType.Noise;
     /// <summary>
     /// Seed for noise randomizer.
     /// </summary>

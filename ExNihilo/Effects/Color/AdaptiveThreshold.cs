@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class AdaptiveThreshold : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
     /// <summary>
     /// Threshold limit (0.0-1.0) to consider for binarization.
     /// </summary>

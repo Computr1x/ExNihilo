@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Flip : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// The <see cref="FlipMode"/> to perform the flip.
     /// </summary>

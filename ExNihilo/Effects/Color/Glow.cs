@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Glow : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
     /// <summary>
     /// The radius of the glow
     /// </summary>

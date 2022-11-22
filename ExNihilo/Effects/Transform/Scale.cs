@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Scale : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// Amount of scale by x axis.
     /// </summary>

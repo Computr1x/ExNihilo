@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class EntropyCrop : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// The threshold for entropic density.
     /// </summary>

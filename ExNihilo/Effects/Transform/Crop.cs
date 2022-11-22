@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Crop : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// <see cref="Rectangle"/> structure that specifies the portion of the image object to retain.
     /// </summary>

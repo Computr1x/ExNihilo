@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class BokehBlur : Effect
 {
+    public override EffectType EffectType => EffectType.Convultional;
     /// <summary>  The 'radius' value representing the size of the area to sample. </summary>
     public IntProperty Radius = new(1, int.MaxValue, 32);
     /// <summary>  The 'components' value representing the number of kernels to use to approximate the bokeh effect. </summary>
