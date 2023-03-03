@@ -1,4 +1,6 @@
-![logo](https://user-images.githubusercontent.com/11760002/184577160-674d9764-0022-4194-b4e9-d07b9103dcf5.png)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/11760002/184577160-674d9764-0022-4194-b4e9-d07b9103dcf5.png">
+</p>
 
 This is an extremely powerful tool for creating procedural images from scratch. You can use it to generate captchas, datasets to train neural networks or unique game mechanics - in other words, for anything your imagination can do
 
