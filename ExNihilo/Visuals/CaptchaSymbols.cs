@@ -232,9 +232,9 @@ public class CaptchaSymbols : Visual, ICaptcha
 		if (string.IsNullOrEmpty(TextSymbols.Content) || TextSymbols.FontFamily.Value is null)
 			return;
 
-		// create text options
-		TextOptions opt = new((TextSymbols.FontFamily.Value ?? TextSymbols.FontFamily.DefaultValue).
-					CreateFont(TextSymbols.FontSize, TextSymbols.Style))
+        var font = (TextSymbols.FontFamily.Value ?? TextSymbols.FontFamily.DefaultValue).CreateFont(TextSymbols.FontSize, TextSymbols.Style);
+        // create text options
+        RichTextOptions opt = new(font)
 		{
 			Dpi = Dpi,
 			TextAlignment = TextAlignment.Start,
@@ -244,7 +244,7 @@ public class CaptchaSymbols : Visual, ICaptcha
 		};
 
 		// calculate rendered text width
-		FontRectangle rect = TextMeasurer.Measure(TextSymbols.Content, opt);
+		FontRectangle rect = TextMeasurer.MeasureSize(TextSymbols.Content, opt);
 
 		DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
@@ -263,7 +263,7 @@ public class CaptchaSymbols : Visual, ICaptcha
 			foreach (var symbolsParams in TextSymbols.RandomizedTextProperties)
 			{
 				// create temp image
-				rect = TextMeasurer.Measure(symbolsParams.Content.Value, opt);
+				rect = TextMeasurer.MeasureSize(symbolsParams.Content.Value, opt);
 
 				// skip symbol drawing if he outside of image
 				if (origin.X + rect.Width < 0 || origin.X + rect.Width >= image.Width ||

@@ -104,7 +104,7 @@ public class Line : Visual
             if (IsBeziers)
                 x.DrawBeziers(dopt, Pen.Value, Points);
             else
-                x.DrawLines(dopt, Pen.Value, Points);
+                x.DrawLine(dopt, Pen.Value, Points);
         });
 
         base.Render(image, graphicsOptions);
