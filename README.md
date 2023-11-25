@@ -45,11 +45,10 @@ Container container = new(containerSize)
 new ImageSaver(
     new ImageGenerator(container)
         .WithSeedsCount(3)
-        .Generate()
-)
-    .WithOutputPath("./")
-    .CreateFolder("Results")
-    .Save();
+        .Generate())
+.WithOutputPath("./")
+.CreateFolder("Results")
+.Save();
 ```
 
 ## Example projects
@@ -58,10 +57,9 @@ You can always find several test projects with detailed code explanations in a d
 
 | Project | Description | Result |
 |--------------------|-------------|-------------------------------------------------------------------------------------------------------------------------|
-| [SimpleCaptcha](https://github.com/Computr1x/ExNihilo/tree/master/Examples/SimpleCaptcha)      |  The example shows basic container operations such as working with layers, text, generating and saving an image.           |   ![1_GCMUR](https://user-images.githubusercontent.com/44768267/184554245-57633e01-b30a-4669-87f9-c59886f725c6.png)     |
-| [AdvancedCaptcha](https://github.com/Computr1x/ExNihilo/tree/master/Examples/AdvancedCaptcha)    | Advanced work with multiple visual objects, randomization of their parameters and post-processing effects            |   ![3_SZCRR](https://user-images.githubusercontent.com/44768267/184554299-01e5bfd0-a765-4c38-8800-35b2f1d93f3d.png)     |
-| [MathCaptcha](https://github.com/Computr1x/ExNihilo/tree/master/Examples/MathCaptcha)        | Creating a simple math captcha with a little distortion effect            |   ![2_4_+_3](https://user-images.githubusercontent.com/44768267/184554306-297c0294-a13e-4fde-a775-061a1eee2b0f.png)     |
-| [TwoLanguageCaptcha](https://github.com/Computr1x/ExNihilo/tree/master/Examples/TwoLanguageCaptcha) |  This example shows how to create a captcha with different fonts for rendering text in two languages.           |   ![0_TOFOX](https://user-images.githubusercontent.com/44768267/184554323-09ac4649-4612-418c-b145-2438c5beb59f.png)     |
+| [Simple](https://github.com/Computr1x/ExNihilo/tree/master/Examples/Simple)      |  The example shows basic container operations such as working with containers, text, generating and saving an image.           |   ![1_GCMUR](https://user-images.githubusercontent.com/44768267/184554245-57633e01-b30a-4669-87f9-c59886f725c6.png)     |
+| [AdvancedCaptcha](https://github.com/Computr1x/ExNihilo/tree/master/Examples/AdvancedCaptcha)    | Advanced work with multiple visual objects, randomization of their parameters and post-processing effects.            |   ![3_SZCRR](https://user-images.githubusercontent.com/44768267/184554299-01e5bfd0-a765-4c38-8800-35b2f1d93f3d.png)     |
+| [TwoLanguage](https://github.com/Computr1x/ExNihilo/tree/master/Examples/TwoLanguage) |  This example shows how to create a image with different fonts for rendering text in two languages.           |   ![0_TOFOX](https://user-images.githubusercontent.com/44768267/184554323-09ac4649-4612-418c-b145-2438c5beb59f.png)     |
 | [WPF](https://github.com/Computr1x/ExNihilo/tree/master/Examples/WPF) |  This example shows how to create and display image in WPF project.           |    ![wpf](https://user-images.githubusercontent.com/44768267/186938211-42dc5871-faa6-404b-b03c-4039d39f10be.PNG)|
 
 

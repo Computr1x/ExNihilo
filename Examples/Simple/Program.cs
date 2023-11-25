@@ -16,7 +16,10 @@ Container container = new Container(containerSize)
                     .WithPoint(new Point(256,128))
                     .WithFontSize(100)
                     .WithRandomizedContent(content =>
-                    { content.WithLength(5); content.WithCharactersSet(StringProperty.asciiUpperCase);})
+                    {
+                        content.WithLength(5);
+                        content.WithCharactersSet(StringProperty.asciiUpperCase);
+                    })
                     .WithRandomizedBrush(10)
                     .WithFontFamily(fontFamily)
                     .WithType(VisualType.Filled)));
