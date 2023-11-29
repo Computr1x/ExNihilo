@@ -118,7 +118,7 @@ public class VisualsTest : Test
     [TestMethod]
     public void TestText()
     {
-        var fontFamily = new FontCollection().Add(@".\Assets\Fonts\OpenSans.ttf");
+        var fontFamily = new FontCollection().Add(Path.GetFullPath(@"./Assets/Fonts/OpenSans.ttf"));
         var text = new Text(fontFamily)
             .WithPoint(new Point(350, 50))
             .WithBrush(Color.Red)

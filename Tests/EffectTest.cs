@@ -23,7 +23,7 @@ public class EffectTest : Test
             template[0, index] = true;
         });
         
-        var fontFamily = new FontCollection().Add(".\\Assets\\Fonts\\OpenSans.ttf");
+        var fontFamily = new FontCollection().Add(Path.GetFullPath(@"./Assets/Fonts/OpenSans.ttf"));
         return new Container(containerSize)
             .WithBackground(Color.White)
             .WithChild(

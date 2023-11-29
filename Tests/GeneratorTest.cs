@@ -8,7 +8,7 @@ public class GeneratorTest : Test
 		Size containerSize = new(512, 256);
 		Point center = new(256, 128);
 
-        var fontFamily = new FontCollection().Add(@".\Assets\Fonts\OpenSans.ttf");
+        var fontFamily = new FontCollection().Add(Path.GetFullPath(@"./Assets/Fonts/OpenSans.ttf"));
 
         return new Container(containerSize)
 			.WithBackground(Color.Orange)
@@ -77,7 +77,7 @@ public class GeneratorTest : Test
 		Size containerSize = new(512, 256);
 		Point center = new(0, 128);
 
-        var fontFamily = new FontCollection().Add(".\\Assets\\Fonts\\OpenSans.ttf");
+        var fontFamily = new FontCollection().Add(Path.GetFullPath(@"./Assets/Fonts/OpenSans.ttf"));
 
         return new Container(containerSize)
 			.WithBackground(Color.Orange)
@@ -123,7 +123,7 @@ public class GeneratorTest : Test
 		Size containerSize = new(512, 256);
 		Point center = new(256, 128);
 
-        var fontFamily = new FontCollection().Add(".\\Assets\\Fonts\\OpenSans.ttf");
+        var fontFamily = new FontCollection().Add(Path.GetFullPath(@"./Assets/Fonts/OpenSans.ttf"));
 
         return new Container(containerSize)
 			.WithBackground(Color.Orange)
