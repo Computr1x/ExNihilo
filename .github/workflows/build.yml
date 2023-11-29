@@ -13,7 +13,7 @@ jobs:
   build:
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: 'MySolution.sln'
+      SOLUTION: 'ExNihilo.sln'
 
     runs-on: ubuntu-latest
 
