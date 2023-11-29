@@ -10,6 +10,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class SlitScan : Effect
 {
+    public override EffectType EffectType => EffectType.Distort;
     /// <summary>
     /// SlitScan time value. Must be greater then 0.
     /// </summary>

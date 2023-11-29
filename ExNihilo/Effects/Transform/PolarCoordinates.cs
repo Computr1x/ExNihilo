@@ -11,6 +11,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class PolarCoordinates : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// The <see cref="PolarConversionType"/> to perform the translate.
     /// </summary>

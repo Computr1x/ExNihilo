@@ -9,6 +9,8 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class BlackWhite : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
+
     public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.BlackWhite());
 }

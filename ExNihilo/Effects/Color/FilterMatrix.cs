@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class FilterMatrix : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
     /// <summary>
     /// The filter color matrix
     /// </summary>

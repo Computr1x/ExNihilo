@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Skew : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// The X angle, in degrees.
     /// </summary>

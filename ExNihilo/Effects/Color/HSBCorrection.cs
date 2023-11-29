@@ -10,6 +10,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class HSBCorrection : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
     /// <summary>
     /// Hue shift value (-255 - 255)
     /// </summary>

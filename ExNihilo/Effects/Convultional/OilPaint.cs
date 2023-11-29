@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class OilPaint : Effect
 {
+    public override EffectType EffectType => EffectType.Convultional;
     /// <summary> The number of intensity levels. Higher values result in a broader range of color intensities forming part of the result image. </summary>
     public IntProperty Levels = new(1, int.MaxValue, 10);
     /// <summary> The number of neighboring pixels used in calculating each individual pixel value. </summary>

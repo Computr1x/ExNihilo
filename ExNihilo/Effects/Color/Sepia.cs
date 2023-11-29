@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Sepia : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
     public override void Render(Image image, GraphicsOptions graphicsOptions) =>
         image.Mutate(x => x.Sepia());
 }

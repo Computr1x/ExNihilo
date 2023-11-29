@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Resize : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// The target image width.
     /// </summary>

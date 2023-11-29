@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Lightness : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
     /// <summary>
     /// The proportion of the conversion. Must be greater than or equal to 0.
     /// </summary>

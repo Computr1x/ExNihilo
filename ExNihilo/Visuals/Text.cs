@@ -57,7 +57,7 @@ public class Text : VisualWithBrushAndPen
 	/// </summary>
 	public float LineSpacing { get; set; } = 1;
 
-	public TextOptions TextOptions
+	public RichTextOptions TextOptions
 	{
 		get
 		{

@@ -11,6 +11,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Wave : Effect
 {
+    public override EffectType EffectType => EffectType.Distort;
     /// <summary>
     /// Wave length. Must be greater or equal to 1
     /// </summary>

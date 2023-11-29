@@ -10,6 +10,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Crystallize : Effect
 {
+    public override EffectType EffectType => EffectType.Convultional;
     /// <summary>
     /// The number of crystals into which the image will be divided. Must be gretear then 1
     /// </summary>

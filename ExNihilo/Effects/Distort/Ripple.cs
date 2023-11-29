@@ -10,6 +10,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Ripple : Effect
 {
+    public override EffectType EffectType => EffectType.Distort;
     /// <summary>
     /// Coordinates of effect center.
     /// </summary>

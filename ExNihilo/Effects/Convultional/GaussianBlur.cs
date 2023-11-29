@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class GaussianBlur : Effect
 {
+    public override EffectType EffectType => EffectType.Convultional;
     /// <summary>
     /// The 'sigma' (0.0-1.0) value representing the weight of the blur.
     /// </summary>

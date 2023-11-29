@@ -10,6 +10,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Slices : Effect
 {
+    public override EffectType EffectType => EffectType.Distort;
     /// <summary>
     /// Seed value
     /// </summary>

@@ -83,7 +83,7 @@ public class PenProperty : Property
         Color.Randomize(r);
     }
 
-    public IPen GetValue()
+    public Pen GetValue()
     {
         return Type.Value switch
         {
@@ -94,5 +94,5 @@ public class PenProperty : Property
             _ => Pens.Solid(Color, Width)
         };
     }
-    public IPen Value { get => GetValue(); }
+    public Pen Value { get => GetValue(); }
 }

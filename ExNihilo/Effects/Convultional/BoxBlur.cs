@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class BoxBlur : Effect
 {
+    public override EffectType EffectType => EffectType.Convultional;
     /// <summary>  The 'radius' value representing the size of the area to sample. </summary>
     public IntProperty Radius = new(1, int.MaxValue, 32);
 

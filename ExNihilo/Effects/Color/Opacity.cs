@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Opacity : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
     /// <summary>
     /// The proportion of the conversion. Must be between 0 and 1.
     /// </summary>

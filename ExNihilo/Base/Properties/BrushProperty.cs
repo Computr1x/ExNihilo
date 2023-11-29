@@ -64,7 +64,7 @@ public class BrushProperty : Property
         return this;
     }
 
-    private IBrush GetBrush() => Type.Value switch
+    private Brush GetBrush() => Type.Value switch
     {
         BrushType.Vertical => Brushes.Vertical(Color),
         BrushType.Horizontal => Brushes.Horizontal(Color),
@@ -82,9 +82,9 @@ public class BrushProperty : Property
         Color.Randomize(r);
     }
 
-    public IBrush Value { get => GetValue(); }
+    public Brush Value { get => GetValue(); }
 
-    public IBrush GetValue() => Type.Value switch
+    public Brush GetValue() => Type.Value switch
     {
         BrushType.Vertical => Brushes.Vertical(Color),
         BrushType.Horizontal => Brushes.Horizontal(Color),
@@ -96,7 +96,7 @@ public class BrushProperty : Property
         _ => Brushes.Solid(Color)
     };
 
-    //public static implicit operator IBrush(BrushProperty brushProperty)
+    //public static implicit operator Brush(BrushProperty brushProperty)
     //{
     //    return brushProperty.Type.Value switch
     //    {

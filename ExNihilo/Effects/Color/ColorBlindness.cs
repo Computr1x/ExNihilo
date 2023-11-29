@@ -9,6 +9,8 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class ColorBlindness : Effect
 {
+    public override EffectType EffectType => EffectType.Color;
+
     /// <summary>
     /// The type of color blindness simulator to apply.
     /// </summary>

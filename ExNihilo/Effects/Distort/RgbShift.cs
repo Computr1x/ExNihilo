@@ -10,6 +10,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class RgbShift : Effect
 {
+    public override EffectType EffectType => EffectType.Distort;
     /// <summary>
     /// Shift offset value by all channel. 
     /// </summary>

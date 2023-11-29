@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Rotate : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// Amount of rotation in degrees (-360-360).
     /// </summary>

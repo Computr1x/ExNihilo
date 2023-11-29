@@ -9,6 +9,7 @@ namespace ExNihilo.Effects;
 /// </summary>
 public class Pad : Effect
 {
+    public override EffectType EffectType => EffectType.Transform;
     /// <summary>
     /// The new width.
     /// </summary>
