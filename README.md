@@ -1,7 +1,7 @@
 <img src="https://user-images.githubusercontent.com/11760002/184577160-674d9764-0022-4194-b4e9-d07b9103dcf5.png">
 
 [![Build status](https://github.com/Computr1x/ExNihilo/workflows/Build/badge.svg)](https://github.com/Computr1x/ExNihilo/actions?query=workflow%3ABuild)
-[![Latest release](https://img.shields.io/github/release/Computr1x/ExNihilo.svg)
+[![Latest release](https://img.shields.io/github/release/Computr1x/ExNihilo.svg)]
 [![NuGet](https://img.shields.io/nuget/dt/ExNihilo.svg)](https://www.nuget.org/packages/ExNihilo)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
