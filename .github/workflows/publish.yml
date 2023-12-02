@@ -9,7 +9,7 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  build:
+  publish:
     env:
       BUILD_CONFIG: 'Release'
       PROJECT: './ExNihilo/ExNihilo.csproj'
@@ -60,7 +60,7 @@ jobs:
           prerelease: false
           files: |
             ./ExNihilo/ExNihilo/out/*.nupkg
-            ./ExNihilo/ExNihilo/ExNihilo/bin/${{BUILD_CONFIG}}/net*/ExNihilo.dll
+            ./ExNihilo/ExNihilo/ExNihilo/bin/${BUILD_CONFIG}/net*/ExNihilo.dll
             
       #- name: Push generated package to Nuget registry
       #  run: dotnet nuget push **\*.nupkg --skip-duplicate -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
