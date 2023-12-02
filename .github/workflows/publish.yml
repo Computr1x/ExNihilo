@@ -5,10 +5,8 @@ name: Publish Nuget
 
 on:
   push:
-    branches: [ "release" ]
-  pull_request:
-    types: [ closed ]
-    branches: [ "release" ]
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   build:
@@ -20,26 +18,49 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@master
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - uses: nuget/setup-nuget@v1
-      with:
-        nuget-version: 'latest'
-    - name: Restore dependencies project
-      run: dotnet restore $PROJECT
-    - name: Restore dependencies tests
-      run: dotnet restore $TESTS
+      # Store the version, stripping any v-prefix
+      - name: Write release version
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          echo Version: $VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+      
+      # Setup .net env
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-version: 'latest'
 
-    - name: Build tests
-      run: dotnet build $TESTS --configuration $BUILD_CONFIG --no-restore
-    - name: Run tests
-      run: dotnet test /p:Configuration=$BUILD_CONFIG --no-restore --no-build --verbosity normal
+      # Restore dependencies
+      - name: Restore dependencies project
+        run: dotnet restore $PROJECT
+      - name: Restore dependencies tests
+        run: dotnet restore $TESTS
 
-    - name: Pack project
-      run: dotnet pack $PROJECT --configuration $BUILD_CONFIG --no-restore
+      # Run tests
+      - name: Build tests
+        run: dotnet build $TESTS --configuration $BUILD_CONFIG --no-restore
+      - name: Run tests
+        run: dotnet test /p:Configuration=$BUILD_CONFIG --no-restore --no-build --verbosity normal
 
-    - name: Push generated package to Nuget registry
-      run: dotnet nuget push **\*.nupkg --skip-duplicate -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+      # Create release
+      - name: Pack project
+        run: dotnet pack $PROJECT --configuration $BUILD_CONFIG --no-restore
+      
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          title: "Release v${{ env.VERSION }}"
+          prerelease: false
+          files: |
+            **\*.nupkg
+            **\ExNihilo.dll
+            
+      #- name: Push generated package to Nuget registry
+      #  run: dotnet nuget push **\*.nupkg --skip-duplicate -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
