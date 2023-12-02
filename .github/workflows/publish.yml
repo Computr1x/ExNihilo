@@ -59,8 +59,8 @@ jobs:
           title: "Release v${{ env.VERSION }}"
           prerelease: false
           files: |
-            **\*.nupkg
-            **\ExNihilo.dll
+            ./ExNihilo/ExNihilo/out/*.nupkg
+            ./ExNihilo/ExNihilo/ExNihilo/bin/${{BUILD_CONFIG}}/net*/ExNihilo.dll
             
       #- name: Push generated package to Nuget registry
       #  run: dotnet nuget push **\*.nupkg --skip-duplicate -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
