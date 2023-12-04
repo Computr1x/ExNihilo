@@ -69,7 +69,5 @@ public class Picture : Visual
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
         image.Mutate(x => x.DrawImage(this.image, Point, graphicsOptions));
-
-        base.Render(image, graphicsOptions);
     }
 }

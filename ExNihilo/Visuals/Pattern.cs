@@ -207,7 +207,5 @@ public class Pattern : Visual
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
         image.Mutate(x => x.Fill(dopt, patternBrush, rect));
-
-        base.Render(image, graphicsOptions);
     }
 }

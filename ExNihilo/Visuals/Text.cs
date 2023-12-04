@@ -308,7 +308,5 @@ public class Text : VisualWithBrushAndPen
 				type.HasFlag(VisualType.Outlined) ? Pen.Value : null
 			);
 		});
-
-		base.Render(image, graphicsOptions);
 	}
 }

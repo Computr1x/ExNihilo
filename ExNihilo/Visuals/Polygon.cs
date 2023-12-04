@@ -112,7 +112,5 @@ public class Polygon : VisualWithBrushAndPen
             if (((VisualType) Type).HasFlag(VisualType.Outlined))
                 x.DrawPolygon(drawingOptions, Pen.Value, Points);
         });
-
-        base.Render(image, graphicsOptions);
     }
 }
