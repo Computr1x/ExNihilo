@@ -171,10 +171,20 @@ public class Container : Visual
         Effects.Add(effect);
         return this;
     }
+
     /// <summary>
     /// Add effects to visual.
     /// </summary>
     public new Container WithEffects(IEnumerable<Effect> effects)
+    {
+        Effects.AddRange(effects);
+        return this;
+    }
+
+    /// <summary>
+    /// Add effects to visual.
+    /// </summary>
+    public new Container WithEffects(params Effect[] effects)
     {
         Effects.AddRange(effects);
         return this;
@@ -186,19 +196,31 @@ public class Container : Visual
 
         try
         {
-            Visual child;
-
             // Background
-            image.Mutate(x => x.Fill(BackgroundColor));
+            image.Mutate(x => x.Fill(new DrawingOptions() { GraphicsOptions = graphicsOptions }, BackgroundColor));
 
             // Children
+            Visual child;
             for (int i = 0; i < Children.Count; i++)
             {
                 child = Children[i];
+                GraphicsOptions childGraphicsOptions;
+                if(child is Container container)
+                {
+                    childGraphicsOptions = container.GetGraphicsOptions();
+                    // take into account parent blend percentage
+                    childGraphicsOptions.BlendPercentage *= graphicsOptions.BlendPercentage;
+                }
+                else
+                {
+                    childGraphicsOptions = graphicsOptions;
+                }
 
+                // if there no effects we can skip creation of temp buffer for image
+                // because effects should apply only on current child
                 if (child.Effects.Count == 0)
                 {
-                    child.Render(image, graphicsOptions);
+                    child.Render(image, childGraphicsOptions);
                 }
                 else
                 {
@@ -206,10 +228,10 @@ public class Container : Visual
                         tempImg = new(Size.Width, Size.Height);
                     else
                         tempImg.Mutate(x => x.Fill(Color.Transparent));
-                    // TODO: erase img instead of creating new
 
-                    child.Render(tempImg, graphicsOptions);
-                    image.Mutate(x => x.DrawImage(tempImg, graphicsOptions));
+                    child.Render(tempImg, childGraphicsOptions);
+                    child.RenderEffects(tempImg, childGraphicsOptions);
+                    image.Mutate(x => x.DrawImage(tempImg, childGraphicsOptions));
                 }
             }
         }
@@ -218,27 +240,25 @@ public class Container : Visual
             tempImg?.Dispose();
         }
 
-        base.Render(image, graphicsOptions);
+        RenderEffects(image, graphicsOptions);
     }
 
     public Image Render()
     {
         Image<Rgba32> image = new(Size.Width, Size.Height);
-        
-        Render(
-            image,
-            new()
-            {
-                AlphaCompositionMode = AlphaCompositionMode,
-                BlendPercentage = BlendPercentage,
-                ColorBlendingMode = ColorBlendingMode,
-                Antialias = Antialias,
-                AntialiasSubpixelDepth = AntialiasSubpixelDepth
-            }
-        );
-
+        Render(image, GetGraphicsOptions());
         return image;
     }
+
+    public GraphicsOptions GetGraphicsOptions()
+        => new()
+        {
+            AlphaCompositionMode = AlphaCompositionMode,
+            BlendPercentage = BlendPercentage,
+            ColorBlendingMode = ColorBlendingMode,
+            Antialias = Antialias,
+            AntialiasSubpixelDepth = AntialiasSubpixelDepth,
+        };
 
     public override void Randomize(Random random, bool force = false)
     {
