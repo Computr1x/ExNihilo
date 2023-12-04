@@ -71,13 +71,10 @@ internal class GaussianNoiseProcessor : IImageProcessor
             if (workArea.Y + height > source.Height)
                 height = source.Height - workArea.Y;
 
-            // init vars
             Rgba32 sourcePixel = new();
-
             TPixel
                 rawPixel = new(),
                 resPixel;
-
             float
                 u1 = 0,
                 u2 = 0,
@@ -126,8 +123,9 @@ internal class GaussianNoiseProcessor : IImageProcessor
             //uniform(0,1] random doubles
             u1 = 1.0f - (float) rand.NextDouble();
             u2 = 1.0f - (float) rand.NextDouble();
-            randStdNormal = MathF.Sqrt(-2.0f * MathF.Log(u1)) *
-                         MathF.Sin(2.0f * MathF.PI * u2);
+            randStdNormal =
+                MathF.Sqrt(-2.0f * MathF.Log(u1)) *
+                MathF.Sin(2.0f * MathF.PI * u2);
             //random normal (0,1)
             return mean + stdDev * randStdNormal;
         }
