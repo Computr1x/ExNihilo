@@ -8,7 +8,7 @@ internal class GaussianNoiseProcessor : IImageProcessor
 {
     // internal range 0 - 1
     private float _amount = 100f / 400f;
-    private Random _rand;
+    private readonly Random _rand;
 
     // public range 0 - 255
     public float Amount

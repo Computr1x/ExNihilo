@@ -48,8 +48,8 @@ internal class RGBShiftProcessor : IImageProcessor
     private class RGBShiftProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private RGBShiftProcessor rgbShiftProcessor;
-        private Image<TPixel> source;
+        private readonly RGBShiftProcessor rgbShiftProcessor;
+        private readonly Image<TPixel> source;
 
         public RGBShiftProcessorInner(RGBShiftProcessor rgbShiftProcessor, Image<TPixel> source)
         {

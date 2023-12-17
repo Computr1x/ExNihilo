@@ -18,7 +18,6 @@ public class BinaryThreshold : Effect
     /// <summary>
     /// <inheritdoc cref="BinaryThreshold"/>
     /// </summary>
-    /// <param name="thresholdLimit"><inheritdoc cref="ThresholdLimit" path="/summary"/></param>
     public BinaryThreshold() { }
 
     /// <summary>

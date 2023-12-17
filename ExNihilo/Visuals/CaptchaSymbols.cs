@@ -60,7 +60,7 @@ public class CaptchaSymbols : Visual, ICaptcha
 	/// <summary>
 	/// <inheritdoc cref="CaptchaSymbols"/>
 	/// </summary>
-	/// <param name="fontFamily"><inheritdoc cref="TextSymbols.FontFamily" path="/summary"/></param>
+	/// <param name="fontFamily"><inheritdoc cref="FontFamily" path="/summary"/></param>
 	public CaptchaSymbols(FontFamily fontFamily) : this()
 	{
 		TextSymbols.FontFamily.Value = fontFamily;
@@ -69,8 +69,8 @@ public class CaptchaSymbols : Visual, ICaptcha
 	/// <summary>
 	/// <inheritdoc cref="CaptchaSymbols"/>
 	/// </summary>
-	/// <param name="fontFamily"><inheritdoc cref="TextSymbols.FontFamily" path="/summary"/></param>
-	/// <param name="text"><inheritdoc cref="TextSymbols.Content" path="/summary"/></param>
+	/// <param name="fontFamily"><inheritdoc cref="FontFamily" path="/summary"/></param>
+	/// <param name="text">Conexnt of captcha</param>
 	public CaptchaSymbols(FontFamily fontFamily, string text) : this(fontFamily)
 	{
 		TextSymbols.Content.Value = text;
@@ -244,7 +244,7 @@ public class CaptchaSymbols : Visual, ICaptcha
 		};
 
 		// calculate rendered text width
-		FontRectangle rect = TextMeasurer.MeasureSize(TextSymbols.Content, opt);
+		FontRectangle rect = TextMeasurer.MeasureSize(TextSymbols.Content!, opt);
 
 		DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 

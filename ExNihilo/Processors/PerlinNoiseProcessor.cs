@@ -8,7 +8,7 @@ namespace ExNihilo.Processors;
 
 internal class PerlinNoiseProcessor : IImageProcessor
 {
-    private byte[] permutationTable;
+    private readonly byte[] permutationTable;
     private float _amount;
 
     public int Step { get; set; } = 1;
@@ -105,8 +105,7 @@ internal class PerlinNoiseProcessor : IImageProcessor
                         }
                         else
                         {
-                            float r, g, b;
-                            ColorsConverter.HsbFToRgb(noise, 1f, 1f, out r, out g, out b);
+                            ColorsConverter.HsbFToRgb(noise, 1f, 1f, out float r, out float g, out float b);
                             sourcePixel.R = (byte)(r * sourcePixel.R);
                             sourcePixel.G = (byte)(g * sourcePixel.G);
                             sourcePixel.B = (byte)(b * sourcePixel.B);

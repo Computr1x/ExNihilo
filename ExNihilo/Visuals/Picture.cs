@@ -15,7 +15,7 @@ public class Picture : Visual
     /// </summary>
     public PointProperty Point { get; } = new PointProperty();
 
-    private Image? image = null;
+    private readonly Image? image = null;
 
     /// <summary>
     /// <inheritdoc cref="Picture"/>

@@ -28,8 +28,8 @@ internal class CrystallizeProcessor : IImageProcessor
     private class CrystallizeProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private CrystallizeProcessor _processor;
-        private Image<TPixel> _source;
+        private readonly CrystallizeProcessor _processor;
+        private readonly Image<TPixel> _source;
 
         public CrystallizeProcessorInner(CrystallizeProcessor processor, Image<TPixel> source)
         {

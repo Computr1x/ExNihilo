@@ -32,8 +32,8 @@ internal class SlitScanProcessor : IImageProcessor
     private class SlitScanProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private SlitScanProcessor processor;
-        private Image<TPixel> source;
+        private readonly SlitScanProcessor processor;
+        private readonly Image<TPixel> source;
 
         public SlitScanProcessorInner(SlitScanProcessor processor, Image<TPixel> source)
         {

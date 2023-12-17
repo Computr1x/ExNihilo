@@ -24,8 +24,8 @@ internal class PolarCoordinatesProcessor : IImageProcessor
     private class PolarCoordinatesProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private PolarCoordinatesProcessor processor;
-        private Image<TPixel> source;
+        private readonly PolarCoordinatesProcessor processor;
+        private readonly Image<TPixel> source;
 
         private delegate void CalcPolarDelegate(ref int x, ref int y, ref float scaleX, ref float scaleY, ref float centerX, ref float centerY,
                 ref float pixelX, ref float pixelY, ref float offsetX, ref float offsetY);

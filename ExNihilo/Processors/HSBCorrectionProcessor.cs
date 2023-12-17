@@ -89,8 +89,6 @@ internal class HSBCorrectionProcessor : IImageProcessor
 
             Rgba32 sourcePixel = new();
             TPixel rawPixel = new();
-            
-            byte h, s, v;
 
             // addititonal fields for ref optimization
             byte
@@ -110,7 +108,7 @@ internal class HSBCorrectionProcessor : IImageProcessor
                     {
                         pixelRow[x].ToRgba32(ref sourcePixel);
 
-                        ColorsConverter.RgbToHsb(in sourcePixel.R, in sourcePixel.G, in sourcePixel.B, out h, out s, out v);
+                        ColorsConverter.RgbToHsb(in sourcePixel.R, in sourcePixel.G, in sourcePixel.B, out byte h, out byte s, out byte v);
 
                         h = (byte) Math.Clamp(h + processor.Hue, 0, 255);
                         s = (byte) Math.Clamp(s + processor.Saturation, 0, 255);
