@@ -6,7 +6,7 @@ namespace ExNihilo.Processors;
 
 internal class RippleProcessor : IImageProcessor
 {
-    private bool customCoords = false;
+    private readonly bool customCoords = false;
 
     public Rectangle Area { get; set; }
 
@@ -63,8 +63,8 @@ internal class RippleProcessor : IImageProcessor
     private class RippleProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private RippleProcessor processor;
-        private Image<TPixel> source;
+        private readonly RippleProcessor processor;
+        private readonly Image<TPixel> source;
 
         public RippleProcessorInner(RippleProcessor processor, Image<TPixel> source)
         {

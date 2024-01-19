@@ -34,8 +34,12 @@ Container container = new Container(containerSize)
                             str.WithLength(1);
                         })
                         .WithEffect(new Rotate().WithRandomizedDegree(-30, 30))))
-            .WithEffect(new RgbShift(3))
-            .WithEffect(new GaussianNoise(155, false)))
+            .WithEffects(
+                new RgbShift(3),
+                new GaussianNoise(0.6f, false),
+                new HSBCorrection(0, 0, 50)
+            )
+        )
     .WithContainer(
         new Container(containerSize)
             .WithChild(
@@ -56,13 +60,15 @@ Container container = new Container(containerSize)
                         .WithWaveWaveType(ExNihilo.Processors.WaveType.Sine)
                         .WithRandomizedAmplitude(5, 10)
                         .WithRandomizedWaveLength(100, 150))
-            ))
+            )
+        )
     .WithContainer(
         new Container(containerSize)
             .WithChild(
                 new Line()
                     .WithRandomizedPoints(15, 0, 512, 0, 256)
-                    ))
+                )
+        )
     .WithContainer(
         new Container(containerSize)
             .WithColorBlendingMode(SixLabors.ImageSharp.PixelFormats.PixelColorBlendingMode.Multiply)
@@ -77,10 +83,11 @@ Container container = new Container(containerSize)
                             brush.WithRandomizedColor(32);
                             brush.WithType(BrushType.Solid);
                         })
-                )))
-    ;
+                )
+            )
+        );
 
 // lazy generation of three captchas
-var captchaResults = new ImageGenerator(container).WithSeedsCount(15).Generate();
+var captchaResults = new ImageGenerator(container).WithSeedsCount(5).Generate();
 // save captcha as separate files
 new ImageSaver(captchaResults).WithOutputPath("./").CreateFolder("Results").Save();

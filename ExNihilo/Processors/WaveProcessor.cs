@@ -38,8 +38,8 @@ internal class WaveProcessor : IImageProcessor
     private class WaveProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private WaveProcessor processor;
-        private Image<TPixel> source;
+        private readonly WaveProcessor processor;
+        private readonly Image<TPixel> source;
 
         private delegate void WaveDeleagate(in int x, in int y, ref float pixelX, ref float pixelY);
 

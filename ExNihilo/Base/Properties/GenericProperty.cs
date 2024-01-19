@@ -20,7 +20,9 @@ public abstract class GenericProperty<T> : Property where T : class
         set => _defaultValue = value;
     }
 
+#pragma warning disable CS8618
     public GenericProperty(T defaultValue)
+#pragma warning restore CS8618
     {
         DefaultValue = defaultValue;
     }

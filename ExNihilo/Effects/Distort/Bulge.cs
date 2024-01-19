@@ -65,8 +65,10 @@ public class Bulge : Effect
     /// <summary>
     /// Set Point randomization parameters.
     /// </summary>
-    /// <param name="min">Minimal randomization value. <inheritdoc cref="Point" path="/summary"/></param>
-    /// <param name="max">Maximal randomization value. <inheritdoc cref="Point" path="/summary"/></param>
+    /// <param name="minX">Minimal randomization value of x. <inheritdoc cref="Point" path="/summary"/></param>
+    /// <param name="maxX">Maximal randomization value of x. <inheritdoc cref="Point" path="/summary"/></param>
+    /// <param name="minY">Minimal randomization value of y. <inheritdoc cref="Point" path="/summary"/></param>
+    /// <param name="maxY">Maximal randomization value of y. <inheritdoc cref="Point" path="/summary"/></param>
     public Bulge WithRandomizedPoint(int minX, int maxX, int minY, int maxY)
     {
         Point.WithRandomizedValue(minX, maxX, minY, maxY);

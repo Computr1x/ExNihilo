@@ -153,6 +153,7 @@ public class Pattern : Visual
     /// Set background color randomization parameters.
     /// </summary>
     /// <param name="colorsCount">Size of generated color palette for background</param>
+    /// /// <param name="opacity">Opacity of color</param>
     public Pattern WithRandomizedBackgroundColor(int colorsCount, byte opacity = 255)
     {
         Background.Opacity = opacity;
@@ -162,7 +163,7 @@ public class Pattern : Visual
     /// <summary>
     /// Set background color randomization parameters.
     /// </summary>
-    /// <param name="colorsCount">Color palette for background</param>
+    /// <param name="palette">Color palette for background</param>
     public Pattern WithRandomizedBackgroundColor(Color[] palette)
     {
         Background.Colors = palette;
@@ -180,6 +181,7 @@ public class Pattern : Visual
     /// Set foreground color randomization parameters.
     /// </summary>
     /// <param name="colorsCount">Size of generated color palette for background</param>
+    /// <param name="opacity">Opacitity of color</param>
     public Pattern WithRandomizedForegroundColor(int colorsCount, byte opacity = 255)
     {
         Foreground.Opacity = opacity;
@@ -189,7 +191,6 @@ public class Pattern : Visual
     /// <summary>
     /// Set foreground color randomization parameters.
     /// </summary>
-    /// <param name="colorsCount">Color palette for foreground</param>
     public Pattern WithRandomizedForegroundColor(Color[] palette)
     {
         Foreground.Colors = palette;
@@ -207,7 +208,5 @@ public class Pattern : Visual
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
         image.Mutate(x => x.Fill(dopt, patternBrush, rect));
-
-        base.Render(image, graphicsOptions);
     }
 }

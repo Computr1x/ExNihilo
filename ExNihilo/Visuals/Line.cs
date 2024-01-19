@@ -106,7 +106,5 @@ public class Line : Visual
             else
                 x.DrawLine(dopt, Pen.Value, Points);
         });
-
-        base.Render(image, graphicsOptions);
     }
 }

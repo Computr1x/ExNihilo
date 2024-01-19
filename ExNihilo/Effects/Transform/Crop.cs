@@ -35,9 +35,9 @@ public class Crop : Effect
     /// Set Area point value
     /// </summary>
     /// <param name="value"><inheritdoc cref="Point" path="/summary"/></param>
-    public Crop WithPoint(Point p)
+    public Crop WithPoint(Point value)
     {
-        Area.Point.WithValue(p);
+        Area.Point.WithValue(value);
         return this;
     }
     /// <summary>
@@ -57,9 +57,9 @@ public class Crop : Effect
     /// Set Area size value
     /// </summary>
     /// <param name="value"><inheritdoc cref="Size" path="/summary"/></param>
-    public Crop WithSize(Size size)
+    public Crop WithSize(Size value)
     {
-        Area.WithSize(size);
+        Area.WithSize(value);
         return this;
     }
 

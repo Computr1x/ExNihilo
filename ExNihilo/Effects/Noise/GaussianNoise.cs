@@ -16,9 +16,9 @@ public class GaussianNoise : Effect
     /// </summary>
     public IntProperty Seed { get; set; } = new(0) { Min = 0, Max = 10 };
     /// <summary>
-    /// Opcity of noise [0, 1].
+    /// Mean value of noise [0, 1].
     /// </summary>
-    public FloatProperty Opacity { get; set; } = new(0, 1, 1) { Min = 0, Max = 1 };
+    public FloatProperty Mean { get; set; } = new(0, 1, 0.5f) { Min = 0, Max = 1 };
     /// <summary>
     /// Define is noise monochrome or not.
     /// </summary>
@@ -32,11 +32,11 @@ public class GaussianNoise : Effect
     /// <summary>
     /// <inheritdoc cref="GaussianNoise"/>
     /// </summary>
-    /// <param name="opacity"><inheritdoc cref="Opacity" path="/summary"/></param>
+    /// <param name="opacity"><inheritdoc cref="Mean" path="/summary"/></param>
     /// <param name="isMonochome"><inheritdoc cref="Monochrome" path="/summary"/></param>
     public GaussianNoise(float opacity, bool isMonochome)
     {
-        Opacity.Value = opacity;
+        Mean.Value = opacity;
         Monochrome.Value = isMonochome;
     }
 
@@ -61,22 +61,22 @@ public class GaussianNoise : Effect
     }
 
     /// <summary>
-    /// Set Opacity value
+    /// Set Mean value
     /// </summary>
-    /// <param name="value"><inheritdoc cref="Opacity" path="/summary"/></param>
+    /// <param name="value"><inheritdoc cref="Mean" path="/summary"/></param>
     public GaussianNoise WithOpacity(float value)
     {
-        Opacity.Value = value;
+        Mean.Value = value;
         return this;
     }
     /// <summary>
     /// Set Amount randomization parameters.
     /// </summary>
-    /// <param name="min">Minimal randomization value. <inheritdoc cref="Opacity" path="/summary"/></param>
-    /// <param name="max">Maximal randomization value. <inheritdoc cref="Opacity" path="/summary"/></param>
+    /// <param name="min">Minimal randomization value. <inheritdoc cref="Mean" path="/summary"/></param>
+    /// <param name="max">Maximal randomization value. <inheritdoc cref="Mean" path="/summary"/></param>
     public GaussianNoise WithRandomizedAmount(float min, float max)
     {
-        Opacity.WithRandomizedValue(min, max);
+        Mean.WithRandomizedValue(min, max);
         return this;
     }
 
@@ -92,6 +92,6 @@ public class GaussianNoise : Effect
 
     public override void Render(Image image, GraphicsOptions graphicsOptions)
     {
-        image.Mutate(x => { x.GaussianNoise(Seed, (byte) (Opacity * 255), Monochrome); });
+        image.Mutate(x => { x.GaussianNoise(Seed, (byte) (Mean * byte.MaxValue), Monochrome); });
     }
 }

@@ -141,7 +141,5 @@ public class Rectangle : VisualWithBrushAndPen
             if (((VisualType) Type).HasFlag(VisualType.Outlined))
                 x.Draw(drawingOptions, Pen.Value, path);
         });
-
-        base.Render(image, graphicsOptions);
     }
 }

@@ -12,7 +12,7 @@ namespace ExNihilo.Utils;
 /// </summary>
 public class CaptchaGenerator : ImageGenerator
 {
-    private Dictionary<int, string[]> _captchaText = new();
+    private readonly Dictionary<int, string[]> _captchaText = new();
 
     /// <summary>
     /// <inheritdoc cref="CaptchaGenerator"/>
@@ -118,8 +118,8 @@ public class CaptchaGenerator : ImageGenerator
             {
                 foreach (var captchaVisual in captchaIndexMapping[captchaIndex])
                 {
-                    if (_captchaText.ContainsKey(captchaIndex))
-                        captchaVisual.Text = _captchaText[captchaIndex][seedID];
+                    if (_captchaText.TryGetValue(captchaIndex, out string[]? value))
+                        captchaVisual.Text = value[seedID];
 
                     captchaStrings.Add(captchaVisual.Text);
                 }
@@ -129,7 +129,7 @@ public class CaptchaGenerator : ImageGenerator
         }
     }
 
-    private void ValidateFields()
+    public override void ValidateFields()
     {
         int min, max;
 
@@ -148,10 +148,10 @@ public class CaptchaGenerator : ImageGenerator
 
     protected static Dictionary<int, List<ICaptcha>> GetContainerCaptchas(Container container)
     {
-        void CreateOrAdd(Dictionary<int, List<ICaptcha>> dic, ICaptcha captcha)
+        static void CreateOrAdd(Dictionary<int, List<ICaptcha>> dic, ICaptcha captcha)
         {
-            if (dic.ContainsKey(captcha.Index))
-                dic[captcha.Index].Add(captcha);
+            if (dic.TryGetValue(captcha.Index, out List<ICaptcha>? value))
+                value.Add(captcha);
             else
                 dic[captcha.Index] = 
                     new List<ICaptcha>() {

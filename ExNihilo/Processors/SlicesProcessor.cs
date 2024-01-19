@@ -8,7 +8,7 @@ internal class SlicesProcessor : IImageProcessor
 {
     public Rectangle Area { get; set; }
 
-    private Random _random;
+    private readonly Random _random;
     public int Count { get; set; } = 1;
     public int MinOffset { get; set; } = -10;
     public int MaxOffset { get; set; } = 20;
@@ -32,8 +32,8 @@ internal class SlicesProcessor : IImageProcessor
     private class SlicesProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private SlicesProcessor processor;
-        private Image<TPixel> source;
+        private readonly SlicesProcessor processor;
+        private readonly Image<TPixel> source;
 
         public SlicesProcessorInner(SlicesProcessor processor, Image<TPixel> source)
         {

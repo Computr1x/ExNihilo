@@ -15,7 +15,7 @@ public class Picture : Visual
     /// </summary>
     public PointProperty Point { get; } = new PointProperty();
 
-    private Image? image = null;
+    private readonly Image? image = null;
 
     /// <summary>
     /// <inheritdoc cref="Picture"/>
@@ -69,7 +69,5 @@ public class Picture : Visual
         DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
         image.Mutate(x => x.DrawImage(this.image, Point, graphicsOptions));
-
-        base.Render(image, graphicsOptions);
     }
 }

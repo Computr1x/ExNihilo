@@ -26,6 +26,7 @@ public abstract class Visual : Renderable
         Effects.Add(effect);
         return this;
     }
+
     /// <summary>
     /// Add effects to visual.
     /// </summary>
@@ -35,7 +36,16 @@ public abstract class Visual : Renderable
         return this;
     }
 
-    public override void Render(Image image, GraphicsOptions graphicsOptions)
+    /// <summary>
+    /// Add effects to visual.
+    /// </summary>
+    public Visual WithEffects(params Effect[] effects)
+    {
+        Effects.AddRange(effects);
+        return this;
+    }
+
+    public void RenderEffects(Image image, GraphicsOptions graphicsOptions)
     {
         for (int i = 0; i < Effects.Count; i++)
             Effects[i].Render(image, graphicsOptions);

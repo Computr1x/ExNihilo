@@ -44,6 +44,7 @@ public class PerlinNoise : Effect
     /// </summary>
     /// <param name="octaves"><inheritdoc cref="Octaves" path="/summary"/></param>
     /// <param name="persistence"><inheritdoc cref="Persistence" path="/summary"/></param>
+    /// <param name="amount">Amout of <inheritdoc cref="Opacity" path="/summary"/></param>
     /// <param name="isMonochrome"><inheritdoc cref="Monochrome" path="/summary"/></param>
     public PerlinNoise(int octaves, float persistence, float amount, bool isMonochrome) 
     { 

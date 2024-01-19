@@ -136,19 +136,15 @@ public class Ellipse : VisualWithBrushAndPen
 
         IPath path = new EllipsePolygon(new PointF(rect.X, rect.Y), rect.Size);
         
-        DrawingOptions drawingOptions = new() {
-            GraphicsOptions = graphicsOptions
-        };
+        DrawingOptions dopt = new() { GraphicsOptions = graphicsOptions };
 
         image.Mutate(x =>
         {
             if (((VisualType) Type).HasFlag(VisualType.Filled))
-                x.Fill(drawingOptions, Brush.Value, path);
+                x.Fill(dopt, Brush.Value, path);
             
             if (((VisualType) Type).HasFlag(VisualType.Outlined))
-                x.Draw(drawingOptions, Pen.Value, path);
+                x.Draw(dopt, Pen.Value, path);
         });
-
-        base.Render(image, graphicsOptions);
     }
 }

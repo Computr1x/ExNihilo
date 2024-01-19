@@ -1,4 +1,5 @@
 ﻿using ExNihilo.Base;
+using ExNihilo.Effects;
 using ExNihilo.Visuals;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp.Formats.Png;
@@ -44,7 +45,7 @@ public class CaptchaViewer : FrameworkElement
                         Enumerable.Range(0, 15).Select(
                             x => new Ellipse()
                                 .WithRandomizedPoint(0, visualSize.Width, 0, visualSize.Height)
-                                .WithRandomizedSize(30, 60)
+                                .WithRandomizedSize(50, 100)
                                 .WithBrush(brush =>
                                 {
                                     brush.WithRandomizedColor(50);
@@ -53,12 +54,14 @@ public class CaptchaViewer : FrameworkElement
                                 .WithType(VisualType.Filled)
                         )
                     )
-                    .WithBlendPercentage(0.5f))
+                    .WithBlendPercentage(0.5f)
+
+                )
             .WithChild(
-                new Captcha(new FontCollection().AddSystemFonts().Families.First())
+                new Text(new FontCollection().AddSystemFonts().Families.First())
                     .WithContent("Hello world")
                     .WithPoint(textCenter)
-                    .WithFontSize(60)
+                    .WithFontSize(80)
                     .WithRandomizedBrush(50)
                     .WithType(VisualType.Filled)
                 );

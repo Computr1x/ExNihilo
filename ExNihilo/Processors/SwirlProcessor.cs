@@ -6,7 +6,7 @@ namespace ExNihilo.Processors;
 
 internal class SwirlProcessor : IImageProcessor
 {
-    private bool customCoords = false;
+    private readonly bool customCoords = false;
 
     public Rectangle Area { get; set; }
 
@@ -48,8 +48,8 @@ internal class SwirlProcessor : IImageProcessor
     private class SwirlProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private SwirlProcessor processor;
-        private Image<TPixel> source;
+        private readonly SwirlProcessor processor;
+        private readonly Image<TPixel> source;
 
         public SwirlProcessorInner(SwirlProcessor processor, Image<TPixel> source)
         {

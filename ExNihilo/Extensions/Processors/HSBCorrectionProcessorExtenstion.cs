@@ -18,9 +18,9 @@ public static class HSBCorrectionProcessorExtenstion
     /// <param name="saturation">The "colorfulness of a stimulus relative to its own brightness"</param>
     /// <param name="brightness">The "attribute of a visual sensation according to which an area appears to emit more or less light"</param>
     /// <returns>The <see cref="IImageProcessingContext"/> to allow chaining of operations.</returns>
-    public static IImageProcessingContext HSBCorrection(this IImageProcessingContext sourse, int hue = 0, int saturation = 0, int brightness = 0)
+    public static IImageProcessingContext HSBCorrection(this IImageProcessingContext source, int hue = 0, int saturation = 0, int brightness = 0)
     {
-        return sourse.ApplyProcessor(new HSBCorrectionProcessor(hue, saturation, brightness));
+        return source.ApplyProcessor(new HSBCorrectionProcessor(hue, saturation, brightness));
     }
 
     /// <summary>
@@ -34,8 +34,8 @@ public static class HSBCorrectionProcessorExtenstion
     /// <param name="saturation">The "colorfulness of a stimulus relative to its own brightness"</param>
     /// <param name="brightness">The "attribute of a visual sensation according to which an area appears to emit more or less light"</param>
     /// <returns>The <see cref="IImageProcessingContext"/> to allow chaining of operations.</returns>
-    public static IImageProcessingContext HSBCorrection(this IImageProcessingContext sourse, Rectangle rectangle, int hue = 0, int saturation = 0, int brightness = 0)
+    public static IImageProcessingContext HSBCorrection(this IImageProcessingContext source, Rectangle rectangle, int hue = 0, int saturation = 0, int brightness = 0)
     {
-        return sourse.ApplyProcessor(new HSBCorrectionProcessor(hue, saturation, brightness) { Area = rectangle });
+        return source.ApplyProcessor(new HSBCorrectionProcessor(hue, saturation, brightness) { Area = rectangle });
     }
 }

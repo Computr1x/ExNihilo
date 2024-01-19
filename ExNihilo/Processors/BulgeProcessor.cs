@@ -33,8 +33,8 @@ internal class BulgeProcessor : IImageProcessor
     private class BulgeProcessorInner<TPixel> : IImageProcessor<TPixel>
         where TPixel : unmanaged, IPixel<TPixel>
     {
-        private BulgeProcessor processor;
-        private Image<TPixel> source;
+        private readonly BulgeProcessor processor;
+        private readonly Image<TPixel> source;
 
         public BulgeProcessorInner(BulgeProcessor processor, Image<TPixel> source)
         {
