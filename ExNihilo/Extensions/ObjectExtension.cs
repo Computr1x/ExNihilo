@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
+using System.Reflection;
 
 namespace ExNihilo.Extensions;
 
@@ -14,17 +15,20 @@ public static class ObjectExtensions
 
     public static object Copy(this object originalObject)
     {
-        return InternalCopy(originalObject, new Dictionary<object, object>(new ReferenceEqualityComparer()))!;
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        return InternalCopy(originalObject, assembly, new Dictionary<object, object>(new ReferenceEqualityComparer()))!;
     }
 
-    private static object? InternalCopy(object? originalObject, IDictionary<object, object> visited)
+    private static object? InternalCopy(object? originalObject, Assembly assembly, IDictionary<object, object> visited)
     {
         if (originalObject is null) return null;
         var typeToReflect = originalObject.GetType();
         if (IsPrimitive(typeToReflect)) return originalObject;
         if (visited.ContainsKey(originalObject)) return visited[originalObject];
         if (typeof(Delegate).IsAssignableFrom(typeToReflect)) return null;
-        
+        if (typeToReflect.Assembly.FullName?.StartsWith("SixLabors.Fonts") == true)
+            return originalObject;
+
         var cloneObject = CloneMethod.Invoke(originalObject, null);
         
         if (cloneObject is not null)
@@ -35,29 +39,30 @@ public static class ObjectExtensions
                 if (arrayType is not null && IsPrimitive(arrayType) == false)
                 {
                     var clonedArray = (Array)cloneObject;
-                    clonedArray.ForEach((array, indices) => array.SetValue(InternalCopy(clonedArray.GetValue(indices), visited), indices));
+                    clonedArray.ForEach((array, indices) => array.SetValue(InternalCopy(clonedArray.GetValue(indices), assembly, visited), indices));
                 }
             }
 
             visited.Add(originalObject, cloneObject);
-            CopyFields(originalObject, visited, cloneObject, typeToReflect);
-            RecursiveCopyBaseTypePrivateFields(originalObject, visited, cloneObject, typeToReflect);
+            CopyFields(originalObject, assembly, visited, cloneObject, typeToReflect);
+            RecursiveCopyBaseTypePrivateFields(originalObject, assembly, visited, cloneObject, typeToReflect);
         }
         
         return cloneObject;
     }
 
-    private static void RecursiveCopyBaseTypePrivateFields(object originalObject, IDictionary<object, object> visited, object cloneObject, Type typeToReflect)
+    private static void RecursiveCopyBaseTypePrivateFields(object originalObject, Assembly assembly, IDictionary<object, object> visited, object cloneObject, Type typeToReflect)
     {
         if (typeToReflect.BaseType != null)
         {
-            RecursiveCopyBaseTypePrivateFields(originalObject, visited, cloneObject, typeToReflect.BaseType);
-            CopyFields(originalObject, visited, cloneObject, typeToReflect.BaseType, BindingFlags.Instance | BindingFlags.NonPublic, info => info.IsPrivate);
+            RecursiveCopyBaseTypePrivateFields(originalObject, assembly, visited, cloneObject, typeToReflect.BaseType);
+            CopyFields(originalObject, assembly, visited, cloneObject, typeToReflect.BaseType, BindingFlags.Instance | BindingFlags.NonPublic, info => info.IsPrivate);
         }
     }
 
     private static void CopyFields(
         object originalObject,
+        Assembly assembly,
         IDictionary<object, object> visited,
         object cloneObject,
         Type typeToReflect,
@@ -69,7 +74,7 @@ public static class ObjectExtensions
             if (filter != null && filter(fieldInfo) == false) continue;
             if (IsPrimitive(fieldInfo.FieldType)) continue;
             var originalFieldValue = fieldInfo.GetValue(originalObject);
-            var clonedFieldValue = InternalCopy(originalFieldValue, visited);
+            var clonedFieldValue = InternalCopy(originalFieldValue, assembly, visited);
             fieldInfo.SetValue(cloneObject, clonedFieldValue);
         }
     }
