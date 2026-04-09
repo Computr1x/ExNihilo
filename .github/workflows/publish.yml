@@ -1,51 +1,50 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: Publish Nuget
+﻿name: Publish NuGet
 
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v*.*.*'
 
 jobs:
   publish:
-    env:
-      BUILD_CONFIG: 'Release'
-      PROJECT: './ExNihilo/ExNihilo.csproj'
-
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
+    env:
+      BUILD_CONFIG: Release
+      PROJECT: ./ExNihilo/ExNihilo.csproj
+
     steps:
-      # Store the version, stripping any v-prefix
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
       - name: Write release version
         run: |
-          VERSION=${GITHUB_REF_NAME#v}
-          echo Version: $VERSION
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-      
-      # Setup .net env
-      - uses: actions/checkout@v4
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 7.0.x
-      - uses: nuget/setup-nuget@v1
-        with:
-          nuget-version: 'latest'
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "Version: $VERSION"
 
-      # Restore dependencies
-      - name: Restore dependencies project
+      - name: Restore dependencies
         run: dotnet restore $PROJECT
-        
-      # Create release
-      - name: Pack project
-        run: dotnet pack $PROJECT -p:PackageVersion=$VERSION -o ./out --configuration $BUILD_CONFIG --no-restore 
 
-      - uses: ncipollo/release-action@v1
-        with:
-          generateReleaseNotes: true
-          artifacts: "out/*.nupkg,**/bin/*/*/ExNihilo.dll"
-            
-      - name: Push generated package to Nuget registry
-        run: dotnet nuget push **\*.nupkg --skip-duplicate --source 'https://api.nuget.org/v3/index.json' --api-key ${{secrets.NUGET_API_KEY}}
+      - name: Pack project
+        run: dotnet pack $PROJECT --configuration $BUILD_CONFIG --no-restore -p:PackageVersion=$VERSION -o ./out
+
+      - name: Create GitHub release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            ./out/*.nupkg \
+            --generate-notes \
+            --title "$GITHUB_REF_NAME"
+
+      - name: Push package to NuGet
+        run: dotnet nuget push "./out/*.nupkg" --skip-duplicate --source "https://api.nuget.org/v3/index.json" --api-key "${{ secrets.NUGET_API_KEY }}"
