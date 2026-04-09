@@ -14,9 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\Fonts\actionj.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\Fonts\OpenSans.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
